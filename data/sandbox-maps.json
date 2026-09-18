@@ -19,8 +19,8 @@
           3.25
         ],
         [
-          1.16,
-          1.17
+          1.02,
+          1.78
         ],
         [
           0.1,
@@ -135,23 +135,6 @@
           ],
           "color": "#ada582",
           "yaw": -12,
-          "collision": true,
-          "destructible": false
-        },
-        {
-          "id": "cover-1",
-          "kind": "sandbag",
-          "position": [
-            1.0,
-            1.62
-          ],
-          "size": [
-            0.3,
-            0.06,
-            0.043
-          ],
-          "color": "#ada582",
-          "yaw": 12,
           "collision": true,
           "destructible": false
         },
@@ -326,23 +309,6 @@
           "destructible": false
         },
         {
-          "id": "rubble-1",
-          "kind": "rock",
-          "position": [
-            0.8,
-            1.4
-          ],
-          "size": [
-            0.11,
-            0.026,
-            0.065
-          ],
-          "color": "#9b9e88",
-          "yaw": 18,
-          "collision": true,
-          "destructible": false
-        },
-        {
           "id": "rubble-2",
           "kind": "rock",
           "position": [
@@ -390,6 +356,49 @@
       "objective": [
         0.54,
         2.17
+      ],
+      "building": {
+        "id": "blue-house",
+        "faction": "blue",
+        "center": [
+          1.0,
+          1.13
+        ],
+        "size": [
+          0.42,
+          0.56
+        ],
+        "floor_height": 0.19,
+        "stair_x": 1.285,
+        "stair_front": 1.56,
+        "stair_back": 1.13,
+        "health": 600
+      },
+      "at_guns": [
+        {
+          "id": "green-at",
+          "faction": "green",
+          "position": [
+            0.5,
+            3.23
+          ]
+        },
+        {
+          "id": "blue-at",
+          "faction": "blue",
+          "position": [
+            1.16,
+            1.93
+          ]
+        },
+        {
+          "id": "red-at",
+          "faction": "red",
+          "position": [
+            0.44,
+            1.15
+          ]
+        }
       ]
     },
     {
@@ -408,8 +417,8 @@
           3.25
         ],
         [
-          1.16,
-          1.17
+          1.02,
+          1.78
         ],
         [
           0.1,
@@ -562,23 +571,6 @@
           "destructible": false
         },
         {
-          "id": "rock-1",
-          "kind": "rock",
-          "position": [
-            0.96,
-            1.45
-          ],
-          "size": [
-            0.19,
-            0.1,
-            0.16
-          ],
-          "color": "#859177",
-          "yaw": 24,
-          "collision": true,
-          "destructible": false
-        },
-        {
           "id": "rock-2",
           "kind": "rock",
           "position": [
@@ -647,23 +639,6 @@
           "destructible": false
         },
         {
-          "id": "sandbags-1",
-          "kind": "sandbag",
-          "position": [
-            0.94,
-            1.73
-          ],
-          "size": [
-            0.3,
-            0.055,
-            0.038
-          ],
-          "color": "#afa886",
-          "yaw": 0,
-          "collision": true,
-          "destructible": false
-        },
-        {
           "id": "sandbags-2",
           "kind": "sandbag",
           "position": [
@@ -684,6 +659,49 @@
       "objective": [
         0.54,
         2.17
+      ],
+      "building": {
+        "id": "blue-house",
+        "faction": "blue",
+        "center": [
+          1.0,
+          1.13
+        ],
+        "size": [
+          0.42,
+          0.56
+        ],
+        "floor_height": 0.19,
+        "stair_x": 1.285,
+        "stair_front": 1.56,
+        "stair_back": 1.13,
+        "health": 600
+      },
+      "at_guns": [
+        {
+          "id": "green-at",
+          "faction": "green",
+          "position": [
+            0.5,
+            3.23
+          ]
+        },
+        {
+          "id": "blue-at",
+          "faction": "blue",
+          "position": [
+            1.16,
+            1.93
+          ]
+        },
+        {
+          "id": "red-at",
+          "faction": "red",
+          "position": [
+            0.44,
+            1.15
+          ]
+        }
       ]
     },
     {
@@ -702,8 +720,8 @@
           3.25
         ],
         [
-          1.16,
-          1.17
+          1.02,
+          1.78
         ],
         [
           0.1,
@@ -751,23 +769,6 @@
           "color": "#80775e",
           "yaw": 0,
           "collision": false,
-          "destructible": false
-        },
-        {
-          "id": "sandbags-1",
-          "kind": "sandbag",
-          "position": [
-            1.02,
-            1.61
-          ],
-          "size": [
-            0.38,
-            0.065,
-            0.045
-          ],
-          "color": "#a99c77",
-          "yaw": 0,
-          "collision": true,
           "destructible": false
         },
         {
@@ -978,6 +979,49 @@
       "objective": [
         0.54,
         2.17
+      ],
+      "building": {
+        "id": "blue-house",
+        "faction": "blue",
+        "center": [
+          1.0,
+          1.13
+        ],
+        "size": [
+          0.42,
+          0.56
+        ],
+        "floor_height": 0.19,
+        "stair_x": 1.285,
+        "stair_front": 1.56,
+        "stair_back": 1.13,
+        "health": 600
+      },
+      "at_guns": [
+        {
+          "id": "green-at",
+          "faction": "green",
+          "position": [
+            0.5,
+            3.23
+          ]
+        },
+        {
+          "id": "blue-at",
+          "faction": "blue",
+          "position": [
+            1.16,
+            1.93
+          ]
+        },
+        {
+          "id": "red-at",
+          "faction": "red",
+          "position": [
+            0.44,
+            1.15
+          ]
+        }
       ]
     }
   ]

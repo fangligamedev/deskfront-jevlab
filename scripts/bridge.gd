@@ -10,7 +10,7 @@ var enabled: bool=true
 
 func setup(owner_game) -> void:
 	game=owner_game
-	if DisplayServer.get_name()=="headless":enabled=false;return
+	if DisplayServer.get_name()=="headless" and OS.get_environment("DESKFRONT_HEADLESS_BRIDGE")!="1":enabled=false;return
 	if OS.has_feature("web"):base_url=str(JavaScriptBridge.eval("window.location.origin"))
 	elif OS.get_environment("DESKFRONT_URL")!="":base_url=OS.get_environment("DESKFRONT_URL")
 	http=HTTPRequest.new();add_child(http);http.timeout=2;http.request_completed.connect(_completed)

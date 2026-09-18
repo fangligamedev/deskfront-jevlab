@@ -67,13 +67,13 @@ func launch(shooter, target, weapon: String, landed: bool) -> void:
 	var end: Vector3=target.aim_point()
 	var from: Vector3=shooter.muzzle_position(end)
 	var dir: Vector3=(end-from).normalized()
-	sound(weapon,from)
+	sound("cannon" if weapon=="at_cannon" else weapon,from)
 	if weapon=="bayonet":
 		beam(from,end,.007,Color(.84,.91,.95),.14)
 		target.hit(float(cfg.damage),float(cfg.pressure));impacts+=1
 		return
 	if not landed:end+=Vector3(random.randf_range(.026,.065),random.randf_range(-.025,.04),random.randf_range(-.06,.06))
-	var explosive: bool=weapon in ["rocket","cannon","grenade"]
+	var explosive: bool=weapon in ["rocket","cannon","at_cannon","grenade"]
 	puff(from,.048 if explosive else .027,.20,false)
 	beam(from,from+dir*.045,.009 if explosive else .006,Color(1,.91,.53),.10)
 	var n := MeshInstance3D.new();var mesh := SphereMesh.new();mesh.radius=.009 if explosive else .0035;mesh.height=mesh.radius*2;mesh.radial_segments=8;mesh.rings=4;n.mesh=mesh
@@ -115,8 +115,8 @@ func physics_tick(dt: float) -> void:
 		p.trail-=dt
 		if p.trail<=0:
 			p.trail=.045
-			beam(previous,next,.006 if p.weapon in ["rocket","cannon"] else .003,Color(1,.80,.36),.22)
-			if p.weapon in ["rocket","cannon"]:puff(previous,.035,.7,true)
+			beam(previous,next,.006 if p.weapon in ["rocket","cannon","at_cannon"] else .003,Color(1,.80,.36),.22)
+			if p.weapon in ["rocket","cannon","at_cannon"]:puff(previous,.035,.7,true)
 		if not collision.is_empty() or p.age>=p.duration:
 			p.to=next;p["collision"]=collision
 			impact(p);p.node.queue_free();projectiles.erase(p)
@@ -127,10 +127,10 @@ func impact(p: Dictionary) -> void:
 	var kind: String=collision.get("kind","miss")
 	collision_counts[kind]+=1
 	var at := Vector2(p.to.x,p.to.z)
-	var explosive: bool=p.weapon in ["rocket","cannon","grenade"]
+	var explosive: bool=p.weapon in ["rocket","cannon","at_cannon","grenade"]
 	if hit_log.size()<2000:hit_log.append({"time":game.elapsed,"weapon":p.weapon,"kind":kind,"id":collision.cover_id if kind=="cover" else (collision.unit.id if kind=="unit" else ""),"position":[p.to.x,p.to.y,p.to.z]})
 	if explosive:
-		sound({"rocket":"rocket_blast","cannon":"tank_impact","grenade":"grenade_blast"}[p.weapon],p.to)
+		sound({"rocket":"rocket_blast","cannon":"tank_impact","at_cannon":"tank_impact","grenade":"grenade_blast"}[p.weapon],p.to)
 		var size=float(p.cfg.splash)*1.8
 		puff(p.to+Vector3.UP*.025,size,1.0,false)
 		for i in range(5):puff(p.to+Vector3(random.randf_range(-.025,.025),.03,random.randf_range(-.025,.025)),size,2.0+i*.35,true)

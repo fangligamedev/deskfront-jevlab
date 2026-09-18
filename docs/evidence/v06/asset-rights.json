@@ -1,0 +1,1565 @@
+{
+  "asset_count": 34,
+  "generated_at": "2026-09-18T18:27:21.591549+00:00",
+  "passed": true,
+  "results": [
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "b11f52ac2cf57ccbeae4bcfb2585c2ffab98db89e0946b899535448ffc35f70c",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 354153,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.26,
+        "sample_rate": 22050
+      },
+      "passed": true,
+      "path": "assets/audio/bayonet.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "494e95a5709e4141988480cac66e5e2a4bd27d49d4ada7689f9ed7c1a674a0da",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 353240,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.8,
+        "sample_rate": 22050
+      },
+      "passed": true,
+      "path": "assets/audio/cannon.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "fe0d8781297738472e0b7617d8fe1e522cbc2c961d651b9bef3967578d482c3f",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 353135,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 1.049977,
+        "sample_rate": 22050
+      },
+      "passed": true,
+      "path": "assets/audio/explosion.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "1b9f179e095e53a3407b706941383146c62d09e0dbd08476eb485ecf4171f5ff",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 706223,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 1.001043,
+        "sample_rate": 44100
+      },
+      "passed": true,
+      "path": "assets/audio/grenade_blast.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "6b8c1dc04cc464bfab13f41115e9a2a7693f5e98f34bc86a72d7e3bdbe8929d5",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 355000,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.16,
+        "sample_rate": 22050
+      },
+      "passed": true,
+      "path": "assets/audio/impact.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "ba973a88f9908da4bc6f1461319c4dd68f357753e0d5664f3f4b7cceb6c0b5c8",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 355733,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.12,
+        "sample_rate": 22050
+      },
+      "passed": true,
+      "path": "assets/audio/order.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "b45676275cf7855a132d54a01ce10d673f37397f7c84fe4269d730caa33f93d8",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 706710,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.56195,
+        "sample_rate": 44100
+      },
+      "passed": true,
+      "path": "assets/audio/pistol.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "9cde45128149ec59f611b0ee7ed535117da673a55ccb7d70e2ab20e6fb3a1ce3",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 707445,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.338186,
+        "sample_rate": 44100
+      },
+      "passed": true,
+      "path": "assets/audio/reload.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "33895a130eae3d161c6d3eff2a085fa2d07c57bb73591e03f15d526ffe282417",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 705830,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 2.710159,
+        "sample_rate": 44100
+      },
+      "passed": true,
+      "path": "assets/audio/rifle.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "cafa14a9da9e02405b86d10bc42d0f7395b84f918bf8a0115903a324329129c9",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 353341,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.649977,
+        "sample_rate": 22050
+      },
+      "passed": true,
+      "path": "assets/audio/rocket.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "5ad43d52bd399f856abf948e9504a6763dd3d14467f86f15fb3c5830ad96474e",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 706047,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 1.394989,
+        "sample_rate": 44100
+      },
+      "passed": true,
+      "path": "assets/audio/rocket_blast.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "329a225e5d7843a2e3f8a7ae595109916b201ec6afda6866cf3df361df85da27",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 706046,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 1.397959,
+        "sample_rate": 44100
+      },
+      "passed": true,
+      "path": "assets/audio/rocket_launch.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "c5183b6fc8bef8aabcbd5b231dde93d58679e994600a0dfdccf1f127b8de952e",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 355509,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.129977,
+        "sample_rate": 22050
+      },
+      "passed": true,
+      "path": "assets/audio/smg.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "926a0cd12dd8324324632b5f73193968878ac673c12910c5c5d597fe22a9cce4",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 706313,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 0.875238,
+        "sample_rate": 44100
+      },
+      "passed": true,
+      "path": "assets/audio/tank_cannon.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "859698a2a953c869bcc50adf6988d5e7fbccb886406e16529a0f4a2ff5c6e812",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "bit_rate": 706216,
+        "channels": 1,
+        "codec": "pcm_s16le",
+        "duration_seconds": 1.012018,
+        "sample_rate": 44100
+      },
+      "passed": true,
+      "path": "assets/audio/tank_impact.wav"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "a1913100a763a8a9678f8d8f505eaf062840ca63eacb723145ea677f20d2914c",
+          "status": "PASS"
+        }
+      ],
+      "passed": true,
+      "path": "assets/fonts/DeskfrontUI.otf"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "53 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "17488 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 0,
+        "attributes": [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": false,
+        "has_uv": true,
+        "images": 0,
+        "indices": 52464,
+        "joint_names": [],
+        "materials": 1,
+        "meshes": 53,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/antitank-gun.glb",
+        "primitives": 53,
+        "sha256": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+        "size_bytes": 450020,
+        "skin_joints": 0,
+        "skins": 0,
+        "triangles": 17488,
+        "vertices": 12409
+      },
+      "passed": true,
+      "path": "assets/models/antitank-gun.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "7f9c128142dfb386793c3929e18bac791f0fc1ae9bafa4fbf62f79929334f345",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "4 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "536 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 0,
+        "attributes": [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v1.8.19",
+        "has_normals": true,
+        "has_skin_weights": false,
+        "has_uv": true,
+        "images": 0,
+        "indices": 1608,
+        "joint_names": [],
+        "materials": 4,
+        "meshes": 1,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/grenade.glb",
+        "primitives": 4,
+        "sha256": "7f9c128142dfb386793c3929e18bac791f0fc1ae9bafa4fbf62f79929334f345",
+        "size_bytes": 39596,
+        "skin_joints": 0,
+        "skins": 0,
+        "triangles": 536,
+        "vertices": 1022
+      },
+      "passed": true,
+      "path": "assets/models/grenade.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "713d6873c5b13bbb28e40eed0dc8e3302aa710894e34290d93edaf7a18d59296",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "2 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "2960 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.skin",
+          "message": "skins=1 joints=17",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 8,
+        "attributes": [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": true,
+        "images": 0,
+        "indices": 8880,
+        "joint_names": [
+          "head",
+          "neck",
+          "hand.L",
+          "forearm.L",
+          "upper_arm.L",
+          "hand.R",
+          "forearm.R",
+          "upper_arm.R",
+          "spine",
+          "foot.L",
+          "shin.L",
+          "thigh.L",
+          "foot.R",
+          "shin.R",
+          "thigh.R",
+          "hips",
+          "root"
+        ],
+        "materials": 2,
+        "meshes": 1,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/infantry-blue.glb",
+        "primitives": 2,
+        "sha256": "713d6873c5b13bbb28e40eed0dc8e3302aa710894e34290d93edaf7a18d59296",
+        "size_bytes": 331408,
+        "skin_joints": 17,
+        "skins": 1,
+        "triangles": 2960,
+        "vertices": 4115
+      },
+      "passed": true,
+      "path": "assets/models/infantry-blue.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "acb25c0e407d114df3965fa0de938b6dbd2982e41f2065341a402ba45420fbc1",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "2 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "2960 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.skin",
+          "message": "skins=1 joints=17",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 8,
+        "attributes": [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": true,
+        "images": 0,
+        "indices": 8880,
+        "joint_names": [
+          "head",
+          "neck",
+          "hand.L",
+          "forearm.L",
+          "upper_arm.L",
+          "hand.R",
+          "forearm.R",
+          "upper_arm.R",
+          "spine",
+          "foot.L",
+          "shin.L",
+          "thigh.L",
+          "foot.R",
+          "shin.R",
+          "thigh.R",
+          "hips",
+          "root"
+        ],
+        "materials": 2,
+        "meshes": 1,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/infantry-green.glb",
+        "primitives": 2,
+        "sha256": "acb25c0e407d114df3965fa0de938b6dbd2982e41f2065341a402ba45420fbc1",
+        "size_bytes": 331400,
+        "skin_joints": 17,
+        "skins": 1,
+        "triangles": 2960,
+        "vertices": 4115
+      },
+      "passed": true,
+      "path": "assets/models/infantry-green.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "7cdfed64e0da9382ff4b58f275c5192e1ae93ceaab8ff328ed8269bfe9129292",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "2 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "2960 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.skin",
+          "message": "skins=1 joints=17",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 8,
+        "attributes": [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": true,
+        "images": 0,
+        "indices": 8880,
+        "joint_names": [
+          "head",
+          "neck",
+          "hand.L",
+          "forearm.L",
+          "upper_arm.L",
+          "hand.R",
+          "forearm.R",
+          "upper_arm.R",
+          "spine",
+          "foot.L",
+          "shin.L",
+          "thigh.L",
+          "foot.R",
+          "shin.R",
+          "thigh.R",
+          "hips",
+          "root"
+        ],
+        "materials": 2,
+        "meshes": 1,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/infantry-red.glb",
+        "primitives": 2,
+        "sha256": "7cdfed64e0da9382ff4b58f275c5192e1ae93ceaab8ff328ed8269bfe9129292",
+        "size_bytes": 331412,
+        "skin_joints": 17,
+        "skins": 1,
+        "triangles": 2960,
+        "vertices": 4115
+      },
+      "passed": true,
+      "path": "assets/models/infantry-red.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "330805fd5343b287ec7acaf1826a5250517a3a6863f098fe0e3f7d918014a72c",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "14 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "28164 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 0,
+        "attributes": [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": false,
+        "has_uv": true,
+        "images": 0,
+        "indices": 84492,
+        "joint_names": [],
+        "materials": 14,
+        "meshes": 14,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/office-sandbox.glb",
+        "primitives": 14,
+        "sha256": "330805fd5343b287ec7acaf1826a5250517a3a6863f098fe0e3f7d918014a72c",
+        "size_bytes": 1785868,
+        "skin_joints": 0,
+        "skins": 0,
+        "triangles": 28164,
+        "vertices": 50065
+      },
+      "passed": true,
+      "path": "assets/models/office-sandbox.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "0f76ae2221945baf0c7f20c9e407b78d768622e9722720e1f9485741d8aace51",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "10 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "5776 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.skin",
+          "message": "skins=1 joints=62",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 1,
+        "attributes": [
+          "COLOR_0",
+          "COLOR_1",
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": true,
+        "images": 0,
+        "indices": 17328,
+        "joint_names": [
+          "Head",
+          "Neck",
+          "Index4.L",
+          "Index3.L",
+          "Index2.L",
+          "Index1.L",
+          "Middle4.L",
+          "Middle3.L",
+          "Middle2.L",
+          "Middle1.L",
+          "Pinky4.L",
+          "Pinky3.L",
+          "Pinky2.L",
+          "Pinky1.L",
+          "Ring4.L",
+          "Ring3.L",
+          "Ring2.L",
+          "Ring1.L",
+          "Thumb3.L",
+          "Thumb2.L",
+          "Thumb1.L",
+          "Wrist.L",
+          "LowerArm.L",
+          "UpperArm.L",
+          "Shoulder.L",
+          "Index4.R",
+          "Index3.R",
+          "Index2.R",
+          "Index1.R",
+          "Middle4.R",
+          "Middle3.R",
+          "Middle2.R",
+          "Middle1.R",
+          "Pinky4.R",
+          "Pinky3.R",
+          "Pinky2.R",
+          "Pinky1.R",
+          "Ring4.R",
+          "Ring3.R",
+          "Ring2.R",
+          "Ring1.R",
+          "Thumb3.R",
+          "Thumb2.R",
+          "Thumb1.R",
+          "Wrist.R",
+          "LowerArm.R",
+          "UpperArm.R",
+          "Shoulder.R",
+          "Chest",
+          "Torso",
+          "Abdomen",
+          "Hips",
+          "LowerLeg.L",
+          "UpperLeg.L",
+          "LowerLeg.R",
+          "UpperLeg.R",
+          "Body",
+          "Foot.L",
+          "Foot.R",
+          "PT.L",
+          "PT.R",
+          "Root"
+        ],
+        "materials": 9,
+        "meshes": 4,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/office-worker.glb",
+        "primitives": 10,
+        "sha256": "0f76ae2221945baf0c7f20c9e407b78d768622e9722720e1f9485741d8aace51",
+        "size_bytes": 824864,
+        "skin_joints": 62,
+        "skins": 1,
+        "triangles": 5776,
+        "vertices": 11756
+      },
+      "passed": true,
+      "path": "assets/models/office-worker.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "68189f11647ababa51c62ac40b62030e8710162035b67944b55b3e89154d5d69",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "14 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "27840 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 0,
+        "attributes": [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": false,
+        "has_uv": true,
+        "images": 0,
+        "indices": 83520,
+        "joint_names": [],
+        "materials": 14,
+        "meshes": 14,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/office.glb",
+        "primitives": 14,
+        "sha256": "68189f11647ababa51c62ac40b62030e8710162035b67944b55b3e89154d5d69",
+        "size_bytes": 1763196,
+        "skin_joints": 0,
+        "skins": 0,
+        "triangles": 27840,
+        "vertices": 49421
+      },
+      "passed": true,
+      "path": "assets/models/office.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "d8a284503309a7fcb215326034db5b0b2151a9b6920c39d018f975ff4b6fd84b",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "6 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "1434 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 0,
+        "attributes": [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v1.7.33",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": true,
+        "images": 0,
+        "indices": 4302,
+        "joint_names": [
+          "Trigger",
+          "Magazine",
+          "Slide",
+          "Slide Release",
+          "Magazine Release",
+          "Hammer",
+          "Attach_Scope",
+          "Attach_Rail.Bottom",
+          "Attach_Muzzle",
+          "Body"
+        ],
+        "materials": 6,
+        "meshes": 1,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/pistol.glb",
+        "primitives": 6,
+        "sha256": "d8a284503309a7fcb215326034db5b0b2151a9b6920c39d018f975ff4b6fd84b",
+        "size_bytes": 158212,
+        "skin_joints": 10,
+        "skins": 1,
+        "triangles": 1434,
+        "vertices": 2688
+      },
+      "passed": true,
+      "path": "assets/models/pistol.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "0d80dd2118c884172a856455968be14eadc97f041d27d52bfa75fedb708fa486",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "7 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "4353 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 0,
+        "attributes": [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v1.7.33",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": true,
+        "images": 0,
+        "indices": 13059,
+        "joint_names": [
+          "Magazine",
+          "Trigger",
+          "Selector",
+          "Bolt Release",
+          "Magazine Release",
+          "Forward Assist",
+          "Charging Handle",
+          "Stock",
+          "Bolt",
+          "Rear Sights",
+          "Front Sights",
+          "Dust Cover",
+          "Attach_Scope",
+          "Attach_Rail.Bottom",
+          "Attach_Muzzle",
+          "Attach_Rail.Top",
+          "Attach_Rail.SideLeft",
+          "Attach_Rail.SideRight",
+          "Body"
+        ],
+        "materials": 7,
+        "meshes": 1,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/rifle.glb",
+        "primitives": 7,
+        "sha256": "0d80dd2118c884172a856455968be14eadc97f041d27d52bfa75fedb708fa486",
+        "size_bytes": 457644,
+        "skin_joints": 19,
+        "skins": 1,
+        "triangles": 4353,
+        "vertices": 8045
+      },
+      "passed": true,
+      "path": "assets/models/rifle.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "6274d778346a7c41d52627b6c76085729194dd1ac61c447c06e0f0ab2e9fd2a6",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "7 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "2084 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 0,
+        "attributes": [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": false,
+        "has_uv": true,
+        "images": 0,
+        "indices": 6252,
+        "joint_names": [],
+        "materials": 1,
+        "meshes": 7,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/rocket.glb",
+        "primitives": 7,
+        "sha256": "6274d778346a7c41d52627b6c76085729194dd1ac61c447c06e0f0ab2e9fd2a6",
+        "size_bytes": 78780,
+        "skin_joints": 0,
+        "skins": 0,
+        "triangles": 2084,
+        "vertices": 2128
+      },
+      "passed": true,
+      "path": "assets/models/rocket.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "2 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "540 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 0,
+        "attributes": [
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": false,
+        "has_uv": true,
+        "images": 0,
+        "indices": 1620,
+        "joint_names": [],
+        "materials": 2,
+        "meshes": 2,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/sandbag.glb",
+        "primitives": 2,
+        "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
+        "size_bytes": 40072,
+        "skin_joints": 0,
+        "skins": 0,
+        "triangles": 540,
+        "vertices": 1080
+      },
+      "passed": true,
+      "path": "assets/models/sandbag.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "d46acaeb563f401bfb389bd7708342f97d0cd62f9b2c6dc88f8537be8c85ed80",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "10 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "7222 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "WARN"
+        }
+      ],
+      "measurements": {
+        "animations": 4,
+        "attributes": [
+          "COLOR_0",
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "WEIGHTS_0"
+        ],
+        "generator": "FBX2glTF v0.9.7",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": false,
+        "images": 0,
+        "indices": 21666,
+        "joint_names": [
+          "Root",
+          "TankTrack22.L",
+          "TankTrack11.L",
+          "TankTrack10.L",
+          "TankTrack12.L",
+          "TankTrack9.L",
+          "TankTrack8.L",
+          "TankTrack14.L",
+          "TankTrack13.L",
+          "TankTrack15.L",
+          "TankTrack16.L",
+          "TankTrack6.L",
+          "TankTrack7.L",
+          "TankTrack18.L",
+          "TankTrack17.L",
+          "TankTrack5.L",
+          "TankTrack4.L",
+          "TankTrack2.L",
+          "TankTrack3.L",
+          "TankTrack19.L",
+          "TankTrack20.L",
+          "TankTrack1.L",
+          "TankTrack21.L",
+          "TankTrack22.R",
+          "TankTrack11.R",
+          "TankTrack10.R",
+          "TankTrack12.R",
+          "TankTrack9.R",
+          "TankTrack8.R",
+          "TankTrack14.R",
+          "TankTrack13.R",
+          "TankTrack15.R",
+          "TankTrack16.R",
+          "TankTrack6.R",
+          "TankTrack7.R",
+          "TankTrack18.R",
+          "TankTrack17.R",
+          "TankTrack5.R",
+          "TankTrack4.R",
+          "TankTrack2.R",
+          "TankTrack3.R",
+          "TankTrack19.R",
+          "TankTrack20.R",
+          "TankTrack1.R",
+          "TankTrack21.R"
+        ],
+        "materials": 8,
+        "meshes": 5,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/tank.glb",
+        "primitives": 10,
+        "sha256": "d46acaeb563f401bfb389bd7708342f97d0cd62f9b2c6dc88f8537be8c85ed80",
+        "size_bytes": 912836,
+        "skin_joints": 45,
+        "skins": 3,
+        "triangles": 7222,
+        "vertices": 13413
+      },
+      "passed": true,
+      "path": "assets/models/tank.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "46908173aba464212eb9dd76e29f517bccd6e27f3aa57b737075a6c3881a46e9",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "2 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "5073 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.skin",
+          "message": "skins=1 joints=50",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 28,
+        "attributes": [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": true,
+        "images": 0,
+        "indices": 15219,
+        "joint_names": [
+          "LeftToe_End",
+          "LeftToeBase",
+          "LeftFoot",
+          "LeftLeg",
+          "LeftUpLeg",
+          "RightToe_End",
+          "RightToeBase",
+          "RightFoot",
+          "RightLeg",
+          "RightUpLeg",
+          "LeftHandIndex4",
+          "LeftHandIndex3",
+          "LeftHandIndex2",
+          "LeftHandIndex1",
+          "LeftHandMiddle4",
+          "LeftHandMiddle3",
+          "LeftHandMiddle2",
+          "LeftHandMiddle1",
+          "LeftHandThumb4",
+          "LeftHandThumb3",
+          "LeftHandThumb2",
+          "LeftHandThumb1",
+          "LeftHand",
+          "LeftForeArm",
+          "LeftArm",
+          "LeftShoulder",
+          "HeadTop_End",
+          "Head",
+          "Neck",
+          "RightHandIndex4",
+          "RightHandIndex3",
+          "RightHandIndex2",
+          "RightHandIndex1",
+          "RightHandMiddle4",
+          "RightHandMiddle3",
+          "RightHandMiddle2",
+          "RightHandMiddle1",
+          "RightHandThumb4",
+          "RightHandThumb3",
+          "RightHandThumb2",
+          "RightHandThumb1",
+          "RightHand",
+          "RightForeArm",
+          "RightArm",
+          "RightShoulder",
+          "Spine2",
+          "Spine1",
+          "Spine",
+          "Hips",
+          "Root"
+        ],
+        "materials": 1,
+        "meshes": 2,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/toy-soldier.glb",
+        "primitives": 2,
+        "sha256": "46908173aba464212eb9dd76e29f517bccd6e27f3aa57b737075a6c3881a46e9",
+        "size_bytes": 1586124,
+        "skin_joints": 50,
+        "skins": 1,
+        "triangles": 5073,
+        "vertices": 5228
+      },
+      "passed": true,
+      "path": "assets/models/toy-soldier.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "1dc36a161593b7d79b2bb028c06c493276376c448eb9a85b362f6c0448f08d91",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.parse",
+          "message": "Valid GLB 2.0 JSON container",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.geometry",
+          "message": "4 primitives",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.triangle_budget",
+          "message": "2268 <= 100000",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.normals",
+          "message": "NORMAL attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.uv",
+          "message": "TEXCOORD_0 attribute",
+          "status": "PASS"
+        },
+        {
+          "code": "glb.skin",
+          "message": "skins=1 joints=17",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "animations": 1,
+        "attributes": [
+          "JOINTS_0",
+          "NORMAL",
+          "POSITION",
+          "TEXCOORD_0",
+          "WEIGHTS_0"
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "has_normals": true,
+        "has_skin_weights": true,
+        "has_uv": true,
+        "images": 0,
+        "indices": 6804,
+        "joint_names": [
+          "head",
+          "neck",
+          "hand.L",
+          "forearm.L",
+          "upper_arm.L",
+          "hand.R",
+          "forearm.R",
+          "upper_arm.R",
+          "spine",
+          "foot.L",
+          "shin.L",
+          "thigh.L",
+          "foot.R",
+          "shin.R",
+          "thigh.R",
+          "hips",
+          "root"
+        ],
+        "materials": 4,
+        "meshes": 1,
+        "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/worker.glb",
+        "primitives": 4,
+        "sha256": "1dc36a161593b7d79b2bb028c06c493276376c448eb9a85b362f6c0448f08d91",
+        "size_bytes": 195612,
+        "skin_joints": 17,
+        "skins": 1,
+        "triangles": 2268,
+        "vertices": 2795
+      },
+      "passed": true,
+      "path": "assets/models/worker.glb"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "f9138166331aa2854f7d755f438044053291ffd5303de8b11daf2a142e4bcf41",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "format": "PNG",
+        "height": 1024,
+        "mode": "RGB",
+        "width": 1024
+      },
+      "passed": true,
+      "path": "assets/vfx/flow.png"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "b926336696561bbac6801ded500ff2b070756d58246bfab648154b6e940398d7",
+          "status": "PASS"
+        }
+      ],
+      "measurements": {
+        "format": "PNG",
+        "height": 2048,
+        "mode": "RGBA",
+        "width": 2048
+      },
+      "passed": true,
+      "path": "assets/vfx/fx.png"
+    },
+    {
+      "findings": [
+        {
+          "code": "asset.hash",
+          "message": "b2d5ac8992b19ab33e15efa701253444d162c4af851660a17dcfb964a0693ceb",
+          "status": "PASS"
+        }
+      ],
+      "passed": true,
+      "path": "assets/vfx/soft_flipbook.gdshader"
+    }
+  ],
+  "rights_ok": true,
+  "schema": "godot-forge.asset-validation.v1",
+  "strict_rights": true,
+  "untracked_assets": []
+}

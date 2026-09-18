@@ -1,0 +1,60 @@
+{
+  "version": "0.6.0",
+  "generated_at": "2026-09-18T19:18:02.704334+00:00",
+  "passed": true,
+  "headless_rehearsals": {
+    "count": 100,
+    "passed": 100,
+    "fixed_dt": 0.0333333333333333,
+    "wall_seconds": 716.455,
+    "cases": [
+      "armor_threat",
+      "corner",
+      "cover_destroyed",
+      "crossfire",
+      "flanked",
+      "grenade",
+      "meeting",
+      "retreat",
+      "suppressed",
+      "wounded"
+    ],
+    "maps": [
+      "crossroads",
+      "outpost",
+      "river"
+    ]
+  },
+  "python_tests": 20,
+  "lm_contract_checks": 23,
+  "equipment_contract_checks": 16,
+  "web_rts_checks": 25,
+  "web_equipment_checks": 6,
+  "web_lm_checks": 11,
+  "native": "macOS 导出文件本地无头启动通过；未签名及公证",
+  "real_lm_scope": "含九名步兵与增援坦克真实独立模型决策；单次样本不能推导胜率",
+  "evidence_sha256": {
+    "tank-trials.json": "0969626e3aaa0e0b3d554d00943ac6cac5495af48b484915f8f2e4b30d450fe3",
+    "equipment-contract.json": "9ff5467b83a1b31bd159c41ea08764404e78011903ed015cd32c90d9829dff0c",
+    "web-gun-hauling.png": "0447a5f3527f9d5bcc8b212a342cd141e79ef0ba56d04f7ed2f4ccfa7bf77229",
+    "web-lm.json": "460550c4e93f542e32cd3fecda978bdd8f0d236eae5202b5eab058a831147867",
+    "lm-contract.json": "24d8ea47ffbe254c4e601f9a0185964c0e592828ff71ddf4c93f74052a8d5e48",
+    "asset-probe.json": "fc2ea12d34d56da7667ef8ce407ef61c7cf6814924e66a25904bcb7e09278d96",
+    "release-web.json": "796f8c42569409fa433c2e7e6f77ed6871848a22c5aeefbb8abbd3977aadb5d3",
+    "web-lm-tank.png": "29db27badbb377ffc25e4aed9a2939b34022179bc09dfc3123248d095a3a5b48",
+    "asset-rights.json": "ca6c10733728d0720d2c729870a2973cf781b040f550f59f0562d65e654bbabf",
+    "release-macos.json": "c72517a9a2af91e76eca424593fb477d65a90fb0b49b33c4b4b29d51004e81dd",
+    "native-smoke.json": "18a14a6b2f0973db6c162156a719d3f522d3db013fe24b282a26baf89f64898d",
+    "equipment-squad.json": "49cccfd516e1ba669ed4ef4a5fb1a77fc0698cb7abf60edfc51b96345ae78fdb",
+    "rehearsal-100.json": "3d3c6d886470c7a5d8b418c6e8a99dcde076225ad7218e78622588e2b616fa89",
+    "combat-contract.json": "1abc2d46baf18c12a7c9001efcc0e769cabbe9754bae0719f08a3be43456edef",
+    "semantic.json": "03033a3321a53582be11ba7d378f3d98165dd1fd1a9d416e7d8c0093da4e1684",
+    "equipment-final-trials.json": "27eacd861753bb85e6bbb0fe0a0423441beab720b0fee1b29a05ad3126333291",
+    "repair-record.json": "a5556999dc795530cf729f53cf98d63ce60c58372efd3bb213438a6aa1bb2f6b",
+    "web-building-garrison.png": "ef0c19423aadade99488f4cf7d5166845d30e0f64e3c66b7a01eaf453afe6ac6",
+    "integration.json": "3553f0535f58c48d24a1d0e42574433e4b02a1e0e324b002bb1e8156f2e78abc",
+    "web-rts.json": "65439723c8e60496b83f39506d36ed443aa987b17711490d22592e7bc250218a",
+    "comparison-trials.json": "2aff14ab5710139391fc1e3e3126733de22a40ebb1b7a2d6df5287f77db2804c",
+    "web-equipment.json": "fe7194dfc3413eee166fc60b313a1309ebda9e70f3ed51fe8639b2721e5449f1"
+  }
+}

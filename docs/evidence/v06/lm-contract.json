@@ -1,0 +1,97 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "LM control mode is executable"
+    },
+    {
+      "passed": true,
+      "test": "LM order does not change team into player mode"
+    },
+    {
+      "passed": true,
+      "test": "single-unit order preserves teammate intent, focus and route"
+    },
+    {
+      "passed": true,
+      "test": "unit publishes accepted LM intent"
+    },
+    {
+      "passed": true,
+      "test": "LM can combine prone posture and a movement intention"
+    },
+    {
+      "passed": true,
+      "test": "LM cannot order multiple units"
+    },
+    {
+      "passed": true,
+      "test": "LM cannot control enemy units"
+    },
+    {
+      "passed": true,
+      "test": "external Agent cannot issue orders into an LM-owned team"
+    },
+    {
+      "passed": true,
+      "test": "player takeover rejects old LM order"
+    },
+    {
+      "passed": true,
+      "test": "switch away and back still rejects in-flight LM decision"
+    },
+    {
+      "passed": true,
+      "test": "old LM observations are rejected"
+    },
+    {
+      "passed": true,
+      "test": "old match results are rejected"
+    },
+    {
+      "passed": true,
+      "test": "LM cannot override an emergency escape with advance"
+    },
+    {
+      "passed": true,
+      "test": "LM standing preference cannot prevent emergency prone response"
+    },
+    {
+      "passed": true,
+      "test": "invalid action cannot partially mutate posture"
+    },
+    {
+      "passed": true,
+      "test": "dead units reject LM orders"
+    },
+    {
+      "passed": true,
+      "test": "LM cannot reset or administer the match"
+    },
+    {
+      "passed": true,
+      "test": "emergency survival clears explicit pursuit target"
+    },
+    {
+      "passed": true,
+      "test": "tank exposes only its implemented LM tactical actions"
+    },
+    {
+      "passed": true,
+      "test": "LM-controlled tank retains emergency anti-armor escape guard"
+    },
+    {
+      "passed": true,
+      "test": "game AI resumes when control is handed back"
+    },
+    {
+      "passed": true,
+      "test": "crossfire fixture has protected armor and exposed infantry sides"
+    },
+    {
+      "passed": true,
+      "test": "tank threat cannot suppress evacuation of a flanked cover position"
+    }
+  ],
+  "passed": true
+}

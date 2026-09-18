@@ -1,0 +1,69 @@
+[
+  {
+    "id": "antitank-gun",
+    "origin": "prepared original Deskfront assets from combat-review-v2",
+    "geometry_license": "CC0-1.0",
+    "runtime_code_license": "MIT",
+    "runtime": "Godot 4.5.1",
+    "transform": "runtime scale 0.62; Godot -Z forward",
+    "recorded_at": "2026-09-18T18:53:30.455121+00:00",
+    "files": [
+      {
+        "path": "source/latest/antitank-gun.blend",
+        "sha256": "43dc6072a52fc0468f5a3d733895570a6c2aed937d42f60a6a289114017cc745",
+        "bytes": 122945
+      },
+      {
+        "path": "source/latest/antitank-gun.glb",
+        "sha256": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+        "bytes": 450020
+      },
+      {
+        "path": "source/latest/tools/build_antitank_gun.py",
+        "sha256": "f0374cbb777fa20c491e475652345e99aaa5ae08ea9892a706d07dc6ca4ada99",
+        "bytes": 4012
+      },
+      {
+        "path": "assets/models/antitank-gun.glb",
+        "sha256": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+        "bytes": 450020
+      }
+    ]
+  },
+  {
+    "id": "blue-house",
+    "origin": "prepared original Deskfront assets from combat-review-v2",
+    "geometry_license": "CC0-1.0",
+    "runtime_code_license": "MIT",
+    "runtime": "Godot 4.5.1",
+    "transform": "reuse 46 components; translate z -1.57m to tabletop northeast; runtime wall/floor destruction and two-storey navigation",
+    "recorded_at": "2026-09-18T18:53:30.457171+00:00",
+    "files": [
+      {
+        "path": "source/latest/tactical-building.blend",
+        "sha256": "edb8a650e035566abe71def8790d738b60786646ed3ce23324fa00afbddf8dc6",
+        "bytes": 153360
+      },
+      {
+        "path": "source/latest/building-components.json",
+        "sha256": "111004dc67a0ef1784ccae5fa200a2773625a1ae5c87b7ad53ed004e68a16f81",
+        "bytes": 17752
+      },
+      {
+        "path": "source/latest/destructible_building-original.gd",
+        "sha256": "2a5c6670edcfdf2e97573c87d38234c00c43c11b76db02e15af4cd84ab8bb7db",
+        "bytes": 5089
+      },
+      {
+        "path": "source/latest/tools/build_tactical_building.py",
+        "sha256": "a33604dcf8930d3b9ff2b4c9d9f3a0684b52494a0eac25791e7d5566132f7220",
+        "bytes": 706
+      },
+      {
+        "path": "scripts/tactical_building.gd",
+        "sha256": "4199f4ec6633849e3b867c75031555ab9e66b5978b60bacd3a3c53895ba4cc28",
+        "bytes": 9462
+      }
+    ]
+  }
+]

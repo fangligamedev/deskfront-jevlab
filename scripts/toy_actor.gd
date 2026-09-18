@@ -34,6 +34,7 @@ var drive_goal=Vector3.INF
 var drive_limit=INF
 var walk_speed=.12
 var clip_speeds: Dictionary={}
+var surface_target:Vector3=Vector3.INF
 var navigation_guard:Callable
 const STEP_LENGTH=.033
 func stop_cover_move():
@@ -167,6 +168,9 @@ func _physics_process(dt):
   if not stepping and drive_goal!=Vector3.INF:
    var delta=drive_goal-global_position;delta.y=0
    displacement=delta.normalized()*minf(displacement.length(),delta.length())
+  if surface_target!=Vector3.INF:
+   var flat=Vector2(surface_target.x-global_position.x,surface_target.z-global_position.z).length()
+   if flat>.00001:displacement.y=(surface_target.y-global_position.y)*minf(1,displacement.length()/flat)
   if navigation_guard.is_valid() and not navigation_guard.call(global_position+displacement):displacement=Vector3.ZERO;last_blocker="navigation"
   var hit=move_and_collide(displacement) if displacement.length_squared()>.00000000001 else null
   if hit:last_blocker=str(hit.get_collider().name)
@@ -256,3 +260,19 @@ func advance_idle(dt:float):
  drive_goal=Vector3.INF
  if not stepping:cover_target=Vector3.INF
  _physics_process(dt)
+
+func grip_handle(side:String,world_point:Vector3):
+ var upper=skeleton.find_bone(side+"Arm");var lower=skeleton.find_bone(side+"ForeArm");var hand=skeleton.find_bone(side+"Hand")
+ if upper<0 or lower<0 or hand<0:return
+ var a=skeleton.get_bone_global_pose(upper);var b=skeleton.get_bone_global_pose(lower);var h=skeleton.get_bone_global_pose(hand)
+ var target=skeleton.global_transform.affine_inverse()*world_point
+ var l1=a.origin.distance_to(b.origin);var l2=b.origin.distance_to(h.origin)
+ var v=target-a.origin;var dist=clampf(v.length(),.00001,(l1+l2)*.995);var axis=v.normalized()
+ var pole=Vector3.DOWN-axis*Vector3.DOWN.dot(axis)
+ if pole.length_squared()<.000001:pole=Vector3.RIGHT
+ var along=(l1*l1-l2*l2+dist*dist)/(2*dist)
+ var elbow=a.origin+axis*along+pole.normalized()*sqrt(maxf(0,l1*l1-along*along))
+ rotate_bone_to(upper,b.origin-a.origin,elbow-a.origin,a)
+ var original=h.origin-b.origin;b.origin=elbow
+ rotate_bone_to(lower,original,a.origin+axis*dist-elbow,b)
+ h.origin=a.origin+axis*dist;skeleton.set_bone_global_pose_override(hand,h,1,true)

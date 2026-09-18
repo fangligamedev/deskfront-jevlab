@@ -1,4 +1,4 @@
-# 角色、坦克、武器动作契约（0.5.0）
+# 角色、坦克、武器动作契约（0.6.0）
 
 本文列出**运行时已经实现**的行为、状态和可调用动作。机器版本在 `data/action-catalog.json`，控制服务提供 `GET /api/action-catalog`；数值最终以当前 `GET /api/state` 的 `state.weapons` 为准。界面调参会改变伤害、射速和命中率。
 
@@ -27,7 +27,8 @@
 | green-1 / blue-1 / red-1 | rifle | overwatch，精确点射与掩护 | 共享全部步兵姿态、移动、刺刀和手雷动作 |
 | green-2 / blue-2 / red-2 | smg | assault，持续短间隔射击、条件满足后绕侧 | 同上；不会因“突击”角色而忽略自保 |
 | green-3 / blue-3 / red-3 | rocket | anti_armor，优先装甲、可射击阻挡物 | 同上；射速慢、装填时间长 |
-| red-tank | cannon | armor，保持距离、炮火支援、倒车脱离 | 独立炮塔，不能趴下、使用刺刀或投掷手雷 |
+| red-tank | at_cannon | 接近 → 低姿推炮 → 部署 → launch → 首碰撞爆炸 → crew_reload | 3.8 s / 当前为无限后备炮弹 | 2.05 m | 与坦克炮同一破坏规则 |
+| cannon | armor，保持距离、炮火支援、倒车脱离 | 独立炮塔，不能趴下、使用刺刀或投掷手雷 |
 | 办公室人类 | 无 | 缓慢循环操作电脑 | 非战斗装饰角色，不可接管 |
 
 三个阵营使用同一执行器，没有阵营专属的隐藏战力。策划端 `equip` 可替换步枪、冲锋枪、火箭筒、手枪；Agent 端不允许改装备或改规则。
@@ -79,6 +80,7 @@
 | smg | ready → aim → 快速连发 → 空匣装填 | 0.14 s / 24 / 2.5 s | 0.60 m | 0.3 |
 | pistol | ready → aim → single fire → cooldown / reload | 0.40 s / 12 / 2 s | 0.42 m | 0.4 |
 | rocket | aim → launch → flight → first impact → explosion → reload | 3.8 s / 1 / 3.8 s | 0.92 m | 70 |
+| at_cannon | 接近 → 低姿推炮 → 部署 → launch → 首碰撞爆炸 → crew_reload | 3.8 s / 当前为无限后备炮弹 | 2.05 m | 与坦克炮同一破坏规则 |
 | cannon | turret align → launch → flight → first impact → explosion → cooldown | 3.4 s / 1000（本局视为足量）/ 无装填动画 | 0.98 m | 85 |
 | grenade | windup → release → curved flight → impact/explode → recover | 每兵 2 枚，无补给 | 0.65 m | 48 |
 | bayonet | range + obstruction check → thrust → impact → cooldown | 0.85 s，无弹药 | 0.075 m | 不破坏掩体 |
@@ -98,3 +100,45 @@
 `turn_left`、`turn_right`、`dodge_left_rm`、`roll_rm`、`hit`、`death`、`rifle_walk_rm`、`cover_enter`、`cover_exit` 保存在资源里，但当前 AI 没有相应独立技能；转身由控制器驱动，死亡用布娃娃，姿态进入/退出用混合。这些片段**不是可以向 Agent 虚报的可执行动作**。
 
 通用 HTTP 接口已实现；Safetype.ai/Jev 的专属 SDK、鉴权和推理调用尚未接入。状态仍为完全信息，无战争迷雾。没有建筑内部破门清房、攀越、掩体贴边连续 IK、弹道穿透、任意网格断裂和联网同步。
+
+
+## 0.6 四种控制来源与完整 Action 清单
+
+顶层模式：`game_ai` / `lm` / `agent` / `player`。每个阵营可分别指定。LM 模式逐兵独立，不同队员的单兵命令不会互相清空路线。外部 Agent 仅在 `agent` 模式有权限；不能借公开请求的 `source` 字段伪装成内部 LM。
+
+可调用的 **13 个引擎战术 Action**：`move`、`capture`、`cover`、`flank`、`retreat`、`hold`、`attack`、`grenade`、`posture`。LM 另可选 `wait`，代表不发送新命令、保留当前意图。`fire`、`reload`、`melee`、`hide`、`peek`、`crawl` 是执行状态/动作链，不能冒充现有 API 命令。
+
+策划专用动作：`control`、`pause`、`speed`、`camera`、`reinforce`、`config`、`reset`、`map`、`equip`。LM 和外部 Agent 均无权修改这些管理动作。
+
+LM 新增拒绝原因：`lm_single_unit_required`、`stale_control_epoch`、`survival_override`。单兵 LM 可在普通战术命令上附 `posture`；引擎先验证全部必要条件，再应用，紧急自保优先于 LM 站立/蹲姿偏好。玩家主动姿态偏好保持原有逻辑。
+
+LM 的意图与调用状态全集、配置和错误处理见 [LM_CONTROL.md](LM_CONTROL.md)。模型状态与角色姿态/位移/武器/CQB 状态是不同层，必须同时读取。
+
+
+## 反坦克炮与蓝方两层小楼（本轮新增）
+
+权威快照增加 `state.at_guns`、`state.building`；单兵增加 `gun_id`、`building_phase`、`building_floor`、`elevation`。地面位置仍为 `[x,z]`，高差单独提供。设施动作必须 `unit_ids` 恰好一人，模型不能替同队其他单位发命令。
+
+| Action | 必要条件/参数 | 执行动作系列 |
+|---|---|---|
+| `man_at_gun` | 同阵营健康步兵；火箭兵保留原职责；可选 `gun_id` | 接近炮尾 → root motion 推炮 → 停车部署 → 自动瞄准可用射界中的敌坦克 → 炮弹/装填 |
+| `leave_gun` | 当前炮手 | 停止操作 → 留下炮架 → 恢复个人武器；可再 cover/retreat |
+| `garrison` | 蓝方步兵，建筑可用；`floor=1/2`，默认 2 | 从外部入口进入 / 沿外置楼梯和平台上楼 → 窗口驻守 → 隐蔽与探头射击 |
+| `leave_building` | 当前进驻者 | 沿已走过的路线下楼 → 回到入口；禁止直接跳楼 |
+
+火炮 `phase`：`parked / approaching / towing / deploying / ready / abandoned / destroyed`。人物火炮状态跟随该系列；`locomotion=push_gun` 使用低姿移动 root motion 和双手 IK，个人武器隐藏。`weapon_state=crew_ready / crew_fire / crew_reload`。当前为**单人操作的轻型玩具炮**；没有假装实现两人装填协同。
+
+建筑 `building_phase`：空值（楼外）、`approaching`（包括楼梯行进）、`stationed`（守窗）、`exiting`（撤离）、`falling`（楼板被毁后的下落）。`locomotion=stairs` 表示当前移动有楼梯高差。守窗按窗口节奏隐蔽/露出，上下楼按同一路径进行碰撞移动；一层和二层共享建筑但分别有射击高度。
+
+所有设施都可能被打断：低血/高压制炮手弃炮，楼内士兵撤离，炮架或楼板摧毁会使原任务失效。轻武器 `attack` 坦克直接返回 `anti_armor_required`；正常索敌也过滤此类目标。坦克会关注敌方已部署反坦克炮。反坦克炮弹走与坦克炮同一套连续射线、首碰撞、遮挡爆炸和掩体破坏逻辑，牵引时不开炮。
+
+设施常见拒绝：`single_crew_member_required`、`no_safe_gun_access`、`not_gun_crew`、`building_unavailable`、`not_garrisoned`、`leave_equipment_first`。`cover/retreat` 对设施使用者先执行安全退出；`hold` 保持设施任务。其他移动/进攻动作需先退出设施，以免新意图把人瞬间移下二楼。
+
+```json
+{"action":"man_at_gun","gun_id":"green-at","faction":"green","unit_ids":["green-1"],"run_id":"读取当前局次","seen_tick":120}
+```
+```json
+{"action":"garrison","floor":2,"faction":"blue","unit_ids":["blue-1"],"run_id":"读取当前局次","seen_tick":120}
+```
+
+`wait` 仍然仅是 LM 控制器的保持意图，不是 Godot 命令。`gun_id` 仅用于 `man_at_gun`，`floor` 仅用于 `garrison`，无关的可选字段应省略，不能填写 null。

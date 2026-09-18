@@ -22,6 +22,7 @@ def record_assets():
     p=ROOT/'.forge/assets.json';data=json.loads(p.read_text())
     catalog=json.loads((ROOT/'docs/asset-integration/asset-provenance.json').read_text())
     sources={
+        'antitank-gun':['antitank-gun.blend','antitank-gun.glb','tools/build_antitank_gun.py'],
         'toy-soldier':['toy-soldier-retarget.blend','soldier-original.fbx','ual-author-preview.glb','tools/build_soldier.py'],
         'tank':['tank-original.blend','tank-original.glb'],
         'rifle':['guns-original.blend'],'pistol':['guns-original.blend'],
@@ -57,33 +58,36 @@ def main():
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/integration_probe.tscn'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/asset_probe.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/combat_contract.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/lm_contract.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/equipment_contract.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/equipment_squad.gd'])
         run([os.sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py','-v'])
     if a.command in ['web','macos']:
         out=ROOT/'build'/a.command;out.mkdir(parents=True,exist_ok=True)
         run([binary('godot'),'--headless','--path',str(ROOT),'--export-release','Web' if a.command=='web' else 'macOS',str(out/('index.html' if a.command=='web' else 'Deskfront.zip'))])
     if a.command=='bundle':
         out=ROOT/'dist';out.mkdir(exist_ok=True)
-        excluded={'.git','.godot','node_modules','output','dist','build','__pycache__','.playwright-cli'}
+        excluded={'.git','.godot','node_modules','output','dist','build','__pycache__','.playwright-cli','.secrets'}
         # In a checkout, bundle only the Git index (including newly staged files),
         # so concurrent untracked work does not silently enter an open-source release.
         if (ROOT/'.git').exists():
             listed=subprocess.run(['git','ls-files','-z'],cwd=ROOT,check=True,stdout=subprocess.PIPE).stdout.decode().split('\0')
             candidates=[ROOT/n for n in listed if n]
         else:candidates=ROOT.rglob('*')
-        files=[f for f in candidates if f.is_file() and not any(x in excluded for x in f.relative_to(ROOT).parts) and not f.name.endswith(('.blend1','.pyc')) and f.name!='package-audit.json']
+        files=[f for f in candidates if f.is_file() and not any(x in excluded for x in f.relative_to(ROOT).parts) and not f.name.endswith(('.blend1','.pyc')) and f.name!='package-audit.json' and (not f.name.startswith('.env') or f.name=='.env.example') and not f.name.endswith('.local.env')]
         manifest={str(f.relative_to(ROOT)):digest(f) for f in files}
-        with zipfile.ZipFile(out/'Deskfront-source-0.5.0.zip','w',zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(out/'Deskfront-source-0.6.0.zip','w',zipfile.ZIP_DEFLATED) as z:
             for f in files:z.write(f,'deskfront-jevlab/'+str(f.relative_to(ROOT)))
-        with zipfile.ZipFile(out/'Deskfront-playable-web-0.5.0.zip','w',zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(out/'Deskfront-playable-web-0.6.0.zip','w',zipfile.ZIP_DEFLATED) as z:
             for folder in ['build/web','dashboard','tools','data']:
                 for f in (ROOT/folder).rglob('*'):
                     if f.is_file() and '__pycache__' not in f.parts:z.write(f,str(f.relative_to(ROOT)))
-            for n in ['README.md','LICENSE','THIRD_PARTY.md','启动桌面前线.command']:z.write(ROOT/n,n)
+            for n in ['README.md','LICENSE','THIRD_PARTY.md','.env.example','启动桌面前线.command']:z.write(ROOT/n,n)
             for f in (ROOT/'docs/licenses').glob('*'):z.write(f,str(f.relative_to(ROOT)))
         (out/'source-hashes.json').write_text(json.dumps(manifest,indent=2))
         mac=ROOT/'build/macos/Deskfront.zip'
         if mac.exists():
-            packaged=out/'Deskfront-macos-0.5.0.zip'
+            packaged=out/'Deskfront-macos-0.6.0.zip'
             shutil.copy2(mac,packaged)
             with zipfile.ZipFile(packaged,'a',zipfile.ZIP_DEFLATED) as z:
                 for f in (ROOT/'docs/licenses').glob('*'):z.write(f,str(f.relative_to(ROOT)))

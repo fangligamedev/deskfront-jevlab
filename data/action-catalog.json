@@ -1,6 +1,6 @@
 {
   "schema": "deskfront.action-catalog.v1",
-  "game_version": "0.5.0",
+  "game_version": "0.6.0",
   "coordinates": "meters [x,z]; +Y up",
   "authority": "Godot",
   "commands": {
@@ -121,6 +121,26 @@
         "infantry_required",
         "action_busy"
       ]
+    },
+    "man_at_gun": {
+      "description": "独立炮手接管己方可达反坦克炮，牵引、部署、自动反装甲；受威胁自动弃炮",
+      "unit_ids": "exactly one infantry",
+      "optional": [
+        "gun_id"
+      ]
+    },
+    "leave_gun": {
+      "description": "放弃当前火炮",
+      "unit_ids": "exactly one crew member"
+    },
+    "garrison": {
+      "description": "蓝方沿真实入口/楼梯进入已有两层小楼，抵达窗口守备",
+      "unit_ids": "exactly one blue infantry",
+      "floor": "1 or 2, default 2"
+    },
+    "leave_building": {
+      "description": "沿来路撤离建筑，不能直接跳楼",
+      "unit_ids": "exactly one garrison member"
     }
   },
   "unit_kinds": {
@@ -532,5 +552,54 @@
     "cover_hit_geometry": "oriented box matching map collider",
     "destruction": "whole authored cover objects become rubble, not arbitrary mesh fracture",
     "jev_adapter": "generic HTTP; vendor SDK not integrated"
+  },
+  "control_modes": [
+    "game_ai",
+    "lm",
+    "agent",
+    "player"
+  ],
+  "lm": {
+    "per_unit": true,
+    "intents": [
+      "survive",
+      "support",
+      "advance",
+      "flank",
+      "engage",
+      "withdraw",
+      "capture",
+      "observe"
+    ],
+    "phases": [
+      "thinking",
+      "submitted",
+      "executing",
+      "waiting",
+      "rejected",
+      "stale",
+      "fallback",
+      "inactive",
+      "dead"
+    ],
+    "local_only_action": "wait",
+    "ownership": "one living unit; matching faction, run, tick and control epoch"
+  },
+  "equipment_states": {
+    "field_gun": [
+      "parked",
+      "approaching",
+      "towing",
+      "deploying",
+      "ready",
+      "abandoned",
+      "destroyed"
+    ],
+    "building": [
+      "approaching",
+      "stationed",
+      "exiting",
+      "falling"
+    ]
   }
 }

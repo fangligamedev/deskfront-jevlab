@@ -1,0 +1,361 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "map 0: nine upgraded soldiers"
+    },
+    {
+      "passed": true,
+      "test": "map 0: new typing human"
+    },
+    {
+      "passed": true,
+      "test": "map 0: weapon scale valid before first tick"
+    },
+    {
+      "passed": true,
+      "test": "0/green-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/green-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "0/green-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/green-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "0/green-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/green-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "0/blue-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/blue-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "0/blue-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/blue-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "0/blue-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/blue-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "0/red-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/red-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "0/red-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/red-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "0/red-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "0/red-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "map 0: T2 turret/muzzle adapted"
+    },
+    {
+      "passed": true,
+      "test": "map 0: T2 muzzle matches -Z forward"
+    },
+    {
+      "passed": true,
+      "test": "map 0: rear tank spawn fits navigation"
+    },
+    {
+      "passed": true,
+      "test": "authoritative movement comes from root motion"
+    },
+    {
+      "passed": true,
+      "test": "integrated finite cover step travels 33 mm"
+    },
+    {
+      "passed": true,
+      "test": "integrated cover contact slip below 0.5 mm"
+    },
+    {
+      "passed": true,
+      "test": "cover step completes before stance change"
+    },
+    {
+      "passed": true,
+      "test": "pistol model and gameplay loadout available"
+    },
+    {
+      "passed": true,
+      "test": "rocket mesh follows hand controller"
+    },
+    {
+      "passed": true,
+      "test": "grenade throw accepted in range"
+    },
+    {
+      "passed": true,
+      "test": "grenade waits for release frame"
+    },
+    {
+      "passed": true,
+      "test": "grenade releases once and consumes inventory"
+    },
+    {
+      "passed": true,
+      "test": "grenade impact uses authoritative damage"
+    },
+    {
+      "passed": true,
+      "test": "new flipbook smoke/explosion materials rendered"
+    },
+    {
+      "passed": true,
+      "test": "death switches imported skin to 18-body ragdoll"
+    },
+    {
+      "passed": true,
+      "test": "pause freezes authoritative root motion"
+    },
+    {
+      "passed": true,
+      "test": "destruction updates navigation and physical cover together"
+    },
+    {
+      "passed": true,
+      "test": "map 1: nine upgraded soldiers"
+    },
+    {
+      "passed": true,
+      "test": "map 1: new typing human"
+    },
+    {
+      "passed": true,
+      "test": "map 1: weapon scale valid before first tick"
+    },
+    {
+      "passed": true,
+      "test": "1/green-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/green-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "1/green-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/green-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "1/green-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/green-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "1/blue-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/blue-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "1/blue-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/blue-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "1/blue-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/blue-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "1/red-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/red-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "1/red-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/red-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "1/red-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "1/red-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "map 1: T2 turret/muzzle adapted"
+    },
+    {
+      "passed": true,
+      "test": "map 1: T2 muzzle matches -Z forward"
+    },
+    {
+      "passed": true,
+      "test": "map 1: rear tank spawn fits navigation"
+    },
+    {
+      "passed": true,
+      "test": "river is blocked"
+    },
+    {
+      "passed": true,
+      "test": "both bridges are walkable"
+    },
+    {
+      "passed": true,
+      "test": "bridge has matching foot elevation"
+    },
+    {
+      "passed": true,
+      "test": "map 2: nine upgraded soldiers"
+    },
+    {
+      "passed": true,
+      "test": "map 2: new typing human"
+    },
+    {
+      "passed": true,
+      "test": "map 2: weapon scale valid before first tick"
+    },
+    {
+      "passed": true,
+      "test": "2/green-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/green-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "2/green-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/green-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "2/green-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/green-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "2/blue-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/blue-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "2/blue-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/blue-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "2/blue-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/blue-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "2/red-1 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/red-1 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "2/red-2 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/red-2 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "2/red-3 spawn walkable"
+    },
+    {
+      "passed": true,
+      "test": "2/red-3 objective reachable"
+    },
+    {
+      "passed": true,
+      "test": "map 2: T2 turret/muzzle adapted"
+    },
+    {
+      "passed": true,
+      "test": "map 2: T2 muzzle matches -Z forward"
+    },
+    {
+      "passed": true,
+      "test": "map 2: rear tank spawn fits navigation"
+    }
+  ],
+  "passed": true
+}

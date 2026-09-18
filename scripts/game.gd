@@ -8,8 +8,12 @@ const Bridge = preload("res://scripts/bridge.gd")
 var config: Dictionary
 var field
 var units: Array=[]
+var at_guns:Array=[]
+var building
+
 var colors: Dictionary={}
 var control: Dictionary={"green":"game_ai","blue":"game_ai","red":"game_ai"}
+var control_epochs: Dictionary={"green":0,"blue":0,"red":0}
 var scores: Dictionary={"green":0.0,"blue":0.0,"red":0.0}
 var decisions: Dictionary={}
 var events: Array=[]
@@ -91,6 +95,8 @@ func _ready() -> void:
 		for a in worker_anim.get_animation_list():
 			if "typing" in a:worker_anim.get_animation(a).loop_mode=Animation.LOOP_LINEAR;worker_anim.play(a);worker_anim.speed_scale=.6
 	field=Field.new();add_child(field);field.setup(config,arena)
+	if not use_legacy_fixture and map_data.has("building"):
+		building=preload("res://scripts/tactical_building.gd").new();add_child(building);building.setup(map_data.building);building.connect_game(self)
 	fx=CombatFX.new();add_child(fx);fx.setup(self)
 	get_viewport().mouse_entered.connect(func():pointer_inside=true)
 	get_viewport().mouse_exited.connect(func():pointer_inside=false;panning=false;selecting=false;if_box_hide())
@@ -98,6 +104,9 @@ func _ready() -> void:
 	target.material_override=field.mat(Color(.65,.49,.21),.4);add_child(target);target.position=Vector3(objective.x,field.height+.003,objective.y);target.visible=use_legacy_fixture
 	for f in config.factions:
 		for i in range(3):spawn_unit(f.id+"-"+str(i+1),f.id,Vector2(f.spawn[0]+(i-1)*.064,f.spawn[1]))
+	if not use_legacy_fixture:
+		for spec in map_data.get("at_guns",[]):
+			var gun=preload("res://scripts/field_gun.gd").new();add_child(gun);gun.setup(self,spec);at_guns.append(gun)
 	tactics_ai=Tactics.new();add_child(tactics_ai);tactics_ai.setup(self)
 	camera=Camera3D.new();add_child(camera);camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.near=.02;camera.far=30;camera.current=true
 	set_camera("office",true);make_hud()
@@ -136,6 +145,7 @@ func find_target(u, requested: String=""):
 	var best_score: float=-INF
 	for enemy in units:
 		if enemy.faction==u.faction or enemy.hp<=0:continue
+		if enemy.tank and u.weapon not in ["rocket","cannon"]:continue
 		var d: float=u.pos().distance_to(enemy.pos())
 		if d<distance and u.can_engage(enemy):
 			if enemy.id==requested:return enemy
@@ -152,6 +162,8 @@ func _physics_process(delta: float) -> void:
 	if paused or winner!="":return
 	var dt: float=delta*speed
 	elapsed+=dt
+	for gun in at_guns:gun.tick(dt)
+	if building:building.tick(dt)
 	field.simulation_time=elapsed
 	if worker_anim:worker_anim.speed_scale=.6*speed
 	fx.physics_tick(dt)
@@ -277,13 +289,15 @@ func selected_ids() -> Array:
 
 func command(c: Dictionary) -> Dictionary:
 	var action: String=str(c.get("action",""));var source: String=str(c.get("source","console"));var team: String=str(c.get("faction",selected_faction))
-	var rejected: String="";var tactics: Array=["move","capture","flank","cover","hold","retreat","attack","grenade","posture"]
+	var rejected: String="";var tactics: Array=["move","capture","flank","cover","hold","retreat","attack","grenade","posture","man_at_gun","leave_gun","garrison","leave_building"]
 	if not control.has(team):rejected="unknown_faction"
-	elif source=="agent" and (not tactics.has(action) or control[team]!="agent"):rejected="authority_denied"
-	elif source=="agent" and str(c.get("run_id",""))!=run_id:rejected="stale_run"
-	elif source=="agent" and (not c.has("seen_tick") or abs(tick_id-int(c.seen_tick))>300):rejected="stale_observation"
+	elif source in ["agent","lm"] and (not tactics.has(action) or control[team]!=source):rejected="authority_denied"
+	elif source in ["agent","lm"] and str(c.get("run_id",""))!=run_id:rejected="stale_run"
+	elif source in ["agent","lm"] and (not c.has("seen_tick") or abs(tick_id-int(c.seen_tick))>300):rejected="stale_observation"
 	if rejected!="":return ack(c,false,rejected)
+	if source=="lm" and int(c.get("control_epoch",-1))!=control_epochs[team]:return ack(c,false,"stale_control_epoch")
 	var ids: Array=c.get("unit_ids",[])
+	if source=="lm" and ids.size()!=1:return ack(c,false,"lm_single_unit_required")
 	for unit_id in ids:
 		var found: bool=false
 		for u in units:
@@ -298,6 +312,48 @@ func command(c: Dictionary) -> Dictionary:
 		if not is_finite(dest.x) or not is_finite(dest.y) or dest.x<config.bounds[0] or dest.x>config.bounds[2] or dest.y<config.bounds[1] or dest.y>config.bounds[3]:return ack(c,false,"position_out_of_bounds")
 	if tactics.has(action):
 		if winner!="":return ack(c,false,"match_finished")
+		if source=="lm":
+			var member=living(team).filter(func(u):return ids.has(u.id))[0]
+			if elapsed<member.safety_until and (action in ["move","capture","flank","attack","grenade"] or c.get("posture","auto") in ["stand","crouch"]):return ack(c,false,"survival_override")
+			if action in ["move","capture","flank","attack"] and (member.grenade_time>=0 or (member.actor and member.actor.stepping)):return ack(c,false,"action_busy")
+			if c.has("posture") and action!="posture":
+				if member.tank or c.posture not in ["auto","stand","crouch","prone"]:return ack(c,false,"invalid_posture")
+				if member.grenade_time>=0 or member.actor.stepping:return ack(c,false,"action_busy")
+
+		if action in ["man_at_gun","leave_gun","garrison","leave_building"]:
+			if ids.size()!=1:return ack(c,false,"single_crew_member_required")
+			var member=living(team).filter(func(u):return ids.has(u.id))[0]
+			if member.tank or member.grenade_time>=0 or member.actor.stepping:return ack(c,false,"action_busy")
+			if action=="man_at_gun":
+				var claimed=false
+				for gun in at_guns:
+					if gun.faction==team and (not c.has("gun_id") or c.gun_id==gun.id):
+						if gun.claim(member):claimed=true;break
+				if not claimed:return ack(c,false,"no_safe_gun_access")
+			elif action=="leave_gun":
+				if member.gun_id=="":return ack(c,false,"not_gun_crew")
+				for gun in at_guns:
+					if gun.crew_id==member.id:gun.release("主动弃炮")
+			elif action=="garrison":
+				var floor_number=int(c.get("floor",2))
+				if floor_number not in [1,2] or not building or not building.enter(member,floor_number):return ack(c,false,"building_unavailable")
+			elif action=="leave_building":
+				if not building or member.garrison_phase=="":return ack(c,false,"not_garrisoned")
+				building.leave(member)
+			# Remove only this participant from the shared formation; preserve its new route.
+			if tactics_ai.formations.has(team):tactics_ai.formations[team].ids.erase(member.id)
+			if source not in ["agent","lm"]:set_control_mode(team,"player")
+			return ack(c,true,"applied")
+		var busy_members=living(team).filter(func(u):return ids.is_empty() or ids.has(u.id))
+		if busy_members.any(func(u):return u.gun_id!="" or u.garrison_phase!=""):
+			if action in ["retreat","cover"]:
+				for member in busy_members:
+					for gun in at_guns:
+						if gun.crew_id==member.id:gun.release("撤离设施")
+					if building and member.garrison_phase!="":building.leave(member)
+				return ack(c,true,"evacuating")
+			if action=="hold":return ack(c,true,"maintaining_station")
+			return ack(c,false,"leave_equipment_first")
 		if action=="grenade":
 			var members=living(team).filter(func(u):return ids.is_empty() or ids.has(u.id))
 			var requests: Array=[]
@@ -310,8 +366,8 @@ func command(c: Dictionary) -> Dictionary:
 				if not u.can_throw(target):return ack(c,false,"grenade_unavailable")
 				requests.append({"unit":u,"target":target})
 			if requests.is_empty():return ack(c,false,"no_living_units")
-			tactics_ai.cancel(team)
-			if source!="agent":control[team]="player"
+			tactics_ai.cancel_selected(team,ids)
+			if source not in ["agent","lm"]:set_control_mode(team,"player")
 			for request in requests:request.unit.request_grenade(request.target)
 			return ack(c,true,"applied")
 		if action=="posture":
@@ -320,7 +376,7 @@ func command(c: Dictionary) -> Dictionary:
 			var members=living(team).filter(func(u):return ids.is_empty() or ids.has(u.id))
 			if members.is_empty() or members.any(func(u):return u.tank):return ack(c,false,"infantry_required")
 			if members.any(func(u):return u.grenade_time>=0 or u.actor.stepping):return ack(c,false,"action_busy")
-			if source!="agent":control[team]="player"
+			if source not in ["agent","lm"]:set_control_mode(team,"player")
 			for u in members:u.posture_order=value;u.posture_since=-10;u.update_posture(not u.route.is_empty())
 			return ack(c,true,"applied")
 		if action=="attack":
@@ -328,8 +384,9 @@ func command(c: Dictionary) -> Dictionary:
 			for u in units:
 				if u.id==str(c.get("target_id","")) and u.faction!=team and u.hp>0:target=u
 			if target==null:return ack(c,false,"invalid_target")
-			tactics_ai.cancel(team)
-			if source!="agent":control[team]="player"
+			if target.tank and living(team).any(func(u):return (ids.is_empty() or ids.has(u.id)) and u.weapon not in ["rocket","cannon"]):return ack(c,false,"anti_armor_required")
+			tactics_ai.cancel_selected(team,ids)
+			if source not in ["agent","lm"]:set_control_mode(team,"player")
 			for u in living(team):
 				if ids.is_empty() or ids.has(u.id):
 					u.target_id=target.id;u.order_mode="attack"
@@ -338,20 +395,21 @@ func command(c: Dictionary) -> Dictionary:
 			fx.ring(target.pos(),Color(1,.30,.16),.065)
 			command_feedback="ATTACK / "+target.id
 		else:
-			tactics_ai.cancel(team)
-			if source!="agent":control[team]="player"
+			tactics_ai.cancel_selected(team,ids)
+			if source not in ["agent","lm"]:set_control_mode(team,"player")
 			issue_tactic(team,action,dest,ids)
 			for u in living(team):
 				if ids.is_empty() or ids.has(u.id):fx.ring(u.goal,Color(.42,.94,.66),.04)
 			command_feedback=action.to_upper()+" / "+str(ids.size() if not ids.is_empty() else living(team).size())+" UNITS"
 		feedback_until=Time.get_ticks_msec()/1000.0+2.0
 		fx.sound("order",Vector3(dest.x,field.height,dest.y),-3)
-		decisions[team]={"action":action,"reason":"Agent 指令" if source=="agent" else "玩家/策划指令","source":source,"tick":tick_id,"candidates":[]}
+		decisions[team]={"action":action,"reason":str(c.get("reason","LM 单兵指令")) if source=="lm" else ("Agent 指令" if source=="agent" else "玩家/策划指令"),"source":source,"tick":tick_id,"candidates":[]}
 	elif action=="control":
 		var mode: String=str(c.get("mode",""))
-		if not mode in ["game_ai","player","agent"]:return ack(c,false,"invalid_mode")
+		if not mode in ["game_ai","player","agent","lm"]:return ack(c,false,"invalid_mode")
 		tactics_ai.cancel(team)
-		control[team]=mode;selected_faction=team
+		set_control_mode(team,mode);selected_faction=team
+		for u in living(team):u.posture_order="auto"
 		for u in units:u.selected=u.faction==team and mode=="player"
 		add_event(team+" 控制权 → "+mode)
 	elif action=="pause":paused=bool(c.get("value",not paused))
@@ -382,7 +440,16 @@ func command(c: Dictionary) -> Dictionary:
 	else:return ack(c,false,"unknown_action")
 	return ack(c,true,"applied")
 
+func set_control_mode(team: String, mode: String) -> void:
+	if control[team]!=mode:control_epochs[team]+=1
+	control[team]=mode
+
 func ack(c: Dictionary, ok: bool, message: String) -> Dictionary:
+	if ok and c.get("source","")=="lm":
+		for u in living(str(c.get("faction",""))):
+			if c.get("unit_ids",[]).has(u.id):
+				u.lm_intent=str(c.get("intent","observe"));u.lm_reason=str(c.get("reason","")).left(80)
+				if c.has("posture") and c.get("action","")!="posture":u.posture_order=c.posture;u.posture_since=-10;u.update_posture(not u.route.is_empty())
 	last_action={"id":c.get("id","local"),"accepted":ok,"message":message,"tick":tick_id,"action":c.get("action","")};return last_action.duplicate()
 
 func snapshot() -> Dictionary:
@@ -391,7 +458,7 @@ func snapshot() -> Dictionary:
 		var state: Dictionary=u.snapshot()
 		var pixel: Vector2=camera.unproject_position(u.position+Vector3(0,.05,0))
 		state["screen_position"]=[pixel.x,pixel.y];unit_states.append(state)
-	return {"schema_version":1,"version":"0.5.0","map":map_data.get("id","legacy"),"map_index":map_index,"maps":["三线争夺场","河谷双桥","前哨阵地"],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"units":unit_states,"factions":config.factions,"control":control,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":config.rules.score_to_win},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
+	return {"schema_version":1,"version":"0.6.0","map":map_data.get("id","legacy"),"map_index":map_index,"maps":["三线争夺场","河谷双桥","前哨阵地"],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"at_guns":at_guns.map(func(g):return g.snapshot()),"building":building.snapshot() if building else {},"units":unit_states,"factions":config.factions,"control":control,"control_epochs":control_epochs,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":config.rules.score_to_win},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
 
 func screen_point(p: Vector2) -> Vector2:
 	var origin: Vector3=camera.project_ray_origin(p);var ray: Vector3=camera.project_ray_normal(p)
@@ -447,7 +514,7 @@ func select_at(screen: Vector2, additive: bool) -> void:
 		if d<distance:nearest_unit=u;distance=d
 	if nearest_unit:
 		if nearest_unit.faction!=selected_faction and not selected_ids().is_empty():ground_order(nearest_unit.pos());return
-		selected_faction=nearest_unit.faction;control[selected_faction]="player"
+		selected_faction=nearest_unit.faction;set_control_mode(selected_faction,"player")
 		for u in units:u.selected=u==nearest_unit or (additive and u.selected and u.faction==selected_faction)
 	elif not additive:ground_order(screen_point(screen))
 
@@ -458,7 +525,7 @@ func finish_selection(additive: bool) -> void:
 	for u in living(selected_faction):
 		if rect.has_point(camera.unproject_position(u.position+Vector3(0,.05,0))):found.append(u)
 	if found.is_empty():return
-	control[selected_faction]="player"
+	set_control_mode(selected_faction,"player")
 	for u in units:u.selected=found.has(u) or (additive and u.selected and u.faction==selected_faction)
 
 func _input(event: InputEvent) -> void:

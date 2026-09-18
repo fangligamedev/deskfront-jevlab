@@ -64,6 +64,8 @@
       }
     },
     {
+      "additional_sources": [],
+      "author": "Q009 / Deskfront derivative",
       "created_at": "2026-09-18T15:05:11.240119+00:00",
       "kind": "audio",
       "license": "CC-BY-SA-3.0",
@@ -109,9 +111,6 @@
         "source/latest/q009/q009/rifle3.ogg",
         "source/latest/q009/q009/rifle2.ogg"
       ],
-      "source_url": "https://opengameart.org/content/q009s-weapon-sounds",
-      "additional_sources": [],
-      "author": "Q009 / Deskfront derivative",
       "source_hashes": {
         "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
         "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
@@ -145,7 +144,8 @@
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
-      }
+      },
+      "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
     {
       "created_at": "2026-09-18T11:09:56.332971+00:00",
@@ -190,6 +190,8 @@
       }
     },
     {
+      "additional_sources": [],
+      "author": "Q009 / Deskfront derivative",
       "created_at": "2026-09-18T15:05:11.190116+00:00",
       "kind": "audio",
       "license": "CC-BY-SA-3.0",
@@ -235,9 +237,6 @@
         "source/latest/q009/q009/rifle3.ogg",
         "source/latest/q009/q009/rifle2.ogg"
       ],
-      "source_url": "https://opengameart.org/content/q009s-weapon-sounds",
-      "additional_sources": [],
-      "author": "Q009 / Deskfront derivative",
       "source_hashes": {
         "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
         "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
@@ -271,9 +270,12 @@
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
-      }
+      },
+      "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
     {
+      "additional_sources": [],
+      "author": "Q009 / Deskfront derivative",
       "created_at": "2026-09-18T15:05:11.440385+00:00",
       "kind": "audio",
       "license": "CC-BY-SA-3.0",
@@ -319,9 +321,6 @@
         "source/latest/q009/q009/rifle3.ogg",
         "source/latest/q009/q009/rifle2.ogg"
       ],
-      "source_url": "https://opengameart.org/content/q009s-weapon-sounds",
-      "additional_sources": [],
-      "author": "Q009 / Deskfront derivative",
       "source_hashes": {
         "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
         "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
@@ -355,9 +354,12 @@
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
-      }
+      },
+      "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
     {
+      "additional_sources": [],
+      "author": "Q009 / Deskfront derivative",
       "created_at": "2026-09-18T15:05:11.290036+00:00",
       "kind": "audio",
       "license": "CC-BY-SA-3.0",
@@ -403,9 +405,6 @@
         "source/latest/q009/q009/rifle3.ogg",
         "source/latest/q009/q009/rifle2.ogg"
       ],
-      "source_url": "https://opengameart.org/content/q009s-weapon-sounds",
-      "additional_sources": [],
-      "author": "Q009 / Deskfront derivative",
       "source_hashes": {
         "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
         "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
@@ -439,7 +438,8 @@
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
-      }
+      },
+      "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
     {
       "created_at": "2026-09-18T11:09:56.155914+00:00",
@@ -463,6 +463,8 @@
       }
     },
     {
+      "additional_sources": [],
+      "author": "Q009 / Deskfront derivative",
       "created_at": "2026-09-18T15:05:11.140370+00:00",
       "kind": "audio",
       "license": "CC-BY-SA-3.0",
@@ -508,9 +510,6 @@
         "source/latest/q009/q009/rifle3.ogg",
         "source/latest/q009/q009/rifle2.ogg"
       ],
-      "source_url": "https://opengameart.org/content/q009s-weapon-sounds",
-      "additional_sources": [],
-      "author": "Q009 / Deskfront derivative",
       "source_hashes": {
         "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
         "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
@@ -544,9 +543,12 @@
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
-      }
+      },
+      "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
     {
+      "additional_sources": [],
+      "author": "Q009 / Deskfront derivative",
       "created_at": "2026-09-18T15:05:11.490268+00:00",
       "kind": "audio",
       "license": "CC-BY-SA-3.0",
@@ -592,9 +594,6 @@
         "source/latest/q009/q009/rifle3.ogg",
         "source/latest/q009/q009/rifle2.ogg"
       ],
-      "source_url": "https://opengameart.org/content/q009s-weapon-sounds",
-      "additional_sources": [],
-      "author": "Q009 / Deskfront derivative",
       "source_hashes": {
         "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
         "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
@@ -628,7 +627,8 @@
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
-      }
+      },
+      "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
     {
       "created_at": "2026-09-18T11:09:56.093603+00:00",
@@ -652,6 +652,8 @@
       }
     },
     {
+      "additional_sources": [],
+      "author": "Q009 / Deskfront derivative",
       "created_at": "2026-09-18T15:05:11.339376+00:00",
       "kind": "audio",
       "license": "CC-BY-SA-3.0",
@@ -697,9 +699,6 @@
         "source/latest/q009/q009/rifle3.ogg",
         "source/latest/q009/q009/rifle2.ogg"
       ],
-      "source_url": "https://opengameart.org/content/q009s-weapon-sounds",
-      "additional_sources": [],
-      "author": "Q009 / Deskfront derivative",
       "source_hashes": {
         "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
         "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
@@ -733,9 +732,12 @@
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
-      }
+      },
+      "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
     {
+      "additional_sources": [],
+      "author": "Q009 / Deskfront derivative",
       "created_at": "2026-09-18T15:05:11.390302+00:00",
       "kind": "audio",
       "license": "CC-BY-SA-3.0",
@@ -781,9 +783,6 @@
         "source/latest/q009/q009/rifle3.ogg",
         "source/latest/q009/q009/rifle2.ogg"
       ],
-      "source_url": "https://opengameart.org/content/q009s-weapon-sounds",
-      "additional_sources": [],
-      "author": "Q009 / Deskfront derivative",
       "source_hashes": {
         "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
         "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
@@ -817,9 +816,12 @@
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
-      }
+      },
+      "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
     {
+      "additional_sources": [],
+      "author": "Adobe / Google Noto; DeskfrontUI subset",
       "created_at": "2026-09-18T15:05:11.592377+00:00",
       "kind": "texture",
       "license": "OFL-1.1",
@@ -836,16 +838,42 @@
         "source/latest/fonts/OFL.txt",
         "source/latest/tools/build_ui_font.py"
       ],
-      "source_url": "https://github.com/notofonts/noto-cjk",
-      "additional_sources": [],
-      "author": "Adobe / Google Noto; DeskfrontUI subset",
       "source_hashes": {
         "source/latest/fonts/NotoSansCJKsc-Regular.otf": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
         "source/latest/fonts/OFL.txt": "af55b908a0ccf969b7bdd0e6cac6f4866a7ed0d1aeb9c7b29516ca0d24422981",
         "source/latest/tools/build_ui_font.py": "d1b2195c29f69b82345c2ad6fb20ca784386ff0c22000fde98c5c934520819b7"
+      },
+      "source_url": "https://github.com/notofonts/noto-cjk"
+    },
+    {
+      "created_at": "2026-09-18T18:07:22.065229+00:00",
+      "kind": "model",
+      "license": "CC0-1.0",
+      "model": null,
+      "origin": "original",
+      "path": "assets/models/antitank-gun.glb",
+      "prompt": "已有双轮反坦克炮；0.62 实例比例，保留可编辑源与接管牵引用途",
+      "provider": "local Blender original",
+      "release_status": "allowed",
+      "sha256": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+      "size_bytes": 450020,
+      "source_files": [
+        "source/latest/antitank-gun.blend",
+        "source/latest/antitank-gun.glb",
+        "source/latest/tools/build_antitank_gun.py"
+      ],
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original",
+      "source_hashes": {
+        "source/latest/antitank-gun.blend": "43dc6072a52fc0468f5a3d733895570a6c2aed937d42f60a6a289114017cc745",
+        "source/latest/antitank-gun.glb": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+        "source/latest/tools/build_antitank_gun.py": "f0374cbb777fa20c491e475652345e99aaa5ae08ea9892a706d07dc6ca4ada99"
       }
     },
     {
+      "additional_sources": [],
+      "author": "Pichuliru",
       "created_at": "2026-09-18T15:05:10.828024+00:00",
       "kind": "model",
       "license": "CC0-1.0",
@@ -860,12 +888,10 @@
       "source_files": [
         "source/latest/grenades-original.blend"
       ],
-      "source_url": "https://opengameart.org/content/cc0-flat-grenades",
-      "additional_sources": [],
-      "author": "Pichuliru",
       "source_hashes": {
         "source/latest/grenades-original.blend": "ab7fdeb0232ae1becf1f580e9151aaca9fbdfc90f57aa088ec5ef340ae44f069"
-      }
+      },
+      "source_url": "https://opengameart.org/content/cc0-flat-grenades"
     },
     {
       "created_at": "2026-09-18T12:28:48.809148+00:00",
@@ -931,6 +957,8 @@
       }
     },
     {
+      "additional_sources": [],
+      "author": "Deskfront original",
       "created_at": "2026-09-18T15:05:11.541270+00:00",
       "kind": "model",
       "license": "CC0-1.0",
@@ -946,15 +974,17 @@
         "source/latest/sandbox-generated/office-sandbox-editable.blend",
         "source/latest/tools/build_sandbox_office.py"
       ],
-      "source_url": null,
-      "additional_sources": [],
-      "author": "Deskfront original",
       "source_hashes": {
         "source/latest/sandbox-generated/office-sandbox-editable.blend": "a82252bcb4a82bb9a412610f0fd597a42e4eae6f20af24a506a902229f343494",
         "source/latest/tools/build_sandbox_office.py": "b17b74b26a39a016908efeb79b49e16941d248aec7ff64b30cb4a7a70c6aa712"
-      }
+      },
+      "source_url": null
     },
     {
+      "additional_sources": [
+        "https://quaternius.com/packs/ultimatemodularcharacters.html"
+      ],
+      "author": "Quaternius / Deskfront seated adaptation",
       "created_at": "2026-09-18T15:05:11.642597+00:00",
       "kind": "character",
       "license": "CC0-1.0",
@@ -971,16 +1001,12 @@
         "source/latest/office-worker/office-worker.blend",
         "source/latest/tools/build_office_worker.py"
       ],
-      "source_url": "https://poly.pizza/m/kZ3DmIoGip",
-      "additional_sources": [
-        "https://quaternius.com/packs/ultimatemodularcharacters.html"
-      ],
-      "author": "Quaternius / Deskfront seated adaptation",
       "source_hashes": {
         "source/latest/office-worker/casual-original.glb": "fea7e71271203e7073f1a073fa1208de7402df276f87f80e149bf7589b5d46b4",
         "source/latest/office-worker/office-worker.blend": "989f6b0b92b89d810f79df4555a9c84350ef26a64a170cd13552ea7bef24abb7",
         "source/latest/tools/build_office_worker.py": "b0a7d68d8e227cf1ac545ea79f40c6e2f4f3a96afb699dac2e587ce1c9a87f62"
-      }
+      },
+      "source_url": "https://poly.pizza/m/kZ3DmIoGip"
     },
     {
       "created_at": "2026-09-18T12:28:48.806532+00:00",
@@ -1004,6 +1030,8 @@
       }
     },
     {
+      "additional_sources": [],
+      "author": "Pichuliru",
       "created_at": "2026-09-18T15:05:10.936573+00:00",
       "kind": "model",
       "license": "CC0-1.0",
@@ -1018,14 +1046,14 @@
       "source_files": [
         "source/latest/guns-original.blend"
       ],
-      "source_url": "https://opengameart.org/content/cc0-flat-guns-west",
-      "additional_sources": [],
-      "author": "Pichuliru",
       "source_hashes": {
         "source/latest/guns-original.blend": "5f1d320b27085871e14b5c98446b2c88e616d29926d0e7eb8a9c0c50596d70f3"
-      }
+      },
+      "source_url": "https://opengameart.org/content/cc0-flat-guns-west"
     },
     {
+      "additional_sources": [],
+      "author": "Pichuliru",
       "created_at": "2026-09-18T15:05:10.779107+00:00",
       "kind": "model",
       "license": "CC0-1.0",
@@ -1040,14 +1068,14 @@
       "source_files": [
         "source/latest/guns-original.blend"
       ],
-      "source_url": "https://opengameart.org/content/cc0-flat-guns-west",
-      "additional_sources": [],
-      "author": "Pichuliru",
       "source_hashes": {
         "source/latest/guns-original.blend": "5f1d320b27085871e14b5c98446b2c88e616d29926d0e7eb8a9c0c50596d70f3"
-      }
+      },
+      "source_url": "https://opengameart.org/content/cc0-flat-guns-west"
     },
     {
+      "additional_sources": [],
+      "author": "Deskfront original",
       "created_at": "2026-09-18T15:05:10.677323+00:00",
       "kind": "model",
       "license": "CC0-1.0",
@@ -1063,15 +1091,15 @@
         "source/latest/rocket-launcher.blend",
         "source/latest/tools/build_extras.py"
       ],
-      "source_url": null,
-      "additional_sources": [],
-      "author": "Deskfront original",
       "source_hashes": {
         "source/latest/rocket-launcher.blend": "a4203f2b75f74efd8ada4f334d488e2dfae027d8829b5da17f5776664dbf55b0",
         "source/latest/tools/build_extras.py": "67bbd1ecefb1890f57bf21c86f741c3427f07e74eb8b3404420baa79baa17eda"
-      }
+      },
+      "source_url": null
     },
     {
+      "additional_sources": [],
+      "author": "Deskfront original",
       "created_at": "2026-09-18T15:05:10.627517+00:00",
       "kind": "model",
       "license": "CC0-1.0",
@@ -1084,12 +1112,14 @@
       "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
       "size_bytes": 40072,
       "source_files": [],
-      "source_url": null,
-      "additional_sources": [],
-      "author": "Deskfront original",
-      "source_hashes": {}
+      "source_hashes": {},
+      "source_url": null
     },
     {
+      "additional_sources": [
+        "https://quaternius.com/packs/animatedtanks.html"
+      ],
+      "author": "Quaternius",
       "created_at": "2026-09-18T15:05:10.729040+00:00",
       "kind": "model",
       "license": "CC0-1.0",
@@ -1105,17 +1135,18 @@
         "source/latest/tank-original.blend",
         "source/latest/tank-original.glb"
       ],
-      "source_url": "https://poly.pizza/m/FA5daiyZQq",
-      "additional_sources": [
-        "https://quaternius.com/packs/animatedtanks.html"
-      ],
-      "author": "Quaternius",
       "source_hashes": {
         "source/latest/tank-original.blend": "75a7888b32c465a2b167d1d48af08572d950af4fbc6122c4492cd8bdc43e6668",
         "source/latest/tank-original.glb": "d46acaeb563f401bfb389bd7708342f97d0cd62f9b2c6dc88f8537be8c85ed80"
-      }
+      },
+      "source_url": "https://poly.pizza/m/FA5daiyZQq"
     },
     {
+      "additional_sources": [
+        "https://quaternius.com/packs/universalanimationlibrary.html",
+        "https://quaternius.com/animviewer.html"
+      ],
+      "author": "nisu + Quaternius / Deskfront retarget",
       "created_at": "2026-09-18T15:05:10.882463+00:00",
       "kind": "character",
       "license": "CC0-1.0",
@@ -1133,18 +1164,13 @@
         "source/latest/ual-author-preview.glb",
         "source/latest/tools/build_soldier.py"
       ],
-      "source_url": "https://opengameart.org/content/rigged-lowpoly-ww2-soldier",
-      "additional_sources": [
-        "https://quaternius.com/packs/universalanimationlibrary.html",
-        "https://quaternius.com/animviewer.html"
-      ],
-      "author": "nisu + Quaternius / Deskfront retarget",
       "source_hashes": {
         "source/latest/toy-soldier-retarget.blend": "6358cb8fd7a17272a1481b2d3878fe9f409b4182bc3655a3dbdb5f6fa6963fbc",
         "source/latest/soldier-original.fbx": "e5abab6089d66181f755d8878a7ee08c89a0d0358e527b379db86022626b22e0",
         "source/latest/ual-author-preview.glb": "beadbb31178e65db6d3819c571933ffea1444fda3cf89b52fe1ff157e44e5d05",
         "source/latest/tools/build_soldier.py": "d586bedad32bff3db970ccff13b50b6eaceb97cbc46a5fa9b7da696d71e72ff0"
-      }
+      },
+      "source_url": "https://opengameart.org/content/rigged-lowpoly-ww2-soldier"
     },
     {
       "created_at": "2026-09-18T12:28:48.811246+00:00",
@@ -1168,6 +1194,8 @@
       }
     },
     {
+      "additional_sources": [],
+      "author": "Unity VFX / Arnklit",
       "created_at": "2026-09-18T15:05:11.089879+00:00",
       "kind": "texture",
       "license": "CC0-1.0",
@@ -1182,14 +1210,14 @@
       "source_files": [
         "source/latest/fx-license.txt"
       ],
-      "source_url": "https://github.com/Arnklit/godot_particle_flipbook_smoothing",
-      "additional_sources": [],
-      "author": "Unity VFX / Arnklit",
       "source_hashes": {
         "source/latest/fx-license.txt": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
-      }
+      },
+      "source_url": "https://github.com/Arnklit/godot_particle_flipbook_smoothing"
     },
     {
+      "additional_sources": [],
+      "author": "Unity VFX / Arnklit",
       "created_at": "2026-09-18T15:05:11.038300+00:00",
       "kind": "texture",
       "license": "CC0-1.0",
@@ -1204,14 +1232,14 @@
       "source_files": [
         "source/latest/fx-license.txt"
       ],
-      "source_url": "https://github.com/Arnklit/godot_particle_flipbook_smoothing",
-      "additional_sources": [],
-      "author": "Unity VFX / Arnklit",
       "source_hashes": {
         "source/latest/fx-license.txt": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
-      }
+      },
+      "source_url": "https://github.com/Arnklit/godot_particle_flipbook_smoothing"
     },
     {
+      "additional_sources": [],
+      "author": "Deskfront original",
       "created_at": "2026-09-18T15:05:10.987777+00:00",
       "kind": "texture",
       "license": "MIT",
@@ -1226,12 +1254,10 @@
       "source_files": [
         "source/latest/fx-license.txt"
       ],
-      "source_url": null,
-      "additional_sources": [],
-      "author": "Deskfront original",
       "source_hashes": {
         "source/latest/fx-license.txt": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
-      }
+      },
+      "source_url": null
     }
   ],
   "schema": "godot-forge.asset-provenance-set.v1"

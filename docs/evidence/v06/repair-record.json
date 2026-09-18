@@ -1,0 +1,16 @@
+{
+  "failed_run": {
+    "index": 78,
+    "case": "crossfire",
+    "map": "crossroads",
+    "unsafe_cover_dwell_seconds": 12.5
+  },
+  "before_passed": 99,
+  "before_count": 100,
+  "cause": "优先关注坦克时覆盖了最近步兵威胁，掩体背面暴露未触发撤离。",
+  "repair": "先检查最近敌兵方向，再检查坦克方向；任一方向失去保护便撤离。",
+  "regressions": [
+    "tests/lm_contract.gd 双向掩体断言",
+    "100 个固定种子重新运行"
+  ]
+}

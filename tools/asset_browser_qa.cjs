@@ -12,7 +12,7 @@ const out=path.resolve(__dirname,'../output/integration');
  async function until(fn,timeout=25000){const start=Date.now();while(Date.now()-start<timeout){const s=await state();if(fn(s))return s;await page.waitForTimeout(150)}throw Error('Timeout '+fn)}
  async function command(c){const r=await page.request.post(base+'/api/command',{data:c});const q=await r.json();if(!r.ok())throw Error(JSON.stringify(q));for(let i=0;i<100;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){if(!a.accepted)throw Error(JSON.stringify(a));return a}await page.waitForTimeout(150)}throw Error('No engine ack')}
  try{
-  const prev=(await state()).run_id;await page.goto(base);let s=await until(s=>s.run_id!==prev&&s.version==='0.5.0');
+  const prev=(await state()).run_id;await page.goto(base);let s=await until(s=>s.run_id!==prev&&s.version==='0.6.0');
   check(s.units.length===9&&s.units.every(u=>u.bone_count===50),'Final Web export loads nine 50-bone soldiers');
   const start=s.worker_animation_time;s=await until(s=>s.worker_animation_time>start+.2);check(true,'New office worker typing advances in Web');
   for(const [index,id] of [[1,'river'],[2,'outpost'],[0,'crossroads']]){

@@ -875,5 +875,26 @@
       "source/latest/office-worker/office-worker.blend": "989f6b0b92b89d810f79df4555a9c84350ef26a64a170cd13552ea7bef24abb7",
       "source/latest/tools/build_office_worker.py": "b0a7d68d8e227cf1ac545ea79f40c6e2f4f3a96afb699dac2e587ce1c9a87f62"
     }
+  },
+  {
+    "path": "assets/models/antitank-gun.glb",
+    "author": "Deskfront original",
+    "license": "CC0-1.0",
+    "source_url": null,
+    "additional_sources": [],
+    "integrated_in_main_game": true,
+    "derivative_note": "Reuse prepared Blender gun unchanged; runtime scale 0.62, forward -Z; autonomous single-operator carriage and hand IK.",
+    "sha256": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+    "bytes": 450020,
+    "source_files": [
+      "source/latest/antitank-gun.blend",
+      "source/latest/antitank-gun.glb",
+      "source/latest/tools/build_antitank_gun.py"
+    ],
+    "source_hashes": {
+      "source/latest/antitank-gun.blend": "43dc6072a52fc0468f5a3d733895570a6c2aed937d42f60a6a289114017cc745",
+      "source/latest/antitank-gun.glb": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+      "source/latest/tools/build_antitank_gun.py": "f0374cbb777fa20c491e475652345e99aaa5ae08ea9892a706d07dc6ca4ada99"
+    }
   }
 ]

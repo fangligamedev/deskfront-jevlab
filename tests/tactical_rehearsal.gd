@@ -53,7 +53,9 @@ func run():
    g._physics_process(1.0/30);g.fx._process(1.0/30)
    if step%15==0:
     for u in g.living():
-     if not g.field.walkable(u.pos(),u.tank) and m.invalid_navigation.size()<20:m.invalid_navigation.append({"t":g.elapsed,"unit":u.id,"p":[u.pos().x,u.pos().y]})
+     var navigable:bool=g.field.walkable(u.pos(),u.tank)
+     if u.garrison_phase!="":navigable=u.position.y>=g.field.height-.01 and u.position.y<=g.building.floor_y+.015 and u.pos().x>.72 and u.pos().x<1.37 and u.pos().y>.8 and u.pos().y<1.87
+     if not navigable and m.invalid_navigation.size()<20:m.invalid_navigation.append({"t":g.elapsed,"unit":u.id,"p":[u.pos().x,u.pos().y]})
      if u.tank:continue
      m.alive_samples+=1
      if u.in_cover():m.cover_samples+=1

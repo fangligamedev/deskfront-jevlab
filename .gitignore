@@ -10,3 +10,8 @@ __pycache__/
 .forge/reports/
 .forge/sessions/
 .forge/releases/
+.env
+.env.*
+!.env.example
+.secrets/
+*.local.env

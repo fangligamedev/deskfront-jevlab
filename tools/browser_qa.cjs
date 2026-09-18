@@ -26,7 +26,7 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'output/playwright');
  function check(value,name){checks.push({test:name,passed:!!value});console.log((value?'PASS ':'FAIL ')+name);assert(value,name)}
  async function submit(c,agent=false){const response=await page.request.post(base+(agent?'/api/agent/command':'/api/command'),{data:c});const queued=await response.json();assert(response.ok(),JSON.stringify(queued));for(let i=0;i<70;i++){const result=await (await page.request.get(base+'/api/result/'+queued.id)).json();if('accepted'in result)return result;await page.waitForTimeout(150)}throw Error('Missing engine acknowledgement')}
  try{
-  const previousRun=(await state())?.run_id;const start=Date.now();await page.goto(base);await until(s=>s.run_id!==previousRun&&s.version==='0.5.0'&&s.units?.length===9);checks.push({test:'WebGL boots with nine units',passed:true,milliseconds:Date.now()-start});
+  const previousRun=(await state())?.run_id;const start=Date.now();await page.goto(base);await until(s=>s.run_id!==previousRun&&s.version==='0.6.0'&&s.units?.length===9);checks.push({test:'WebGL boots with nine units',passed:true,milliseconds:Date.now()-start});
   await page.getByRole('button',{name:'暂停',exact:true}).click();let s=await until(s=>s.paused);
   const frozen=s.time;await page.waitForTimeout(700);check((await state()).time===frozen,'Pause button freezes actual game');
   await page.getByRole('button',{name:'战术近景',exact:true}).click();await until(s=>s.camera==='battle');
@@ -40,9 +40,14 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'output/playwright');
   check(s.units.every(u=>u.tactical_role&&u.cqb_stance),'Tactical roles and CQB state are exposed to Agent and console');
   const frame=page.frameLocator('#game');const canvas=frame.locator('#canvas');await canvas.click({position:{x:300,y:260}});await page.keyboard.press('Digit2');s=await until(s=>s.control.blue==='player');
   check(s.selected_faction==='blue','Real keyboard 2 takes over blue squad');
-  await page.keyboard.press('KeyC');await until(s=>s.decisions.blue?.action==='cover');
+  await page.keyboard.press('KeyC');await until(s=>s.last_action?.action==='cover'&&s.last_action?.accepted);
   check(true,'Real keyboard C issues cover command');
   await page.getByRole('button',{name:'坦克增援',exact:true}).click();s=await until(s=>s.tank_spawned);check(s.units.filter(u=>u.kind==='tank').length===1,'Tank button adds exactly one tank');
+  // Blue may already be using the new building. C first evacuates it; movement
+  // input is tested only once this real staircase traversal has finished.
+  await submit({action:'speed',value:2});
+  await until(s=>s.units.filter(u=>u.faction==='blue'&&u.hp>0).every(u=>!u.building_phase),90000);
+  await submit({action:'speed',value:1});
   await page.getByRole('button',{name:'暂停',exact:true}).click();await until(s=>s.paused);
   await page.locator('.faction[data-team="red"] .faction-line').click();
   check((await page.locator('#squadDetail').innerText()).includes('队长'),'Console renders actual squad phase and covering members');

@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "exported_binary_headless_start": true,
+  "short_version": "0.6.0",
+  "signed": false,
+  "notarized": false,
+  "archive_sha256": "493cae8c08b2c9c198d8f9d9d7e7623f94bb778f17e12fdb28469dd82c74ca9c"
+}

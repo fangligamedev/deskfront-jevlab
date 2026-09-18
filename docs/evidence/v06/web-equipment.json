@@ -1,0 +1,2978 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "test": "Real UI orders all three blue soldiers up stairs to second floor",
+      "passed": true
+    },
+    {
+      "test": "Prepared building is at northeast tabletop position",
+      "passed": true
+    },
+    {
+      "test": "Real UI evacuation goes back down to tabletop",
+      "passed": true
+    },
+    {
+      "test": "Designer button assigns a real crew member who physically hauls the gun",
+      "passed": true
+    },
+    {
+      "test": "Designer button releases gun ownership",
+      "passed": true
+    },
+    {
+      "test": "No browser errors during building and field-gun interaction",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "state": {
+    "at_guns": [
+      {
+        "cooldown": 0,
+        "crew_id": "",
+        "destination": [
+          0.425691902637482,
+          2.91874718666077
+        ],
+        "distance_pushed": 0.318825196445687,
+        "faction": "green",
+        "hp": 180,
+        "id": "green-at",
+        "phase": "abandoned",
+        "position": [
+          0.428412467241287,
+          2.93202567100525
+        ],
+        "range": 2.05,
+        "reason": "主动弃炮",
+        "shots": 0,
+        "target_id": ""
+      },
+      {
+        "cooldown": 0,
+        "crew_id": "",
+        "destination": [
+          1.1599999666214,
+          1.92999994754791
+        ],
+        "distance_pushed": 0,
+        "faction": "blue",
+        "hp": 180,
+        "id": "blue-at",
+        "phase": "parked",
+        "position": [
+          1.1599999666214,
+          1.92999994754791
+        ],
+        "range": 2.05,
+        "reason": "",
+        "shots": 0,
+        "target_id": ""
+      },
+      {
+        "cooldown": 0,
+        "crew_id": "",
+        "destination": [
+          0.439999997615814,
+          1.14999997615814
+        ],
+        "distance_pushed": 0,
+        "faction": "red",
+        "hp": 180,
+        "id": "red-at",
+        "phase": "parked",
+        "position": [
+          0.439999997615814,
+          1.14999997615814
+        ],
+        "range": 2.05,
+        "reason": "",
+        "shots": 0,
+        "target_id": ""
+      }
+    ],
+    "bounds": [
+      -0.3,
+      0.8,
+      1.38,
+      3.46
+    ],
+    "building": {
+      "actions": [
+        "garrison",
+        "leave_building"
+      ],
+      "collapsed": false,
+      "faction": "blue",
+      "floors": 2,
+      "id": "blue-house",
+      "parts_alive": 46,
+      "parts_total": 46,
+      "position": [
+        1,
+        1.13
+      ],
+      "stations": {}
+    },
+    "camera": "battle",
+    "camera_size": 3.5,
+    "camera_target": [
+      0.540000021457672,
+      2.13000011444092
+    ],
+    "combat_fx": {
+      "audio_events": 4,
+      "collision_counts": {
+        "cover": 0,
+        "friendly_block": 0,
+        "miss": 1,
+        "unit": 0
+      },
+      "impacts": 1,
+      "launched": {
+        "rocket": 1
+      },
+      "muted": false,
+      "projectiles": 0,
+      "visuals": 0
+    },
+    "command_feedback": "MOVE / 3 UNITS",
+    "control": {
+      "blue": "player",
+      "green": "player",
+      "red": "player"
+    },
+    "control_epochs": {
+      "blue": 1,
+      "green": 1,
+      "red": 1
+    },
+    "covers": [
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-0",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.13,
+          1.68
+        ],
+        "ray_size": [
+          0.34,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.341510386954658,
+          0.112750321709592
+        ],
+        "yaw": -0.20943951023932
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-2",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.55,
+          1.91
+        ],
+        "ray_size": [
+          0.25,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.25,
+          0.043
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-3",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.06,
+          2.3
+        ],
+        "ray_size": [
+          0.3,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.043,
+          0.3
+        ],
+        "yaw": 1.5707963267949
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-4",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.01,
+          2.31
+        ],
+        "ray_size": [
+          0.3,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.043,
+          0.3
+        ],
+        "yaw": 1.5707963267949
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-5",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.59,
+          2.57
+        ],
+        "ray_size": [
+          0.27,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.27,
+          0.043
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-6",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.12,
+          2.91
+        ],
+        "ray_size": [
+          0.3,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.302384482925305,
+          0.104433854076881
+        ],
+        "yaw": -0.20943951023932
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-7",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.99,
+          2.88
+        ],
+        "ray_size": [
+          0.28,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.282821530910629,
+          0.100275620260526
+        ],
+        "yaw": 0.20943951023932
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.042,
+        "hp": 45,
+        "id": "crate-0",
+        "kind": "crate",
+        "max_hp": 45,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.32,
+          2.35
+        ],
+        "ray_size": [
+          0.09,
+          0.042,
+          0.06
+        ],
+        "size": [
+          0.09,
+          0.06
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.04,
+        "hp": 45,
+        "id": "crate-1",
+        "kind": "crate",
+        "max_hp": 45,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.78,
+          1.99
+        ],
+        "ray_size": [
+          0.08,
+          0.04,
+          0.065
+        ],
+        "size": [
+          0.08,
+          0.065
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.045,
+        "hp": 45,
+        "id": "crate-2",
+        "kind": "crate",
+        "max_hp": 45,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.9,
+          2.72
+        ],
+        "ray_size": [
+          0.085,
+          0.045,
+          0.07
+        ],
+        "size": [
+          0.085,
+          0.07
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.026,
+        "hp": 240,
+        "id": "rubble-0",
+        "kind": "rock",
+        "max_hp": 240,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.3,
+          1.49
+        ],
+        "ray_size": [
+          0.11,
+          0.026,
+          0.065
+        ],
+        "size": [
+          0.11,
+          0.065
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.026,
+        "hp": 240,
+        "id": "rubble-2",
+        "kind": "rock",
+        "max_hp": 240,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.24,
+          2.7
+        ],
+        "ray_size": [
+          0.11,
+          0.026,
+          0.065
+        ],
+        "size": [
+          0.127197910780255,
+          0.117242482386544
+        ],
+        "yaw": 0.628318530717959
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.026,
+        "hp": 240,
+        "id": "rubble-3",
+        "kind": "rock",
+        "max_hp": 240,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.76,
+          3.07
+        ],
+        "ray_size": [
+          0.11,
+          0.026,
+          0.065
+        ],
+        "size": [
+          0.117242482386544,
+          0.127197910780255
+        ],
+        "yaw": 0.942477796076938
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000028394163,
+        "damage_stage": "intact",
+        "height": 0.0140000004321337,
+        "hp": 180,
+        "id": "blue-house-0",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          1.12999999523163
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.0140000004321337,
+          0.560000002384186
+        ],
+        "size": [
+          0.419999986886978,
+          0.560000002384186
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.01199998054653,
+        "damage_stage": "intact",
+        "height": 0.0160000007599592,
+        "hp": 320,
+        "id": "blue-house-1",
+        "kind": "building",
+        "max_hp": 320,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          1.12999999523163
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.0160000007599592,
+          0.560000002384186
+        ],
+        "size": [
+          0.419999986886978,
+          0.560000002384186
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000006973743,
+        "damage_stage": "intact",
+        "height": 0.165999993681908,
+        "hp": 180,
+        "id": "blue-house-2",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.850000023841858
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.165999993681908,
+          0.0179999992251396
+        ],
+        "size": [
+          0.419999986886978,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000006973743,
+        "damage_stage": "intact",
+        "height": 0.165999993681908,
+        "hp": 180,
+        "id": "blue-house-3",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.21000003814697,
+          1.12999999523163
+        ],
+        "ray_size": [
+          0.0179999992251396,
+          0.165999993681908,
+          0.560000002384186
+        ],
+        "size": [
+          0.0179999992251396,
+          0.560000002384186
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.837999975308776,
+        "damage_stage": "intact",
+        "height": 0.0500000007450581,
+        "hp": 180,
+        "id": "blue-house-4",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.12999999523163
+        ],
+        "ray_size": [
+          0.0179999992251396,
+          0.0500000007450581,
+          0.560000002384186
+        ],
+        "size": [
+          0.0179999992251396,
+          0.560000002384186
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.984499978832901,
+        "damage_stage": "intact",
+        "height": 0.025000000372529,
+        "hp": 180,
+        "id": "blue-house-5",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.12999999523163
+        ],
+        "ray_size": [
+          0.0230000000447035,
+          0.025000000372529,
+          0.560000002384186
+        ],
+        "size": [
+          0.0230000000447035,
+          0.560000002384186
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.863000005483627,
+        "damage_stage": "intact",
+        "height": 0.143999993801117,
+        "hp": 180,
+        "id": "blue-house-6",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          0.865000009536743
+        ],
+        "ray_size": [
+          0.0209999997168779,
+          0.143999993801117,
+          0.0179999992251396
+        ],
+        "size": [
+          0.0209999997168779,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.863000005483627,
+        "damage_stage": "intact",
+        "height": 0.143999993801117,
+        "hp": 180,
+        "id": "blue-house-7",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.03999996185303
+        ],
+        "ray_size": [
+          0.0209999997168779,
+          0.143999993801117,
+          0.0179999992251396
+        ],
+        "size": [
+          0.0209999997168779,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.863000005483627,
+        "damage_stage": "intact",
+        "height": 0.143999993801117,
+        "hp": 180,
+        "id": "blue-house-8",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.22000002861023
+        ],
+        "ray_size": [
+          0.0209999997168779,
+          0.143999993801117,
+          0.0179999992251396
+        ],
+        "size": [
+          0.0209999997168779,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.863000005483627,
+        "damage_stage": "intact",
+        "height": 0.143999993801117,
+        "hp": 180,
+        "id": "blue-house-9",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.39499998092651
+        ],
+        "ray_size": [
+          0.0209999997168779,
+          0.143999993801117,
+          0.0179999992251396
+        ],
+        "size": [
+          0.0209999997168779,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.837999977171421,
+        "damage_stage": "intact",
+        "height": 0.170000001788139,
+        "hp": 180,
+        "id": "blue-house-10",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.4099999666214
+        ],
+        "ray_size": [
+          0.0280000008642673,
+          0.170000001788139,
+          0.0280000008642673
+        ],
+        "size": [
+          0.0280000008642673,
+          0.0280000008642673
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.837999977171421,
+        "damage_stage": "intact",
+        "height": 0.170000001788139,
+        "hp": 180,
+        "id": "blue-house-11",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.21000003814697,
+          1.4099999666214
+        ],
+        "ray_size": [
+          0.0280000008642673,
+          0.170000001788139,
+          0.0280000008642673
+        ],
+        "size": [
+          0.0280000008642673,
+          0.0280000008642673
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.00350005831569,
+        "damage_stage": "intact",
+        "height": 0.0209999997168779,
+        "hp": 180,
+        "id": "blue-house-12",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          1.4099999666214
+        ],
+        "ray_size": [
+          0.444999992847443,
+          0.0209999997168779,
+          0.0270000007003546
+        ],
+        "size": [
+          0.444999992847443,
+          0.0270000007003546
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.02799994498491,
+        "damage_stage": "intact",
+        "height": 0.165999993681908,
+        "hp": 180,
+        "id": "blue-house-13",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.850000023841858
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.165999993681908,
+          0.0179999992251396
+        ],
+        "size": [
+          0.419999986886978,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.02799994498491,
+        "damage_stage": "intact",
+        "height": 0.165999993681908,
+        "hp": 180,
+        "id": "blue-house-14",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.21000003814697,
+          0.944999992847443
+        ],
+        "ray_size": [
+          0.0179999992251396,
+          0.165999993681908,
+          0.189999997615814
+        ],
+        "size": [
+          0.0179999992251396,
+          0.189999997615814
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.02799994498491,
+        "damage_stage": "intact",
+        "height": 0.165999993681908,
+        "hp": 180,
+        "id": "blue-house-15",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.21000003814697,
+          1.31500005722046
+        ],
+        "ray_size": [
+          0.0179999992251396,
+          0.165999993681908,
+          0.189999997615814
+        ],
+        "size": [
+          0.0179999992251396,
+          0.189999997615814
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.02799997292459,
+        "damage_stage": "intact",
+        "height": 0.0500000007450581,
+        "hp": 180,
+        "id": "blue-house-16",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.12999999523163
+        ],
+        "ray_size": [
+          0.0179999992251396,
+          0.0500000007450581,
+          0.560000002384186
+        ],
+        "size": [
+          0.0179999992251396,
+          0.560000002384186
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.17450003605336,
+        "damage_stage": "intact",
+        "height": 0.025000000372529,
+        "hp": 180,
+        "id": "blue-house-17",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.12999999523163
+        ],
+        "ray_size": [
+          0.0230000000447035,
+          0.025000000372529,
+          0.560000002384186
+        ],
+        "size": [
+          0.0230000000447035,
+          0.560000002384186
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.05300000309944,
+        "damage_stage": "intact",
+        "height": 0.143999993801117,
+        "hp": 180,
+        "id": "blue-house-18",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          0.865000009536743
+        ],
+        "ray_size": [
+          0.0209999997168779,
+          0.143999993801117,
+          0.0179999992251396
+        ],
+        "size": [
+          0.0209999997168779,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.05300000309944,
+        "damage_stage": "intact",
+        "height": 0.143999993801117,
+        "hp": 180,
+        "id": "blue-house-19",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.03999996185303
+        ],
+        "ray_size": [
+          0.0209999997168779,
+          0.143999993801117,
+          0.0179999992251396
+        ],
+        "size": [
+          0.0209999997168779,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.05300000309944,
+        "damage_stage": "intact",
+        "height": 0.143999993801117,
+        "hp": 180,
+        "id": "blue-house-20",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.22000002861023
+        ],
+        "ray_size": [
+          0.0209999997168779,
+          0.143999993801117,
+          0.0179999992251396
+        ],
+        "size": [
+          0.0209999997168779,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.05300000309944,
+        "damage_stage": "intact",
+        "height": 0.143999993801117,
+        "hp": 180,
+        "id": "blue-house-21",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.39499998092651
+        ],
+        "ray_size": [
+          0.0209999997168779,
+          0.143999993801117,
+          0.0179999992251396
+        ],
+        "size": [
+          0.0209999997168779,
+          0.0179999992251396
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.02800003439188,
+        "damage_stage": "intact",
+        "height": 0.170000001788139,
+        "hp": 180,
+        "id": "blue-house-22",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.790000021457672,
+          1.4099999666214
+        ],
+        "ray_size": [
+          0.0280000008642673,
+          0.170000001788139,
+          0.0280000008642673
+        ],
+        "size": [
+          0.0280000008642673,
+          0.0280000008642673
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.02800003439188,
+        "damage_stage": "intact",
+        "height": 0.170000001788139,
+        "hp": 180,
+        "id": "blue-house-23",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.21000003814697,
+          1.4099999666214
+        ],
+        "ray_size": [
+          0.0280000008642673,
+          0.170000001788139,
+          0.0280000008642673
+        ],
+        "size": [
+          0.0280000008642673,
+          0.0280000008642673
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.19349999632686,
+        "damage_stage": "intact",
+        "height": 0.0209999997168779,
+        "hp": 180,
+        "id": "blue-house-24",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          1.4099999666214
+        ],
+        "ray_size": [
+          0.444999992847443,
+          0.0209999997168779,
+          0.0270000007003546
+        ],
+        "size": [
+          0.444999992847443,
+          0.0270000007003546
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000021874905,
+        "damage_stage": "intact",
+        "height": 0.0158333331346512,
+        "hp": 180,
+        "id": "blue-house-25",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.54208338260651
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.0158333331346512,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.837999984622002,
+        "damage_stage": "intact",
+        "height": 0.0316666662693024,
+        "hp": 180,
+        "id": "blue-house-26",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.50625002384186
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.0316666662693024,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000006973743,
+        "damage_stage": "intact",
+        "height": 0.0474999994039536,
+        "hp": 180,
+        "id": "blue-house-27",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.47041666507721
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.0474999994039536,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000029325485,
+        "damage_stage": "intact",
+        "height": 0.0633333325386047,
+        "hp": 180,
+        "id": "blue-house-28",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.43458330631256
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.0633333325386047,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.837999992072582,
+        "damage_stage": "intact",
+        "height": 0.0791666656732559,
+        "hp": 180,
+        "id": "blue-house-29",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.39874994754791
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.0791666656732559,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000014424324,
+        "damage_stage": "intact",
+        "height": 0.0949999988079071,
+        "hp": 180,
+        "id": "blue-house-30",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.36291670799255
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.0949999988079071,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.837999977171421,
+        "damage_stage": "intact",
+        "height": 0.110833331942558,
+        "hp": 180,
+        "id": "blue-house-31",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.32708334922791
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.110833331942558,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.837999999523163,
+        "damage_stage": "intact",
+        "height": 0.126666665077209,
+        "hp": 180,
+        "id": "blue-house-32",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.29124999046326
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.126666665077209,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000021874905,
+        "damage_stage": "intact",
+        "height": 0.142499998211861,
+        "hp": 180,
+        "id": "blue-house-33",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.25541663169861
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.142499998211861,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.837999984622002,
+        "damage_stage": "intact",
+        "height": 0.158333331346512,
+        "hp": 180,
+        "id": "blue-house-34",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.21958339214325
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.158333331346512,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000006973743,
+        "damage_stage": "intact",
+        "height": 0.174166664481163,
+        "hp": 180,
+        "id": "blue-house-35",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.1837500333786
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.174166664481163,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.838000029325485,
+        "damage_stage": "intact",
+        "height": 0.189999997615814,
+        "hp": 180,
+        "id": "blue-house-36",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.2849999666214,
+          1.14791667461395
+        ],
+        "ray_size": [
+          0.129999995231628,
+          0.189999997615814,
+          0.0378333330154419
+        ],
+        "size": [
+          0.129999995231628,
+          0.0378333330154419
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.01199998054653,
+        "damage_stage": "intact",
+        "height": 0.0160000007599592,
+        "hp": 180,
+        "id": "blue-house-37",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.24500000476837,
+          1.07000005245209
+        ],
+        "ray_size": [
+          0.140000000596046,
+          0.0160000007599592,
+          0.119999997317791
+        ],
+        "size": [
+          0.140000000596046,
+          0.119999997317791
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.01199998054653,
+        "damage_stage": "intact",
+        "height": 0.0160000007599592,
+        "hp": 180,
+        "id": "blue-house-38",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.21749997138977,
+          1.12999999523163
+        ],
+        "ray_size": [
+          0.0219999998807907,
+          0.0160000007599592,
+          0.159999996423721
+        ],
+        "size": [
+          0.0219999998807907,
+          0.159999996423721
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.86049998854287,
+        "damage_stage": "intact",
+        "height": 0.00300000002607703,
+        "hp": 180,
+        "id": "blue-house-39",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": true,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.839999973773956
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.00300000002607703,
+          0.0020000000949949
+        ],
+        "size": [
+          0.419999986886978,
+          0.0020000000949949
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.907499979482964,
+        "damage_stage": "intact",
+        "height": 0.00300000002607703,
+        "hp": 180,
+        "id": "blue-house-40",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.839999973773956
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.00300000002607703,
+          0.0020000000949949
+        ],
+        "size": [
+          0.419999986886978,
+          0.0020000000949949
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.954499970423058,
+        "damage_stage": "intact",
+        "height": 0.00300000002607703,
+        "hp": 180,
+        "id": "blue-house-41",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.839999973773956
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.00300000002607703,
+          0.0020000000949949
+        ],
+        "size": [
+          0.419999986886978,
+          0.0020000000949949
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.0015000209678,
+        "damage_stage": "intact",
+        "height": 0.00300000002607703,
+        "hp": 180,
+        "id": "blue-house-42",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.839999973773956
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.00300000002607703,
+          0.0020000000949949
+        ],
+        "size": [
+          0.419999986886978,
+          0.0020000000949949
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.04849995230325,
+        "damage_stage": "intact",
+        "height": 0.00300000002607703,
+        "hp": 180,
+        "id": "blue-house-43",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.839999973773956
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.00300000002607703,
+          0.0020000000949949
+        ],
+        "size": [
+          0.419999986886978,
+          0.0020000000949949
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.09550000284798,
+        "damage_stage": "intact",
+        "height": 0.00300000002607703,
+        "hp": 180,
+        "id": "blue-house-44",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.839999973773956
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.00300000002607703,
+          0.0020000000949949
+        ],
+        "size": [
+          0.419999986886978,
+          0.0020000000949949
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 1.14250005339272,
+        "damage_stage": "intact",
+        "height": 0.00300000002607703,
+        "hp": 180,
+        "id": "blue-house-45",
+        "kind": "building",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1,
+          0.839999973773956
+        ],
+        "ray_size": [
+          0.419999986886978,
+          0.00300000002607703,
+          0.0020000000949949
+        ],
+        "size": [
+          0.419999986886978,
+          0.0020000000949949
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.84799998998642,
+        "damage_stage": "intact",
+        "height": 0.085,
+        "hp": 180,
+        "id": "green-at",
+        "kind": "gun",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.428412467241287,
+          2.93202567100525
+        ],
+        "size": [
+          0.14,
+          0.14
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.84799998998642,
+        "damage_stage": "intact",
+        "height": 0.085,
+        "hp": 180,
+        "id": "blue-at",
+        "kind": "gun",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          1.1599999666214,
+          1.92999994754791
+        ],
+        "size": [
+          0.14,
+          0.14
+        ]
+      },
+      {
+        "alive": true,
+        "bottom": 0.84799998998642,
+        "damage_stage": "intact",
+        "height": 0.085,
+        "hp": 180,
+        "id": "red-at",
+        "kind": "gun",
+        "max_hp": 180,
+        "nav_block": false,
+        "no_slots": true,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.439999997615814,
+          1.14999997615814
+        ],
+        "size": [
+          0.14,
+          0.14
+        ]
+      }
+    ],
+    "decisions": {
+      "green": {
+        "action": "cover",
+        "candidates": [],
+        "confidence": 0,
+        "phase": "suppress",
+        "reason": "步枪掩护、冲锋枪压制、火箭筒关注装甲",
+        "source": "squad_coordinator",
+        "tick": 156
+      },
+      "red": {
+        "action": "move",
+        "candidates": [],
+        "reason": "玩家/策划指令",
+        "source": "console",
+        "tick": 792
+      }
+    },
+    "destruction_count": 0,
+    "edge_pan": true,
+    "events": [
+      {
+        "text": "红方失势 · 后方坦克增援抵达",
+        "time": 66.4
+      },
+      {
+        "text": "red 控制权 → player",
+        "time": 2.9
+      },
+      {
+        "text": "blue 控制权 → player",
+        "time": 2.9
+      },
+      {
+        "text": "green 控制权 → player",
+        "time": 2.9
+      },
+      {
+        "text": "green · suppress · 步枪掩护、冲锋枪压制、火箭筒关注装甲",
+        "time": 2.1
+      },
+      {
+        "text": "战场就绪 · 三个阵营 · 九名步兵",
+        "time": 0
+      }
+    ],
+    "factions": [
+      {
+        "color": "607c48",
+        "goal": [
+          0.54,
+          2.17
+        ],
+        "id": "green",
+        "name": "苔绿侦察队",
+        "spawn": [
+          -0.05,
+          3.25
+        ]
+      },
+      {
+        "color": "3c6880",
+        "goal": [
+          0.54,
+          2.17
+        ],
+        "id": "blue",
+        "name": "钴蓝机动队",
+        "spawn": [
+          1.02,
+          1.78
+        ]
+      },
+      {
+        "color": "a35340",
+        "goal": [
+          0.54,
+          2.17
+        ],
+        "id": "red",
+        "name": "砖红守备队",
+        "spawn": [
+          0.1,
+          1.35
+        ]
+      }
+    ],
+    "fps": 1,
+    "last_action": {
+      "accepted": true,
+      "action": "leave_gun",
+      "id": "73f1f51b-1b3c-4496-91f3-6d22e7c26528",
+      "message": "applied",
+      "tick": 4496
+    },
+    "map": "crossroads",
+    "map_index": 0,
+    "maps": [
+      "三线争夺场",
+      "河谷双桥",
+      "前哨阵地"
+    ],
+    "navigation_revision": 2,
+    "objective": {
+      "position": [
+        0.540000021457672,
+        2.17000007629395
+      ],
+      "radius": 0.17,
+      "score_to_win": 90,
+      "screen_position": [
+        632.912292480469,
+        528.753356933594
+      ]
+    },
+    "obstacles": [],
+    "parameters": {
+      "accuracy": 0.72,
+      "cooldown": 1.3,
+      "damage": 9,
+      "hp": 100,
+      "magazine": 6,
+      "range": 0.65,
+      "reload": 2.2,
+      "speed": 0.12,
+      "suppression_decay": 0.12
+    },
+    "paused": true,
+    "reservations": {
+      "cover-6_1_0": "green-2",
+      "rubble-2_1_2": "green-3"
+    },
+    "run_id": "1789756969.207-1041109001",
+    "schema_version": 1,
+    "scores": {
+      "blue": 0,
+      "green": 0,
+      "red": 0
+    },
+    "selected_faction": "red",
+    "shots": 1,
+    "speed": 2,
+    "tactical": {
+      "counters": {
+        "bounds": 0,
+        "cover_repositions": 0,
+        "flanks": 0,
+        "formation_updates": 25,
+        "tank_repositions": 0
+      },
+      "formations": {},
+      "path_queries": 92,
+      "squads": {}
+    },
+    "tank_spawned": true,
+    "tick": 4504,
+    "time": 81.3,
+    "units": [
+      {
+        "action_counts": {
+          "crouch/crouch_run/ready": 1,
+          "crouch/idle/ready": 1,
+          "stand/run/ready": 1
+        },
+        "ammo": 8,
+        "animation": "crouch",
+        "asset_animation": "cover_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 2.4978896817629e-07,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "elevation": -1.00135802982848e-08,
+        "faction": "green",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.454815864562988,
+          3.04241275787354
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 100,
+        "id": "green-1",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.454815864562988,
+          3.04241275787354
+        ],
+        "posture": "crouch",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 1.19830822729154,
+        "screen_position": [
+          458.007598876953,
+          637.986572265625
+        ],
+        "selected": false,
+        "state": "deploying",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "crew_ready"
+      },
+      {
+        "action_counts": {
+          "crouch/crouch_run/ready": 1,
+          "crouch/idle/ready": 1,
+          "stand/run/ready": 1
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "cover_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 0,
+        "cover_id": "cover-6",
+        "cover_risk": 0.243346149799808,
+        "cover_slot": "cover-6_1_0",
+        "cover_step": false,
+        "cqb_stance": "crouch",
+        "elevation": -1.00135802982848e-08,
+        "faction": "green",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.174999982118607,
+          3
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 100,
+        "id": "green-2",
+        "in_cover": true,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.171600326895714,
+          3.00927090644836
+        ],
+        "posture": "crouch",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.329898975905962,
+        "screen_position": [
+          396.324829101562,
+          601.622741699219
+        ],
+        "selected": false,
+        "state": "cover",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "crouch/cover_step/ready": 1,
+          "crouch/crouch_run/ready": 1,
+          "crouch/idle/ready": 2,
+          "prone/crawl/ready": 5,
+          "prone/idle/ready": 3,
+          "stand/cover_step/ready": 9,
+          "stand/run/ready": 9
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "cover_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 1.49011611938477e-08,
+        "cover_id": "rubble-2",
+        "cover_risk": 0.352811315958976,
+        "cover_slot": "rubble-2_1_2",
+        "cover_step": false,
+        "cqb_stance": "crouch",
+        "elevation": -1.00135802982848e-08,
+        "faction": "green",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.174999982118607,
+          2.79999995231628
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 100,
+        "id": "green-3",
+        "in_cover": true,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "self_preserve",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.176397725939751,
+          2.80300498008728
+        ],
+        "posture": "crouch",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.951304486909066,
+        "screen_position": [
+          434.018127441406,
+          571.355407714844
+        ],
+        "selected": false,
+        "state": "cover",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "crouch/idle/ready": 2,
+          "prone/idle/ready": 2,
+          "stand/idle/ready": 3,
+          "stand/run/ready": 4,
+          "stand/stairs/ready": 2
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "man_at_gun",
+          "garrison",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "elevation": 1.4533519744897e-05,
+        "faction": "blue",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.956648945808411,
+          1.77496933937073
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 97.6,
+        "id": "blue-1",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.953482389450073,
+          1.77498412132263
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 2.92615058725642,
+        "screen_position": [
+          801.534301757812,
+          504.045135498047
+        ],
+        "selected": false,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "crouch/idle/ready": 2,
+          "prone/idle/ready": 3,
+          "stand/idle/ready": 3,
+          "stand/run/ready": 4,
+          "stand/stairs/ready": 2
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "man_at_gun",
+          "garrison",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "elevation": 0.000221898078918481,
+        "faction": "blue",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          1.02990901470184,
+          1.77562832832336
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 100,
+        "id": "blue-2",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          1.02701187133789,
+          1.77690649032593
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 2.66332593977859,
+        "screen_position": [
+          818.732666015625,
+          512.440246582031
+        ],
+        "selected": false,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "crouch/idle/ready": 2,
+          "prone/idle/ready": 3,
+          "stand/idle/ready": 3,
+          "stand/run/ready": 4,
+          "stand/stairs/ready": 2
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "man_at_gun",
+          "garrison",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "elevation": 0.00161026906967165,
+        "faction": "blue",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          1.08016073703766,
+          1.76930797100067
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 100,
+        "id": "blue-3",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          1.07803380489349,
+          1.77165400981903
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 2.70437450007012,
+        "screen_position": [
+          831.833618164062,
+          516.993835449219
+        ],
+        "selected": false,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "crouch/crouch_run/ready": 2,
+          "crouch/idle/ready": 1,
+          "stand/idle/ready": 2,
+          "stand/run/ready": 3
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "elevation": -1.00135802982848e-08,
+        "faction": "red",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          -0.225000008940697,
+          1.02499997615814
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 100,
+        "id": "red-1",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "formation",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          -0.224930748343468,
+          1.02534770965576
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.873437589500099,
+        "screen_position": [
+          653.278564453125,
+          261.400360107422
+        ],
+        "selected": true,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "stand/idle/ready": 2,
+          "stand/run/ready": 1
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "elevation": -1.00135802982848e-08,
+        "faction": "red",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          -0.150000005960464,
+          1
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 100,
+        "id": "red-2",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "formation",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          -0.14937262237072,
+          1.00229167938232
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.44226345862262,
+        "screen_position": [
+          675.386840820312,
+          266.338806152344
+        ],
+        "selected": true,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "stand/idle/ready": 2,
+          "stand/idle/reload": 1,
+          "stand/run/cooldown": 1,
+          "stand/run/ready": 1
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack",
+          "flank",
+          "posture"
+        ],
+        "bone_count": 50,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "elevation": -1.00135802982848e-08,
+        "faction": "red",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          -0.0750000029802322,
+          1
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 100,
+        "id": "red-3",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": 0.166666666666667,
+        "last_shot_target": "blue-1",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "formation",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          -0.0744934529066086,
+          1.00198543071747
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.444647328462452,
+        "screen_position": [
+          693.301940917969,
+          274.598937988281
+        ],
+        "selected": true,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "armored/idle/ready": 1,
+          "armored/tracks/ready": 1
+        },
+        "ammo": 1000,
+        "animation": "idle",
+        "asset_animation": "TankArmature|Tank_Forward",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "retreat",
+          "hold",
+          "attack"
+        ],
+        "bone_count": 0,
+        "building_floor": 0,
+        "building_phase": "",
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "elevation": -1.00135802982848e-08,
+        "faction": "red",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.0250000059604645,
+          1.125
+        ],
+        "grenades": 2,
+        "gun_id": "",
+        "hp": 420,
+        "id": "red-tank",
+        "in_cover": false,
+        "kind": "tank",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "lm_intent": "",
+        "lm_reason": "",
+        "locomotion": "idle",
+        "max_hp": 420,
+        "melee_ready": false,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.0230801142752171,
+          1.11861550807953
+        ],
+        "posture": "armored",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0,
+        "screen_position": [
+          695.910095214844,
+          302.837188720703
+        ],
+        "selected": false,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "armor",
+        "turret_yaw": 0,
+        "weapon": "cannon",
+        "weapon_name": "坦克炮",
+        "weapon_range": 0.98,
+        "weapon_state": "ready"
+      }
+    ],
+    "version": "0.6.0",
+    "viewport": [
+      1280,
+      1040
+    ],
+    "weapons": {
+      "at_cannon": {
+        "accuracy": 0.9,
+        "armor_multiplier": 2.8,
+        "cooldown": 3.8,
+        "cover_damage": 85,
+        "damage": 75,
+        "magazine": 1000,
+        "name": "反坦克炮",
+        "pressure": 0.4,
+        "projectile_speed": 1.6,
+        "range": 2.05,
+        "reload": 0,
+        "splash": 0.1
+      },
+      "bayonet": {
+        "accuracy": 1,
+        "armor_multiplier": 0,
+        "cooldown": 0.85,
+        "damage": 29,
+        "magazine": 0,
+        "name": "刺刀",
+        "pressure": 0.22,
+        "projectile_speed": 0,
+        "range": 0.075,
+        "reload": 0,
+        "splash": 0
+      },
+      "cannon": {
+        "accuracy": 0.9,
+        "armor_multiplier": 1,
+        "cooldown": 3.4,
+        "cover_damage": 85,
+        "damage": 24,
+        "magazine": 1000,
+        "name": "坦克炮",
+        "pressure": 0.4,
+        "projectile_speed": 1.6,
+        "range": 0.98,
+        "reload": 0,
+        "splash": 0.13
+      },
+      "grenade": {
+        "accuracy": 1,
+        "armor_multiplier": 0.25,
+        "cooldown": 1.3,
+        "cover_damage": 48,
+        "damage": 36,
+        "magazine": 2,
+        "name": "手雷",
+        "pressure": 0.6,
+        "projectile_speed": 0.7,
+        "range": 0.65,
+        "reload": 0,
+        "splash": 0.14
+      },
+      "pistol": {
+        "accuracy": 0.82,
+        "armor_multiplier": 0.1,
+        "cooldown": 0.4,
+        "cover_damage": 0.4,
+        "damage": 8,
+        "magazine": 12,
+        "name": "手枪",
+        "pressure": 0.12,
+        "projectile_speed": 4,
+        "range": 0.42,
+        "reload": 2,
+        "splash": 0
+      },
+      "rifle": {
+        "accuracy": 0.82,
+        "armor_multiplier": 0.1,
+        "cooldown": 1.05,
+        "cover_damage": 0.7,
+        "damage": 13,
+        "magazine": 8,
+        "name": "步枪",
+        "pressure": 0.12,
+        "projectile_speed": 4,
+        "range": 0.7,
+        "reload": 2,
+        "splash": 0
+      },
+      "rocket": {
+        "accuracy": 0.85,
+        "armor_multiplier": 7,
+        "cooldown": 3.8,
+        "cover_damage": 70,
+        "damage": 18,
+        "magazine": 1,
+        "name": "火箭筒",
+        "pressure": 0.42,
+        "projectile_speed": 0.95,
+        "range": 0.92,
+        "reload": 3.8,
+        "splash": 0.105
+      },
+      "smg": {
+        "accuracy": 0.58,
+        "armor_multiplier": 0.04,
+        "cooldown": 0.14,
+        "cover_damage": 0.3,
+        "damage": 5,
+        "magazine": 24,
+        "name": "冲锋枪",
+        "pressure": 0.055,
+        "projectile_speed": 4.5,
+        "range": 0.6,
+        "reload": 2.5,
+        "splash": 0
+      }
+    },
+    "winner": "",
+    "worker_animation_time": 0.716321935812625
+  }
+}

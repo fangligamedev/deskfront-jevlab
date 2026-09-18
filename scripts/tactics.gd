@@ -34,7 +34,16 @@ func tick(dt: float) -> void:
 
 func cancel(team: String) -> void:
 	formations.erase(team);squads.erase(team)
-	for u in game.living(team):u.formation_speed=1;u.focus_id="";u.target_id="";u.order_mode="hold"
+	for u in game.living(team).filter(func(u):return u.gun_id=="" and u.garrison_phase==""):u.formation_speed=1;u.focus_id="";u.target_id="";u.order_mode="hold"
+
+func cancel_selected(team: String, ids: Array) -> void:
+	if ids.is_empty():cancel(team);return
+	if formations.has(team):
+		formations[team].ids=formations[team].ids.filter(func(id):return not ids.has(id))
+		if formations[team].ids.is_empty():formations.erase(team)
+	if squads.has(team):squads.erase(team)
+	for u in game.living(team):
+		if ids.has(u.id):u.formation_speed=1;u.focus_id="";u.target_id="";u.order_mode="hold"
 
 func set_phase(team: String, phase: String, reason: String) -> void:
 	var s: Dictionary=squads[team]
@@ -63,7 +72,21 @@ func stop_formation(team: String) -> void:
 	formations.erase(team)
 
 func plan(team: String) -> void:
-	var squad: Array=game.living(team).filter(func(u):return not u.tank)
+	# Equipment users keep their own executable route. Do not overwrite it with a formation.
+	for gun in game.at_guns:
+		if gun.faction!=team or gun.crew_id!="" or gun.enemy_tank()==null:continue
+		var candidates=game.living(team).filter(func(u):return gun.eligible(u))
+		candidates.sort_custom(func(a,b):return a.pos().distance_to(gun.pos())<b.pos().distance_to(gun.pos()))
+		for u in candidates:
+			if gun.claim(u):
+				if formations.has(team):formations[team].ids.erase(u.id)
+				break
+	if team=="blue" and game.building and not game.building.collapsed:
+		for u in game.living(team):
+			if u.garrison_phase=="" and u.gun_id=="" and u.hp/u.max_hp>.65 and u.suppression<.35 and u.pos().distance_to(game.building.approach())<.8:
+				if game.building.enter(u,2):
+					if formations.has(team):formations[team].ids.erase(u.id)
+	var squad: Array=game.living(team).filter(func(u):return not u.tank and u.gun_id=="" and u.garrison_phase=="")
 	for armor in game.living(team).filter(func(u):return u.tank):plan_tank(armor)
 	if squad.is_empty():return
 	if not squads.has(team):
@@ -140,6 +163,7 @@ func plan(team: String) -> void:
 	var choices: Array=squad.duplicate()
 	choices.sort_custom(func(a,b):return mover_priority(a,int(s.turn))<mover_priority(b,int(s.turn)))
 	for mover in choices:
+		if game.living().any(func(e):return e.tank and e.faction!=team and e.pos().distance_to(mover.pos())<1.0) and mover.weapon!="rocket":continue
 		if game.elapsed<mover.safety_until or mover.suppression>.5 or mover.hp/mover.max_hp<.50 or not mover.route.is_empty():continue
 		var protected_by: Array=holders.filter(func(u):return u!=mover)
 		if contact and protected_by.is_empty():continue
@@ -199,7 +223,7 @@ func update_formations() -> void:
 	for team in formations.keys():update_formation(team,formations[team])
 
 func update_formation(team: String, f: Dictionary) -> void:
-	var squad: Array=game.living(team).filter(func(u):return f.ids.has(u.id))
+	var squad: Array=game.living(team).filter(func(u):return f.ids.has(u.id) and u.gun_id=="" and u.garrison_phase=="")
 	if squad.is_empty():formations.erase(team);return
 	var center := squad_center(squad)
 	if f.revision!=game.field.revision:f.path=game.field.path(f.anchor,f.destination);f.revision=game.field.revision
@@ -260,6 +284,8 @@ func plan_tank(tank) -> void:
 	var rocket_distance: float=INF
 	for enemy in enemies(tank.faction):
 		if enemy.weapon=="rocket" and game.field.line_of_sight(enemy.pos(),tank.pos()):rocket_distance=minf(rocket_distance,tank.pos().distance_to(enemy.pos()))
+	for gun in game.at_guns:
+		if gun.faction!=tank.faction and gun.phase=="ready" and game.field.line_of_sight(gun.pos(),tank.pos()):rocket_distance=minf(rocket_distance,tank.pos().distance_to(gun.pos())*.5)
 	var retreat: bool=rocket_distance<game.config.tactics.tank_danger_range or tank.hp/tank.max_hp<.35
 	var desired: float=.78 if retreat else game.config.tactics.tank_preferred_range
 	tank.safety_reason="anti_armor_threat" if retreat else ""

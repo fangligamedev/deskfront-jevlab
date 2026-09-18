@@ -19,7 +19,7 @@ class ControlContract(unittest.TestCase):
         self.assertIsNone(validate_command({'action':'posture','posture':'prone','run_id':'r','seen_tick':1},True))
         self.assertEqual(validate_command({'action':'posture','posture':'fly'}),'invalid_posture')
         catalog=json.loads((Path(__file__).resolve().parents[1]/'data/action-catalog.json').read_text())
-        self.assertEqual(set(catalog['commands']),{'move','capture','cover','flank','retreat','hold','attack','grenade','posture'})
+        self.assertEqual(set(catalog['commands']),{'move','capture','cover','flank','retreat','hold','attack','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'})
     def test_queue_is_not_ack(self):
         s=State();s.record=lambda *a:None
         self.assertEqual(s.submit({'action':'hold'})[0],409)

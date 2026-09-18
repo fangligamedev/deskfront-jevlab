@@ -117,7 +117,7 @@ func rebuild() -> void:
 	tank_grid.diagonal_mode=grid.diagonal_mode
 	tank_grid.update()
 	for c in covers + obstacles:
-		if not c.get("alive",true): continue
+		if not c.get("alive",true) or not c.get("nav_block",true): continue
 		var center := Vector2(c.position[0],c.position[1])
 		var half := Vector2(c.size[0],c.size[1])/2 + Vector2.ONE*.018
 		for x in range(grid.region.size.x):
@@ -179,7 +179,7 @@ func path_around_units(from: Vector2,dest: Vector2,occupants: Array) -> PackedVe
 	var saved: Array=[];var start:=nearest(from)
 	for occupant in occupants:
 		var center:=to_cell(occupant.pos())
-		var radius: float=.14 if occupant.tank else .034
+		var radius: float=float(occupant.get_meta("nav_radius",.14 if occupant.tank else .034))
 		var cells: int=ceili(radius/cell)
 		for x in range(center.x-cells,center.x+cells+1):
 			for y in range(center.y-cells,center.y+cells+1):
@@ -211,6 +211,7 @@ func release(unit_id: String) -> void:
 		if reservations[slot] == unit_id: reservations.erase(slot)
 
 func slots(c: Dictionary) -> Array:
+	if c.get("no_slots",false):return []
 	if slot_cache.has(c.id):return slot_cache[c.id]
 	if c.kind=="hard":
 		var hard: Array=[]

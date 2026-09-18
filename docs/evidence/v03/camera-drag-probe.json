@@ -1,0 +1,523 @@
+[
+  {
+    "delay": 0,
+    "before": [
+      0.610000014305115,
+      -0.00999999977648258
+    ],
+    "after": [
+      0.270375430583954,
+      -0.0977372154593468
+    ],
+    "rect": {
+      "x": 897.703125,
+      "y": 140.5,
+      "width": 797,
+      "height": 636
+    },
+    "events": [
+      {
+        "t": "mousemove",
+        "x": 299,
+        "y": 260,
+        "button": 0,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 13910.90000000596
+      },
+      {
+        "t": "mousedown",
+        "x": 299,
+        "y": 260,
+        "button": 0,
+        "buttons": 1,
+        "target": "CANVAS",
+        "at": 13911
+      },
+      {
+        "t": "mouseup",
+        "x": 299,
+        "y": 260,
+        "button": 0,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 13912.29999999702
+      },
+      {
+        "t": "keydown",
+        "key": "Home",
+        "target": "CANVAS",
+        "at": 14393.20000000298
+      },
+      {
+        "t": "keyup",
+        "key": "Home",
+        "target": "CANVAS",
+        "at": 14545.29999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 398,
+        "y": 318,
+        "button": 0,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 16860.5
+      },
+      {
+        "t": "mousedown",
+        "x": 398,
+        "y": 318,
+        "button": 1,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 17013.79999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 408,
+        "y": 320,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 17628.60000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 418,
+        "y": 323,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 17780.20000000298
+      },
+      {
+        "t": "mousemove",
+        "x": 428,
+        "y": 325,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 17936.79999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 438,
+        "y": 328,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18099.40000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 448,
+        "y": 331,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18256.79999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 458,
+        "y": 333,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18417.60000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 468,
+        "y": 336,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18575.10000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 478,
+        "y": 339,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18735.90000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 488,
+        "y": 341,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18895.60000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 498,
+        "y": 344,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 19066.40000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 508,
+        "y": 347,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 19230.10000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 518,
+        "y": 349,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 19392
+      },
+      {
+        "t": "mouseup",
+        "x": 518,
+        "y": 349,
+        "button": 1,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 20043
+      }
+    ]
+  },
+  {
+    "delay": 90,
+    "before": [
+      0.270375430583954,
+      -0.0977372154593468
+    ],
+    "after": [
+      -0.0692490935325623,
+      -0.185474455356598
+    ],
+    "rect": {
+      "x": 897.703125,
+      "y": 140.5,
+      "width": 797,
+      "height": 636
+    },
+    "events": [
+      {
+        "t": "mousemove",
+        "x": 299,
+        "y": 260,
+        "button": 0,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 13910.90000000596
+      },
+      {
+        "t": "mousedown",
+        "x": 299,
+        "y": 260,
+        "button": 0,
+        "buttons": 1,
+        "target": "CANVAS",
+        "at": 13911
+      },
+      {
+        "t": "mouseup",
+        "x": 299,
+        "y": 260,
+        "button": 0,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 13912.29999999702
+      },
+      {
+        "t": "keydown",
+        "key": "Home",
+        "target": "CANVAS",
+        "at": 14393.20000000298
+      },
+      {
+        "t": "keyup",
+        "key": "Home",
+        "target": "CANVAS",
+        "at": 14545.29999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 398,
+        "y": 318,
+        "button": 0,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 16860.5
+      },
+      {
+        "t": "mousedown",
+        "x": 398,
+        "y": 318,
+        "button": 1,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 17013.79999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 408,
+        "y": 320,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 17628.60000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 418,
+        "y": 323,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 17780.20000000298
+      },
+      {
+        "t": "mousemove",
+        "x": 428,
+        "y": 325,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 17936.79999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 438,
+        "y": 328,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18099.40000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 448,
+        "y": 331,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18256.79999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 458,
+        "y": 333,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18417.60000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 468,
+        "y": 336,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18575.10000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 478,
+        "y": 339,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18735.90000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 488,
+        "y": 341,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 18895.60000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 498,
+        "y": 344,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 19066.40000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 508,
+        "y": 347,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 19230.10000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 518,
+        "y": 349,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 19392
+      },
+      {
+        "t": "mouseup",
+        "x": 518,
+        "y": 349,
+        "button": 1,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 20043
+      },
+      {
+        "t": "mousemove",
+        "x": 398,
+        "y": 318,
+        "button": 0,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 21510
+      },
+      {
+        "t": "mousedown",
+        "x": 398,
+        "y": 318,
+        "button": 1,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 21670.90000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 408,
+        "y": 320,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 22322.60000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 418,
+        "y": 323,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 22484.70000000298
+      },
+      {
+        "t": "mousemove",
+        "x": 428,
+        "y": 325,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 22646.90000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 438,
+        "y": 328,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 22810
+      },
+      {
+        "t": "mousemove",
+        "x": 448,
+        "y": 331,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 22974.60000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 458,
+        "y": 333,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 23138.90000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 468,
+        "y": 336,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 23307.90000000596
+      },
+      {
+        "t": "mousemove",
+        "x": 478,
+        "y": 339,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 23473.10000000894
+      },
+      {
+        "t": "mousemove",
+        "x": 488,
+        "y": 341,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 23635.79999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 498,
+        "y": 344,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 23805.29999999702
+      },
+      {
+        "t": "mousemove",
+        "x": 508,
+        "y": 347,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 23969
+      },
+      {
+        "t": "mousemove",
+        "x": 518,
+        "y": 349,
+        "button": 0,
+        "buttons": 4,
+        "target": "CANVAS",
+        "at": 24134.29999999702
+      },
+      {
+        "t": "mouseup",
+        "x": 518,
+        "y": 349,
+        "button": 1,
+        "buttons": 0,
+        "target": "CANVAS",
+        "at": 24967.79999999702
+      }
+    ]
+  }
+]

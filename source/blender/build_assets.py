@@ -2,7 +2,7 @@
 Coordinates of environment helpers are Godot meters (+Y up, -Z forward).
 Rig authored Z-up in Blender; glTF exporter performs the axis conversion.
 """
-import bpy, math, random, pathlib, json
+import bpy, math, random, pathlib, json, sys
 from mathutils import Vector, Matrix
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 OUT=ROOT/'source'/'blender'/'generated'
@@ -49,14 +49,15 @@ def rod(name,a,b,r,m):
     a,b=Vector(g(a)),Vector(g(b));v=b-a
     o=cyl(name,(a+b)/2,r,v.length,m);o.rotation_euler=v.to_track_quat('Z','Y').to_euler();return o
 
-def join_materials():
-    groups={}
-    for o in list(bpy.context.scene.objects):
+def join_materials(objects=None):
+    groups={};result=[]
+    for o in (list(bpy.context.scene.objects) if objects is None else objects):
         if o.type=='MESH':groups.setdefault(o.data.materials[0].name,[]).append(o)
     for name,objs in groups.items():
         bpy.ops.object.select_all(action='DESELECT')
         for o in objs:o.select_set(True)
-        bpy.context.view_layer.objects.active=objs[0];bpy.ops.object.join();objs[0].name=name
+        bpy.context.view_layer.objects.active=objs[0];bpy.ops.object.join();objs[0].name=name;result.append(objs[0])
+    return result
 
 def save(name):
     bpy.ops.wm.save_as_mainfile(filepath=str(OUT/(name+'.blend')))
@@ -316,11 +317,23 @@ def tank():
         for z in [-.075,-.037,0,.037,.075]:
             o=gc('road wheel',(x,.037,z),.025,.034,metal);o.rotation_euler[1]=math.pi/2
         for z in [i*.018-.09 for i in range(11)]:gb('tread link',(x,.073,z),(.033,.007,.013),dark,.001)
+    hull_objects=join_materials()
     gc('turret',(0,.12,-.01),.048,.049,red);gc('hatch',(0,.148,-.01),.021,.012,red)
     rod('main gun',(0,.131,-.04),(0,.131,-.18),.008,red)
-    join_materials();save('tank')
+    turret_objects=[o for o in list(bpy.context.scene.objects) if o.type=='MESH' and o not in hull_objects]
+    turret_meshes=join_materials(turret_objects)
+    pivot=bpy.data.objects.new('TurretPivot',None);bpy.context.collection.objects.link(pivot);pivot.location=g((0,.12,-.01))
+    bpy.context.view_layer.update()
+    for o in turret_meshes:
+        world=o.matrix_world.copy();o.parent=pivot;o.matrix_world=world
+    muzzle=bpy.data.objects.new('Muzzle',None);bpy.context.collection.objects.link(muzzle);muzzle.parent=pivot
+    muzzle.location=Vector(g((0,.131,-.18)))-pivot.location
+    save('tank')
 
-office()
-for team in ['green','blue','red']:rigged('infantry-'+team,team=team)
-rigged('worker',True);tank();sandbag()
+if '--only-tank' in sys.argv:
+    tank()
+else:
+    office()
+    for team in ['green','blue','red']:rigged('infantry-'+team,team=team)
+    rigged('worker',True);tank();sandbag()
 print('DESKFRONT_BLENDER_COMPLETE',OUT)

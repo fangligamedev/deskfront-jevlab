@@ -1,0 +1,73 @@
+{
+  "godot": {
+    "collision_nodes": 0,
+    "material_slots": 4,
+    "mesh_instances": 4,
+    "meshes": [
+      {
+        "aabb_position": [
+          -0.016499999910593,
+          -0.0329999998211861,
+          -0.107500001788139
+        ],
+        "aabb_size": [
+          0.162999987602234,
+          0.0724999979138374,
+          0.215000003576279
+        ],
+        "name": "rubber treads",
+        "surfaces": 1
+      },
+      {
+        "aabb_position": [
+          -0.0575000010430813,
+          -0.0299999993294477,
+          -0.100000001490116
+        ],
+        "aabb_size": [
+          0.115000002086163,
+          0.0825000032782555,
+          0.200000002980232
+        ],
+        "name": "tank body",
+        "surfaces": 1
+      },
+      {
+        "aabb_position": [
+          -0.0480000004172325,
+          -0.0244999993592501,
+          -0.170000016689301
+        ],
+        "aabb_size": [
+          0.096000000834465,
+          0.0585000067949295,
+          0.218000024557114
+        ],
+        "name": "tank body_001",
+        "surfaces": 1
+      },
+      {
+        "aabb_position": [
+          -0.0250000078231096,
+          -0.017000000923872,
+          -0.025000000372529
+        ],
+        "aabb_size": [
+          0.0500000081956387,
+          0.164000004529953,
+          0.200000017881393
+        ],
+        "name": "wheel hubs",
+        "surfaces": 1
+      }
+    ],
+    "skeletons": []
+  },
+  "import_exit_code": 0,
+  "passed": true,
+  "runtime_exit_code": 0,
+  "runtime_output": null,
+  "source_path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/tank.glb",
+  "source_sha256": "57de08342bb7a9b40cd73c01cca4906aa77d1b01cb66a50dc4e981c766a768c5",
+  "stage": "complete"
+}

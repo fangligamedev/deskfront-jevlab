@@ -23,10 +23,10 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'output/playwright');
  const base=process.env.DESKFRONT_URL||'http://127.0.0.1:8768';
  const state=async()=> (await (await page.request.get(base+'/api/state')).json()).state;
  async function until(fn,timeout=15000){const start=Date.now();while(Date.now()-start<timeout){const s=await state();if(await fn(s))return s;await page.waitForTimeout(150)}throw Error('Timed out: '+String(fn))}
- function check(value,name){checks.push({test:name,passed:!!value});assert(value,name)}
+ function check(value,name){checks.push({test:name,passed:!!value});console.log((value?'PASS ':'FAIL ')+name);assert(value,name)}
  async function submit(c,agent=false){const response=await page.request.post(base+(agent?'/api/agent/command':'/api/command'),{data:c});const queued=await response.json();assert(response.ok(),JSON.stringify(queued));for(let i=0;i<70;i++){const result=await (await page.request.get(base+'/api/result/'+queued.id)).json();if('accepted'in result)return result;await page.waitForTimeout(150)}throw Error('Missing engine acknowledgement')}
  try{
-  const previousRun=(await state())?.run_id;const start=Date.now();await page.goto(base);await until(s=>s.run_id!==previousRun&&s.version==='0.2.0'&&s.units?.length===9);checks.push({test:'WebGL boots with nine units',passed:true,milliseconds:Date.now()-start});
+  const previousRun=(await state())?.run_id;const start=Date.now();await page.goto(base);await until(s=>s.run_id!==previousRun&&s.version==='0.3.0'&&s.units?.length===9);checks.push({test:'WebGL boots with nine units',passed:true,milliseconds:Date.now()-start});
   await page.getByRole('button',{name:'暂停',exact:true}).click();let s=await until(s=>s.paused);
   const frozen=s.time;await page.waitForTimeout(700);check((await state()).time===frozen,'Pause button freezes actual game');
   await page.getByRole('button',{name:'战术近景',exact:true}).click();await until(s=>s.camera==='battle');
@@ -36,19 +36,25 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'output/playwright');
   await page.getByRole('button',{name:'继续',exact:true}).click();await until(s=>!s.paused);
   s=await until(s=>Math.hypot(...s.units.find(u=>u.id==='green-1').position.map((v,i)=>v-before[i]))>.04);
   check(s.control.green==='player','Minimap movement reaches Godot and AI does not steal control');
+  check(s.tactical?.formations?.green && s.units.filter(u=>u.faction==='green').every(u=>u.order_mode==='formation'),'Group move uses live shared formation');
+  check(s.units.every(u=>u.tactical_role&&u.cqb_stance),'Tactical roles and CQB state are exposed to Agent and console');
   const frame=page.frameLocator('#game');const canvas=frame.locator('#canvas');await canvas.click({position:{x:300,y:260}});await page.keyboard.press('Digit2');s=await until(s=>s.control.blue==='player');
   check(s.selected_faction==='blue','Real keyboard 2 takes over blue squad');
   await page.keyboard.press('KeyC');await until(s=>s.decisions.blue?.action==='cover');
   check(true,'Real keyboard C issues cover command');
   await page.getByRole('button',{name:'坦克增援',exact:true}).click();s=await until(s=>s.tank_spawned);check(s.units.filter(u=>u.kind==='tank').length===1,'Tank button adds exactly one tank');
   await page.getByRole('button',{name:'暂停',exact:true}).click();await until(s=>s.paused);
+  await page.locator('.faction[data-team="red"] .faction-line').click();
+  check((await page.locator('#squadDetail').innerText()).includes('队长'),'Console renders actual squad phase and covering members');
   await page.screenshot({path:path.join(out,'dashboard.png'),fullPage:true});
+  await page.locator('.faction[data-team="green"] .faction-line').click();
   await page.getByRole('button',{name:'正俯视',exact:true}).click();await until(s=>s.camera==='top');await page.waitForTimeout(700);await page.locator('#game').screenshot({path:path.join(out,'top-down.png')});
   // Real RTS mouse/camera paths, measured using the engine's viewport projection.
   let bounds=await canvas.boundingBox();s=await state();
   await canvas.click({position:{x:bounds.width*.50,y:bounds.height*.55}});
   await page.keyboard.press('Home');await page.waitForTimeout(650);s=await state();
   const cameraBefore=s.camera_target;
+  const boundsBeforeFocus=bounds;bounds=await canvas.boundingBox();console.log("PAN_BOUNDS",JSON.stringify({before:boundsBeforeFocus,after:bounds,cameraBefore}));
   await page.mouse.move(bounds.x+bounds.width*.5,bounds.y+bounds.height*.5);
   await page.mouse.down({button:'middle'});await page.waitForTimeout(300);await page.mouse.move(bounds.x+bounds.width*.65,bounds.y+bounds.height*.55,{steps:12});await page.waitForTimeout(350);await page.mouse.up({button:'middle'});
   s=await until(s=>Math.hypot(...s.camera_target.map((v,i)=>v-cameraBefore[i]))>.04);
@@ -83,6 +89,7 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'output/playwright');
   await page.getByRole('button',{name:'暂停',exact:true}).click();await until(s=>s.paused);
   await page.getByLabel('钴蓝机动队控制方式').selectOption('agent');s=await until(s=>s.control.blue==='agent');
   let a=await submit({action:'capture',faction:'blue',run_id:s.run_id,seen_tick:s.tick},true);check(a.accepted,'External Agent action round-trip has engine acknowledgement');
+  a=await submit({action:'attack',target_id:'missing-target',faction:'blue',run_id:s.run_id,seen_tick:s.tick},true);check(!a.accepted&&(await state()).tactical.formations.blue,'Rejected Agent attack preserves active formation');
   a=await submit({action:'capture',faction:'blue',run_id:'stale',seen_tick:s.tick},true);check(!a.accepted&&a.message==='stale_run','Stale Agent run rejected through HTTP');
   a=await submit({action:'capture',faction:'red',run_id:s.run_id,seen_tick:s.tick},true);check(!a.accepted,'Agent cannot hijack red faction');
   await page.locator('summary').click();await page.locator('input[data-param="damage"]').fill('14');await page.locator('input[data-param="damage"]').dispatchEvent('change');s=await until(s=>s.parameters.damage===14);check(true,'Designer parameter reaches runtime');

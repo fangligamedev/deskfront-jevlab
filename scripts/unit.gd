@@ -32,6 +32,19 @@ var cover_since: float=0
 var reaction_cooldown: float=0
 var melee_until: float=0
 var pursuit_clock: float=0
+var tactical_role: String=""
+var order_mode: String="hold"
+var cover_slot: Dictionary={}
+var cqb_stance: String="open"
+var peek_until: float=0
+var hide_until: float=0
+var peeking: bool=false
+var focus_id: String=""
+var formation_speed: float=1
+var aim_time: float=0
+var turret: Node3D
+var muzzle: Node3D
+var reversing: bool=false
 var weapon_attachment: BoneAttachment3D
 
 func weapon_config() -> Dictionary:
@@ -70,6 +83,7 @@ func setup(owner_game, unit_id: String, team: String, p: Vector2, is_tank: bool=
 	var cfg: Dictionary = game.config.tank if tank else game.config.soldier
 	max_hp=cfg.hp;hp=max_hp
 	weapon="cannon" if tank else game.config.loadout[(int(unit_id.get_slice("-",1))-1)%3]
+	tactical_role={"rifle":"overwatch","smg":"assault","rocket":"anti_armor"}.get(weapon,"armor")
 	ammo=int(game.config.weapons[weapon].magazine)
 	position=Vector3(p.x,game.field.height,p.y);goal=p
 	model=load("res://assets/models/tank.glb" if tank else "res://assets/models/infantry-"+faction+".glb").instantiate()
@@ -101,6 +115,9 @@ func setup(owner_game, unit_id: String, team: String, p: Vector2, is_tank: bool=
 		playback=tree.get("parameters/playback")
 		if animation_names.has("idle"):playback.start("idle")
 	install_weapon()
+	if tank:
+		turret=model.find_child("TurretPivot",true,false)
+		muzzle=model.find_child("Muzzle",true,false)
 	var torus := TorusMesh.new();torus.inner_radius=.027 if not tank else .10;torus.outer_radius=.031 if not tank else .105
 	ring=MeshInstance3D.new();ring.mesh=torus;add_child(ring);ring.position.y=.003;ring.scale.y=.10
 	var rm := StandardMaterial3D.new();rm.albedo_color=Color(.93,.81,.47);rm.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -112,20 +129,74 @@ func animate(clip: String) -> void:
 	last_clip=clip
 	if playback and animation_names.has(clip):playback.travel(clip)
 
+func in_cover() -> bool:
+	return cover_id!="" and not cover_slot.is_empty() and pos().distance_to(cover_slot.position)<(.028 if cover_slot.hard else .055)
+
+func armor_multiplier(from: Vector2) -> float:
+	if not tank:return 1.0
+	var forward := Vector2(-sin(rotation.y),-cos(rotation.y))
+	var facing: float=forward.dot((from-pos()).normalized())
+	return game.config.tactics.tank_front_armor if facing>.45 else (game.config.tactics.tank_rear_armor if facing<-.45 else game.config.tactics.tank_side_armor)
+
+func muzzle_position(target: Vector3) -> Vector3:
+	if tank and muzzle:return muzzle.global_position
+	var start := Vector3(position.x,game.field.height+(.133 if tank else (.075 if in_cover() else .10)),position.z)
+	return start+(target-start).normalized()*(.13 if tank else .023)
+
 func move_to(p: Vector2, keep_cover: bool=false) -> void:
 	if hp<=0:return
-	if not keep_cover:game.field.release(id);cover_id=""
-	goal=game.field.to_world(game.field.nearest(p,tank))
+	if not keep_cover:game.field.release(id);cover_id="";cover_slot={};peeking=false;cqb_stance="open"
+	var destination: Vector2=game.field.to_world(game.field.nearest(p,tank))
+	if route_revision==game.field.revision and destination.distance_to(goal)<game.config.tactics.repath_delta and (not route.is_empty() or pos().distance_to(destination)<.025):return
+	goal=destination
 	route=game.field.path(pos(),goal,tank)
 	route_revision=game.field.revision
 	state="move"
 
-func seek_cover(threat: Vector2, near_goal: Vector2) -> bool:
-	var slot: Dictionary=game.field.choose_cover(id,pos(),threat,near_goal)
-	if slot.is_empty():return false
-	if cover_id!=slot.cover_id:cover_since=game.elapsed
-	cover_id=slot.cover_id
+func occupy(slot: Dictionary) -> void:
+	if cover_slot.get("key","")!=slot.key:cover_since=game.elapsed
+	game.field.reserve_slot(id,slot)
+	cover_id=slot.cover_id;cover_slot=slot;peeking=false
+	hide_until=game.elapsed+.25
 	move_to(slot.position,true)
+
+func seek_cover(threat: Vector2, near_goal: Vector2, options: Dictionary={}) -> bool:
+	var slot: Dictionary=game.field.choose_cover(id,pos(),threat,near_goal,options)
+	if slot.is_empty():return false
+	occupy(slot);return true
+
+func cover_behavior() -> void:
+	if tank or cover_slot.is_empty() or cover_id=="":cqb_stance="open";return
+	var hidden: bool=reload_timer>0 or suppression>=game.config.tactics.pinned_threshold
+	if not cover_slot.hard:
+		cqb_stance="hide" if hidden and in_cover() else "crouch"
+		return
+	var anchor: Vector2=cover_slot.position
+	var peek: Vector2=cover_slot.peek
+	if peeking:
+		cqb_stance="peek"
+		# Exposure dwell begins at the shoulder, not while travelling to it.
+		if peek_until<0 and route.is_empty():peek_until=game.elapsed+game.config.tactics.peek_seconds
+		if hidden or (peek_until>=0 and game.elapsed>peek_until):
+			peeking=false;hide_until=game.elapsed+game.config.tactics.hide_seconds;cqb_stance="hide";move_to(anchor,true)
+	elif pos().distance_to(anchor)<.04:
+		cqb_stance="hide"
+		var enemy=game.closest_enemy(self)
+		if not hidden and game.elapsed>=hide_until and enemy!=null and peek.distance_to(enemy.pos())<game.config.weapons[weapon].range and game.field.walkable(peek) and game.field.line_of_sight(peek,enemy.pos()):
+			peeking=true;peek_until=-1;cqb_stance="peek";move_to(peek,true)
+
+func turn_weapon(enemy, moving: bool, dt: float) -> bool:
+	if enemy==null:return false
+	var direction: Vector2=enemy.pos()-pos()
+	var desired: float=atan2(-direction.x,-direction.y)
+	if tank:
+		if turret:
+			turret.rotation.y=rotate_toward(turret.rotation.y,wrapf(desired-rotation.y,-PI,PI),game.config.tactics.turret_turn_speed*dt)
+			if not moving:rotation.y=rotate_toward(rotation.y,desired,game.config.tactics.tank_turn_speed*dt)
+			return absf(angle_difference(rotation.y+turret.rotation.y,desired))<.16
+		rotation.y=rotate_toward(rotation.y,desired,game.config.tactics.tank_turn_speed*dt)
+		return absf(angle_difference(rotation.y,desired))<.16
+	if not moving:rotation.y=lerp_angle(rotation.y,desired,minf(1,dt*10))
 	return true
 
 func hit(amount: float, pressure: float) -> void:
@@ -149,9 +220,10 @@ func tick(dt: float) -> void:
 		var valid: bool=false
 		for c in game.field.covers:
 			if c.id==cover_id and c.alive:valid=true
-		if not valid:cover_id=""
+		if not valid:game.field.release(id);cover_id="";cover_slot={};peeking=false;cqb_stance="open"
 	if route_revision!=game.field.revision and not route.is_empty():route=game.field.path(pos(),goal,tank);route_revision=game.field.revision
-	var enemy=game.find_target(self,target_id)
+	cover_behavior()
+	var enemy=game.find_target(self,target_id if target_id!="" else focus_id)
 	# Explicit attack closes only to weapon range, never walks onto the target.
 	if target_id!="":
 		if enemy!=null and enemy.id==target_id:route.clear();goal=pos()
@@ -160,10 +232,9 @@ func tick(dt: float) -> void:
 				if candidate.id==target_id:move_to(candidate.pos())
 			pursuit_clock=.7
 	pursuit_clock-=dt
-	if not tank and game.control[faction]=="game_ai" and enemy!=null and cover_id=="" and reaction_cooldown<=0:
-		reaction_cooldown=3.0
-		if not seek_cover(enemy.pos(),pos()):route.clear();goal=pos()
 	var moving: bool=not route.is_empty()
+	if not moving:reversing=false
+	aim_time=0 if moving else aim_time+dt
 	if moving:
 		var target: Vector2=route[0]
 		var occupied: bool=false
@@ -172,21 +243,25 @@ func tick(dt: float) -> void:
 		# An occupied intermediate cell must not pin the follower against separation.
 		if pos().distance_to(target)<(.031 if occupied and route.size()>1 else .012):route.remove_at(0)
 		else:
-			var speed: float=(game.config.tank.speed if tank else game.config.soldier.speed)*(1-suppression*.55)
+			var speed: float=(game.config.tank.speed if tank else game.config.soldier.speed)*(1-suppression*.55)*formation_speed
 			var step: Vector2=pos().move_toward(target,speed*dt)
 			# local separation, avoiding exact overlap without shifting into obstacles
 			for other in game.units:
 				if other==self or other.hp<=0:continue
 				var distance: float=step.distance_to(other.pos())
-				if distance>.001 and distance<.028:
-					var separated: Vector2=step+(step-other.pos()).normalized()*(.028-distance)*.35
-					if game.field.walkable(separated):step=separated
+				var spacing: float=.11 if tank or other.tank else .028
+				if distance>.001 and distance<spacing:
+					var separated: Vector2=step+(step-other.pos()).normalized()*(spacing-distance)*.35
+					if game.field.walkable(separated,tank):step=separated
 			var direction: Vector2=target-pos()
-			rotation.y=lerp_angle(rotation.y,atan2(-direction.x,-direction.y),minf(1,dt*12))
+			var facing: float=atan2(-direction.x,-direction.y)
+			reversing=tank and order_mode=="reverse"
+			if reversing:facing=wrapf(facing+PI,-PI,PI)
+			rotation.y=rotate_toward(rotation.y,facing,game.config.tactics.tank_turn_speed*dt) if tank else lerp_angle(rotation.y,facing,minf(1,dt*12))
 			position.x=step.x;position.z=step.y
 			state="move";animate("run")
 	var close_enemy=game.closest_enemy(self)
-	if not tank and close_enemy!=null and not close_enemy.tank and pos().distance_to(close_enemy.pos())<=game.config.weapons.bayonet.range and cooldown<=0:
+	if not tank and close_enemy!=null and not close_enemy.tank and pos().distance_to(close_enemy.pos())<=game.config.weapons.bayonet.range and cooldown<=0 and game.field.melee_clear(pos(),close_enemy.pos()):
 		cooldown=game.config.weapons.bayonet.cooldown;state="melee";melee_until=game.elapsed+.24
 		rotation.y=atan2(-(close_enemy.pos()-pos()).x,-(close_enemy.pos()-pos()).y)
 		animate("fire");game.fx.launch(self,close_enemy,"bayonet",true);return
@@ -194,11 +269,10 @@ func tick(dt: float) -> void:
 		reload_timer-=dt;state="reload";animate("reload")
 		if reload_timer<=0:ammo=int(game.config.weapons[weapon].magazine)
 		return
-	enemy=game.find_target(self,target_id)
+	enemy=game.find_target(self,target_id if target_id!="" else focus_id)
+	var aligned: bool=turn_weapon(enemy,moving,dt)
 	if enemy!=null:
-		var direction: Vector2=enemy.pos()-pos()
-		if not moving:rotation.y=lerp_angle(rotation.y,atan2(-direction.x,-direction.y),minf(1,dt*10))
-		if cooldown<=0 and (not moving or tank):
+		if cooldown<=0 and aligned and (tank or (not moving and aim_time>=.16 and cqb_stance!="hide" and suppression<.95)):
 			fire(enemy)
 			return
 	if not moving:
@@ -222,4 +296,4 @@ func fire(enemy) -> void:
 			reload_timer=cfg.reload;game.fx.sound("reload",position,-7)
 
 func snapshot() -> Dictionary:
-	return {"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0}
+	return {"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed}

@@ -1,0 +1,47 @@
+{
+  "acceptance": [
+    {
+      "id": "A1",
+      "kind": "import",
+      "statement": "Godot editor import passes"
+    },
+    {
+      "id": "A2",
+      "kind": "gameplay",
+      "statement": "Semantic probe passes"
+    },
+    {
+      "id": "A3",
+      "kind": "runtime",
+      "statement": "Main scene smoke passes"
+    },
+    {
+      "id": "A4",
+      "kind": "assets",
+      "statement": "Asset contracts and provenance pass"
+    }
+  ],
+  "approval": {
+    "approved_at": "2026-09-18T12:20:13.027395+00:00",
+    "required": true,
+    "status": "approved"
+  },
+  "asset_jobs": [],
+  "base": {
+    "head": "60b33a665d53fadca0df10ffa2ea6a2d4cdc19cc",
+    "is_repository": true,
+    "status": ""
+  },
+  "brief": "参考用户提供的Jurney队形PDF改进桌面战术：稳定角色与虚拟行军锚点、可达软队形、交替掩护推进、多威胁掩体评分与探头回缩、坦克距离/朝向/反装甲规避、近战阻挡、真实实战与性能验收，保留V0.1标签。用户明确要求实施。",
+  "budget": {
+    "max_minutes": 180,
+    "max_repairs": 12
+  },
+  "created_at": "2026-09-18T12:19:03.601684+00:00",
+  "files": [],
+  "goal": "参考用户提供的Jurney队形PDF改进桌面战术：稳定角色与虚拟行军锚点、可达软队形、交替掩护推进、多威胁掩体评分与探头回缩、坦克距离/朝向/反装甲规避、近战阻挡、真实实战与性能验收，保留V0.1标签。用户明确要求实施。",
+  "in_scope": [],
+  "out_of_scope": [],
+  "plan_id": "plan-0771433ec6ec",
+  "schema": "godot-forge.build-plan.v1"
+}

@@ -1,0 +1,117 @@
+{
+  "frames": {
+    "hide": {
+      "ammo": 8,
+      "animation": "crouch",
+      "bone_count": 17,
+      "cover_id": "hard_sharpener",
+      "cover_risk": 0,
+      "cover_slot": "hard_sharpener_1",
+      "cqb_stance": "hide",
+      "faction": "green",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        0.745000004768372,
+        -0.420000016689301
+      ],
+      "hp": 100.0,
+      "id": "green-1",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "order_mode": "hold",
+      "position": [
+        0.739999949932098,
+        -0.427000015974045
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "selected": false,
+      "state": "cover",
+      "suppression": 0.0,
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7
+    },
+    "peek": {
+      "ammo": 7,
+      "animation": "fire",
+      "bone_count": 17,
+      "cover_id": "hard_sharpener",
+      "cover_risk": 0,
+      "cover_slot": "hard_sharpener_1",
+      "cqb_stance": "peek",
+      "faction": "green",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        0.745000004768372,
+        -0.344999998807907
+      ],
+      "hp": 100.0,
+      "id": "green-1",
+      "in_cover": false,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": false,
+      "order_mode": "hold",
+      "position": [
+        0.74485445022583,
+        -0.355291157960892
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "selected": false,
+      "state": "fire",
+      "suppression": 0.0,
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7
+    },
+    "reload": {
+      "ammo": 7,
+      "animation": "reload",
+      "bone_count": 17,
+      "cover_id": "hard_sharpener",
+      "cover_risk": 0,
+      "cover_slot": "hard_sharpener_1",
+      "cqb_stance": "hide",
+      "faction": "green",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        0.745000004768372,
+        -0.420000016689301
+      ],
+      "hp": 100.0,
+      "id": "green-1",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "order_mode": "hold",
+      "position": [
+        0.744989931583405,
+        -0.409291088581085
+      ],
+      "reload_remaining": 2.0,
+      "reversing": false,
+      "selected": false,
+      "state": "reload",
+      "suppression": 0.0,
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7
+    }
+  },
+  "passed": true,
+  "shots": 2
+}

@@ -62,9 +62,9 @@ func set_muted(value: bool) -> void:
 func launch(shooter, target, weapon: String, landed: bool) -> void:
 	var cfg: Dictionary=game.config.weapons[weapon]
 	launched[weapon]=int(launched.get(weapon,0))+1
-	var from: Vector3=Vector3(shooter.position.x,game.field.height+(.133 if shooter.tank else (.075 if shooter.cover_id!="" else .10)),shooter.position.z)
 	var end: Vector3=Vector3(target.position.x,game.field.height+(.09 if target.tank else .055),target.position.z)
-	var dir: Vector3=(end-from).normalized();from+=dir*(.13 if shooter.tank else .023)
+	var from: Vector3=shooter.muzzle_position(end)
+	var dir: Vector3=(end-from).normalized()
 	sound(weapon,from)
 	if weapon=="bayonet":
 		beam(from,end,.007,Color(.84,.91,.95),.14)
@@ -108,9 +108,9 @@ func impact(p: Dictionary) -> void:
 			if distance>float(p.cfg.splash):continue
 			var direct: bool=enemy==p.target and p.landed and distance<.065
 			var damage: float=float(p.cfg.damage)*(1.0 if direct else .65*(1-distance/float(p.cfg.splash)))
-			if enemy.tank:damage*=float(p.cfg.armor_multiplier)
+			if enemy.tank:damage*=float(p.cfg.armor_multiplier)*enemy.armor_multiplier(Vector2(p.from.x,p.from.z))
 			else:damage*=1-game.field.protection(enemy.pos(),Vector2(p.from.x,p.from.z))
-			enemy.hit(damage,float(p.cfg.pressure))
+			enemy.hit(damage,float(p.cfg.pressure)*(1-game.field.protection(enemy.pos(),Vector2(p.from.x,p.from.z))*.6))
 		for c in game.field.covers:
 			if c.alive and Vector2(c.position[0],c.position[1]).distance_to(at)<float(p.cfg.splash)+.09:
 				if game.field.damage_cover(c.id,24 if p.weapon=="rocket" else 35):game.add_event("爆炸摧毁 "+c.id+"，通路已更新")
@@ -120,8 +120,8 @@ func impact(p: Dictionary) -> void:
 		var target=p.target
 		if is_instance_valid(target) and target.hp>0 and target.pos().distance_to(at)<.08:
 			var cover: float=game.field.protection(target.pos(),Vector2(p.from.x,p.from.z))
-			var damage: float=float(p.cfg.damage)*(1-cover)*(float(p.cfg.armor_multiplier) if target.tank else 1.0)
-			target.hit(damage if p.landed else 0,float(p.cfg.pressure))
+			var damage: float=float(p.cfg.damage)*(1-cover)*(float(p.cfg.armor_multiplier)*target.armor_multiplier(Vector2(p.from.x,p.from.z)) if target.tank else 1.0)
+			target.hit(damage if p.landed else 0,float(p.cfg.pressure)*(1-cover*.6))
 
 func _process(dt: float) -> void:
 	if game==null:return

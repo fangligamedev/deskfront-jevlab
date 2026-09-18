@@ -10,6 +10,8 @@ var cell: float = 0.025
 var height: float = 0.82
 var revision: int = 0
 var reservations: Dictionary = {}
+var slot_cache: Dictionary={}
+var path_queries: int=0
 
 func setup(data: Dictionary) -> void:
 	config = data
@@ -22,6 +24,8 @@ func setup(data: Dictionary) -> void:
 		c["node"] = make_cover(c)
 		covers.append(c)
 	obstacles = data.obstacles.duplicate(true)
+	for o in obstacles:
+		covers.append({"id":"hard_"+o.id,"position":o.position,"size":o.size,"normal":[1,0],"height":.18,"hp":-1,"kind":"hard","alive":true,"node":null})
 	rebuild()
 
 func mat(color: Color, roughness: float = 0.8) -> StandardMaterial3D:
@@ -89,6 +93,8 @@ func to_world(p: Vector2i) -> Vector2:
 	return base + Vector2(p)*cell
 
 func rebuild() -> void:
+	# update() does not clear solids when region/cell size are unchanged.
+	grid.clear();tank_grid.clear()
 	grid.region = Rect2i(0,0, int((config.bounds[2]-base.x)/cell)+1,int((config.bounds[3]-base.y)/cell)+1)
 	grid.cell_size = Vector2.ONE * cell
 	grid.offset = base
@@ -126,18 +132,47 @@ func nearest(p: Vector2, tank: bool=false) -> Vector2i:
 	return id
 
 func path(from: Vector2, dest: Vector2, tank: bool=false) -> PackedVector2Array:
+	path_queries+=1
 	var nav: AStarGrid2D=tank_grid if tank else grid
 	return nav.get_point_path(nearest(from,tank),nearest(dest,tank))
 
-func walkable(p: Vector2) -> bool:
+func walkable(p: Vector2, tank: bool=false) -> bool:
 	var id := to_cell(p)
-	return grid.is_in_boundsv(id) and not grid.is_point_solid(id)
+	var nav: AStarGrid2D=tank_grid if tank else grid
+	return nav.is_in_boundsv(id) and not nav.is_point_solid(id)
+
+func route_length(points: PackedVector2Array) -> float:
+	var length: float=0
+	for i in range(1,points.size()):length+=points[i-1].distance_to(points[i])
+	return length
+
+func soft_offset(anchor: Vector2, ideal: Vector2, max_detour: float=.20) -> Vector2:
+	# Local reachable offset search: avoid sending a follower around a long obstacle.
+	var candidates: Array=[ideal,anchor.lerp(ideal,.66),anchor.lerp(ideal,.33),anchor]
+	for candidate in candidates:
+		var p: Vector2=to_world(nearest(candidate))
+		var route := path(anchor,p)
+		if not route.is_empty() and route_length(route)<=max_detour:return p
+	return to_world(nearest(anchor))
 
 func release(unit_id: String) -> void:
 	for slot in reservations.keys():
 		if reservations[slot] == unit_id: reservations.erase(slot)
 
 func slots(c: Dictionary) -> Array:
+	if slot_cache.has(c.id):return slot_cache[c.id]
+	if c.kind=="hard":
+		var hard: Array=[]
+		var center := Vector2(c.position[0],c.position[1])
+		for normal in [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]:
+			var tangent := Vector2(-normal.y,normal.x)
+			var depth: float=c.size[0] if normal.x!=0 else c.size[1]
+			var width: float=c.size[1] if normal.x!=0 else c.size[0]
+			for side in [-1,1]:
+				var rest: Vector2=center-normal*(depth*.5+.040)+tangent*(width*.5-.027)*side
+				var peek: Vector2=center-normal*(depth*.5+.040)+tangent*(width*.5+.044)*side
+				hard.append({"key":c.id+"_"+str(hard.size()),"position":rest,"peek":peek,"normal":normal,"cover_id":c.id,"hard":true})
+		slot_cache[c.id]=hard;return hard
 	var normal := Vector2(c.normal[0],c.normal[1])
 	var tangent := Vector2(-normal.y,normal.x)
 	var center := Vector2(c.position[0],c.position[1])
@@ -145,26 +180,51 @@ func slots(c: Dictionary) -> Array:
 	var result: Array = []
 	for side in [-1,1]:
 		for i in range(3):
-			result.append({"key":c.id+"_"+str(side)+"_"+str(i),"position":center+normal*(depth/2+.035)*side+tangent*(i-1)*.054,"normal":-normal*side,"cover_id":c.id})
+			result.append({"key":c.id+"_"+str(side)+"_"+str(i),"position":center+normal*(depth/2+.035)*side+tangent*(i-1)*.054,"normal":-normal*side,"cover_id":c.id,"peek":center+normal*(depth/2+.035)*side+tangent*(i-1)*.054,"hard":false})
+	slot_cache[c.id]=result
 	return result
 
-func choose_cover(id: String, from: Vector2, threat: Vector2, goal: Vector2) -> Dictionary:
-	var best: Dictionary = {}
-	var score: float = INF
+func reserve_slot(id: String, slot: Dictionary) -> void:
+	release(id);reservations[slot.key]=id
+
+func choose_cover(id: String, from: Vector2, threat: Vector2, goal: Vector2, options: Dictionary={}) -> Dictionary:
+	var candidates: Array=[]
+	var threats: Array=options.get("threats",[threat])
+	var max_travel: float=options.get("max_travel",.70)
 	for c in covers:
-		if not c.alive: continue
+		if not c.alive:continue
 		for s in slots(c):
-			if reservations.has(s.key) and reservations[s.key]!=id: continue
-			if not walkable(s.position): continue
-			var facing: float = s.normal.dot((threat-s.position).normalized())
-			if facing < .15: continue
-			var cost: float = s.position.distance_to(goal)*1.2 + from.distance_to(s.position)*.45 - facing*.08
-			if cost >= score: continue
-			var route := path(from,s.position)
-			if route.is_empty(): continue
-			score=cost; best=s
-	if not best.is_empty():
-		release(id); reservations[best.key]=id
+			if reservations.has(s.key) and reservations[s.key]!=id:continue
+			if not walkable(s.position):continue
+			if not options.get("allow_same",true) and reservations.get(s.key,"")==id:continue
+			var travel: float=from.distance_to(s.position)
+			if travel>max_travel:continue
+			var facing: float=s.normal.dot((threat-s.position).normalized())
+			if facing<.35:continue
+			var risk: float=0;var arc: bool=false
+			for enemy: Vector2 in threats:
+				var shield: float=protection(s.position,enemy)
+				var visible: bool=line_of_sight(s.position,enemy)
+				risk+=(1-shield)*(1.0 if visible else .10)/maxf(.2,s.position.distance_to(enemy))
+				if s.position.distance_to(enemy)<float(options.get("range",.9)) and line_of_sight(s.peek,enemy):arc=true
+			risk/=maxi(1,threats.size())
+			var cost: float=s.position.distance_to(goal)*1.35+travel*.65+risk*.13-facing*.08
+			if not arc:cost+=.17
+			if reservations.get(s.key,"")==id:cost-=.12
+			if s.position.distance_to(threat)<.11:cost+=.5
+			var candidate: Dictionary=s.duplicate();candidate["score"]=cost;candidate["risk"]=risk;candidate["fire_arc"]=arc;candidates.append(candidate)
+	candidates.sort_custom(func(a,b):return a.score<b.score)
+	# Bound expensive A* work to the best candidates, not every station every frame.
+	var best: Dictionary={};var best_cost: float=INF
+	for candidate in candidates.slice(0,8):
+		var route := path(from,candidate.position)
+		if route.is_empty():continue
+		var length: float=route_length(route)
+		if length>maxf(.15,from.distance_to(candidate.position)*float(options.get("detour",1.8))+.05):continue
+		if length>max_travel*1.5:continue
+		var cost: float=candidate.score+length*.20
+		if cost<best_cost:best_cost=cost;best=candidate;best["path_length"]=length
+	if not best.is_empty() and options.get("reserve",true):reserve_slot(id,best)
 	return best
 
 func protection(p: Vector2, attacker: Vector2) -> float:
@@ -174,13 +234,28 @@ func protection(p: Vector2, attacker: Vector2) -> float:
 			if p.distance_to(s.position)<.047 and s.normal.dot((attacker-p).normalized())>.35: return .62
 	return 0.0
 
+func segment_hits(a: Vector2,b: Vector2,center: Vector2,half: Vector2) -> bool:
+	var low: float=0;var high: float=1
+	var delta := b-a
+	for axis in range(2):
+		if absf(delta[axis])<.00001:
+			if a[axis]<center[axis]-half[axis] or a[axis]>center[axis]+half[axis]:return false
+		else:
+			var t1: float=(center[axis]-half[axis]-a[axis])/delta[axis]
+			var t2: float=(center[axis]+half[axis]-a[axis])/delta[axis]
+			low=maxf(low,minf(t1,t2));high=minf(high,maxf(t1,t2))
+			if low>high:return false
+	return high>.002 and low<.998
+
 func line_of_sight(a: Vector2,b: Vector2) -> bool:
 	for o in obstacles:
-		var center := Vector2(o.position[0],o.position[1])
-		var half := Vector2(o.size[0],o.size[1])*.5
-		var rect := Rect2(center-half,half*2)
-		for i in range(1,20):
-			if rect.has_point(a.lerp(b,float(i)/20)):return false
+		if segment_hits(a,b,Vector2(o.position[0],o.position[1]),Vector2(o.size[0],o.size[1])*.5):return false
+	return true
+
+func melee_clear(a: Vector2,b: Vector2) -> bool:
+	if not line_of_sight(a,b):return false
+	for c in covers:
+		if c.alive and segment_hits(a,b,Vector2(c.position[0],c.position[1]),Vector2(c.size[0],c.size[1])*.5):return false
 	return true
 
 func damage_cover(id: String, amount: float) -> bool:

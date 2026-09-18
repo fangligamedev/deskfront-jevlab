@@ -1,0 +1,26 @@
+PASS Pause button freezes actual game
+PASS Minimap movement reaches Godot and AI does not steal control
+PASS Group move uses live shared formation
+PASS Tactical roles and CQB state are exposed to Agent and console
+PASS Real keyboard 2 takes over blue squad
+PASS Real keyboard C issues cover command
+PASS Tank button adds exactly one tank
+PASS Console renders actual squad phase and covering members
+PAN_BOUNDS {"before":{"x":897.703125,"y":140.5,"width":797,"height":636},"after":{"x":897.703125,"y":140.5,"width":797,"height":636},"cameraBefore":[0.610000014305115,-0.00999999977648258]}
+PASS Middle-mouse drag pans actual RTS camera
+PASS Arrow keys pan camera
+PASS Mouse wheel zoom works after pan
+PASS Home recenters camera
+PASS Real left drag box-selects multiple soldiers
+PASS Right-click ground produces move order and world feedback ring
+PASS M toggles actual audio voices
+PASS User gesture unlocks WebAudio and actual nonzero PCM reaches destination
+PASS External Agent action round-trip has engine acknowledgement
+PASS Rejected Agent attack preserves active formation
+PASS Stale Agent run rejected through HTTP
+PASS Agent cannot hijack red faction
+PASS Designer parameter reaches runtime
+PASS Reset restores data and removes reinforcement
+PASS Responsive tablet layout preserves playable iframe
+PASS No browser or game console errors
+{"passed":true,"checks":25,"headless_fps":[7,7,7,7,6,6,5,5]}

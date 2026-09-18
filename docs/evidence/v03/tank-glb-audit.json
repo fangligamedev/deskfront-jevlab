@@ -1,0 +1,53 @@
+{
+  "animations": 0,
+  "attributes": [
+    "NORMAL",
+    "POSITION",
+    "TEXCOORD_0"
+  ],
+  "findings": [
+    {
+      "code": "glb.parse",
+      "message": "Valid GLB 2.0 JSON container",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.geometry",
+      "message": "4 primitives",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.triangle_budget",
+      "message": "3796 <= 100000",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.normals",
+      "message": "NORMAL attribute",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.uv",
+      "message": "TEXCOORD_0 attribute",
+      "status": "PASS"
+    }
+  ],
+  "generator": "Khronos glTF Blender I/O v5.2.40",
+  "has_normals": true,
+  "has_skin_weights": false,
+  "has_uv": true,
+  "images": 0,
+  "indices": 11388,
+  "joint_names": [],
+  "materials": 3,
+  "meshes": 4,
+  "passed": true,
+  "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/tank.glb",
+  "primitives": 4,
+  "sha256": "57de08342bb7a9b40cd73c01cca4906aa77d1b01cb66a50dc4e981c766a768c5",
+  "size_bytes": 256700,
+  "skin_joints": 0,
+  "skins": 0,
+  "triangles": 3796,
+  "vertices": 7168
+}

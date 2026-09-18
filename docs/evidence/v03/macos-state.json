@@ -1,0 +1,977 @@
+{
+  "bounds": [
+    -0.08,
+    -0.62,
+    1.32,
+    0.57
+  ],
+  "camera": "battle",
+  "camera_size": 1.87,
+  "camera_target": [
+    0.600000023841858,
+    -0.0199999995529652
+  ],
+  "combat_fx": {
+    "audio_events": 20,
+    "impacts": 9,
+    "launched": {
+      "cannon": 1,
+      "rifle": 6,
+      "rocket": 2
+    },
+    "muted": false,
+    "projectiles": 0,
+    "visuals": 0
+  },
+  "command_feedback": "",
+  "control": {
+    "blue": "game_ai",
+    "green": "game_ai",
+    "red": "game_ai"
+  },
+  "covers": [
+    {
+      "alive": true,
+      "height": 0.043,
+      "hp": 280.0,
+      "id": "green_bags",
+      "kind": "sandbag",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "position": [
+        0.21,
+        0.23
+      ],
+      "size": [
+        0.25,
+        0.045
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.043,
+      "hp": 197.0,
+      "id": "blue_bags",
+      "kind": "sandbag",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "position": [
+        0.29,
+        -0.33
+      ],
+      "size": [
+        0.25,
+        0.045
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.043,
+      "hp": 280.0,
+      "id": "red_bags",
+      "kind": "sandbag",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "position": [
+        0.92,
+        -0.14
+      ],
+      "size": [
+        0.045,
+        0.25
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.034,
+      "hp": -1.0,
+      "id": "notebook",
+      "kind": "notebook",
+      "normal": [
+        1.0,
+        0.0
+      ],
+      "position": [
+        0.25,
+        0.015
+      ],
+      "size": [
+        0.17,
+        0.19
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.028,
+      "hp": 65.0,
+      "id": "pencil_barrier",
+      "kind": "pencil",
+      "normal": [
+        -1.0,
+        0.0
+      ],
+      "position": [
+        0.69,
+        -0.28
+      ],
+      "size": [
+        0.04,
+        0.21
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.035,
+      "hp": -1.0,
+      "id": "eraser",
+      "kind": "eraser",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "position": [
+        0.79,
+        0.3
+      ],
+      "size": [
+        0.14,
+        0.065
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.043,
+      "hp": 320.0,
+      "id": "forward_green",
+      "kind": "sandbag",
+      "normal": [
+        0.0,
+        -1.0
+      ],
+      "position": [
+        0.46,
+        0.14
+      ],
+      "size": [
+        0.16,
+        0.045
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.043,
+      "hp": 320.0,
+      "id": "forward_blue",
+      "kind": "sandbag",
+      "normal": [
+        0.0,
+        1.0
+      ],
+      "position": [
+        0.49,
+        -0.15
+      ],
+      "size": [
+        0.16,
+        0.045
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.18,
+      "hp": -1,
+      "id": "hard_lamp",
+      "kind": "hard",
+      "normal": [
+        1,
+        0
+      ],
+      "position": [
+        0.29,
+        -0.57
+      ],
+      "size": [
+        0.17,
+        0.1
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.18,
+      "hp": -1,
+      "id": "hard_tray",
+      "kind": "hard",
+      "normal": [
+        1,
+        0
+      ],
+      "position": [
+        1.11,
+        0.34
+      ],
+      "size": [
+        0.34,
+        0.31
+      ]
+    },
+    {
+      "alive": true,
+      "height": 0.18,
+      "hp": -1,
+      "id": "hard_sharpener",
+      "kind": "hard",
+      "normal": [
+        1,
+        0
+      ],
+      "position": [
+        0.84,
+        -0.46
+      ],
+      "size": [
+        0.12,
+        0.12
+      ]
+    }
+  ],
+  "decisions": {
+    "blue": {
+      "action": "flank",
+      "candidates": [],
+      "confidence": 0.0,
+      "phase": "bound",
+      "reason": "原站位失效，一人重新占掩体，其余保持火力",
+      "source": "squad_coordinator",
+      "tick": 218
+    },
+    "green": {
+      "action": "flank",
+      "candidates": [],
+      "confidence": 0.0,
+      "phase": "bound",
+      "reason": "一人向前沿掩体推进，其他成员掩护",
+      "source": "squad_coordinator",
+      "tick": 218
+    },
+    "red": {
+      "action": "cover",
+      "candidates": [],
+      "confidence": 0.0,
+      "phase": "suppress",
+      "reason": "步枪掩护、冲锋枪压制、火箭筒关注装甲",
+      "source": "squad_coordinator",
+      "tick": 218
+    }
+  },
+  "edge_pan": true,
+  "events": [
+    {
+      "text": "green · bound · 一人向前沿掩体推进，其他成员掩护",
+      "time": 3.6
+    },
+    {
+      "text": "red · suppress · 步枪掩护、冲锋枪压制、火箭筒关注装甲",
+      "time": 1.6
+    },
+    {
+      "text": "blue · bound · 原站位失效，一人重新占掩体，其余保持火力",
+      "time": 1.6
+    },
+    {
+      "text": "blue · suppress · 步枪掩护、冲锋枪压制、火箭筒关注装甲",
+      "time": 1.1
+    },
+    {
+      "text": "green · suppress · 步枪掩护、冲锋枪压制、火箭筒关注装甲",
+      "time": 1.1
+    },
+    {
+      "text": "红方失势 · 后方坦克增援抵达",
+      "time": 0.0
+    },
+    {
+      "text": "战场就绪 · 三个阵营 · 九名步兵",
+      "time": 0.0
+    }
+  ],
+  "factions": [
+    {
+      "color": "607c48",
+      "goal": [
+        0.45,
+        0.12
+      ],
+      "id": "green",
+      "name": "苔绿侦察队",
+      "spawn": [
+        0.12,
+        0.35
+      ]
+    },
+    {
+      "color": "3c6880",
+      "goal": [
+        0.48,
+        -0.12
+      ],
+      "id": "blue",
+      "name": "钴蓝机动队",
+      "spawn": [
+        0.24,
+        -0.48
+      ]
+    },
+    {
+      "color": "a35340",
+      "goal": [
+        0.75,
+        0.05
+      ],
+      "id": "red",
+      "name": "砖红守备队",
+      "spawn": [
+        1.08,
+        -0.25
+      ]
+    }
+  ],
+  "fps": 243.0,
+  "last_action": {
+
+  },
+  "navigation_revision": 1,
+  "objective": {
+    "position": [
+      0.569999992847443,
+      0.0199999995529652
+    ],
+    "radius": 0.17,
+    "score_to_win": 90.0,
+    "screen_position": [
+      621.543762207031,
+      369.432525634766
+    ]
+  },
+  "obstacles": [
+    {
+      "id": "lamp",
+      "position": [
+        0.29,
+        -0.57
+      ],
+      "size": [
+        0.17,
+        0.1
+      ]
+    },
+    {
+      "id": "tray",
+      "position": [
+        1.11,
+        0.34
+      ],
+      "size": [
+        0.34,
+        0.31
+      ]
+    },
+    {
+      "id": "sharpener",
+      "position": [
+        0.84,
+        -0.46
+      ],
+      "size": [
+        0.12,
+        0.12
+      ]
+    }
+  ],
+  "parameters": {
+    "accuracy": 0.72,
+    "cooldown": 1.3,
+    "damage": 9.0,
+    "hp": 100.0,
+    "magazine": 6.0,
+    "range": 0.65,
+    "reload": 2.2,
+    "speed": 0.12,
+    "suppression_decay": 0.12
+  },
+  "paused": false,
+  "reservations": {
+    "blue_bags_-1_1": "blue-2",
+    "blue_bags_-1_2": "blue-1",
+    "forward_green_-1_1": "green-2",
+    "green_bags_-1_0": "green-1",
+    "green_bags_-1_2": "green-3",
+    "hard_lamp_0": "blue-3",
+    "red_bags_-1_0": "red-3",
+    "red_bags_-1_1": "red-2",
+    "red_bags_-1_2": "red-1"
+  },
+  "run_id": "1789738282.26544-1310492092",
+  "schema_version": 1,
+  "scores": {
+    "blue": 0.0,
+    "green": 0.0,
+    "red": 0.0
+  },
+  "selected_faction": "green",
+  "shots": 9,
+  "speed": 1.0,
+  "tactical": {
+    "counters": {
+      "bounds": 1,
+      "cover_repositions": 1,
+      "flanks": 0,
+      "formation_updates": 0,
+      "tank_repositions": 2
+    },
+    "formations": {
+
+    },
+    "path_queries": 94,
+    "squads": {
+      "blue": {
+        "anchor": [
+          0.228011801838875,
+          -0.463054805994034
+        ],
+        "leader": "blue-1",
+        "mover": "blue-2",
+        "phase": "bound",
+        "reason": "原站位失效，一人重新占掩体，其余保持火力",
+        "since": 1.56666666666667,
+        "support_ids": [],
+        "threat": "green-2",
+        "turn": 0
+      },
+      "green": {
+        "anchor": [
+          0.201721861958504,
+          0.284178167581558
+        ],
+        "leader": "green-1",
+        "mover": "green-2",
+        "phase": "bound",
+        "reason": "一人向前沿掩体推进，其他成员掩护",
+        "since": 3.63333333333333,
+        "support_ids": [
+          "green-1"
+        ],
+        "threat": "blue-1",
+        "turn": 0
+      },
+      "red": {
+        "anchor": [
+          0.97889918088913,
+          -0.151208460330963
+        ],
+        "leader": "red-1",
+        "mover": "",
+        "phase": "suppress",
+        "reason": "步枪掩护、冲锋枪压制、火箭筒关注装甲",
+        "since": 1.56666666666667,
+        "support_ids": [],
+        "threat": "blue-2",
+        "turn": 0
+      }
+    }
+  },
+  "tank_spawned": true,
+  "tick": 239,
+  "time": 4.0,
+  "units": [
+    {
+      "ammo": 5,
+      "animation": "crouch",
+      "bone_count": 17,
+      "cover_id": "green_bags",
+      "cover_risk": 0.405323083197605,
+      "cover_slot": "green_bags_-1_0",
+      "cqb_stance": "crouch",
+      "faction": "green",
+      "focus_id": "blue-1",
+      "formation_speed": 1.0,
+      "goal": [
+        0.145000010728836,
+        0.280000030994415
+      ],
+      "hp": 100.0,
+      "id": "green-1",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": false,
+      "order_mode": "take_cover",
+      "position": [
+        0.133839830756187,
+        0.282633155584335
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "screen_position": [
+        426.435607910156,
+        342.545532226562
+      ],
+      "selected": false,
+      "state": "cover",
+      "suppression": 0.0,
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7
+    },
+    {
+      "ammo": 24,
+      "animation": "run",
+      "bone_count": 17,
+      "cover_id": "forward_green",
+      "cover_risk": 0.559475330719105,
+      "cover_slot": "forward_green_-1_1",
+      "cqb_stance": "crouch",
+      "faction": "green",
+      "focus_id": "blue-1",
+      "formation_speed": 1.0,
+      "goal": [
+        0.470000028610229,
+        0.204999983310699
+      ],
+      "hp": 85.2,
+      "id": "green-2",
+      "in_cover": false,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "order_mode": "bound",
+      "position": [
+        0.239078834652901,
+        0.279054194688797
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "screen_position": [
+        459.784332275391,
+        356.979095458984
+      ],
+      "selected": false,
+      "state": "move",
+      "suppression": 0.02,
+      "tactical_role": "assault",
+      "turret_yaw": 0.0,
+      "weapon": "smg",
+      "weapon_name": "冲锋枪",
+      "weapon_range": 0.6
+    },
+    {
+      "ammo": 0,
+      "animation": "reload",
+      "bone_count": 17,
+      "cover_id": "green_bags",
+      "cover_risk": 0.423850822949894,
+      "cover_slot": "green_bags_-1_2",
+      "cqb_stance": "hide",
+      "faction": "green",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        0.269999980926514,
+        0.280000030994415
+      ],
+      "hp": 100.0,
+      "id": "green-3",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": false,
+      "order_mode": "take_cover",
+      "position": [
+        0.26248025894165,
+        0.287333160638809
+      ],
+      "reload_remaining": 0.9,
+      "reversing": false,
+      "screen_position": [
+        465.116333007812,
+        361.944396972656
+      ],
+      "selected": false,
+      "state": "reload",
+      "suppression": 0.0,
+      "tactical_role": "anti_armor",
+      "turret_yaw": 0.0,
+      "weapon": "rocket",
+      "weapon_name": "火箭筒",
+      "weapon_range": 0.92
+    },
+    {
+      "ammo": 5,
+      "animation": "prone",
+      "bone_count": 17,
+      "cover_id": "blue_bags",
+      "cover_risk": 0.735412229231239,
+      "cover_slot": "blue_bags_-1_2",
+      "cqb_stance": "crouch",
+      "faction": "blue",
+      "focus_id": "green-2",
+      "formation_speed": 1.0,
+      "goal": [
+        0.245000019669533,
+        -0.394999980926514
+      ],
+      "hp": 47.5,
+      "id": "blue-1",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": false,
+      "order_mode": "take_cover",
+      "position": [
+        0.237946435809135,
+        -0.402294933795929
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "screen_position": [
+        615.87255859375,
+        224.987319946289
+      ],
+      "selected": false,
+      "state": "suppressed",
+      "suppression": 0.84,
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7
+    },
+    {
+      "ammo": 24,
+      "animation": "crouch",
+      "bone_count": 17,
+      "cover_id": "blue_bags",
+      "cover_risk": 0.993339212404033,
+      "cover_slot": "blue_bags_-1_1",
+      "cqb_stance": "crouch",
+      "faction": "blue",
+      "focus_id": "green-2",
+      "formation_speed": 1.0,
+      "goal": [
+        0.295000016689301,
+        -0.394999980926514
+      ],
+      "hp": 96.5,
+      "id": "blue-2",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "order_mode": "reposition",
+      "position": [
+        0.284429103136063,
+        -0.399105310440063
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "screen_position": [
+        629.507080078125,
+        232.28532409668
+      ],
+      "selected": false,
+      "state": "cover",
+      "suppression": 0.28,
+      "tactical_role": "assault",
+      "turret_yaw": 0.0,
+      "weapon": "smg",
+      "weapon_name": "冲锋枪",
+      "weapon_range": 0.6
+    },
+    {
+      "ammo": 1,
+      "animation": "crouch",
+      "bone_count": 17,
+      "cover_id": "hard_lamp",
+      "cover_risk": 0.475178952153878,
+      "cover_slot": "hard_lamp_0",
+      "cqb_stance": "hide",
+      "faction": "blue",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        0.170000001788139,
+        -0.595000028610229
+      ],
+      "hp": 100.0,
+      "id": "blue-3",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "order_mode": "take_cover",
+      "position": [
+        0.170889765024185,
+        -0.584179580211639
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "screen_position": [
+        636.90771484375,
+        180.157867431641
+      ],
+      "selected": false,
+      "state": "cover",
+      "suppression": 0.0,
+      "tactical_role": "anti_armor",
+      "turret_yaw": 0.0,
+      "weapon": "rocket",
+      "weapon_name": "火箭筒",
+      "weapon_range": 0.92
+    },
+    {
+      "ammo": 8,
+      "animation": "crouch",
+      "bone_count": 17,
+      "cover_id": "red_bags",
+      "cover_risk": 0.428425575008956,
+      "cover_slot": "red_bags_-1_2",
+      "cqb_stance": "crouch",
+      "faction": "red",
+      "focus_id": "blue-2",
+      "formation_speed": 1.0,
+      "goal": [
+        0.970000088214874,
+        -0.194999992847443
+      ],
+      "hp": 100.0,
+      "id": "red-1",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "order_mode": "take_cover",
+      "position": [
+        0.978035926818848,
+        -0.203710302710533
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "screen_position": [
+        799.022766113281,
+        369.782806396484
+      ],
+      "selected": false,
+      "state": "cover",
+      "suppression": 0.0,
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7
+    },
+    {
+      "ammo": 24,
+      "animation": "crouch",
+      "bone_count": 17,
+      "cover_id": "red_bags",
+      "cover_risk": 0.427397102566486,
+      "cover_slot": "red_bags_-1_1",
+      "cqb_stance": "crouch",
+      "faction": "red",
+      "focus_id": "blue-2",
+      "formation_speed": 1.0,
+      "goal": [
+        0.970000088214874,
+        -0.145000010728836
+      ],
+      "hp": 100.0,
+      "id": "red-2",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "order_mode": "take_cover",
+      "position": [
+        0.977176427841187,
+        -0.152162462472916
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "screen_position": [
+        786.921630859375,
+        379.632843017578
+      ],
+      "selected": false,
+      "state": "cover",
+      "suppression": 0.0,
+      "tactical_role": "assault",
+      "turret_yaw": 0.0,
+      "weapon": "smg",
+      "weapon_name": "冲锋枪",
+      "weapon_range": 0.6
+    },
+    {
+      "ammo": 0,
+      "animation": "reload",
+      "bone_count": 17,
+      "cover_id": "red_bags",
+      "cover_risk": 0.425738428148666,
+      "cover_slot": "red_bags_-1_0",
+      "cqb_stance": "hide",
+      "faction": "red",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        0.970000088214874,
+        -0.0949999690055847
+      ],
+      "hp": 100.0,
+      "id": "red-3",
+      "in_cover": true,
+      "kind": "infantry",
+      "max_hp": 100.0,
+      "melee_ready": false,
+      "order_mode": "take_cover",
+      "position": [
+        0.981485247612,
+        -0.0977526232600212
+      ],
+      "reload_remaining": 2.0,
+      "reversing": false,
+      "screen_position": [
+        775.760864257812,
+        390.779541015625
+      ],
+      "selected": false,
+      "state": "reload",
+      "suppression": 0.0,
+      "tactical_role": "anti_armor",
+      "turret_yaw": 0.0,
+      "weapon": "rocket",
+      "weapon_name": "火箭筒",
+      "weapon_range": 0.92
+    },
+    {
+      "ammo": 1000,
+      "animation": "run",
+      "bone_count": 0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cqb_stance": "open",
+      "faction": "red",
+      "focus_id": "blue-2",
+      "formation_speed": 1.0,
+      "goal": [
+        0.645000040531158,
+        -0.0199999809265137
+      ],
+      "hp": 420.0,
+      "id": "red-tank",
+      "in_cover": false,
+      "kind": "tank",
+      "max_hp": 420.0,
+      "melee_ready": false,
+      "order_mode": "reposition",
+      "position": [
+        1.04526126384735,
+        -0.41506952047348
+      ],
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "screen_position": [
+        868.328796386719,
+        338.550811767578
+      ],
+      "selected": false,
+      "state": "move",
+      "suppression": 0.0,
+      "tactical_role": "armor",
+      "turret_yaw": -0.572639226913452,
+      "weapon": "cannon",
+      "weapon_name": "坦克炮",
+      "weapon_range": 0.98
+    }
+  ],
+  "version": "0.3.0",
+  "viewport": [
+    1280.0,
+    720.0
+  ],
+  "weapons": {
+    "bayonet": {
+      "accuracy": 1.0,
+      "armor_multiplier": 0.0,
+      "cooldown": 0.85,
+      "damage": 29.0,
+      "magazine": 0.0,
+      "name": "刺刀",
+      "pressure": 0.22,
+      "projectile_speed": 0.0,
+      "range": 0.075,
+      "reload": 0.0,
+      "splash": 0.0
+    },
+    "cannon": {
+      "accuracy": 0.9,
+      "armor_multiplier": 1.0,
+      "cooldown": 3.4,
+      "damage": 24.0,
+      "magazine": 1000.0,
+      "name": "坦克炮",
+      "pressure": 0.4,
+      "projectile_speed": 1.6,
+      "range": 0.98,
+      "reload": 0.0,
+      "splash": 0.13
+    },
+    "rifle": {
+      "accuracy": 0.82,
+      "armor_multiplier": 0.1,
+      "cooldown": 1.05,
+      "damage": 13.0,
+      "magazine": 8.0,
+      "name": "步枪",
+      "pressure": 0.12,
+      "projectile_speed": 4.0,
+      "range": 0.7,
+      "reload": 2.0,
+      "splash": 0.0
+    },
+    "rocket": {
+      "accuracy": 0.85,
+      "armor_multiplier": 7.0,
+      "cooldown": 3.8,
+      "damage": 18.0,
+      "magazine": 1.0,
+      "name": "火箭筒",
+      "pressure": 0.42,
+      "projectile_speed": 0.95,
+      "range": 0.92,
+      "reload": 3.8,
+      "splash": 0.105
+    },
+    "smg": {
+      "accuracy": 0.58,
+      "armor_multiplier": 0.04,
+      "cooldown": 0.14,
+      "damage": 5.0,
+      "magazine": 24.0,
+      "name": "冲锋枪",
+      "pressure": 0.055,
+      "projectile_speed": 4.5,
+      "range": 0.6,
+      "reload": 2.5,
+      "splash": 0.0
+    }
+  },
+  "winner": "",
+  "worker_animation_time": 2.32495429238539
+}

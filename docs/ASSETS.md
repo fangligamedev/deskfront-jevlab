@@ -41,7 +41,7 @@
 
 ## 规则 JSON
 
-`schema_version` 固定为 1。`factions` 配置 ID、名称、颜色、出生点和战术目标；`soldier` 配置生命、速度、压制衰减，并保留策划台伤害/冷却/命中率的全局倍率基准；`weapons` 配置各武器的实际射程、伤害、冷却、命中率、弹匣、换弹、弹速、装甲倍率、爆炸半径；`loadout` 对应每队三个兵的装备；`rules` 配置积分上限、比赛时长、增援条件和 AI 决策频率。
+`schema_version` 固定为 1。`factions` 配置 ID、名称、颜色、出生点和战术目标；`soldier` 配置生命、速度、压制衰减，并保留策划台伤害/冷却/命中率的全局倍率基准；`weapons` 配置各武器的实际射程、伤害、冷却、命中率、弹匣、换弹、弹速、装甲倍率、爆炸半径；`loadout` 对应每队三个兵的装备；`rules` 配置积分上限、比赛时长、增援条件；`tactics`配置小队协调频率与行为参数，旧`rules.ai_interval/cover_hold_seconds`仅为兼容保留，不再驱动协调器。
 
 `covers` 条目：稳定 `id`、二维 `position=[x,z]`、`size=[width,depth]`、朝向 `normal=[x,z]`、高度、生命、类别。`hp=-1` 代表不可破坏。类别 `sandbag`、`notebook`、`pencil`、`eraser` 由 `battlefield.gd` 构建视觉与战术形状。
 
@@ -54,3 +54,12 @@
 `source/audio/synthesize.py` 可确定性重建九个16-bit、22050Hz、单声道WAV：rifle、smg、rocket、cannon、explosion、impact、bayonet、order、reload。时长0.12–1.05秒，峰值限制在0.78。所有声音为原创程序合成，CC0；未下载枪声录音。源WAV、生成脚本与运行WAV的来源及SHA-256写入`.forge/assets.json`。重建Blender资源会保留音频来源条目。
 
 运行几何武器在`unit.gd::install_weapon()`定义：步枪长枪管与刺刀、冲锋枪短枪管与弹匣、火箭筒粗管及尾罩。使用现有骨骼的休止变换将几何挂入右手附件。效果是Godot原生网格，无贴图和外部VFX插件。
+
+
+## 0.3.0 炮塔与战术参数
+
+坦克GLB从单一合并模型改为车体与独立`TurretPivot`，炮塔、炮管和舱盖随支点旋转，`Muzzle`标记实际炮口。Blender源文件同步保留，可用`blender -b --python source/blender/build_assets.py -- --only-tank`单独重建，再执行`python3 tools/project.py record-assets`登记。运行时不靠旋转整个车体假装瞄准。
+
+`tactics`的主要参数：update_interval（0.5秒）、formation_lookahead（1.4秒）、formation_width（0.064米）、leader_leash（0.17米）、repath_delta（0.028米）、suppress_seconds（2.4秒）、bound_distance（0.29米）、bound_timeout（5.5秒）、peek_seconds（到角落后0.85秒）、hide_seconds（0.65秒）、pinned_threshold（0.84）、tank_preferred_range（0.56米）、tank_danger_range（0.35米）、tank_replan_seconds（1.5秒）、车体/炮塔转速（1.6/2.6弧度每秒）、前/侧/后装甲倍率（0.72/1/1.4）。权重与少量局部几何阈值仍在tactics.gd中，不声称完全无代码策划。
+
+本轮没有添加外部下载素材或战术参考视频画面到游戏资源。CQB采用现有跑动、蹲姿、换弹与射击骨骼动作和实际位移，不是新增精细贴墙侧身动画。

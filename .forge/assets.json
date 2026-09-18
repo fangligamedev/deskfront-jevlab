@@ -1,4 +1,5 @@
 {
+  "schema": "godot-forge.asset-provenance-set.v1",
   "assets": [
     {
       "created_at": "2026-09-18T11:09:56.397819+00:00",
@@ -190,152 +191,151 @@
       }
     },
     {
-      "created_at": "2026-09-18T10:26:31.213349+00:00",
-      "kind": "character",
-      "license": "CC0-1.0",
-      "model": "original procedural authored mesh",
-      "origin": "original",
-      "path": "assets/models/infantry-blue.glb",
-      "prompt": "See source/blender/build_assets.py",
-      "provider": "local Blender Python",
-      "release_status": "allowed",
-      "sha256": "713d6873c5b13bbb28e40eed0dc8e3302aa710894e34290d93edaf7a18d59296",
-      "size_bytes": 331408,
-      "source_files": [
-        "source/blender/build_assets.py",
-        "source/blender/generated/infantry-blue.blend"
-      ],
-      "source_hashes": {
-        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
-        "source/blender/generated/infantry-blue.blend": "774920ecd7ebd6ace00bdc2c4f2b6cbf76f2a53e8e52022fe3c64067dad25113"
-      }
-    },
-    {
-      "created_at": "2026-09-18T10:26:31.212732+00:00",
-      "kind": "character",
-      "license": "CC0-1.0",
-      "model": "original procedural authored mesh",
-      "origin": "original",
-      "path": "assets/models/infantry-green.glb",
-      "prompt": "See source/blender/build_assets.py",
-      "provider": "local Blender Python",
-      "release_status": "allowed",
-      "sha256": "acb25c0e407d114df3965fa0de938b6dbd2982e41f2065341a402ba45420fbc1",
-      "size_bytes": 331400,
-      "source_files": [
-        "source/blender/build_assets.py",
-        "source/blender/generated/infantry-green.blend"
-      ],
-      "source_hashes": {
-        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
-        "source/blender/generated/infantry-green.blend": "1bf8e424cbe3e4df9146a75f70d2dd5ca390cd5539b6b96362ae4df9fb851f85"
-      }
-    },
-    {
-      "created_at": "2026-09-18T10:26:31.213928+00:00",
-      "kind": "character",
-      "license": "CC0-1.0",
-      "model": "original procedural authored mesh",
-      "origin": "original",
-      "path": "assets/models/infantry-red.glb",
-      "prompt": "See source/blender/build_assets.py",
-      "provider": "local Blender Python",
-      "release_status": "allowed",
-      "sha256": "7cdfed64e0da9382ff4b58f275c5192e1ae93ceaab8ff328ed8269bfe9129292",
-      "size_bytes": 331412,
-      "source_files": [
-        "source/blender/build_assets.py",
-        "source/blender/generated/infantry-red.blend"
-      ],
-      "source_hashes": {
-        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
-        "source/blender/generated/infantry-red.blend": "812ed1144687e216b414cd29224dc44eb31f8603b1d5130328b3c1e7a071d329"
-      }
-    },
-    {
-      "created_at": "2026-09-18T10:26:31.211840+00:00",
-      "kind": "model",
-      "license": "CC0-1.0",
-      "model": "original procedural authored mesh",
-      "origin": "original",
       "path": "assets/models/office.glb",
-      "prompt": "See source/blender/build_assets.py",
-      "provider": "local Blender Python",
+      "kind": "model",
+      "origin": "original",
+      "license": "CC0-1.0",
       "release_status": "allowed",
-      "sha256": "68189f11647ababa51c62ac40b62030e8710162035b67944b55b3e89154d5d69",
-      "size_bytes": 1763196,
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
       "source_files": [
         "source/blender/build_assets.py",
         "source/blender/generated/office.blend"
       ],
       "source_hashes": {
-        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/build_assets.py": "f1890bf65d40e9887f5f6b336fb6c98b03af1b1a2befac60e784066bcfdf1952",
         "source/blender/generated/office.blend": "77a568925da76a118f479e0260c54511f0d65d02e798741a7362dc9c178ccca7"
-      }
+      },
+      "sha256": "68189f11647ababa51c62ac40b62030e8710162035b67944b55b3e89154d5d69",
+      "size_bytes": 1763196,
+      "created_at": "2026-09-18T12:28:48.806532+00:00"
     },
     {
-      "created_at": "2026-09-18T10:26:31.215124+00:00",
-      "kind": "model",
-      "license": "CC0-1.0",
-      "model": "original procedural authored mesh",
-      "origin": "original",
-      "path": "assets/models/sandbag.glb",
-      "prompt": "See source/blender/build_assets.py",
-      "provider": "local Blender Python",
-      "release_status": "allowed",
-      "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
-      "size_bytes": 40072,
-      "source_files": [
-        "source/blender/build_assets.py",
-        "source/blender/generated/sandbag.blend"
-      ],
-      "source_hashes": {
-        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
-        "source/blender/generated/sandbag.blend": "fbbeb55374f4aa8b1c13ba12f5114a3153b7ddacdf27a08af012963398e84b60"
-      }
-    },
-    {
-      "created_at": "2026-09-18T10:26:31.214783+00:00",
-      "kind": "model",
-      "license": "CC0-1.0",
-      "model": "original procedural authored mesh",
-      "origin": "original",
-      "path": "assets/models/tank.glb",
-      "prompt": "See source/blender/build_assets.py",
-      "provider": "local Blender Python",
-      "release_status": "allowed",
-      "sha256": "d9c8b51b110d0d21e42af9e613bd9ca6f506ea816a033f6951f1921d5fbfb5e4",
-      "size_bytes": 255700,
-      "source_files": [
-        "source/blender/build_assets.py",
-        "source/blender/generated/tank.blend"
-      ],
-      "source_hashes": {
-        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
-        "source/blender/generated/tank.blend": "0fe90da3a1e9ec486073ab41b545a70e0f075b3e6d713c905e3662e7f38a3db5"
-      }
-    },
-    {
-      "created_at": "2026-09-18T10:26:31.214349+00:00",
+      "path": "assets/models/infantry-green.glb",
       "kind": "character",
-      "license": "CC0-1.0",
-      "model": "original procedural authored mesh",
       "origin": "original",
-      "path": "assets/models/worker.glb",
-      "prompt": "See source/blender/build_assets.py",
-      "provider": "local Blender Python",
+      "license": "CC0-1.0",
       "release_status": "allowed",
-      "sha256": "1dc36a161593b7d79b2bb028c06c493276376c448eb9a85b362f6c0448f08d91",
-      "size_bytes": 195612,
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/infantry-green.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "f1890bf65d40e9887f5f6b336fb6c98b03af1b1a2befac60e784066bcfdf1952",
+        "source/blender/generated/infantry-green.blend": "1bf8e424cbe3e4df9146a75f70d2dd5ca390cd5539b6b96362ae4df9fb851f85"
+      },
+      "sha256": "acb25c0e407d114df3965fa0de938b6dbd2982e41f2065341a402ba45420fbc1",
+      "size_bytes": 331400,
+      "created_at": "2026-09-18T12:28:48.807910+00:00"
+    },
+    {
+      "path": "assets/models/infantry-blue.glb",
+      "kind": "character",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/infantry-blue.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "f1890bf65d40e9887f5f6b336fb6c98b03af1b1a2befac60e784066bcfdf1952",
+        "source/blender/generated/infantry-blue.blend": "774920ecd7ebd6ace00bdc2c4f2b6cbf76f2a53e8e52022fe3c64067dad25113"
+      },
+      "sha256": "713d6873c5b13bbb28e40eed0dc8e3302aa710894e34290d93edaf7a18d59296",
+      "size_bytes": 331408,
+      "created_at": "2026-09-18T12:28:48.809148+00:00"
+    },
+    {
+      "path": "assets/models/infantry-red.glb",
+      "kind": "character",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/infantry-red.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "f1890bf65d40e9887f5f6b336fb6c98b03af1b1a2befac60e784066bcfdf1952",
+        "source/blender/generated/infantry-red.blend": "812ed1144687e216b414cd29224dc44eb31f8603b1d5130328b3c1e7a071d329"
+      },
+      "sha256": "7cdfed64e0da9382ff4b58f275c5192e1ae93ceaab8ff328ed8269bfe9129292",
+      "size_bytes": 331412,
+      "created_at": "2026-09-18T12:28:48.810367+00:00"
+    },
+    {
+      "path": "assets/models/worker.glb",
+      "kind": "character",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
       "source_files": [
         "source/blender/build_assets.py",
         "source/blender/generated/worker.blend"
       ],
       "source_hashes": {
-        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/build_assets.py": "f1890bf65d40e9887f5f6b336fb6c98b03af1b1a2befac60e784066bcfdf1952",
         "source/blender/generated/worker.blend": "c030e1f4e8235ea80019cc96499796a5ca71fcd0a2a454febdd60408e63f149b"
-      }
+      },
+      "sha256": "1dc36a161593b7d79b2bb028c06c493276376c448eb9a85b362f6c0448f08d91",
+      "size_bytes": 195612,
+      "created_at": "2026-09-18T12:28:48.811246+00:00"
+    },
+    {
+      "path": "assets/models/tank.glb",
+      "kind": "model",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/tank.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "f1890bf65d40e9887f5f6b336fb6c98b03af1b1a2befac60e784066bcfdf1952",
+        "source/blender/generated/tank.blend": "ec1121b6e66659949285577a5fbb01a262c38a48c08f0ff4ec799506e6de9b90"
+      },
+      "sha256": "57de08342bb7a9b40cd73c01cca4906aa77d1b01cb66a50dc4e981c766a768c5",
+      "size_bytes": 256700,
+      "created_at": "2026-09-18T12:28:48.811652+00:00"
+    },
+    {
+      "path": "assets/models/sandbag.glb",
+      "kind": "model",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/sandbag.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "f1890bf65d40e9887f5f6b336fb6c98b03af1b1a2befac60e784066bcfdf1952",
+        "source/blender/generated/sandbag.blend": "fbbeb55374f4aa8b1c13ba12f5114a3153b7ddacdf27a08af012963398e84b60"
+      },
+      "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
+      "size_bytes": 40072,
+      "created_at": "2026-09-18T12:28:48.812739+00:00"
     }
-  ],
-  "schema": "godot-forge.asset-provenance-set.v1"
+  ]
 }

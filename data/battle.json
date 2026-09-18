@@ -262,7 +262,7 @@
       ]
     }
   ],
-  "version": "0.2.0",
+  "version": "0.3.0",
   "loadout": [
     "rifle",
     "smg",
@@ -334,5 +334,26 @@
       "splash": 0.0,
       "pressure": 0.22
     }
+  },
+  "tactics": {
+    "update_interval": 0.5,
+    "formation_lookahead": 1.4,
+    "formation_width": 0.064,
+    "repath_delta": 0.028,
+    "leader_leash": 0.17,
+    "suppress_seconds": 2.4,
+    "bound_timeout": 5.5,
+    "bound_distance": 0.29,
+    "pinned_threshold": 0.84,
+    "peek_seconds": 0.85,
+    "hide_seconds": 0.65,
+    "tank_preferred_range": 0.56,
+    "tank_danger_range": 0.35,
+    "tank_replan_seconds": 1.5,
+    "tank_turn_speed": 1.6,
+    "turret_turn_speed": 2.6,
+    "tank_front_armor": 0.72,
+    "tank_side_armor": 1.0,
+    "tank_rear_armor": 1.4
   }
 }

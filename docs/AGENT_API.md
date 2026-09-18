@@ -10,7 +10,7 @@
 
 `GET /api/state` 返回 `engine_live`、快照年龄、`state`、排队数量及近期回执。离线时保留最后一帧但标记非实时，Agent 不应继续决策。
 
-快照含 `run_id`、`tick`、时间、暂停、胜负、单位坐标/状态/血量/压制/弹药/目标位置、阵营所有权、分数、掩体/障碍、预约、导航版本、AI候选战术和事件。坐标为 `[x,z]` 米，桌面高度固定，所有数值由 Godot 实际产生。
+快照含 `run_id`、`tick`、时间、暂停、胜负、单位坐标/状态/血量/压制/弹药/目标位置、阵营所有权、分数、掩体/障碍、预约、导航版本、AI战术阶段、原因和事件。坐标为 `[x,z]` 米，桌面高度固定，所有数值由 Godot 实际产生。
 
 首版快照为全局完全信息，无战争迷雾；不用于声称与只能看屏幕的 Agent 公平对比。未来可在此接口前增加阵营可见性过滤，而保留动作合同。
 
@@ -53,3 +53,12 @@ python3 tools/agent_example.py --faction green
 ## 0.2.0 新增只读状态
 
 保持schema_version=1以兼容已有客户端；增加version、viewport、camera_target、camera_size、edge_pan和combat_fx（弹道数量、效果数量、落点计数、音频事件、静音状态、各武器发射计数）。单位增加weapon、weapon_name、weapon_range、reload_remaining、melee_ready、screen_position。weapons字段返回各武器配置。原有attack指令根据兵种自动使用对应武器，火箭优先坦克，近身自动刺刀；不需要伪造一个供应商专属技能协议。
+
+
+## 0.3.0 战术可观察状态
+
+`tactical.squads[阵营]`包含phase（take_cover/suppress/bound/advance/retreat）、leader、mover、support_ids、threat、anchor、since与reason；`tactical.formations`包含活动队形锚点、目的地、wedge/column和成员；counters统计推进、绕侧、换位、坦克调整和队形更新，path_queries记录实际寻路调用。支持成员指当前静止、未换弹、未被压制、非隐蔽姿态且有射击目标的单位，不表示过去已经命中。
+
+单位新增tactical_role、order_mode、cqb_stance、in_cover、cover_slot、cover_risk、focus_id、formation_speed；坦克有reversing和turret_yaw（相对车体的弧度）。in_cover基于实际位置，预约不等于已经到位。cover_risk是选站时多威胁启发值，不是被击杀概率。
+
+决策source=squad_coordinator，candidates为空、confidence=0；策划台显示真实阶段与解释，不制造模型排名。外部Agent仍通过v1动作提交，掩护协调只自动接管game_ai阵营；整队move/capture/retreat复用柔性行军执行。

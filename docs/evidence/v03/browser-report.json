@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "test": "WebGL boots with nine units",
+      "passed": true,
+      "milliseconds": 3575
+    },
+    {
+      "test": "Pause button freezes actual game",
+      "passed": true
+    },
+    {
+      "test": "Minimap movement reaches Godot and AI does not steal control",
+      "passed": true
+    },
+    {
+      "test": "Group move uses live shared formation",
+      "passed": true
+    },
+    {
+      "test": "Tactical roles and CQB state are exposed to Agent and console",
+      "passed": true
+    },
+    {
+      "test": "Real keyboard 2 takes over blue squad",
+      "passed": true
+    },
+    {
+      "test": "Real keyboard C issues cover command",
+      "passed": true
+    },
+    {
+      "test": "Tank button adds exactly one tank",
+      "passed": true
+    },
+    {
+      "test": "Console renders actual squad phase and covering members",
+      "passed": true
+    },
+    {
+      "test": "Middle-mouse drag pans actual RTS camera",
+      "passed": true
+    },
+    {
+      "test": "Arrow keys pan camera",
+      "passed": true
+    },
+    {
+      "test": "Mouse wheel zoom works after pan",
+      "passed": true
+    },
+    {
+      "test": "Home recenters camera",
+      "passed": true
+    },
+    {
+      "test": "Real left drag box-selects multiple soldiers",
+      "passed": true
+    },
+    {
+      "test": "Right-click ground produces move order and world feedback ring",
+      "passed": true
+    },
+    {
+      "test": "M toggles actual audio voices",
+      "passed": true
+    },
+    {
+      "test": "User gesture unlocks WebAudio and actual nonzero PCM reaches destination",
+      "passed": true
+    },
+    {
+      "test": "External Agent action round-trip has engine acknowledgement",
+      "passed": true
+    },
+    {
+      "test": "Rejected Agent attack preserves active formation",
+      "passed": true
+    },
+    {
+      "test": "Stale Agent run rejected through HTTP",
+      "passed": true
+    },
+    {
+      "test": "Agent cannot hijack red faction",
+      "passed": true
+    },
+    {
+      "test": "Designer parameter reaches runtime",
+      "passed": true
+    },
+    {
+      "test": "Reset restores data and removes reinforcement",
+      "passed": true
+    },
+    {
+      "test": "Responsive tablet layout preserves playable iframe",
+      "passed": true
+    },
+    {
+      "test": "No browser or game console errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "headless_fps": [
+    7,
+    7,
+    7,
+    7,
+    6,
+    6,
+    5,
+    5
+  ],
+  "audio_pcm_peak": 0.12760058045387268,
+  "audio_context_running": true
+}

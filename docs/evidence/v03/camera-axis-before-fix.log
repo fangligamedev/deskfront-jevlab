@@ -1,0 +1,11 @@
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab tests/semantic_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: top camera preserves screen axes during interpolated multi-frame pan
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/semantic_probe.gd:6)
+       [1] run (res://tests/tactics_checks.gd:141)
+       [2] _ready (res://tests/semantic_probe.gd:85)
+SEMANTIC_FAILURES ["top camera preserves screen axes during interpolated multi-frame pan"]
+

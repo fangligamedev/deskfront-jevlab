@@ -4,7 +4,7 @@
 - Blender 5.2.1 LTS：建模工具，未捆绑 Blender 程序；原创导出模型不因此继承 Blender 程序 GPL。
 - Playwright 1.60.0：Apache-2.0，仅开发测试依赖，不打入运行游戏。
 - Godot Forge cleanroom：用于本地计划、资源来源记录及验收；独立工程运行和重建不依赖该插件。
-- 网页使用浏览器系统字体，无远程字体、广告、统计或付费模型依赖。
+- 网页使用浏览器系统字体，无远程字体、广告或统计；基础玩法不依赖付费模型，可选 LM 使用用户自行配置的火山方舟账户。
 
 引擎许可证与完整版权文本已随包保存于 `docs/licenses/GODOT-LICENSE.txt` 和 `docs/licenses/GODOT-COPYRIGHT.txt`。
 
@@ -25,3 +25,7 @@
 | DeskfrontUI 字体 | [Adobe / Google Noto CJK](https://github.com/notofonts/noto-cjk) | OFL 1.1；改名字体子集，保留版权与许可 |
 
 许可正文在 docs/licenses；逐文件 SHA256 和来源在 .forge/assets.json 与 docs/asset-integration/asset-provenance.json。代码 MIT 不覆盖第三方声音的 CC-BY-SA 许可。原有程序合成音效仍为 CC0。
+
+## 0.6 设施
+
+反坦克炮与两层小楼为本项目准备的原创 CC0 美术，运行适配代码 MIT。原始 Blender 文件、生成脚本和哈希见 [设施来源](docs/asset-integration/equipment-provenance.json) 与 [集成说明](docs/ASSET_EQUIPMENT.md)。

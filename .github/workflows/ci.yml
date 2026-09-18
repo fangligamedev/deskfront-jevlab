@@ -1,0 +1,45 @@
+name: Project contracts
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*', 'V*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.9', '3.12']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python3 tools/check_project.py
+      - run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - run: git diff --check
+
+  godot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Install verified Godot 4.5.1
+        shell: bash
+        run: |
+          curl --fail --location --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot-builds/releases/download/4.5.1-stable/Godot_v4.5.1-stable_linux.x86_64.zip
+          echo '02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd  /tmp/godot.zip' | sha256sum --check
+          unzip -q /tmp/godot.zip -d /tmp/deskfront-godot
+          chmod +x /tmp/deskfront-godot/Godot_v4.5.1-stable_linux.x86_64
+          echo 'GODOT_BIN=/tmp/deskfront-godot/Godot_v4.5.1-stable_linux.x86_64' >> "$GITHUB_ENV"
+      - run: python3 tools/project.py import
+      - run: python3 tools/project.py test

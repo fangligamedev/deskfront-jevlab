@@ -4,9 +4,18 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "test:browser": "node tools/browser_qa.cjs"
+    "test:browser": "node tools/browser_qa.cjs",
+    "check": "python3 tools/check_project.py",
+    "test:python": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+    "test:equipment": "node tools/equipment_browser_qa.cjs",
+    "test:lm": "node tools/lm_browser_qa.cjs"
   },
   "devDependencies": {
     "playwright": "1.60.0"
+  },
+  "description": "Godot + Blender 开源桌面战术原型与逐单位 LM 控制实验",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fangligamedev/deskfront-jevlab.git"
   }
 }

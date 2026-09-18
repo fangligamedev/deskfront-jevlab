@@ -66,6 +66,7 @@ def main():
         out=ROOT/'build'/a.command;out.mkdir(parents=True,exist_ok=True)
         run([binary('godot'),'--headless','--path',str(ROOT),'--export-release','Web' if a.command=='web' else 'macOS',str(out/('index.html' if a.command=='web' else 'Deskfront.zip'))])
     if a.command=='bundle':
+        version=json.loads((ROOT/'package.json').read_text())['version']
         out=ROOT/'dist';out.mkdir(exist_ok=True)
         excluded={'.git','.godot','node_modules','output','dist','build','__pycache__','.playwright-cli','.secrets'}
         # In a checkout, bundle only the Git index (including newly staged files),
@@ -76,18 +77,19 @@ def main():
         else:candidates=ROOT.rglob('*')
         files=[f for f in candidates if f.is_file() and not any(x in excluded for x in f.relative_to(ROOT).parts) and not f.name.endswith(('.blend1','.pyc')) and f.name!='package-audit.json' and (not f.name.startswith('.env') or f.name=='.env.example') and not f.name.endswith('.local.env')]
         manifest={str(f.relative_to(ROOT)):digest(f) for f in files}
-        with zipfile.ZipFile(out/'Deskfront-source-0.6.0.zip','w',zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(out/f'Deskfront-source-{version}.zip','w',zipfile.ZIP_DEFLATED) as z:
             for f in files:z.write(f,'deskfront-jevlab/'+str(f.relative_to(ROOT)))
-        with zipfile.ZipFile(out/'Deskfront-playable-web-0.6.0.zip','w',zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(out/f'Deskfront-playable-web-{version}.zip','w',zipfile.ZIP_DEFLATED) as z:
             for folder in ['build/web','dashboard','tools','data']:
                 for f in (ROOT/folder).rglob('*'):
                     if f.is_file() and '__pycache__' not in f.parts:z.write(f,str(f.relative_to(ROOT)))
-            for n in ['README.md','LICENSE','THIRD_PARTY.md','.env.example','启动桌面前线.command']:z.write(ROOT/n,n)
-            for f in (ROOT/'docs/licenses').glob('*'):z.write(f,str(f.relative_to(ROOT)))
+            for f in files:
+                if f.suffix=='.md' or f.relative_to(ROOT).parts[0]=='docs' or str(f.relative_to(ROOT))=='.forge/assets.json':z.write(f,str(f.relative_to(ROOT)))
+            for n in ['LICENSE','.env.example','启动桌面前线.command']:z.write(ROOT/n,n)
         (out/'source-hashes.json').write_text(json.dumps(manifest,indent=2))
         mac=ROOT/'build/macos/Deskfront.zip'
         if mac.exists():
-            packaged=out/'Deskfront-macos-0.6.0.zip'
+            packaged=out/f'Deskfront-macos-{version}.zip'
             shutil.copy2(mac,packaged)
             with zipfile.ZipFile(packaged,'a',zipfile.ZIP_DEFLATED) as z:
                 for f in (ROOT/'docs/licenses').glob('*'):z.write(f,str(f.relative_to(ROOT)))

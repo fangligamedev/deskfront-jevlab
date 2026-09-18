@@ -1,6 +1,6 @@
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const fs=require('fs'),path=require('path'),assert=require('assert');
-const base=process.env.DESKFRONT_URL||'http://127.0.0.1:8776',out=path.resolve(__dirname,'../output/v06');
+const base=process.env.DESKFRONT_URL||'http://127.0.0.1:8768',out=path.resolve(__dirname,'../output/v06');
 (async()=>{const browser=await chromium.launch({headless:true}),page=await browser.newPage({viewport:{width:1720,height:1150}}),checks=[],errors=[];
 page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
 const snapshot=async()=>await(await page.request.get(base+'/api/state')).json();

@@ -39,7 +39,8 @@ def main():
             for mode in a.modes.split(','):
                 prior=request('/api/state')['state'].get('run_id');env=dict(os.environ,DESKFRONT_URL=base,DESKFRONT_HEADLESS_BRIDGE='1')
                 log=(out/f'{a.prefix}-{mode}-map{map_index}.log').open('w')
-                game=subprocess.Popen(['/Applications/Godot.app/Contents/MacOS/Godot','--headless','--path',str(ROOT),'--max-fps','60','--','--paused',f'--map={map_index}'],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT)
+                from project import binary
+                game=subprocess.Popen([binary('godot'),'--headless','--path',str(ROOT),'--max-fps','60','--','--paused',f'--map={map_index}'],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT)
                 d=wait(lambda d:d['engine_live'] and d['state'].get('run_id')!=prior and d['state'].get('paused'))
                 if mode=='lm' and not d['lm']['configured']:raise RuntimeError('Real Ark configuration is required')
                 for faction in ['green','blue','red']:command({'action':'control','faction':faction,'mode':mode})

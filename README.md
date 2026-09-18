@@ -1,99 +1,124 @@
-# Deskfront · 桌面前线 0.6.0
+# Deskfront · 桌面前线
 
-Godot 4.5 + Blender 的开源 3D 桌面战术游戏。复古办公室里的三支玩具小队，围绕沙包、文具与中央目标交战；人类继续缓慢操作电脑，失势的红方获得一辆坦克增援。配套真实状态驱动的策划控制台。
+**Godot + Blender 开源桌面战术原型。** 三支玩具兵小队在办公室桌面交战，人类继续操作电脑。支持玩家 RTS 操作、游戏 AI、逐单位 DeepSeek LM 和外部 Agent。
 
-## 立即运行
+[完整文档目录](docs/README.md) · [动作接口](docs/AGENT_ACTION_STATES.md) · [贡献指南](CONTRIBUTING.md) · [更新日志](CHANGELOG.md)
 
-macOS 双击 **启动桌面前线.command**；或在工程目录执行：
+当前发布标记 **v9.19**（2026-09-19）；游戏运行时版本 **0.6.0**。本次整理工程、文档和开发流程，不改动上一版战斗规则；历史 V0.1 标签保留。
+
+![蓝军进驻桌面右上角小楼](docs/evidence/v06/web-building-garrison.png)
+
+## 游戏能力
+
+- 三个阵营、九名步兵，三张 JSON 驱动地图；一次红方坦克增援。
+- 步枪、冲锋枪、火箭筒、手枪、手雷和刺刀；首碰撞弹道、压制、方向掩体及破坏。
+- 先寻找保护，再掩护推进；跑动、低姿移动、匍匐、探头、换弹与撤退。
+- 反坦克炮接管、推行、部署、开炮和弃炮；轻武器不会攻击坦克。
+- 蓝军沿楼梯进入两层小楼、守窗和撤离；楼板失效会坍塌。
+- 本地策划台展示真实状态、参数、控制权、逐单位 LM 决策和引擎回执。
+
+Godot 是唯一战斗状态来源。Blender 原稿、骨骼、动画、素材来源和许可随源码提供。
+
+## 快速开始
+
+从源码运行需要 **Python 3.9+、Godot 4.5.1 和对应版本 Web 导出模板**。浏览器需要 WebGL2。编辑美术才需要 Blender；已验证资源工具版本为 Blender 5.2.1 LTS。Node.js 仅用于可选浏览器测试。
 
 ```sh
+git clone https://github.com/fangligamedev/deskfront-jevlab.git
+cd deskfront-jevlab
+git checkout v9.19
+python3 tools/project.py import
+python3 tools/project.py web
 python3 tools/run.py
 ```
 
-打开 <http://127.0.0.1:8768>。保持终端运行，Ctrl+C 关闭服务。已有 Web 构建时只需要 Python 3.9+ 和支持 WebGL2 的现代浏览器；首次从纯源码启动会调用 Godot 导出，需要 Godot 4.5.1 和对应 Web 导出模板。
+打开 **http://127.0.0.1:8768/**，点击游戏画面启用音频。终端保持运行，Ctrl+C 停止。macOS 也可双击根目录的启动桌面前线.command。找不到引擎时，将 GODOT_BIN 设置为可执行文件路径，或把 godot 加入 PATH。
 
-原生运行：用 Godot 打开 `project.godot`，按 F6 运行主场景，或按 F5 运行工程。原生版对应控制台使用 <http://127.0.0.1:8768/?native=1>（不启动 Web 实例）。同一个控制服务端口只运行一个游戏实例，避免同时运行网页 iframe 和原生版。
+源码仓库不包含 build/。已有 Web 交付包时只需 Python 和浏览器，运行同样的启动命令；run.py 不自动重建已有导出，修改游戏后需要重新导出。
+
+### 原生运行
+
+Godot 打开 project.godot，按 **F5**。另运行 `python3 tools/server.py`，控制台打开 **http://127.0.0.1:8768/?native=1**。同一端口只连接一个游戏实例，避免网页游戏和原生窗口争用状态。多实例和平台设置见 [开发指南](docs/DEVELOPMENT.md)。
+
+### 可选 LM
+
+不配 Key 也可完整游玩。复制 .env.example 为 .env，设置自己的 ARK_API_KEY 和已开通的 DESKFRONT_LM_MODEL，重启服务，顶部选择「DeepSeek LM」。
+
+步兵与坦克独立决策；默认每局最多 120 次请求、并发 3。真实调用产生供应商费用，重开会重置本局预算。Key 仅在本地服务端读取，不提交 .env。[完整 LM 配置](docs/LM_CONTROL.md)。
 
 ## 操作
 
 | 操作 | 输入 |
 | --- | --- |
-| 接管整个阵营 | 1 / 2 / 3 或画面底部按钮 |
-| 单兵 / 多选 | 左键士兵 / 左键拖动框选 / Shift 追加 |
-| 移动 / 指定攻击 | 右键桌面 / 右键敌人；已选单位时左键空地也可移动，地面显示指令环 |
-| 姿态 | 策划控制台选择自动 / 站姿 / 蹲姿 / 趴姿；趴姿下移动即爬行 |
-| 手雷 / 切地图 | G / F2 |
-| 找掩体 / 守住 / 撤退 | C / H / R |
-| 交还游戏 AI | A |
-| RTS 相机 | 中键拖动或 Alt＋左键拖动；方向键平移；滚轮缩放；贴边平移（E开关）；Home 居中 |
-| 视角 / 声音 | V 切换办公室、战术、正俯视；M 静音；浏览器首次点击游戏后启用音频 |
-| 暂停 / 重开 | 空格 / 胜负后 Enter |
-| 坦克演示 / 纯画面 | T / F1 |
+| 接管阵营 | 1 / 2 / 3 |
+| 单选 / 框选 / 追加 | 左键士兵 / 左键拖动 / Shift |
+| 移动 / 攻击 | 右键地面 / 右键敌人 |
+| 镜头 | 中键或 Alt + 左键拖动；方向键平移；滚轮缩放；Home 居中 |
+| 掩体 / 守住 / 撤退 | C / H / R |
+| 交回游戏 AI | A |
+| 手雷 / 手枪 / 切地图 | G / P / F2 |
+| 视角 / 静音 / 暂停 | V / M / 空格 |
+| 坦克增援 / 隐藏 HUD | T / F1 |
 
-占领中央黄铜标记累积 90 分，或使其他阵营失去战斗力。首版三阵营各三名步兵；红方失势时一次坦克增援。坦克能损坏邻近敌人的掩体并更新导航。
+全局或按阵营切换「游戏 AI / DeepSeek LM / 外部 Agent / 玩家」。控制台可调整姿态、装备、上楼、撤楼、接管炮和弃炮。设施按钮会接管对应阵营；交回 AI 后继续自主作战。占点累计 90 分或消灭其他阵营获胜，规则以 [battle.json](data/battle.json) 为准。
 
-每队默认按编号装备：1号步枪（单发），2号冲锋枪（快速连续射击），3号火箭筒（优先反坦克、爆炸范围伤害）。步兵在0.075米内自动刺刀，不能刺穿坦克。射击弹道有实际飞行时间，命中后才扣血，伴随枪口焰、曳光、火箭尾烟、爆炸和新版分层烟火、武器音效。AI先占掩体再建立火力，一名成员推进、其他成员掩护；利用硬障碍角落探头，换弹或受压制时缩回。坦克独立转炮塔，遇到近距离火箭筒威胁会倒车拉开距离。整队移动使用柔性队形。
+## 工程结构
 
-控制台可以查看实时小地图、小队战术阶段与掩护人数、单位生命与压制、掩体预约及事件；可接管阵营、调参数、切视角、暂停与重开。
+| 目录 | 内容 |
+| --- | --- |
+| assets/ | 实际加载的模型、声音、字体、特效 |
+| source/ | Blender 原稿、第三方原始资源和重建脚本 |
+| scenes/ / scripts/ | Godot 场景、战斗、战术、设施、角色与同步 |
+| data/ | 规则、地图、步态和机器可读动作目录 |
+| dashboard/ | 本地策划网页 |
+| tools/ / tests/ | 服务、Agent、LM、构建、检查和行为测试 |
+| docs/ | 设计、工程、资源、API、研究、交付和证据 |
+| .github/ | CI、Issue 和 PR 模板 |
+| build/ / output/ / dist/ | 本机导出、日志和交付包，不入 Git |
 
-角色、坦克和所有武器的可执行动作、状态组合、限制及 Agent 调用示例见 [动作状态契约](docs/AGENT_ACTION_STATES.md)。
+source/latest/ 是当前资源；source/blender/ 保留历史原稿。不要用旧生成器覆盖当前运行模型。
 
-## 开发与重建
+## 开发与验证
 
 ```sh
-# 首次安装 Godot 4.5.1、对应 Web/macOS 导出模板，Blender 5.2.1
-python3 tools/project.py models       # 重建旧版源资产（不覆盖当前游戏资源）
+# 无引擎、无 API Key 的基础检查
+python3 tools/check_project.py
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+
+# 真实 Godot 行为检查
 python3 tools/project.py import
 python3 tools/project.py test
-python3 tools/project.py web
-python3 tools/project.py macos
 
-# 可选：真实浏览器测试
-npm install
+# 可选：先导出 Web 并运行服务，再在另一个终端执行
+npm ci
 npx playwright install chromium
-npm run test:browser                 # 需先运行 tools/run.py --no-open
+npm run test:browser
 ```
 
-命令自动发现本机程序，也可设置 `GODOT_BIN`、`BLENDER_BIN`。原生游戏控制服务地址可用 `DESKFRONT_URL` 指定。主要可配置规则与关卡代理位于 `data/battle.json`。
+CI 运行项目合同检查、离线 Python 测试及真实 Godot 导入/测试，不自动调用收费 LM。完整演练、构建和排错见 [开发指南](docs/DEVELOPMENT.md)。
 
-## 文档与证据
+0.6 已有验证：100/100 场战术演练、25 项 RTS Web、6 项设施 Web、11 项真实 LM 接入检查。它们是对应构建的证据，不代表每台机器的性能或模型胜率。[验证记录](docs/evidence/v06/verification.json)。
 
-- [设计文档](docs/DESIGN.md)：关卡目标、战斗机制、交付边界。
-- [工程文档](docs/ENGINEERING.md)：状态真相源、模块、寻路、控制服务和构建。
-- [资源与配置](docs/ASSETS.md)：Blender源文件、骨骼动作、单位尺度和配置字段。
-- [Agent API](docs/AGENT_API.md)：状态、权限、动作校验、回执与适配示例。
-- [战术实现](docs/TACTICS.md)：文献映射、小队协作、CQB、坦克与测试场景。
-- [研究参考](docs/REFERENCES.md)：GDC/《英雄连》文章与本工程的实际映射。
-- [交付报告](docs/DELIVERY.md)：已完成项、验收证据和明确限制。
+## 说明文档
 
-## 开源与边界
+[完整目录](docs/README.md) 列出全部已发布 Markdown 文档，区分当前指南和历史报告。
 
-代码和文档 MIT；模型/动作主要为 CC0，新增 Q009 声音及其衍生文件为 CC-BY-SA 3.0，字体为 OFL 1.1，见 `THIRD_PARTY.md`。`.blend` 原文件和生成脚本均可修改。没有复制《英雄连》的游戏代码或资产，参考图片未打进发行包。
+| 文档 | 内容 |
+| --- | --- |
+| [设计](docs/DESIGN.md) | 场景、目标、战斗、模式与边界 |
+| [工程](docs/ENGINEERING.md) | 模块、数据流、状态权威和执行 |
+| [开发](docs/DEVELOPMENT.md) | 安装、运行、测试、导出和排错 |
+| [资源配置](docs/ASSETS.md) / [设施](docs/ASSET_EQUIPMENT.md) | 原稿、尺度、规则、火炮和小楼 |
+| [Agent API](docs/AGENT_API.md) / [动作状态全集](docs/AGENT_ACTION_STATES.md) | HTTP 协议、权限、人物/坦克/武器动作 |
+| [LM 接入](docs/LM_CONTROL.md) | 配置、调度、预算与失败处理 |
+| [战术](docs/TACTICS.md) / [研究](docs/REFERENCES.md) | GDC 参考与实现映射 |
+| [交付报告](docs/DELIVERY.md) | 当前整理发布与玩法验证 |
+| [发布流程](docs/RELEASING.md) | 版本、提交、标签与验收 |
 
-这是可玩的三地图低多边形战术原型，保留概念图的办公室与微型战场构图，不宣称离线写实画质或商业 RTS 的内容规模。Jev 的具体服务协议与凭据尚未提供，交付通用 Agent 接口和可跑示例，**没有假装已接通 Jev**。macOS 构建不签名、不公证。公开仓库：[fangligamedev/deskfront-jevlab](https://github.com/fangligamedev/deskfront-jevlab)。V0.1 保留为此前发布基线，本轮工程版本为0.6.0。
+## 参与和许可
 
-## 最新资源操作（0.6.0）
+通过 [Issues](https://github.com/fangligamedev/deskfront-jevlab/issues) 或 PR 参与；先阅读 [贡献指南](CONTRIBUTING.md)。安全问题见 [SECURITY.md](SECURITY.md)。
 
-两个「玩具兵（资产）」任务的最新产物已接入正式游戏。50 骨骼士兵使用 22 个动作资源与有限侧步接触约束；三阵营通过纯色材质区分。T2 保留履带动画并接入独立炮塔。加长办公桌上的三线争夺场、河谷双桥、前哨阵地由 JSON 驱动；办公室人物换成 62 骨骼的缓慢打字角色。
+代码和文档采用 [MIT](LICENSE)。模型/动画主要 CC0；部分 Q009 衍生声音 **CC-BY-SA 3.0**，字体 **OFL 1.1**。代码许可不替代素材的独立许可，详见 [资源许可](assets/LICENSE.md) 和 [第三方来源](THIRD_PARTY.md)。
 
-- **F2** 或控制台「战场」切换地图，会重新开始该局。
-- **G**：选中步兵向射程内最近敌人投雷，每兵 2 枚，0.62 秒释放。
-- **P**：选中步兵改用手枪；控制台「装备武器」可给当前阵营换步枪、冲锋枪、火箭筒或手枪。
-- **V** 切换全景、战术近景、正俯视；滚轮可继续拉近检查模型。
-- 原有鼠标框选、右键命令、中键平移、1/2/3 接管与 AI/Agent 控制继续可用。
-
-版本交付说明见 [资源集成交付报告](docs/DELIVERY-0.6.0.md)。
-
-
-## 独立 LM 队员
-
-顶部「全局控制」可切换游戏 AI、DeepSeek LM、外部 Agent、玩家，各阵营也可单独设置。LM 读取每名队员自己的战场状态，服务端独立请求；本地自保与真实射线/碰撞保持有效。凭证仅保存在本机服务端配置，复制 `.env.example` 并设置 Key/模型或引用已有外部 dotenv 文件。
-
-[所有动作与状态](docs/AGENT_ACTION_STATES.md) · [LM 配置、状态机与真实测试](docs/LM_CONTROL.md)。运行 `python3 tools/lm_trial.py` 会发起真实模型调用；未配置时 UI 显示缺失状态，不伪造模型结果。
-
-
-### 新增设施（0.6）
-
-右上角为蓝方两层小楼。控制台提供「蓝军进一楼 / 蓝军上二楼 / 蓝军撤出小楼」；各阵营有「接管反坦克炮 / 弃炮」。这些操作会接管对应阵营为玩家控制，交回「游戏 AI」或「DeepSeek LM」继续自主战斗。自动模式遵守保命优先：轻武器不打坦克，炮手受压制会弃炮，建筑坍塌后上层火力位失效。
-
-设施详细状态与示例见 [动作契约](docs/AGENT_ACTION_STATES.md)，美术来源见 [设施资源](docs/ASSET_EQUIPMENT.md)。
+当前是三地图战术原型，没有联网对战、战争迷雾或成熟的多智能体通信。炮组为单人操作，后备炮弹不限量。Jev 保留通用 Agent 接口，未连接专属 SDK。macOS 导出未签名、未公证。没有使用《英雄连》的代码或资产。

@@ -1,0 +1,16 @@
+*.md text eol=lf
+*.py text eol=lf
+*.gd text eol=lf
+*.tscn text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.js text eol=lf
+*.cjs text eol=lf
+*.blend binary
+*.glb binary
+*.fbx binary
+*.png binary
+*.jpg binary
+*.wav binary
+*.ogg binary
+*.otf binary

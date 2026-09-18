@@ -2,6 +2,7 @@ extends Node3D
 
 const Field = preload("res://scripts/battlefield.gd")
 const Unit = preload("res://scripts/unit.gd")
+const CombatFX = preload("res://scripts/combat_fx.gd")
 const Bridge = preload("res://scripts/bridge.gd")
 var config: Dictionary
 var field
@@ -36,11 +37,21 @@ var selection_label: Label
 var hint_label: Label
 var phase_label: Label
 var bridge
-var shot_marks: Array=[]
+var fx
+var drag_start := Vector2.ZERO
+var drag_current := Vector2.ZERO
+var selecting: bool=false
+var panning: bool=false
+var edge_pan: bool=true
+var pointer_inside: bool=false
+var selection_box: Panel
+var command_feedback: String=""
+var feedback_until: float=0
 var last_action: Dictionary={}
 var run_id: String=""
 var capture_path: String=""
 var capture_frames: int=120
+var capture_effects: bool=false
 var rendered_frames: int=0
 
 func _ready() -> void:
@@ -66,6 +77,9 @@ func _ready() -> void:
 		for a in worker_anim.get_animation_list():
 			if "typing" in a:worker_anim.get_animation(a).loop_mode=Animation.LOOP_LINEAR;worker_anim.play(a);worker_anim.speed_scale=.6
 	field=Field.new();add_child(field);field.setup(config)
+	fx=CombatFX.new();add_child(fx);fx.setup(self)
+	get_viewport().mouse_entered.connect(func():pointer_inside=true)
+	get_viewport().mouse_exited.connect(func():pointer_inside=false;panning=false;selecting=false;if_box_hide())
 	var target := MeshInstance3D.new();var disc := CylinderMesh.new();disc.top_radius=.044;disc.bottom_radius=.044;disc.height=.007;target.mesh=disc
 	target.material_override=field.mat(Color(.65,.49,.21),.4);add_child(target);target.position=Vector3(objective.x,.825,objective.y)
 	for f in config.factions:
@@ -77,6 +91,7 @@ func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--capture="):capture_path=arg.trim_prefix("--capture=")
 		if arg.begins_with("--frames="):capture_frames=int(arg.trim_prefix("--frames="))
+		if arg=="--capture-effects":capture_effects=true
 		if arg=="--battle":set_camera("battle",true)
 		if arg=="--tank":spawn_tank()
 		if arg=="--paused":paused=true
@@ -92,14 +107,24 @@ func faction_data(team: String) -> Dictionary:
 func living(team: String="") -> Array:
 	return units.filter(func(u):return u.hp>0 and (team=="" or u.faction==team))
 
+func closest_enemy(u):
+	var best=null;var distance: float=INF
+	for other in living():
+		if other.faction==u.faction:continue
+		var d: float=u.pos().distance_to(other.pos())
+		if d<distance:best=other;distance=d
+	return best
+
 func find_target(u, requested: String=""):
-	var best=null;var distance: float=config.tank.range if u.tank else config.soldier.range
+	var best=null;var distance: float=config.weapons[u.weapon].range
+	var best_score: float=-INF
 	for enemy in units:
 		if enemy.faction==u.faction or enemy.hp<=0:continue
 		var d: float=u.pos().distance_to(enemy.pos())
 		if d<distance and field.line_of_sight(u.pos(),enemy.pos()):
-			best=enemy;distance=d
 			if enemy.id==requested:return enemy
+			var score: float=-d+(1.5 if u.weapon=="rocket" and enemy.tank else 0.0)
+			if score>best_score:best=enemy;best_score=score
 	return best
 
 func _physics_process(delta: float) -> void:
@@ -108,6 +133,7 @@ func _physics_process(delta: float) -> void:
 	var dt: float=delta*speed
 	elapsed+=dt
 	if worker_anim:worker_anim.speed_scale=.6*speed
+	fx.physics_tick(dt)
 	for u in units:u.tick(dt)
 	ai_clock-=dt
 	if ai_clock<=0:
@@ -140,23 +166,22 @@ func _physics_process(delta: float) -> void:
 		finish_match("draw" if ties>1 else leading,"时间结束")
 
 func _process(delta: float) -> void:
+	update_pan(delta)
 	if camera:
 		camera.size=lerpf(camera.size,camera_size,minf(1,delta*5))
 		var target_pos: Vector3=camera_target+Vector3(0,3.8,.001) if camera_mode=="top" else camera_target+Vector3(2.6,3.5,3.5)
 		camera.position=camera.position.lerp(target_pos,minf(1,delta*5));camera.look_at(camera_target)
 	hud_clock-=delta
 	if hud_clock<=0 and status_label:hud_clock=.15;update_hud()
-	for shot in shot_marks.duplicate():
-		shot.ttl-=delta
-		if shot.ttl<=0:shot.node.queue_free();shot_marks.erase(shot)
 	if paused and worker_anim:worker_anim.speed_scale=0
 	rendered_frames+=1
-	if capture_path!="" and rendered_frames==capture_frames:
+	if capture_path!="" and (rendered_frames==capture_frames or (capture_effects and rendered_frames>120 and fx.projectiles.size()>0 and fx.visuals.size()>8)):
+		var destination: String=capture_path;capture_path=""
 		await RenderingServer.frame_post_draw
-		get_viewport().get_texture().get_image().save_png(capture_path)
-		var state_file=FileAccess.open(capture_path.trim_suffix(".png")+".json",FileAccess.WRITE)
+		get_viewport().get_texture().get_image().save_png(destination)
+		var state_file=FileAccess.open(destination.trim_suffix(".png")+".json",FileAccess.WRITE)
 		state_file.store_string(JSON.stringify(snapshot(),"  "))
-		print("CAPTURE_SAVED ",capture_path);get_tree().quit()
+		print("CAPTURE_SAVED ",destination);get_tree().quit()
 
 func finish_match(team: String, why: String) -> void:
 	if winner!="":return
@@ -165,11 +190,17 @@ func finish_match(team: String, why: String) -> void:
 func decide(team: String) -> void:
 	var squad: Array=living(team)
 	if squad.is_empty():return
-	var health: float=0;var pressure: float=0
-	for u in squad:health+=u.hp/u.max_hp;pressure+=u.suppression
-	health/=squad.size();pressure/=squad.size()
-	var tactics: Array=[{"action":"capture","score":.72+(1-health)*.1,"reason":"争夺中央黄铜标记"},{"action":"cover","score":.34+pressure*.8,"reason":"利用朝向掩体降低压制"},{"action":"flank","score":.36+float(int(elapsed/18)%2)*.44,"reason":"从侧面避开敌人正面防线"},{"action":"retreat","score":(1-health)*.80+pressure*.3,"reason":"保存低生命单位"}]
-	if team=="red" and elapsed<24:tactics[1].score=.88
+	var health: float=0;var pressure: float=0;var exposed: float=0;var engaged: bool=false
+	for u in squad:
+		health+=u.hp/u.max_hp;pressure+=u.suppression
+		if u.cover_id=="" and not u.tank:exposed+=1
+		if find_target(u)!=null:engaged=true
+	health/=squad.size();pressure/=squad.size();exposed/=squad.size()
+	var tactics: Array=[
+		{"action":"capture","score":.48 if engaged else .83,"reason":"在安全站位间向目标推进"},
+		{"action":"cover","score":.68+exposed*.40+pressure*.50,"reason":"先占掩体，停步压制敌人，再交替推进"},
+		{"action":"flank","score":.32,"reason":"保留侧翼路线，避免穿越交叉火力"},
+		{"action":"retreat","score":1.3 if health<.28 else (1-health)*.60,"reason":"保存严重受损小队"}]
 	tactics.sort_custom(func(a,b):return a.score>b.score)
 	var chosen: String=tactics[0].action
 	decisions[team]={"action":chosen,"reason":tactics[0].reason,"candidates":tactics,"tick":tick_id,"source":"utility_game_ai","confidence":clampf(tactics[0].score,0,1)}
@@ -179,13 +210,20 @@ func issue_tactic(team: String, action: String, destination: Vector2, ids: Array
 	var squad: Array=living(team).filter(func(u):return ids.is_empty() or ids.has(u.id))
 	var data: Dictionary=faction_data(team)
 	for index in range(squad.size()):
-		var u=squad[index];var enemy=find_target(u)
+		var u=squad[index];var enemy=closest_enemy(u)
+		var ai: bool=control[team]=="game_ai"
+		if ai and action!="retreat" and u.cover_id!="" and elapsed-u.cover_since<config.rules.cover_hold_seconds:continue
+		u.target_id=""
 		var threat: Vector2=enemy.pos() if enemy!=null else objective
 		var offset := Vector2((index-(squad.size()-1)*.5)*.058,0)
 		if u.tank and action!="hold" and control[team]=="game_ai":u.move_to(Vector2(1.08,-.25));continue
 		match action:
 			"cover":
-				if not u.seek_cover(threat,u.pos()):u.move_to(destination+offset)
+				# Keep assigned cover while moving or trading fire; no AI order jitter.
+				if ai and u.cover_id!="" and (not u.route.is_empty() or find_target(u)!=null):continue
+				var near: Vector2=u.pos()
+				if ai and elapsed>config.rules.cover_hold_seconds and find_target(u)==null:near=u.pos().lerp(objective,.60)
+				if not u.seek_cover(threat,near):u.route.clear();u.goal=u.pos()
 			"retreat":u.move_to(Vector2(data.spawn[0],data.spawn[1])+offset)
 			"hold":u.route.clear();u.goal=u.pos();u.state="aim"
 			"flank":
@@ -193,7 +231,9 @@ func issue_tactic(team: String, action: String, destination: Vector2, ids: Array
 				if u.pos().distance_to(flank)<.15:flank=destination
 				u.move_to(flank+offset)
 			_:
-				if u.suppression>.65 and control[team]=="game_ai":u.seek_cover(threat,u.pos())
+				if ai:
+					if u.cover_id!="" and (not u.route.is_empty() or find_target(u)!=null):continue
+					if not u.seek_cover(threat,destination):u.move_to(u.pos().move_toward(destination,.12)+offset)
 				else:u.move_to(destination+offset)
 
 func spawn_tank() -> bool:
@@ -205,12 +245,6 @@ func spawn_tank() -> bool:
 func add_event(message: String) -> void:
 	events.push_front({"time":snappedf(elapsed,.1),"text":message})
 	if events.size()>40:events.resize(40)
-
-func add_shot(_from: Vector2,to: Vector2,team: String,landed: bool) -> void:
-	if not landed:return
-	var marker := MeshInstance3D.new();var sphere := SphereMesh.new();sphere.radius=.004;sphere.height=.008;marker.mesh=sphere
-	marker.material_override=field.mat(colors[team].lightened(.45));add_child(marker);marker.position=Vector3(to.x,.88,to.y)
-	shot_marks.append({"node":marker,"ttl":.08})
 
 func set_camera(mode: String, instant: bool=false) -> void:
 	camera_mode=mode
@@ -256,10 +290,20 @@ func command(c: Dictionary) -> Dictionary:
 			if target==null:return ack(c,false,"invalid_target")
 			if source!="agent":control[team]="player"
 			for u in living(team):
-				if ids.is_empty() or ids.has(u.id):u.target_id=target.id;u.move_to(target.pos())
+				if ids.is_empty() or ids.has(u.id):
+					u.target_id=target.id
+					if find_target(u,target.id)!=target:u.move_to(target.pos())
+					else:u.route.clear();u.goal=u.pos()
+			fx.ring(target.pos(),Color(1,.30,.16),.065)
+			command_feedback="ATTACK / "+target.id
 		else:
 			if source!="agent":control[team]="player"
 			issue_tactic(team,action,dest,ids)
+			for u in living(team):
+				if ids.is_empty() or ids.has(u.id):fx.ring(u.goal,Color(.42,.94,.66),.04)
+			command_feedback=action.to_upper()+" / "+str(ids.size() if not ids.is_empty() else living(team).size())+" UNITS"
+		feedback_until=Time.get_ticks_msec()/1000.0+2.0
+		fx.sound("order",Vector3(dest.x,field.height,dest.y),-3)
 		decisions[team]={"action":action,"reason":"Agent 指令" if source=="agent" else "玩家/策划指令","source":source,"tick":tick_id,"candidates":[]}
 	elif action=="control":
 		var mode: String=str(c.get("mode",""))
@@ -290,33 +334,97 @@ func ack(c: Dictionary, ok: bool, message: String) -> Dictionary:
 
 func snapshot() -> Dictionary:
 	var unit_states: Array=[]
-	for u in units:unit_states.append(u.snapshot())
-	return {"schema_version":1,"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"units":unit_states,"factions":config.factions,"control":control,"scores":scores,"objective":{"position":[objective.x,objective.y],"radius":config.rules.capture_radius,"score_to_win":config.rules.score_to_win},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"shots":shots,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
+	for u in units:
+		var state: Dictionary=u.snapshot()
+		var pixel: Vector2=camera.unproject_position(u.position+Vector3(0,.05,0))
+		state["screen_position"]=[pixel.x,pixel.y];unit_states.append(state)
+	return {"schema_version":1,"version":"0.2.0","viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"units":unit_states,"factions":config.factions,"control":control,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":config.rules.score_to_win},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"shots":shots,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"launched":fx.launched},"weapons":config.weapons,"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
 
 func screen_point(p: Vector2) -> Vector2:
 	var origin: Vector3=camera.project_ray_origin(p);var ray: Vector3=camera.project_ray_normal(p)
 	if absf(ray.y)<.0001:return objective
 	var world: Vector3=origin+ray*((field.height-origin.y)/ray.y);return Vector2(world.x,world.z)
 
+func if_box_hide() -> void:
+	if selection_box:selection_box.visible=false
+
+func pan_by(amount: Vector3) -> void:
+	camera_target.x=clampf(camera_target.x+amount.x,-1.4,1.7)
+	camera_target.z=clampf(camera_target.z+amount.z,-.95,1.3)
+
+func update_pan(dt: float) -> void:
+	if not camera or not get_window().has_focus():return
+	var axis := Vector2.ZERO
+	if Input.is_physical_key_pressed(KEY_LEFT):axis.x-=1
+	if Input.is_physical_key_pressed(KEY_RIGHT):axis.x+=1
+	if Input.is_physical_key_pressed(KEY_UP):axis.y-=1
+	if Input.is_physical_key_pressed(KEY_DOWN):axis.y+=1
+	if edge_pan and pointer_inside and not selecting and not panning and get_viewport().gui_get_hovered_control()==null:
+		var p: Vector2=get_viewport().get_mouse_position();var size: Vector2=get_viewport().get_visible_rect().size
+		if p.x<12:axis.x-=1
+		if p.x>size.x-12:axis.x+=1
+		if p.y<12:axis.y-=1
+		if p.y>size.y-12:axis.y+=1
+	var right: Vector3=camera.global_basis.x;right.y=0;right=right.normalized()
+	var down: Vector3=-camera.global_basis.y;down.y=0;down=down.normalized()
+	pan_by((right*axis.x+down*axis.y)*dt*camera_size*.55)
+
+func ground_order(p: Vector2) -> void:
+	if selected_ids().is_empty():return
+	var target=null
+	for enemy in living():
+		if enemy.faction!=selected_faction and enemy.pos().distance_to(p)<.06:target=enemy
+	var result: Dictionary
+	if target:result=command({"action":"attack","faction":selected_faction,"target_id":target.id,"unit_ids":selected_ids(),"source":"player"})
+	else:result=command({"action":"move","faction":selected_faction,"position":[p.x,p.y],"unit_ids":selected_ids(),"source":"player"})
+	if not result.accepted:
+		fx.ring(p,Color(.95,.24,.18),.05);command_feedback="OUTSIDE BATTLEFIELD";feedback_until=Time.get_ticks_msec()/1000.0+2
+
+func select_at(screen: Vector2, additive: bool) -> void:
+	var nearest_unit=null;var distance: float=30
+	for u in living():
+		var pixel: Vector2=camera.unproject_position(u.position+Vector3(0,.06,0))
+		var d: float=pixel.distance_to(screen)
+		if d<distance:nearest_unit=u;distance=d
+	if nearest_unit:
+		if nearest_unit.faction!=selected_faction and not selected_ids().is_empty():ground_order(nearest_unit.pos());return
+		selected_faction=nearest_unit.faction;control[selected_faction]="player"
+		for u in units:u.selected=u==nearest_unit or (additive and u.selected and u.faction==selected_faction)
+	elif not additive:ground_order(screen_point(screen))
+
+func finish_selection(additive: bool) -> void:
+	if drag_start.distance_to(drag_current)<8:select_at(drag_current,additive);return
+	var rect := Rect2(drag_start,drag_current-drag_start).abs()
+	var found: Array=[]
+	for u in living(selected_faction):
+		if rect.has_point(camera.unproject_position(u.position+Vector3(0,.05,0))):found.append(u)
+	if found.is_empty():return
+	control[selected_faction]="player"
+	for u in units:u.selected=found.has(u) or (additive and u.selected and u.faction==selected_faction)
+
+func _input(event: InputEvent) -> void:
+	# Release anywhere, including on a HUD panel, so dragging cannot get stuck.
+	if event is InputEventMouseButton and not event.pressed:
+		if event.button_index==MOUSE_BUTTON_MIDDLE or (event.button_index==MOUSE_BUTTON_LEFT and panning):panning=false
+		elif event.button_index==MOUSE_BUTTON_LEFT and selecting:
+			drag_current=event.position;selecting=false;if_box_hide();finish_selection(event.shift_pressed)
+
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		pointer_inside=true
+		if panning:
+			var offset: Vector2=screen_point(event.position-event.relative)-screen_point(event.position)
+			pan_by(Vector3(offset.x,0,offset.y))
+		elif selecting:
+			drag_current=event.position
+			var rect := Rect2(drag_start,drag_current-drag_start).abs()
+			selection_box.position=rect.position;selection_box.size=rect.size;selection_box.visible=rect.size.length()>8
 	if event is InputEventMouseButton and event.pressed:
-		if event.button_index==MOUSE_BUTTON_WHEEL_UP:camera_size=clampf(camera_size*.90,1.0,4.5)
-		elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN:camera_size=clampf(camera_size*1.1,1.0,4.5)
-		elif event.button_index==MOUSE_BUTTON_LEFT:
-			var p: Vector2=screen_point(event.position);var nearest_unit=null;var distance: float=.09
-			for u in living():
-				var d: float=u.pos().distance_to(p)
-				if d<distance:nearest_unit=u;distance=d
-			if nearest_unit:
-				selected_faction=nearest_unit.faction;control[selected_faction]="player"
-				for u in units:u.selected=u==nearest_unit or (event.shift_pressed and u.selected and u.faction==selected_faction)
-		elif event.button_index==MOUSE_BUTTON_RIGHT:
-			var p: Vector2=screen_point(event.position)
-			var target=null
-			for enemy in living():
-				if enemy.faction!=selected_faction and enemy.pos().distance_to(p)<.06:target=enemy
-			if target:command({"action":"attack","faction":selected_faction,"target_id":target.id,"unit_ids":selected_ids(),"source":"player"})
-			else:command({"action":"move","faction":selected_faction,"position":[p.x,p.y],"unit_ids":selected_ids(),"source":"player"})
+		if event.button_index==MOUSE_BUTTON_WHEEL_UP:camera_size=clampf(camera_size*.90,.70,4.5)
+		elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN:camera_size=clampf(camera_size*1.1,.70,4.5)
+		elif event.button_index==MOUSE_BUTTON_MIDDLE or (event.button_index==MOUSE_BUTTON_LEFT and event.alt_pressed):panning=true
+		elif event.button_index==MOUSE_BUTTON_LEFT:selecting=true;drag_start=event.position;drag_current=event.position
+		elif event.button_index==MOUSE_BUTTON_RIGHT:ground_order(screen_point(event.position))
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.physical_keycode:
 			KEY_1,KEY_2,KEY_3:
@@ -327,7 +435,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_R:command({"action":"retreat","unit_ids":selected_ids()})
 			KEY_A:command({"action":"control","mode":"game_ai"})
 			KEY_T:spawn_tank()
+			KEY_M:fx.set_muted(not fx.muted)
+			KEY_E:edge_pan=not edge_pan
 			KEY_V:set_camera("battle" if camera_mode=="office" else ("top" if camera_mode=="battle" else "office"))
+			KEY_HOME:set_camera(camera_mode)
 			KEY_ENTER:
 				if winner!="":get_tree().reload_current_scene()
 			KEY_F1:ui.visible=not ui.visible
@@ -337,6 +448,9 @@ func label(value: String, size: int, color: Color=Color(.86,.88,.80)) -> Label:
 
 func make_hud() -> void:
 	ui=CanvasLayer.new();add_child(ui)
+	selection_box=Panel.new();ui.add_child(selection_box);selection_box.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	var box_style := StyleBoxFlat.new();box_style.bg_color=Color(.4,.8,.6,.12);box_style.border_color=Color(.6,1,.75,.9);box_style.set_border_width_all(1)
+	selection_box.add_theme_stylebox_override("panel",box_style);selection_box.visible=false
 	var root := Control.new();ui.add_child(root);root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);root.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	var top := PanelContainer.new();root.add_child(top);top.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE);top.offset_bottom=88
 	var style := StyleBoxFlat.new();style.bg_color=Color(.055,.075,.065,.92);style.content_margin_left=24;style.content_margin_right=24;style.content_margin_top=12;style.content_margin_bottom=10;top.add_theme_stylebox_override("panel",style)
@@ -363,8 +477,14 @@ func make_hud() -> void:
 
 func update_hud() -> void:
 	score_label.text="GREEN %02d   /   BLUE %02d   /   RED %02d" % [scores.green,scores.blue,scores.red]
-	status_label.text="%02d:%02d   •   %s   •   %.1fx" % [int(elapsed)/60,int(elapsed)%60,"PAUSED" if paused else "LIVE",speed]
+	status_label.text="%02d:%02d   •   %s   •   %.1fx" % [int(elapsed)/60,int(elapsed)%60,"PAUSED" if paused else "LIVE",speed]+("   MUTED [M]" if fx.muted else "   SOUND [M]")
 	selection_label.text="%s / %s / %d SELECTED   ·   HOLD THE BRASS MARKER TO SCORE" % [selected_faction.to_upper(),str(control[selected_faction]).to_upper(),selected_ids().size()]
 	phase_label.text="RED REINFORCEMENTS ON DESK   •   DESTRUCTIBLE COVER" if tank_spawned else "TACTICAL DIORAMA   •   3 FACTIONS / 9 INFANTRY"
-	hint_label.text="Click select · Shift add · Right-click move · Wheel zoom · Space pause · T tank · F1 clean view"
+	hint_label.text="Drag select · RMB order · MMB/Alt-drag pan · Arrows pan · Wheel zoom · Home recenter · M sound · E edge pan"
+	if Time.get_ticks_msec()/1000.0<feedback_until:selection_label.text=command_feedback
+	else:
+		var equipped: Array=[]
+		for u in units:
+			if u.selected and u.hp>0:equipped.append(u.weapon.to_upper()+" "+str(u.ammo))
+		if not equipped.is_empty():selection_label.text=" / ".join(equipped)+("   [MUTED]" if fx.muted else "   [SOUND ON]")
 	if winner!="":selection_label.text=("DRAW" if winner=="draw" else winner.to_upper()+" WINS")+" / PRESS ENTER TO RESTART"

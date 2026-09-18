@@ -66,6 +66,8 @@ func _ready() -> void:
 	check(game.tank_spawned,"losing red faction triggers reinforcement")
 	check(not game.spawn_tank(),"tank reinforcement cannot be duplicated")
 	check(game.units.filter(func(v):return v.tank).size()==1,"exactly one tank")
+	# Isolate destruction: the new rocket splash may already have destroyed this cover in combat.
+	field.covers[4].alive=true;field.covers[4].hp=65;field.rebuild()
 	var rev=field.revision
 	var destroyed=field.damage_cover("pencil_barrier",1000)
 	check(destroyed and field.revision>rev,"destroyed obstacle rebuilds navigation")
@@ -74,8 +76,16 @@ func _ready() -> void:
 	check(game.elapsed==t,"pause freezes battle simulation")
 	game.paused=false;game.winner="";game.scores.green=game.config.rules.score_to_win;game._physics_process(.1)
 	check(game.winner=="green","capture score produces victory")
+	var combat=load("res://scenes/main.tscn").instantiate()
+	add_child(combat)
+	preload("res://tests/combat_checks.gd").run(combat,check)
+	combat.queue_free()
 	var file=FileAccess.open("res://output/semantic.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":failures.is_empty(),"checks":checks,"failures":failures,"final":game.snapshot()},"  "))
 	if failures.is_empty():print("FORGE_SEMANTIC_PASS deskfront checks=",checks.size())
 	else:print("SEMANTIC_FAILURES ",failures)
+	game.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().create_timer(.12).timeout
 	get_tree().quit(0 if failures.is_empty() else 1)

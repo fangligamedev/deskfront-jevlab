@@ -18,7 +18,7 @@ def run(args):
     return result.stdout
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def record_assets():
-    entries=[]
+    entries=[a for a in json.loads((ROOT/'.forge/assets.json').read_text()).get('assets',[]) if a.get('kind')=='audio'] if (ROOT/'.forge/assets.json').exists() else []
     script=ROOT/'source/blender/build_assets.py'
     for n in MODELS:
         src=ROOT/'source/blender/generated'/f'{n}.glb';dest=ROOT/'assets/models'/src.name
@@ -43,9 +43,9 @@ def main():
         excluded={'.git','.godot','node_modules','output','dist','build','__pycache__','.playwright-cli'}
         files=[f for f in ROOT.rglob('*') if f.is_file() and not any(x in excluded for x in f.relative_to(ROOT).parts) and not f.name.endswith(('.blend1','.pyc','.import'))]
         manifest={str(f.relative_to(ROOT)):digest(f) for f in files}
-        with zipfile.ZipFile(out/'Deskfront-source-0.1.0.zip','w',zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(out/'Deskfront-source-0.2.0.zip','w',zipfile.ZIP_DEFLATED) as z:
             for f in files:z.write(f,'deskfront-jevlab/'+str(f.relative_to(ROOT)))
-        with zipfile.ZipFile(out/'Deskfront-playable-web-0.1.0.zip','w',zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(out/'Deskfront-playable-web-0.2.0.zip','w',zipfile.ZIP_DEFLATED) as z:
             for folder in ['build/web','dashboard','tools']:
                 for f in (ROOT/folder).rglob('*'):
                     if f.is_file() and '__pycache__' not in f.parts:z.write(f,str(f.relative_to(ROOT)))
@@ -54,7 +54,7 @@ def main():
         (out/'source-hashes.json').write_text(json.dumps(manifest,indent=2))
         mac=ROOT/'build/macos/Deskfront.zip'
         if mac.exists():
-            packaged=out/'Deskfront-macos-0.1.0.zip'
+            packaged=out/'Deskfront-macos-0.2.0.zip'
             shutil.copy2(mac,packaged)
             with zipfile.ZipFile(packaged,'a',zipfile.ZIP_DEFLATED) as z:
                 for f in (ROOT/'docs/licenses').glob('*'):z.write(f,str(f.relative_to(ROOT)))

@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "clips": [
+    {
+      "file": "assets/audio/bayonet.wav",
+      "sample_rate": 22050,
+      "frames": 5733,
+      "seconds": 0.26,
+      "peak": 0.77996826171875,
+      "rms": 0.24307424377339995,
+      "passed": true
+    },
+    {
+      "file": "assets/audio/cannon.wav",
+      "sample_rate": 22050,
+      "frames": 17640,
+      "seconds": 0.8,
+      "peak": 0.77996826171875,
+      "rms": 0.10952179524824625,
+      "passed": true
+    },
+    {
+      "file": "assets/audio/explosion.wav",
+      "sample_rate": 22050,
+      "frames": 23152,
+      "seconds": 1.0499773242630386,
+      "peak": 0.77996826171875,
+      "rms": 0.07602292151266263,
+      "passed": true
+    },
+    {
+      "file": "assets/audio/impact.wav",
+      "sample_rate": 22050,
+      "frames": 3528,
+      "seconds": 0.16,
+      "peak": 0.77996826171875,
+      "rms": 0.12275553055764382,
+      "passed": true
+    },
+    {
+      "file": "assets/audio/order.wav",
+      "sample_rate": 22050,
+      "frames": 2646,
+      "seconds": 0.12,
+      "peak": 0.77996826171875,
+      "rms": 0.20817574187823784,
+      "passed": true
+    },
+    {
+      "file": "assets/audio/reload.wav",
+      "sample_rate": 22050,
+      "frames": 7717,
+      "seconds": 0.34997732426303857,
+      "peak": 0.77996826171875,
+      "rms": 0.07510940015429253,
+      "passed": true
+    },
+    {
+      "file": "assets/audio/rifle.wav",
+      "sample_rate": 22050,
+      "frames": 5292,
+      "seconds": 0.24,
+      "peak": 0.77996826171875,
+      "rms": 0.10454585946075323,
+      "passed": true
+    },
+    {
+      "file": "assets/audio/rocket.wav",
+      "sample_rate": 22050,
+      "frames": 14332,
+      "seconds": 0.6499773242630386,
+      "peak": 0.77996826171875,
+      "rms": 0.14444433861013437,
+      "passed": true
+    },
+    {
+      "file": "assets/audio/smg.wav",
+      "sample_rate": 22050,
+      "frames": 2866,
+      "seconds": 0.12997732426303854,
+      "peak": 0.77996826171875,
+      "rms": 0.11386616535837585,
+      "passed": true
+    }
+  ]
+}

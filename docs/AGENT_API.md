@@ -49,3 +49,7 @@ python3 tools/agent_example.py --faction green
 ```
 
 `GET /api/schema` 查询动作清单。`GET /api/health` 查询服务与引擎状态。`POST /api/sync` 是游戏内部同步端点，不供模型冒充游戏调用。运行数据记录到 `output/session.jsonl`，训练使用前应按 run_id 与回执连接状态/动作，而非把排队指令当成已执行动作。
+
+## 0.2.0 新增只读状态
+
+保持schema_version=1以兼容已有客户端；增加version、viewport、camera_target、camera_size、edge_pan和combat_fx（弹道数量、效果数量、落点计数、音频事件、静音状态、各武器发射计数）。单位增加weapon、weapon_name、weapon_range、reload_remaining、melee_ready、screen_position。weapons字段返回各武器配置。原有attack指令根据兵种自动使用对应武器，火箭优先坦克，近身自动刺刀；不需要伪造一个供应商专属技能协议。

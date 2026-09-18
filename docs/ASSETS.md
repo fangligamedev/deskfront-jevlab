@@ -12,7 +12,7 @@
 | tank | source/blender/generated/tank.blend | 一辆砖红玩具坦克 |
 | sandbag | source/blender/generated/sandbag.blend | 带折边、接缝的沙包，按 JSON 排列 |
 
-全部资源来自本地 `source/blender/build_assets.py`，许可 CC0-1.0。无需付费生成器、在线模型、下载素材或第三方美术资源。文件许可与 SHA-256 在 `.forge/assets.json`，关联源脚本及 `.blend` Hash。
+上述模型资源来自本地 `source/blender/build_assets.py`，许可 CC0-1.0。无需付费生成器、在线模型、下载素材或第三方美术资源。文件许可与 SHA-256 在 `.forge/assets.json`，关联源脚本及 `.blend` Hash。
 
 静态办公室按材质合并网格，减少绘制批次。主要使用几何体和 PBR 纯色材质，没有烘焙参考图片到背景。因而可自由改变相机和控制单位。造型是可编辑低多边形复现，不等同于参考图的离线写实质感。
 
@@ -33,7 +33,7 @@
 | fire | 0.417 秒 | 否 | 射击与轻微后坐 |
 | crouch | 2 秒 | 是 | 蹲姿掩护 |
 | prone | 2 秒 | 是 | 高压制时低姿态 |
-| reload | 2 秒 | 否 | 换弹动作；逻辑时间默认 2.2 秒 |
+| reload | 2 秒 | 否 | 换弹动作；逻辑时间由各武器 reload 配置 |
 | death | 1.25 秒 | 否 | 倒下；髋骨降低是刻意的收尾，不是移动漂移 |
 | typing | 5 秒 | 是 | 人类慢速打字；引擎以 0.6 倍播放 |
 
@@ -41,10 +41,16 @@
 
 ## 规则 JSON
 
-`schema_version` 固定为 1。`factions` 配置 ID、名称、颜色、出生点和战术目标；`soldier` 配置生命、速度、距离、伤害、命中率、弹匣、换弹与压制衰减；`rules` 配置积分上限、比赛时长、增援条件和 AI 决策频率。
+`schema_version` 固定为 1。`factions` 配置 ID、名称、颜色、出生点和战术目标；`soldier` 配置生命、速度、压制衰减，并保留策划台伤害/冷却/命中率的全局倍率基准；`weapons` 配置各武器的实际射程、伤害、冷却、命中率、弹匣、换弹、弹速、装甲倍率、爆炸半径；`loadout` 对应每队三个兵的装备；`rules` 配置积分上限、比赛时长、增援条件和 AI 决策频率。
 
 `covers` 条目：稳定 `id`、二维 `position=[x,z]`、`size=[width,depth]`、朝向 `normal=[x,z]`、高度、生命、类别。`hp=-1` 代表不可破坏。类别 `sandbag`、`notebook`、`pencil`、`eraser` 由 `battlefield.gd` 构建视觉与战术形状。
 
 `obstacles` 条目定义高物件的投影阻挡。移动了 Blender 里的办公道具后，必须同步改这个代理，否则画面和寻路会不同步。桌面边界是可玩区域，不是整个房间边界。
 
 新增模型流程：修改 Blender 脚本 → `python3 tools/project.py models` → 导入 → 模型/动画审计 → 实机截图 → 更新证据。禁止修改 GLB 后跳过来源登记。
+
+## 原创声音与运行时武器附件（0.2.0）
+
+`source/audio/synthesize.py` 可确定性重建九个16-bit、22050Hz、单声道WAV：rifle、smg、rocket、cannon、explosion、impact、bayonet、order、reload。时长0.12–1.05秒，峰值限制在0.78。所有声音为原创程序合成，CC0；未下载枪声录音。源WAV、生成脚本与运行WAV的来源及SHA-256写入`.forge/assets.json`。重建Blender资源会保留音频来源条目。
+
+运行几何武器在`unit.gd::install_weapon()`定义：步枪长枪管与刺刀、冲锋枪短枪管与弹匣、火箭筒粗管及尾罩。使用现有骨骼的休止变换将几何挂入右手附件。效果是Godot原生网格，无贴图和外部VFX插件。

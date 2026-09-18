@@ -2,28 +2,337 @@
   "schema_version": 1,
   "seed": 18092026,
   "table_height": 0.82,
-  "bounds": [-0.08, -0.62, 1.32, 0.57],
+  "bounds": [
+    -0.08,
+    -0.62,
+    1.32,
+    0.57
+  ],
   "cell_size": 0.025,
-  "soldier": {"hp": 100.0, "speed": 0.12, "range": 0.65, "damage": 9.0, "cooldown": 1.3, "accuracy": 0.72, "magazine": 6, "reload": 2.2, "suppression_decay": 0.12},
-  "tank": {"hp": 420.0, "speed": 0.075, "range": 0.95, "damage": 28.0, "cooldown": 3.2},
-  "rules": {"capture_radius": 0.17, "score_to_win": 90.0, "match_seconds": 300.0, "reinforce_hp_ratio": 0.58, "reinforce_after": 25.0, "ai_interval": 2.5},
-  "objective": [0.57, 0.02],
+  "soldier": {
+    "hp": 100.0,
+    "speed": 0.12,
+    "range": 0.65,
+    "damage": 9.0,
+    "cooldown": 1.3,
+    "accuracy": 0.72,
+    "magazine": 6,
+    "reload": 2.2,
+    "suppression_decay": 0.12
+  },
+  "tank": {
+    "hp": 420.0,
+    "speed": 0.075,
+    "range": 0.95,
+    "damage": 28.0,
+    "cooldown": 3.2
+  },
+  "rules": {
+    "capture_radius": 0.17,
+    "score_to_win": 90.0,
+    "match_seconds": 300.0,
+    "reinforce_hp_ratio": 0.58,
+    "reinforce_after": 25.0,
+    "ai_interval": 1.6,
+    "cover_hold_seconds": 6.0
+  },
+  "objective": [
+    0.57,
+    0.02
+  ],
   "factions": [
-    {"id":"green","name":"苔绿侦察队","color":"607c48","spawn":[0.12,0.35],"goal":[0.45,0.12]},
-    {"id":"blue","name":"钴蓝机动队","color":"3c6880","spawn":[0.24,-0.48],"goal":[0.48,-0.12]},
-    {"id":"red","name":"砖红守备队","color":"a35340","spawn":[1.08,-0.25],"goal":[0.75,0.05]}
+    {
+      "id": "green",
+      "name": "苔绿侦察队",
+      "color": "607c48",
+      "spawn": [
+        0.12,
+        0.35
+      ],
+      "goal": [
+        0.45,
+        0.12
+      ]
+    },
+    {
+      "id": "blue",
+      "name": "钴蓝机动队",
+      "color": "3c6880",
+      "spawn": [
+        0.24,
+        -0.48
+      ],
+      "goal": [
+        0.48,
+        -0.12
+      ]
+    },
+    {
+      "id": "red",
+      "name": "砖红守备队",
+      "color": "a35340",
+      "spawn": [
+        1.08,
+        -0.25
+      ],
+      "goal": [
+        0.75,
+        0.05
+      ]
+    }
   ],
   "covers": [
-    {"id":"green_bags","position":[0.21,0.23],"size":[0.25,0.045],"normal":[0,-1],"height":0.043,"hp":180,"kind":"sandbag"},
-    {"id":"blue_bags","position":[0.29,-0.33],"size":[0.25,0.045],"normal":[0,1],"height":0.043,"hp":180,"kind":"sandbag"},
-    {"id":"red_bags","position":[0.92,-0.14],"size":[0.045,0.25],"normal":[-1,0],"height":0.043,"hp":140,"kind":"sandbag"},
-    {"id":"notebook","position":[0.25,0.015],"size":[0.17,0.19],"normal":[1,0],"height":0.034,"hp":-1,"kind":"notebook"},
-    {"id":"pencil_barrier","position":[0.69,-0.28],"size":[0.04,0.21],"normal":[-1,0],"height":0.028,"hp":65,"kind":"pencil"},
-    {"id":"eraser","position":[0.79,0.30],"size":[0.14,0.065],"normal":[0,-1],"height":0.035,"hp":-1,"kind":"eraser"}
+    {
+      "id": "green_bags",
+      "position": [
+        0.21,
+        0.23
+      ],
+      "size": [
+        0.25,
+        0.045
+      ],
+      "normal": [
+        0,
+        -1
+      ],
+      "height": 0.043,
+      "hp": 280,
+      "kind": "sandbag"
+    },
+    {
+      "id": "blue_bags",
+      "position": [
+        0.29,
+        -0.33
+      ],
+      "size": [
+        0.25,
+        0.045
+      ],
+      "normal": [
+        0,
+        1
+      ],
+      "height": 0.043,
+      "hp": 280,
+      "kind": "sandbag"
+    },
+    {
+      "id": "red_bags",
+      "position": [
+        0.92,
+        -0.14
+      ],
+      "size": [
+        0.045,
+        0.25
+      ],
+      "normal": [
+        -1,
+        0
+      ],
+      "height": 0.043,
+      "hp": 280,
+      "kind": "sandbag"
+    },
+    {
+      "id": "notebook",
+      "position": [
+        0.25,
+        0.015
+      ],
+      "size": [
+        0.17,
+        0.19
+      ],
+      "normal": [
+        1,
+        0
+      ],
+      "height": 0.034,
+      "hp": -1,
+      "kind": "notebook"
+    },
+    {
+      "id": "pencil_barrier",
+      "position": [
+        0.69,
+        -0.28
+      ],
+      "size": [
+        0.04,
+        0.21
+      ],
+      "normal": [
+        -1,
+        0
+      ],
+      "height": 0.028,
+      "hp": 65,
+      "kind": "pencil"
+    },
+    {
+      "id": "eraser",
+      "position": [
+        0.79,
+        0.3
+      ],
+      "size": [
+        0.14,
+        0.065
+      ],
+      "normal": [
+        0,
+        -1
+      ],
+      "height": 0.035,
+      "hp": -1,
+      "kind": "eraser"
+    },
+    {
+      "id": "forward_green",
+      "position": [
+        0.46,
+        0.14
+      ],
+      "size": [
+        0.16,
+        0.045
+      ],
+      "normal": [
+        0,
+        -1
+      ],
+      "height": 0.043,
+      "hp": 320,
+      "kind": "sandbag"
+    },
+    {
+      "id": "forward_blue",
+      "position": [
+        0.49,
+        -0.15
+      ],
+      "size": [
+        0.16,
+        0.045
+      ],
+      "normal": [
+        0,
+        1
+      ],
+      "height": 0.043,
+      "hp": 320,
+      "kind": "sandbag"
+    }
   ],
   "obstacles": [
-    {"id":"lamp","position":[0.29,-0.57],"size":[0.17,0.10]},
-    {"id":"tray","position":[1.11,0.34],"size":[0.34,0.31]},
-    {"id":"sharpener","position":[0.84,-0.46],"size":[0.12,0.12]}
-  ]
+    {
+      "id": "lamp",
+      "position": [
+        0.29,
+        -0.57
+      ],
+      "size": [
+        0.17,
+        0.1
+      ]
+    },
+    {
+      "id": "tray",
+      "position": [
+        1.11,
+        0.34
+      ],
+      "size": [
+        0.34,
+        0.31
+      ]
+    },
+    {
+      "id": "sharpener",
+      "position": [
+        0.84,
+        -0.46
+      ],
+      "size": [
+        0.12,
+        0.12
+      ]
+    }
+  ],
+  "version": "0.2.0",
+  "loadout": [
+    "rifle",
+    "smg",
+    "rocket"
+  ],
+  "weapons": {
+    "rifle": {
+      "name": "步枪",
+      "range": 0.7,
+      "damage": 13.0,
+      "cooldown": 1.05,
+      "accuracy": 0.82,
+      "magazine": 8,
+      "reload": 2.0,
+      "projectile_speed": 4.0,
+      "armor_multiplier": 0.1,
+      "splash": 0.0,
+      "pressure": 0.12
+    },
+    "smg": {
+      "name": "冲锋枪",
+      "range": 0.6,
+      "damage": 5.0,
+      "cooldown": 0.14,
+      "accuracy": 0.58,
+      "magazine": 24,
+      "reload": 2.5,
+      "projectile_speed": 4.5,
+      "armor_multiplier": 0.04,
+      "splash": 0.0,
+      "pressure": 0.055
+    },
+    "rocket": {
+      "name": "火箭筒",
+      "range": 0.92,
+      "damage": 18.0,
+      "cooldown": 3.8,
+      "accuracy": 0.85,
+      "magazine": 1,
+      "reload": 3.8,
+      "projectile_speed": 0.95,
+      "armor_multiplier": 7.0,
+      "splash": 0.105,
+      "pressure": 0.42
+    },
+    "cannon": {
+      "name": "坦克炮",
+      "range": 0.98,
+      "damage": 24.0,
+      "cooldown": 3.4,
+      "accuracy": 0.9,
+      "magazine": 1000,
+      "reload": 0.0,
+      "projectile_speed": 1.6,
+      "armor_multiplier": 1.0,
+      "splash": 0.13,
+      "pressure": 0.4
+    },
+    "bayonet": {
+      "name": "刺刀",
+      "range": 0.075,
+      "damage": 29.0,
+      "cooldown": 0.85,
+      "accuracy": 1.0,
+      "magazine": 0,
+      "reload": 0.0,
+      "projectile_speed": 0.0,
+      "armor_multiplier": 0.0,
+      "splash": 0.0,
+      "pressure": 0.22
+    }
+  }
 }

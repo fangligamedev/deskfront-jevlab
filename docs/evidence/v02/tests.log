@@ -1,0 +1,23 @@
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab tests/semantic_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+FORGE_SEMANTIC_PASS deskfront checks=81
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/asset_probe.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ASSET_PROBE true
+
+/Library/Developer/CommandLineTools/usr/bin/python3 -m unittest discover -s tests -p test_*.py -v
+test_agent_cannot_run_admin (test_control.ControlContract) ... ok
+test_freshness_required (test_control.ControlContract) ... ok
+test_new_run_expires_old_moves (test_control.ControlContract) ... ok
+test_queue_is_not_ack (test_control.ControlContract) ... ok
+test_reset_ack_on_new_run (test_control.ControlContract) ... ok
+test_types_and_nan (test_control.ControlContract) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK
+

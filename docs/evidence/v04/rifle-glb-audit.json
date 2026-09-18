@@ -1,0 +1,75 @@
+{
+  "animations": 0,
+  "attributes": [
+    "JOINTS_0",
+    "NORMAL",
+    "POSITION",
+    "TEXCOORD_0",
+    "WEIGHTS_0"
+  ],
+  "findings": [
+    {
+      "code": "glb.parse",
+      "message": "Valid GLB 2.0 JSON container",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.geometry",
+      "message": "7 primitives",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.triangle_budget",
+      "message": "4353 <= 100000",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.normals",
+      "message": "NORMAL attribute",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.uv",
+      "message": "TEXCOORD_0 attribute",
+      "status": "PASS"
+    }
+  ],
+  "generator": "Khronos glTF Blender I/O v1.7.33",
+  "has_normals": true,
+  "has_skin_weights": true,
+  "has_uv": true,
+  "images": 0,
+  "indices": 13059,
+  "joint_names": [
+    "Magazine",
+    "Trigger",
+    "Selector",
+    "Bolt Release",
+    "Magazine Release",
+    "Forward Assist",
+    "Charging Handle",
+    "Stock",
+    "Bolt",
+    "Rear Sights",
+    "Front Sights",
+    "Dust Cover",
+    "Attach_Scope",
+    "Attach_Rail.Bottom",
+    "Attach_Muzzle",
+    "Attach_Rail.Top",
+    "Attach_Rail.SideLeft",
+    "Attach_Rail.SideRight",
+    "Body"
+  ],
+  "materials": 7,
+  "meshes": 1,
+  "passed": true,
+  "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/rifle.glb",
+  "primitives": 7,
+  "sha256": "0d80dd2118c884172a856455968be14eadc97f041d27d52bfa75fedb708fa486",
+  "size_bytes": 457644,
+  "skin_joints": 19,
+  "skins": 1,
+  "triangles": 4353,
+  "vertices": 8045
+}

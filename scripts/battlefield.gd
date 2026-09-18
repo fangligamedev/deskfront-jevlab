@@ -13,7 +13,7 @@ var reservations: Dictionary = {}
 var slot_cache: Dictionary={}
 var path_queries: int=0
 
-func setup(data: Dictionary) -> void:
+func setup(data: Dictionary, arena=null) -> void:
 	config = data
 	height = data.table_height
 	cell = data.cell_size
@@ -21,7 +21,11 @@ func setup(data: Dictionary) -> void:
 	for source in data.covers:
 		var c: Dictionary = source.duplicate(true)
 		c["alive"] = true
-		c["node"] = make_cover(c)
+		c["node"] = null
+		if arena:
+			for row in arena.props:
+				if row.spec.id==c.id:c["node"]=row.node
+		else:c["node"] = make_cover(c)
 		covers.append(c)
 	obstacles = data.obstacles.duplicate(true)
 	for o in obstacles:
@@ -116,6 +120,15 @@ func rebuild() -> void:
 					grid.set_point_solid(Vector2i(x,y))
 				if absf(pos.x-center.x)<half.x+.075 and absf(pos.y-center.y)<half.y+.075:
 					tank_grid.set_point_solid(Vector2i(x,y))
+	for x in range(grid.region.size.x):
+		for y in range(grid.region.size.y):
+			var p=to_world(Vector2i(x,y))
+			for water in config.get("water",[]):
+				if inside_object(p,water):
+					var bridge=false
+					for b in config.get("bridges",[]):
+						if inside_object(p,b):bridge=true
+					if not bridge:grid.set_point_solid(Vector2i(x,y));tank_grid.set_point_solid(Vector2i(x,y))
 	revision += 1
 
 func nearest(p: Vector2, tank: bool=false) -> Vector2i:
@@ -265,6 +278,7 @@ func damage_cover(id: String, amount: float) -> bool:
 		if c.hp<=0:
 			c.alive=false
 			c.node.scale.y=.18
+			if c.node is CollisionObject3D:c.node.collision_layer=0
 			for key in reservations.keys():
 				if key.begins_with(id+"_"):reservations.erase(key)
 			rebuild()
@@ -278,3 +292,11 @@ func snapshot() -> Array:
 		v.erase("node")
 		result.append(v)
 	return result
+
+func inside_object(p: Vector2,o: Dictionary) -> bool:
+	return absf(p.x-o.position[0])<o.size[0]*.5 and absf(p.y-o.position[1])<o.size[2]*.5
+
+func ground_height(p: Vector2) -> float:
+	for b in config.get("bridges",[]):
+		if inside_object(p,b):return .838+b.size[1]
+	return height

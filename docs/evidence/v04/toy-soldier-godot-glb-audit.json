@@ -1,0 +1,105 @@
+{
+  "godot": {
+    "collision_nodes": 0,
+    "material_slots": 2,
+    "mesh_instances": 2,
+    "meshes": [
+      {
+        "aabb_position": [
+          -0.10424093157053,
+          1.64344716072083,
+          -0.101701386272907
+        ],
+        "aabb_size": [
+          0.214465916156769,
+          0.157123446464539,
+          0.251831442117691
+        ],
+        "name": "Helmet",
+        "surfaces": 1
+      },
+      {
+        "aabb_position": [
+          -0.82977283000946,
+          4.73039790449548e-07,
+          -0.113338500261307
+        ],
+        "aabb_size": [
+          1.65831613540649,
+          1.7777247428894,
+          0.28000009059906
+        ],
+        "name": "Soldier_1",
+        "surfaces": 1
+      }
+    ],
+    "skeletons": [
+      {
+        "bone_count": 50,
+        "bone_names": [
+          "Root",
+          "Hips",
+          "LeftUpLeg",
+          "LeftLeg",
+          "LeftFoot",
+          "LeftToeBase",
+          "LeftToe_End",
+          "RightUpLeg",
+          "RightLeg",
+          "RightFoot",
+          "RightToeBase",
+          "RightToe_End",
+          "Spine",
+          "Spine1",
+          "Spine2",
+          "LeftShoulder",
+          "LeftArm",
+          "LeftForeArm",
+          "LeftHand",
+          "LeftHandIndex1",
+          "LeftHandIndex2",
+          "LeftHandIndex3",
+          "LeftHandIndex4",
+          "LeftHandMiddle1",
+          "LeftHandMiddle2",
+          "LeftHandMiddle3",
+          "LeftHandMiddle4",
+          "LeftHandThumb1",
+          "LeftHandThumb2",
+          "LeftHandThumb3",
+          "LeftHandThumb4",
+          "Neck",
+          "Head",
+          "HeadTop_End",
+          "RightShoulder",
+          "RightArm",
+          "RightForeArm",
+          "RightHand",
+          "RightHandIndex1",
+          "RightHandIndex2",
+          "RightHandIndex3",
+          "RightHandIndex4",
+          "RightHandMiddle1",
+          "RightHandMiddle2",
+          "RightHandMiddle3",
+          "RightHandMiddle4",
+          "RightHandThumb1",
+          "RightHandThumb2",
+          "RightHandThumb3",
+          "RightHandThumb4"
+        ],
+        "name": "Skeleton3D",
+        "roots": [
+          "Root"
+        ]
+      }
+    ]
+  },
+  "import_exit_code": 0,
+  "passed": true,
+  "runtime_exit_code": 0,
+  "runtime_output": null,
+  "source_path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/toy-soldier.glb",
+  "source_sha256": "634bc2951e768834b12fd44165f500e1840a84401baaae422ac6d115da458a62",
+  "stage": "complete"
+}

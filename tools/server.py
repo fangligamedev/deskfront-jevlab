@@ -5,8 +5,8 @@ from pathlib import Path
 import argparse, json, time, threading, uuid, collections, urllib.parse, math
 
 ROOT=Path(__file__).resolve().parents[1]
-ALLOWED={'control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset'}
-TACTICS={'move','capture','flank','cover','hold','retreat','attack'}
+ALLOWED={'control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade'}
+TACTICS={'move','capture','flank','cover','hold','retreat','attack','grenade'}
 TEAMS={'green','blue','red'}
 
 def validate_command(c, agent=False):
@@ -22,6 +22,8 @@ def validate_command(c, agent=False):
     if c['action']=='pause' and 'value' in c and type(c['value']) is not bool:return 'invalid_pause'
     if c['action']=='control' and c.get('mode') not in {'game_ai','player','agent'}:return 'invalid_mode'
     if c['action']=='attack' and not isinstance(c.get('target_id'),str):return 'target_required'
+    if c['action']=='map' and (type(c.get('index')) is not int or c['index'] not in range(3)):return 'invalid_map'
+    if c['action']=='equip' and c.get('weapon') not in {'rifle','smg','rocket','pistol'}:return 'invalid_weapon'
     if agent and (not isinstance(c.get('run_id'),str) or type(c.get('seen_tick')) is not int):return 'observation_required'
     return None
 

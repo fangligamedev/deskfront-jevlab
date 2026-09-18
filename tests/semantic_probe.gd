@@ -6,13 +6,14 @@ func check(value: bool, text: String) -> void:
 	if not value:failures.append(text);push_error(text)
 func _ready() -> void:
 	var game=load("res://scenes/main.tscn").instantiate()
+	game.use_legacy_fixture=true
 	add_child(game)
 	game.set_physics_process(false)
 	await get_tree().process_frame
 	check(game.units.size()==9,"exactly nine infantry in three factions")
 	for u in game.units:
-		check(u.bone_count==17,"17 imported bones: "+u.id)
-		check(u.animation_names.size()==8,"8 imported animation clips: "+u.id)
+		check(u.bone_count==50,"50 imported bones: "+u.id)
+		check(u.animation_names.size()==22,"22 imported animation clips: "+u.id)
 		check(u.playback!=null,"AnimationTree configured: "+u.id)
 	check(game.worker_anim!=null and game.worker_anim.is_playing(),"worker typing clip active")
 	var start_time=game.worker_anim.current_animation_position
@@ -77,10 +78,12 @@ func _ready() -> void:
 	game.paused=false;game.winner="";game.scores.green=game.config.rules.score_to_win;game._physics_process(.1)
 	check(game.winner=="green","capture score produces victory")
 	var combat=load("res://scenes/main.tscn").instantiate()
+	combat.use_legacy_fixture=true
 	add_child(combat)
 	preload("res://tests/combat_checks.gd").run(combat,check)
 	combat.queue_free()
 	var tactics_game=load("res://scenes/main.tscn").instantiate()
+	tactics_game.use_legacy_fixture=true
 	add_child(tactics_game)
 	preload("res://tests/tactics_checks.gd").run(tactics_game,check)
 	tactics_game.queue_free()

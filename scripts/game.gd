@@ -54,11 +54,22 @@ var last_action: Dictionary={}
 var run_id: String=""
 var capture_path: String=""
 var capture_frames: int=120
+var use_legacy_fixture: bool=false
+var arena
+var map_index: int=0
+var map_data: Dictionary={}
 var capture_effects: bool=false
 var rendered_frames: int=0
 
 func _ready() -> void:
 	config=JSON.parse_string(FileAccess.get_file_as_string("res://data/battle.json"))
+	if not use_legacy_fixture:
+		map_index=int(get_tree().get_meta("deskfront_map",0))
+		for arg in OS.get_cmdline_user_args():
+			if arg.begins_with("--map="):map_index=int(arg.trim_prefix("--map="))
+		arena=preload("res://scripts/sandbox_map.gd").new();add_child(arena);arena.load_level(map_index)
+		map_index=arena.index;map_data=arena.current
+		apply_map_config()
 	rng.seed=int(config.seed)
 	run_id=str(Time.get_unix_time_from_system())+"-"+str(randi())
 	for f in config.factions:colors[f.id]=Color(f.color)
@@ -72,24 +83,25 @@ func _ready() -> void:
 	var sun := DirectionalLight3D.new();add_child(sun);sun.rotation_degrees=Vector3(-55,-35,0);sun.light_color=Color(1,.92,.76);sun.light_energy=.48;sun.shadow_enabled=true
 	sun.directional_shadow_max_distance=12;sun.shadow_bias=.03
 	var fill := DirectionalLight3D.new();add_child(fill);fill.rotation_degrees=Vector3(-35,145,0);fill.light_color=Color(.65,.78,.85);fill.light_energy=.24
-	var office=load("res://assets/models/office.glb").instantiate();add_child(office)
-	worker=load("res://assets/models/worker.glb").instantiate();add_child(worker);worker.position=Vector3(-.67,-.02,.57);worker.scale=Vector3.ONE*.85
+	var office=load("res://assets/models/office.glb" if use_legacy_fixture else "res://assets/models/office-sandbox.glb").instantiate();add_child(office)
+	worker=load("res://assets/models/office-worker.glb").instantiate();add_child(worker);worker.position=Vector3(-.67 if use_legacy_fixture else -1.12,0,.57)
 	var aps=worker.find_children("*","AnimationPlayer",true,false)
 	if not aps.is_empty():
 		worker_anim=aps[0]
 		for a in worker_anim.get_animation_list():
 			if "typing" in a:worker_anim.get_animation(a).loop_mode=Animation.LOOP_LINEAR;worker_anim.play(a);worker_anim.speed_scale=.6
-	field=Field.new();add_child(field);field.setup(config)
+	field=Field.new();add_child(field);field.setup(config,arena)
 	fx=CombatFX.new();add_child(fx);fx.setup(self)
 	get_viewport().mouse_entered.connect(func():pointer_inside=true)
 	get_viewport().mouse_exited.connect(func():pointer_inside=false;panning=false;selecting=false;if_box_hide())
 	var target := MeshInstance3D.new();var disc := CylinderMesh.new();disc.top_radius=.044;disc.bottom_radius=.044;disc.height=.007;target.mesh=disc
-	target.material_override=field.mat(Color(.65,.49,.21),.4);add_child(target);target.position=Vector3(objective.x,.825,objective.y)
+	target.material_override=field.mat(Color(.65,.49,.21),.4);add_child(target);target.position=Vector3(objective.x,field.height+.003,objective.y);target.visible=use_legacy_fixture
 	for f in config.factions:
 		for i in range(3):spawn_unit(f.id+"-"+str(i+1),f.id,Vector2(f.spawn[0]+(i-1)*.064,f.spawn[1]))
 	tactics_ai=Tactics.new();add_child(tactics_ai);tactics_ai.setup(self)
 	camera=Camera3D.new();add_child(camera);camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.near=.02;camera.far=30;camera.current=true
 	set_camera("office",true);make_hud()
+	var ears := AudioListener3D.new();add_child(ears);ears.position=Vector3(objective.x,1.2,objective.y);ears.make_current()
 	bridge=Bridge.new();add_child(bridge);bridge.setup(self)
 	add_event("战场就绪 · 三个阵营 · 九名步兵")
 	for arg in OS.get_cmdline_user_args():
@@ -136,13 +148,16 @@ func find_target(u, requested: String=""):
 
 func _physics_process(delta: float) -> void:
 	tick_id+=1
+	for u in units:u.presentation_pause(paused or winner!="")
 	if paused or winner!="":return
 	var dt: float=delta*speed
 	elapsed+=dt
 	if worker_anim:worker_anim.speed_scale=.6*speed
 	fx.physics_tick(dt)
 	tactics_ai.tick(dt)
-	for u in units:u.tick(dt)
+	for u in units:
+		u.tick(dt)
+		u.presentation_tick(dt)
 	var present: Array=[]
 	for u in living():
 		if u.pos().distance_to(objective)<config.rules.capture_radius and not present.has(u.faction):present.append(u.faction)
@@ -213,6 +228,7 @@ func issue_tactic(team: String, action: String, destination: Vector2, ids: Array
 		var offset := Vector2((index-(squad.size()-1)*.5)*.058,0)
 		u.order_mode=action
 		match action:
+			"grenade":u.request_grenade(closest_enemy(u))
 			"cover":
 				if u.tank:
 					tactics_ai.tank_next.erase(u.id);tactics_ai.plan_tank(u)
@@ -229,8 +245,8 @@ func issue_tactic(team: String, action: String, destination: Vector2, ids: Array
 func spawn_tank() -> bool:
 	if tank_spawned:return false
 	tank_spawned=true
-	var t=spawn_unit("red-tank","red",Vector2(1.20,-.46),true)
-	t.move_to(Vector2(1.05,-.29));add_event("红方失势 · 后方坦克增援抵达");return true
+	var t=spawn_unit("red-tank","red",Vector2(1.20,-.46) if use_legacy_fixture else Vector2(map_data.tank_spawn[0],map_data.tank_spawn[1]),true)
+	t.move_to(Vector2(1.05,-.29) if use_legacy_fixture else t.pos().move_toward(objective,.13));add_event("红方失势 · 后方坦克增援抵达");return true
 
 func add_event(message: String) -> void:
 	events.push_front({"time":snappedf(elapsed,.1),"text":message})
@@ -241,6 +257,9 @@ func set_camera(mode: String, instant: bool=false) -> void:
 	if mode=="office":camera_target=Vector3(-.02,.60,.07);camera_size=4.05
 	elif mode=="top":camera_target=Vector3(.61,.82,-.01);camera_size=1.80
 	else:camera_target=Vector3(.60,.84,-.02);camera_size=1.87
+	if not use_legacy_fixture:
+		camera_target=Vector3(-.35,.85,1.1) if mode=="office" else Vector3(objective.x,.86,(config.bounds[1]+config.bounds[3])*.5)
+		camera_size=7.3 if mode=="office" else 3.5
 	if instant and camera:
 		camera.position=camera_target+(Vector3(0,3.8,.001) if mode=="top" else Vector3(2.6,3.5,3.5));camera.look_at(camera_target,Vector3.FORWARD if camera_mode=="top" else Vector3.UP);camera.size=camera_size
 
@@ -252,7 +271,7 @@ func selected_ids() -> Array:
 
 func command(c: Dictionary) -> Dictionary:
 	var action: String=str(c.get("action",""));var source: String=str(c.get("source","console"));var team: String=str(c.get("faction",selected_faction))
-	var rejected: String="";var tactics: Array=["move","capture","flank","cover","hold","retreat","attack"]
+	var rejected: String="";var tactics: Array=["move","capture","flank","cover","hold","retreat","attack","grenade"]
 	if not control.has(team):rejected="unknown_faction"
 	elif source=="agent" and (not tactics.has(action) or control[team]!="agent"):rejected="authority_denied"
 	elif source=="agent" and str(c.get("run_id",""))!=run_id:rejected="stale_run"
@@ -317,6 +336,16 @@ func command(c: Dictionary) -> Dictionary:
 		var ranges: Dictionary={"damage":[1,30],"speed":[.04,.30],"accuracy":[.1,1],"cooldown":[.3,4]}
 		if not ranges.has(key) or not is_finite(value):return ack(c,false,"invalid_parameter")
 		config.soldier[key]=clampf(value,ranges[key][0],ranges[key][1]);add_event("参数更新 "+key+" = "+str(config.soldier[key]))
+	elif action=="equip":
+		var value=str(c.get("weapon","pistol"))
+		if value not in ["rifle","smg","rocket","pistol"]:return ack(c,false,"invalid_weapon")
+		for u in living(team):
+			if not u.tank and (ids.is_empty() or ids.has(u.id)):u.equip(value)
+	elif action=="map":
+		var index=int(c.get("index",0))
+		if index<0 or index>2:return ack(c,false,"invalid_map")
+		get_tree().set_meta("deskfront_map",index)
+		get_tree().call_deferred("reload_current_scene")
 	elif action=="reset":
 		var result=ack(c,true,"resetting");get_tree().call_deferred("reload_current_scene");return result
 	else:return ack(c,false,"unknown_action")
@@ -331,7 +360,7 @@ func snapshot() -> Dictionary:
 		var state: Dictionary=u.snapshot()
 		var pixel: Vector2=camera.unproject_position(u.position+Vector3(0,.05,0))
 		state["screen_position"]=[pixel.x,pixel.y];unit_states.append(state)
-	return {"schema_version":1,"version":"0.3.0","viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"units":unit_states,"factions":config.factions,"control":control,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":config.rules.score_to_win},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"shots":shots,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
+	return {"schema_version":1,"version":"0.4.0","map":map_data.get("id","legacy"),"map_index":map_index,"maps":["三线争夺场","河谷双桥","前哨阵地"],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"units":unit_states,"factions":config.factions,"control":control,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":config.rules.score_to_win},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"shots":shots,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
 
 func screen_point(p: Vector2) -> Vector2:
 	var origin: Vector3=camera.project_ray_origin(p);var ray: Vector3=camera.project_ray_normal(p)
@@ -342,8 +371,8 @@ func if_box_hide() -> void:
 	if selection_box:selection_box.visible=false
 
 func pan_by(amount: Vector3) -> void:
-	camera_target.x=clampf(camera_target.x+amount.x,-1.4,1.7)
-	camera_target.z=clampf(camera_target.z+amount.z,-.95,1.3)
+	camera_target.x=clampf(camera_target.x+amount.x,-3.1,2.0)
+	camera_target.z=clampf(camera_target.z+amount.z,-1.4,4.1)
 
 func pan_to(cursor: Vector2) -> void:
 	# Absolute cursor positions retain total drag when Web events are coalesced.
@@ -418,8 +447,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			var rect := Rect2(drag_start,drag_current-drag_start).abs()
 			selection_box.position=rect.position;selection_box.size=rect.size;selection_box.visible=rect.size.length()>8
 	if event is InputEventMouseButton and event.pressed:
-		if event.button_index==MOUSE_BUTTON_WHEEL_UP:camera_size=clampf(camera_size*.90,.70,4.5)
-		elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN:camera_size=clampf(camera_size*1.1,.70,4.5)
+		if event.button_index==MOUSE_BUTTON_WHEEL_UP:camera_size=clampf(camera_size*.90,.35,8.0)
+		elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN:camera_size=clampf(camera_size*1.1,.35,8.0)
 		elif event.button_index==MOUSE_BUTTON_MIDDLE or (event.button_index==MOUSE_BUTTON_LEFT and event.alt_pressed):panning=true;pan_cursor=event.position
 		elif event.button_index==MOUSE_BUTTON_LEFT:selecting=true;drag_start=event.position;drag_current=event.position
 		elif event.button_index==MOUSE_BUTTON_RIGHT:ground_order(screen_point(event.position))
@@ -440,9 +469,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_ENTER:
 				if winner!="":get_tree().reload_current_scene()
 			KEY_F1:ui.visible=not ui.visible
+			KEY_F2:command({"action":"map","index":(map_index+1)%3})
+			KEY_G:command({"action":"grenade","unit_ids":selected_ids()})
+			KEY_P:command({"action":"equip","weapon":"pistol","unit_ids":selected_ids()})
 
 func label(value: String, size: int, color: Color=Color(.86,.88,.80)) -> Label:
-	var l := Label.new();l.text=value;l.add_theme_font_size_override("font_size",size);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;return l
+	var l := Label.new();l.add_theme_font_override("font",load("res://assets/fonts/DeskfrontUI.otf"));l.text=value;l.add_theme_font_size_override("font_size",size);l.add_theme_color_override("font_color",color);l.mouse_filter=Control.MOUSE_FILTER_IGNORE;return l
 
 func make_hud() -> void:
 	ui=CanvasLayer.new();add_child(ui)
@@ -462,12 +494,13 @@ func make_hud() -> void:
 	var column := VBoxContainer.new();bottom.add_child(column)
 	selection_label=label("",14,Color(.84,.74,.49));column.add_child(selection_label)
 	var buttons := HBoxContainer.new();buttons.add_theme_constant_override("separation",8);column.add_child(buttons)
-	for item in [["01 GREEN","green"],["02 BLUE","blue"],["03 RED","red"],["COVER [C]","cover"],["RETREAT [R]","retreat"],["AUTO [A]","auto"],["VIEW [V]","view"]]:
+	for item in [["01 GREEN","green"],["02 BLUE","blue"],["03 RED","red"],["COVER [C]","cover"],["RETREAT [R]","retreat"],["AUTO [A]","auto"],["VIEW [V]","view"],["GRENADE [G]","grenade"],["MAP [F2]","map"]]:
 		var button := Button.new();button.text=item[0];button.add_theme_font_size_override("font_size",12);buttons.add_child(button)
 		var key: String=item[1]
 		button.pressed.connect(func():
 			if key in ["green","blue","red"]:command({"action":"control","faction":key,"mode":"player"})
 			elif key=="auto":command({"action":"control","mode":"game_ai"})
+			elif key=="map":command({"action":"map","index":(map_index+1)%3})
 			elif key=="view":set_camera("battle" if camera_mode=="office" else ("top" if camera_mode=="battle" else "office"))
 			else:command({"action":key,"unit_ids":selected_ids()})
 		)
@@ -485,4 +518,24 @@ func update_hud() -> void:
 		for u in units:
 			if u.selected and u.hp>0:equipped.append(u.weapon.to_upper()+" "+str(u.ammo))
 		if not equipped.is_empty():selection_label.text=" / ".join(equipped)+("   [MUTED]" if fx.muted else "   [SOUND ON]")
+	if not use_legacy_fixture:phase_label.text=map_data.name+" · 三阵营 / 新资源已接入 · F2 换图"
 	if winner!="":selection_label.text=("DRAW" if winner=="draw" else winner.to_upper()+" WINS")+" / PRESS ENTER TO RESTART"
+
+func apply_map_config() -> void:
+	config.bounds=map_data.bounds.duplicate();config.table_height=.848
+	config.objective=map_data.objective.duplicate()
+	# The demo marker was in the river: the playable objective belongs on its south bank.
+	if map_data.id=="river":config.objective=[.54,2.38]
+	config.covers=[];config.obstacles=[];config["water"]=[];config["bridges"]=[]
+	for i in range(config.factions.size()):
+		config.factions[i].spawn=map_data.spawns[i].duplicate()
+		config.factions[i].goal=config.objective.duplicate()
+	for o in map_data.objects:
+		if o.kind=="water":config.water.append(o);continue
+		if o.kind=="bridge":config.bridges.append(o);continue
+		if not o.collision:continue
+		var yaw=deg_to_rad(o.yaw)
+		# Conservative axis-aligned nav envelope encloses the rotated visual and physical cover.
+		var sx=absf(cos(yaw))*o.size[0]+absf(sin(yaw))*o.size[2]
+		var sz=absf(sin(yaw))*o.size[0]+absf(cos(yaw))*o.size[2]
+		config.covers.append({"id":o.id,"position":o.position,"size":[sx,sz],"normal":[0,1] if sx>sz else [1,0],"height":o.size[1],"hp":65 if o.destructible else -1,"kind":"hard" if o.size[1]>.09 else o.kind})

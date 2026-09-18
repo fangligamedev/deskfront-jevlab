@@ -1,0 +1,984 @@
+{
+  "schema_version": 1,
+  "table_height": 0.82,
+  "map_top": 0.838,
+  "levels": [
+    {
+      "id": "crossroads",
+      "name": "三线争夺场",
+      "bounds": [
+        -0.3,
+        0.8,
+        1.38,
+        3.46
+      ],
+      "floor_color": "#a9ac8b",
+      "spawns": [
+        [
+          -0.05,
+          3.25
+        ],
+        [
+          1.16,
+          1.17
+        ],
+        [
+          0.1,
+          1.35
+        ]
+      ],
+      "tank_spawn": [
+        -0.03,
+        1.01
+      ],
+      "target": [
+        0.56,
+        2.12
+      ],
+      "objects": [
+        {
+          "id": "central-route",
+          "kind": "road",
+          "position": [
+            0.54,
+            2.14
+          ],
+          "size": [
+            0.32,
+            0.004,
+            2.48
+          ],
+          "color": "#bcb594",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "flank-route-0",
+          "kind": "road",
+          "position": [
+            -0.19,
+            2.17
+          ],
+          "size": [
+            0.12,
+            0.004,
+            2.4
+          ],
+          "color": "#b7b395",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "flank-route-1",
+          "kind": "road",
+          "position": [
+            1.25,
+            2.17
+          ],
+          "size": [
+            0.12,
+            0.004,
+            2.4
+          ],
+          "color": "#b7b395",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "crossing",
+          "kind": "road",
+          "position": [
+            0.54,
+            2.14
+          ],
+          "size": [
+            1.58,
+            0.005,
+            0.17
+          ],
+          "color": "#bcb594",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "objective-apron",
+          "kind": "road",
+          "position": [
+            0.54,
+            2.17
+          ],
+          "size": [
+            0.43,
+            0.007,
+            0.38
+          ],
+          "color": "#969e82",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "cover-0",
+          "kind": "sandbag",
+          "position": [
+            0.13,
+            1.68
+          ],
+          "size": [
+            0.34,
+            0.06,
+            0.043
+          ],
+          "color": "#ada582",
+          "yaw": -12,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "cover-1",
+          "kind": "sandbag",
+          "position": [
+            1.0,
+            1.62
+          ],
+          "size": [
+            0.3,
+            0.06,
+            0.043
+          ],
+          "color": "#ada582",
+          "yaw": 12,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "cover-2",
+          "kind": "sandbag",
+          "position": [
+            0.55,
+            1.91
+          ],
+          "size": [
+            0.25,
+            0.06,
+            0.043
+          ],
+          "color": "#ada582",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "cover-3",
+          "kind": "sandbag",
+          "position": [
+            0.06,
+            2.3
+          ],
+          "size": [
+            0.3,
+            0.06,
+            0.043
+          ],
+          "color": "#ada582",
+          "yaw": 90,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "cover-4",
+          "kind": "sandbag",
+          "position": [
+            1.01,
+            2.31
+          ],
+          "size": [
+            0.3,
+            0.06,
+            0.043
+          ],
+          "color": "#ada582",
+          "yaw": 90,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "cover-5",
+          "kind": "sandbag",
+          "position": [
+            0.59,
+            2.57
+          ],
+          "size": [
+            0.27,
+            0.06,
+            0.043
+          ],
+          "color": "#ada582",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "cover-6",
+          "kind": "sandbag",
+          "position": [
+            0.12,
+            2.91
+          ],
+          "size": [
+            0.3,
+            0.06,
+            0.043
+          ],
+          "color": "#ada582",
+          "yaw": -12,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "cover-7",
+          "kind": "sandbag",
+          "position": [
+            0.99,
+            2.88
+          ],
+          "size": [
+            0.28,
+            0.06,
+            0.043
+          ],
+          "color": "#ada582",
+          "yaw": 12,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "crate-0",
+          "kind": "crate",
+          "position": [
+            0.32,
+            2.35
+          ],
+          "size": [
+            0.09,
+            0.042,
+            0.06
+          ],
+          "color": "#988157",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true
+        },
+        {
+          "id": "crate-1",
+          "kind": "crate",
+          "position": [
+            0.78,
+            1.99
+          ],
+          "size": [
+            0.08,
+            0.04,
+            0.065
+          ],
+          "color": "#988157",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true
+        },
+        {
+          "id": "crate-2",
+          "kind": "crate",
+          "position": [
+            0.9,
+            2.72
+          ],
+          "size": [
+            0.085,
+            0.045,
+            0.07
+          ],
+          "color": "#988157",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true
+        },
+        {
+          "id": "rubble-0",
+          "kind": "rock",
+          "position": [
+            0.3,
+            1.49
+          ],
+          "size": [
+            0.11,
+            0.026,
+            0.065
+          ],
+          "color": "#9b9e88",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rubble-1",
+          "kind": "rock",
+          "position": [
+            0.8,
+            1.4
+          ],
+          "size": [
+            0.11,
+            0.026,
+            0.065
+          ],
+          "color": "#9b9e88",
+          "yaw": 18,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rubble-2",
+          "kind": "rock",
+          "position": [
+            0.24,
+            2.7
+          ],
+          "size": [
+            0.11,
+            0.026,
+            0.065
+          ],
+          "color": "#9b9e88",
+          "yaw": 36,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rubble-3",
+          "kind": "rock",
+          "position": [
+            0.76,
+            3.07
+          ],
+          "size": [
+            0.11,
+            0.026,
+            0.065
+          ],
+          "color": "#9b9e88",
+          "yaw": 54,
+          "collision": true,
+          "destructible": false
+        }
+      ],
+      "design": {
+        "cover_height_limit": 0.065,
+        "lanes": [
+          "west flank",
+          "central contested approach",
+          "east flank"
+        ],
+        "tank_team": 2,
+        "tank_role": "rear reserve"
+      },
+      "objective": [
+        0.54,
+        2.17
+      ]
+    },
+    {
+      "id": "river",
+      "name": "河谷双桥",
+      "bounds": [
+        -0.3,
+        0.8,
+        1.38,
+        3.46
+      ],
+      "floor_color": "#9ba887",
+      "spawns": [
+        [
+          -0.05,
+          3.25
+        ],
+        [
+          1.16,
+          1.17
+        ],
+        [
+          0.1,
+          1.35
+        ]
+      ],
+      "tank_spawn": [
+        -0.03,
+        1.01
+      ],
+      "target": [
+        0.56,
+        2.12
+      ],
+      "objects": [
+        {
+          "id": "river",
+          "kind": "water",
+          "position": [
+            0.54,
+            2.09
+          ],
+          "size": [
+            1.67,
+            0.008,
+            0.36
+          ],
+          "color": "#6b9391",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "bridge-0",
+          "kind": "bridge",
+          "position": [
+            0.04,
+            2.09
+          ],
+          "size": [
+            0.23,
+            0.023,
+            0.48
+          ],
+          "color": "#b4a17a",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rail-0--1",
+          "kind": "wall",
+          "position": [
+            -0.07999999999999999,
+            2.09
+          ],
+          "size": [
+            0.018,
+            0.045,
+            0.47
+          ],
+          "color": "#858873",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rail-0-1",
+          "kind": "wall",
+          "position": [
+            0.16,
+            2.09
+          ],
+          "size": [
+            0.018,
+            0.045,
+            0.47
+          ],
+          "color": "#858873",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "bridge-1",
+          "kind": "bridge",
+          "position": [
+            1.01,
+            2.09
+          ],
+          "size": [
+            0.23,
+            0.023,
+            0.48
+          ],
+          "color": "#b4a17a",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rail-1--1",
+          "kind": "wall",
+          "position": [
+            0.89,
+            2.09
+          ],
+          "size": [
+            0.018,
+            0.045,
+            0.47
+          ],
+          "color": "#858873",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rail-1-1",
+          "kind": "wall",
+          "position": [
+            1.13,
+            2.09
+          ],
+          "size": [
+            0.018,
+            0.045,
+            0.47
+          ],
+          "color": "#858873",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rock-0",
+          "kind": "rock",
+          "position": [
+            0.4,
+            1.4
+          ],
+          "size": [
+            0.19,
+            0.1,
+            0.16
+          ],
+          "color": "#859177",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rock-1",
+          "kind": "rock",
+          "position": [
+            0.96,
+            1.45
+          ],
+          "size": [
+            0.19,
+            0.1,
+            0.16
+          ],
+          "color": "#859177",
+          "yaw": 24,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rock-2",
+          "kind": "rock",
+          "position": [
+            0.3,
+            2.8
+          ],
+          "size": [
+            0.19,
+            0.1,
+            0.16
+          ],
+          "color": "#859177",
+          "yaw": 48,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rock-3",
+          "kind": "rock",
+          "position": [
+            1.05,
+            3.06
+          ],
+          "size": [
+            0.19,
+            0.1,
+            0.16
+          ],
+          "color": "#859177",
+          "yaw": 72,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "rock-4",
+          "kind": "rock",
+          "position": [
+            0.78,
+            2.65
+          ],
+          "size": [
+            0.19,
+            0.1,
+            0.16
+          ],
+          "color": "#859177",
+          "yaw": 96,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "sandbags-0",
+          "kind": "sandbag",
+          "position": [
+            0.06,
+            2.5
+          ],
+          "size": [
+            0.3,
+            0.055,
+            0.038
+          ],
+          "color": "#afa886",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "sandbags-1",
+          "kind": "sandbag",
+          "position": [
+            0.94,
+            1.73
+          ],
+          "size": [
+            0.3,
+            0.055,
+            0.038
+          ],
+          "color": "#afa886",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "sandbags-2",
+          "kind": "sandbag",
+          "position": [
+            0.23,
+            3.21
+          ],
+          "size": [
+            0.3,
+            0.055,
+            0.038
+          ],
+          "color": "#afa886",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        }
+      ],
+      "objective": [
+        0.54,
+        2.17
+      ]
+    },
+    {
+      "id": "outpost",
+      "name": "前哨阵地",
+      "bounds": [
+        -0.3,
+        0.8,
+        1.38,
+        3.46
+      ],
+      "floor_color": "#b9aa87",
+      "spawns": [
+        [
+          -0.05,
+          3.25
+        ],
+        [
+          1.16,
+          1.17
+        ],
+        [
+          0.1,
+          1.35
+        ]
+      ],
+      "tank_spawn": [
+        -0.03,
+        1.01
+      ],
+      "target": [
+        0.56,
+        2.12
+      ],
+      "objects": [
+        {
+          "id": "sandbags-0",
+          "kind": "sandbag",
+          "position": [
+            0.08,
+            1.44
+          ],
+          "size": [
+            0.38,
+            0.065,
+            0.045
+          ],
+          "color": "#a99c77",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "trench-0",
+          "kind": "road",
+          "position": [
+            0.08,
+            1.515
+          ],
+          "size": [
+            0.37,
+            0.004,
+            0.1
+          ],
+          "color": "#80775e",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "sandbags-1",
+          "kind": "sandbag",
+          "position": [
+            1.02,
+            1.61
+          ],
+          "size": [
+            0.38,
+            0.065,
+            0.045
+          ],
+          "color": "#a99c77",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "trench-1",
+          "kind": "road",
+          "position": [
+            1.02,
+            1.685
+          ],
+          "size": [
+            0.37,
+            0.004,
+            0.1
+          ],
+          "color": "#80775e",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "sandbags-2",
+          "kind": "sandbag",
+          "position": [
+            0.0,
+            2.68
+          ],
+          "size": [
+            0.38,
+            0.065,
+            0.045
+          ],
+          "color": "#a99c77",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "trench-2",
+          "kind": "road",
+          "position": [
+            0.0,
+            2.7550000000000003
+          ],
+          "size": [
+            0.37,
+            0.004,
+            0.1
+          ],
+          "color": "#80775e",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "sandbags-3",
+          "kind": "sandbag",
+          "position": [
+            1.01,
+            2.83
+          ],
+          "size": [
+            0.38,
+            0.065,
+            0.045
+          ],
+          "color": "#a99c77",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "trench-3",
+          "kind": "road",
+          "position": [
+            1.01,
+            2.9050000000000002
+          ],
+          "size": [
+            0.37,
+            0.004,
+            0.1
+          ],
+          "color": "#80775e",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "sandbags-4",
+          "kind": "sandbag",
+          "position": [
+            0.5,
+            2.22
+          ],
+          "size": [
+            0.38,
+            0.065,
+            0.045
+          ],
+          "color": "#a99c77",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        },
+        {
+          "id": "trench-4",
+          "kind": "road",
+          "position": [
+            0.5,
+            2.2950000000000004
+          ],
+          "size": [
+            0.37,
+            0.004,
+            0.1
+          ],
+          "color": "#80775e",
+          "yaw": 0,
+          "collision": false,
+          "destructible": false
+        },
+        {
+          "id": "crate-0",
+          "kind": "crate",
+          "position": [
+            0.66,
+            1.12
+          ],
+          "size": [
+            0.1,
+            0.06,
+            0.1
+          ],
+          "color": "#91764c",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true
+        },
+        {
+          "id": "crate-1",
+          "kind": "crate",
+          "position": [
+            0.99,
+            3.13
+          ],
+          "size": [
+            0.1,
+            0.06,
+            0.1
+          ],
+          "color": "#91764c",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true
+        },
+        {
+          "id": "crate-2",
+          "kind": "crate",
+          "position": [
+            0.22,
+            2.08
+          ],
+          "size": [
+            0.1,
+            0.06,
+            0.1
+          ],
+          "color": "#91764c",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true
+        },
+        {
+          "id": "crate-3",
+          "kind": "crate",
+          "position": [
+            0.93,
+            2.42
+          ],
+          "size": [
+            0.1,
+            0.06,
+            0.1
+          ],
+          "color": "#91764c",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true
+        },
+        {
+          "id": "rear-sandbags",
+          "kind": "sandbag",
+          "position": [
+            0.43,
+            1.52
+          ],
+          "size": [
+            0.3,
+            0.06,
+            0.045
+          ],
+          "color": "#a99c77",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false
+        }
+      ],
+      "objective": [
+        0.54,
+        2.17
+      ]
+    }
+  ]
+}

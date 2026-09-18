@@ -42,10 +42,10 @@ static func run(g, check: Callable) -> void:
 		check.call(not rifle.peeking,"pinned soldier remains hidden instead of exposing shoulder")
 		rifle.suppression=0;rifle.reload_timer=0;rifle.cooldown=0;rifle.ammo=8;rifle.hide_until=g.elapsed+10
 		var shots_before: int=g.shots
-		for i in range(20):g.elapsed+=1.0/60;rifle.tick(1.0/60)
+		for i in range(20):g.elapsed+=1.0/60;rifle.tick(1.0/60);rifle.presentation_tick(1.0/60)
 		check.call(g.shots==shots_before,"hidden hard-cover soldier cannot shoot through obstacle")
 		rifle.hide_until=0
-		for i in range(100):g.elapsed+=1.0/60;rifle.tick(1.0/60);g.fx.physics_tick(1.0/60)
+		for i in range(300):g.elapsed+=1.0/60;rifle.tick(1.0/60);rifle.presentation_tick(1.0/60);g.fx.physics_tick(1.0/60)
 		check.call(g.shots>shots_before,"soldier actually traverses to corner and fires during the peek window")
 	var cover_slot: Dictionary=field.choose_cover(rifle.id,Vector2(.20,.32),Vector2(.2,-.4),Vector2(.2,.32),{"threats":[Vector2(.2,-.4),Vector2(1,-.2)]})
 	check.call(not cover_slot.is_empty() and cover_slot.has("risk") and cover_slot.has("path_length") and cover_slot.has("fire_arc"),"cover selection evaluates multiple threats, firing arc and route cost")

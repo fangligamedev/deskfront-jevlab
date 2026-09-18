@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "packages": [
+    {
+      "file": "Deskfront-macos-0.4.0.zip",
+      "bytes": 66907847,
+      "sha256": "1f3a25dc9cb881603522b11b989f9c5ae531494a0f791a7d5979c4cf107b1c05",
+      "crc_ok": true,
+      "license_q009": true
+    },
+    {
+      "file": "Deskfront-source-0.4.0.zip",
+      "bytes": 38620947,
+      "sha256": "bf3524363acf627a181e1f22891c6f6a02a576e3420d4ea30da728d76be34077",
+      "crc_ok": true,
+      "license_q009": true
+    },
+    {
+      "file": "Deskfront-playable-web-0.4.0.zip",
+      "bytes": 14218086,
+      "sha256": "4265b4710d62e57e5d33914f515aaf91ebd0a3e74ab881bed90396868bd86765",
+      "crc_ok": true,
+      "license_q009": true
+    }
+  ],
+  "source_import_scale_and_blender_sources_verified": true,
+  "note": "Package audit is external to ZIPs to avoid recursive source hashes."
+}

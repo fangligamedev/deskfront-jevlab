@@ -1,3 +1,36 @@
+# 资源与配置文档（0.4.0）
+
+## 当前运行资产
+
+| 资产 | 运行接入 | 编辑来源 |
+|---|---|---|
+| toy-soldier.glb | 三阵营共用，50 骨骼 / 22 动作 / 5073 三角形 | source/latest/toy-soldier-retarget.blend |
+| tank.glb | T2，0.30 m，4 履带动作，独立炮塔 | source/latest/tank-original.blend |
+| rifle / pistol / rocket / grenade.glb | 手部锚点武器、手雷抛物线弹体 | source/latest 下对应 .blend |
+| office-sandbox.glb | 扩大办公室、1.91×4.40 m 桌面 | source/latest/sandbox-generated/office-sandbox-editable.blend |
+| office-worker.glb | 62 骨骼，8 秒打字循环以 0.6 倍播放 | source/latest/office-worker/office-worker.blend |
+| sandbag.glb | 三地图的旋转沙包实体 | source/blender/generated/sandbag.blend |
+| fx.png / flow.png / soft_flipbook.gdshader | 枪口、尾烟、爆炸的透明图集混合 | CC0 图集 / MIT shader |
+| Q009 衍生 WAV | 8 个分武器声音，20 个同时播放上限 | source/latest/q009 / tools/build_audio.py |
+| DeskfrontUI.otf | 中文 HUD | source/latest/fonts / tools/build_ui_font.py |
+
+`toy-soldier.glb.import` 必须保留：root_scale=0.075 且 apply_root_scale=true。单位身高约 0.135 m；不能再额外缩放模型或 root motion。坦克原始朝向 -X，适配器旋转 -π/2 变为游戏 -Z。炮塔重挂时保留归一化后的全局变换。
+
+## 数据与重建
+
+- `data/battle.json`：三阵营配色、默认装备、伤害/弹匣/射程/手雷与现有战术参数。
+- `data/sandbox-maps.json`：地图 bounds、spawns、tank_spawn、objective 和可旋转对象。
+- `data/gait.json`：侧步根轨迹、支撑/摆动相、单步 0.033 m / 1.067 秒。
+- `docs/asset-integration/animation-catalog.json`：动作来源与时长。
+- `source/latest/tools/build_*.py`：士兵、桌面、办公人物、武器、音效和地图源脚本。Blender 脚本用 `blender -b --python <脚本>`，音效用 Python + ffmpeg，字体用 Python + fonttools。
+- 桌面与办公人物脚本导出到对应 source/latest 子目录，审核后复制 GLB 到 assets/models；其它脚本直接写各自 assets/data 路径。
+- 枪械和坦克编辑 .blend 后重新导出 glTF。保留 source/latest 中原始 GLB/FBX 与未改编动画库。
+- `python3 tools/project.py record-assets` 只刷新资源与来源哈希，**不再用旧生成目录覆盖最新版资产**。
+
+完整来源和许可证见 [THIRD_PARTY](../THIRD_PARTY.md)。旧版资产和重建器保留供历史版本对照，下面章节仅描述 0.1–0.3 的旧实现，不代表当前运行资源。
+
+---
+
 # 资源与配置文档
 
 ## 原始资源

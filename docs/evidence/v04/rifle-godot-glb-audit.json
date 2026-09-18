@@ -1,0 +1,60 @@
+{
+  "godot": {
+    "collision_nodes": 0,
+    "material_slots": 7,
+    "mesh_instances": 1,
+    "meshes": [
+      {
+        "aabb_position": [
+          -0.024258803576231,
+          -0.177727907896042,
+          -0.338564306497574
+        ],
+        "aabb_size": [
+          0.0532812401652336,
+          0.253031224012375,
+          0.697365462779999
+        ],
+        "name": "Rifle_Assault_West",
+        "surfaces": 7
+      }
+    ],
+    "skeletons": [
+      {
+        "bone_count": 19,
+        "bone_names": [
+          "Body",
+          "Magazine",
+          "Trigger",
+          "Selector",
+          "Bolt Release",
+          "Magazine Release",
+          "Forward Assist",
+          "Charging Handle",
+          "Stock",
+          "Bolt",
+          "Rear Sights",
+          "Front Sights",
+          "Dust Cover",
+          "Attach_Scope",
+          "Attach_Rail.Bottom",
+          "Attach_Muzzle",
+          "Attach_Rail.Top",
+          "Attach_Rail.SideLeft",
+          "Attach_Rail.SideRight"
+        ],
+        "name": "Skeleton3D",
+        "roots": [
+          "Body"
+        ]
+      }
+    ]
+  },
+  "import_exit_code": 0,
+  "passed": true,
+  "runtime_exit_code": 0,
+  "runtime_output": null,
+  "source_path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/rifle.glb",
+  "source_sha256": "0d80dd2118c884172a856455968be14eadc97f041d27d52bfa75fedb708fa486",
+  "stage": "complete"
+}

@@ -6,6 +6,7 @@ func _initialize() -> void:
 func run() -> void:
 	var runs: Array=[];var passed: bool=true
 	for seed_value in [18092026,42,773]:
+		set_meta("deskfront_map",[18092026,42,773].find(seed_value))
 		var g=load("res://scenes/main.tscn").instantiate();root.add_child(g)
 		g.set_physics_process(false);g.fx.set_muted(true);g.rng.seed=seed_value
 		var samples: Array=[];var invalid: Array=[];var cover_frames: int=0;var alive_frames: int=0
@@ -23,7 +24,7 @@ func run() -> void:
 			if g.winner!="":break
 		var ok: bool=g.shots>20 and g.units.any(func(u):return u.hp<u.max_hp) and cover_frames>20 and invalid.is_empty()
 		passed=passed and ok
-		runs.append({"seed":seed_value,"passed":ok,"seconds":g.elapsed,"winner":g.winner,"shots":g.shots,"tank_spawned":g.tank_spawned,"cover_sample_ratio":float(cover_frames)/maxi(1,alive_frames),"invalid_navigation":invalid,"cpu_wall_seconds":(Time.get_ticks_usec()-before)/1000000.0,"final_tactics":g.tactics_ai.snapshot(),"samples":samples})
+		runs.append({"map":g.map_data.id,"seed":seed_value,"passed":ok,"seconds":g.elapsed,"winner":g.winner,"shots":g.shots,"tank_spawned":g.tank_spawned,"cover_sample_ratio":float(cover_frames)/maxi(1,alive_frames),"invalid_navigation":invalid,"cpu_wall_seconds":(Time.get_ticks_usec()-before)/1000000.0,"final_tactics":g.tactics_ai.snapshot(),"samples":samples})
 		g.queue_free();await process_frame
 	var file=FileAccess.open("res://output/tactics-soak.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":passed,"runs":runs},"  "))

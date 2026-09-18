@@ -1,0 +1,16 @@
+{
+  "clip": "office_typing",
+  "duration": 8,
+  "fps": 24,
+  "loop": true,
+  "root_motion": "in_place",
+  "author": "Deskfront original pose animation",
+  "source_rig_bones": 62,
+  "target_tracks": "all source rig bones",
+  "standing_height": 1.72,
+  "position_godot": [
+    -1.12,
+    0,
+    0.57
+  ]
+}

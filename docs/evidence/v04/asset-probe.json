@@ -1,0 +1,249 @@
+{
+  "assets": [
+    {
+      "asset": "toy-soldier",
+      "bones": 50,
+      "clips": [
+        {
+          "bone_tracks": 41,
+          "duration": 1.03333330154419,
+          "id": "cover_enter",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 2.16543483734131
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 1.03333330154419,
+          "id": "cover_exit",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 2.16543436050415
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 3.66666674613953,
+          "id": "cover_idle",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.207646951079369
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 3.66666674613953,
+          "id": "cover_peek_left",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.450499564409256
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 3.66666674613953,
+          "id": "cover_peek_right",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.350692719221115
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 1.06666672229767,
+          "id": "cover_shuffle_left",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0329999998211861,
+          "rotation_variation": 0.647414982318878
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 1.06666672229767,
+          "id": "cover_shuffle_right",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0329999998211861,
+          "rotation_variation": 0.635457634925842
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 2.70000004768372,
+          "id": "crawl",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 2.24526643753052
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 3.0,
+          "id": "death",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 2.37333631515503
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 1.63333332538605,
+          "id": "dodge_left_rm",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.182874947786331,
+          "rotation_variation": 2.23416972160339
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 1.26666665077209,
+          "id": "grenade_throw",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 3.0164532661438
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 0.400000005960464,
+          "id": "hit",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.540546000003815
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 0.800000011920929,
+          "id": "pistol_fire",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.366007268428802
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 2.09999990463257,
+          "id": "reload",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 2.07157516479492
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 2.5,
+          "id": "rifle_crouch_rm",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.103125005960464,
+          "rotation_variation": 1.64388239383698
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 3.13333344459534,
+          "id": "rifle_idle",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.149528592824936
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 1.16666662693024,
+          "id": "rifle_jog_rm",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.19250001013279,
+          "rotation_variation": 2.9476420879364
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 1.66666662693024,
+          "id": "rifle_walk_rm",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.125,
+          "rotation_variation": 1.28512537479401
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 3.13333344459534,
+          "id": "rocket_aim",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.149528592824936
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 1.83333337306976,
+          "id": "roll_rm",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.454657256603241,
+          "rotation_variation": 3.05897450447083
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 2.5,
+          "id": "turn_left",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 2.11011719703674
+        },
+        {
+          "bone_tracks": 41,
+          "duration": 2.5,
+          "id": "turn_right",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 2.09693312644958
+        }
+      ],
+      "skin": true
+    },
+    {
+      "asset": "office-worker",
+      "bones": 62,
+      "clips": [
+        {
+          "bone_tracks": 35,
+          "duration": 8.0,
+          "id": "office_typing",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0493721552193165
+        }
+      ],
+      "skin": true
+    }
+  ],
+  "passed": true
+}

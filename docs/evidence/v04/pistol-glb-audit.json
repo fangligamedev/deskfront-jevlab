@@ -1,0 +1,66 @@
+{
+  "animations": 0,
+  "attributes": [
+    "JOINTS_0",
+    "NORMAL",
+    "POSITION",
+    "TEXCOORD_0",
+    "WEIGHTS_0"
+  ],
+  "findings": [
+    {
+      "code": "glb.parse",
+      "message": "Valid GLB 2.0 JSON container",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.geometry",
+      "message": "6 primitives",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.triangle_budget",
+      "message": "1434 <= 100000",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.normals",
+      "message": "NORMAL attribute",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.uv",
+      "message": "TEXCOORD_0 attribute",
+      "status": "PASS"
+    }
+  ],
+  "generator": "Khronos glTF Blender I/O v1.7.33",
+  "has_normals": true,
+  "has_skin_weights": true,
+  "has_uv": true,
+  "images": 0,
+  "indices": 4302,
+  "joint_names": [
+    "Trigger",
+    "Magazine",
+    "Slide",
+    "Slide Release",
+    "Magazine Release",
+    "Hammer",
+    "Attach_Scope",
+    "Attach_Rail.Bottom",
+    "Attach_Muzzle",
+    "Body"
+  ],
+  "materials": 6,
+  "meshes": 1,
+  "passed": true,
+  "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/pistol.glb",
+  "primitives": 6,
+  "sha256": "d8a284503309a7fcb215326034db5b0b2151a9b6920c39d018f975ff4b6fd84b",
+  "size_bytes": 158212,
+  "skin_joints": 10,
+  "skins": 1,
+  "triangles": 1434,
+  "vertices": 2688
+}

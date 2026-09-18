@@ -1,0 +1,31 @@
+{
+  "godot": {
+    "collision_nodes": 0,
+    "material_slots": 4,
+    "mesh_instances": 1,
+    "meshes": [
+      {
+        "aabb_position": [
+          -0.0335918366909027,
+          -0.0306064188480377,
+          -0.0441749393939972
+        ],
+        "aabb_size": [
+          0.0671836733818054,
+          0.0988304316997528,
+          0.0777667760848999
+        ],
+        "name": "Frag_West",
+        "surfaces": 4
+      }
+    ],
+    "skeletons": []
+  },
+  "import_exit_code": 0,
+  "passed": true,
+  "runtime_exit_code": 0,
+  "runtime_output": null,
+  "source_path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/grenade.glb",
+  "source_sha256": "7f9c128142dfb386793c3929e18bac791f0fc1ae9bafa4fbf62f79929334f345",
+  "stage": "complete"
+}

@@ -14,8 +14,8 @@ var random := RandomNumberGenerator.new()
 
 func setup(g) -> void:
 	game=g;random.seed=2918
-	for key in ["rifle","smg","rocket","cannon","explosion","impact","bayonet","order","reload"]:
-		sounds[key]=load("res://assets/audio/"+key+".wav")
+	for key in ["rifle","smg","rocket","cannon","explosion","impact","bayonet","order","reload","pistol","grenade","rocket_blast","tank_impact","grenade_blast"]:
+		sounds[key]=load("res://assets/audio/"+{"rocket":"rocket_launch","cannon":"tank_cannon","grenade":"reload"}.get(key,key)+".wav")
 
 func material(color: Color, glow: bool=true) -> StandardMaterial3D:
 	var m := StandardMaterial3D.new();m.albedo_color=color
@@ -71,11 +71,14 @@ func launch(shooter, target, weapon: String, landed: bool) -> void:
 		target.hit(float(cfg.damage),float(cfg.pressure));impacts+=1
 		return
 	if not landed:end+=Vector3(random.randf_range(.04,.09),-.02,random.randf_range(-.08,.08))
-	var explosive: bool=weapon in ["rocket","cannon"]
-	ball(from,.027 if explosive else .013,Color(1,.76,.21),.12)
+	var explosive: bool=weapon in ["rocket","cannon","grenade"]
+	puff(from,.048 if explosive else .027,.20,false)
 	beam(from,from+dir*.045,.009 if explosive else .006,Color(1,.91,.53),.10)
 	var n := MeshInstance3D.new();var mesh := SphereMesh.new();mesh.radius=.009 if explosive else .0035;mesh.height=mesh.radius*2;mesh.radial_segments=8;mesh.rings=4;n.mesh=mesh
 	n.material_override=material(Color(1,.54,.13) if explosive else Color(1,.91,.48));add_child(n);n.position=from
+	if weapon=="grenade":
+		var shell=load("res://assets/models/grenade.glb").instantiate();n.add_child(shell);shell.scale=Vector3.ONE*.075;n.mesh=null
+		for part in shell.find_children("*","MeshInstance3D",true,false):part.material_override=game.field.mat(game.colors[shooter.faction],.32)
 	projectiles.append({"node":n,"from":from,"to":end,"age":0.0,"duration":maxf(.09,from.distance_to(end)/float(cfg.projectile_speed)),"cfg":cfg.duplicate(),"weapon":weapon,"team":shooter.faction,"target":target,"landed":landed,"trail":0.0})
 
 func physics_tick(dt: float) -> void:
@@ -83,25 +86,25 @@ func physics_tick(dt: float) -> void:
 		p.age+=dt
 		var previous: Vector3=p.node.position
 		p.node.position=p.from.lerp(p.to,clampf(p.age/p.duration,0,1))
+		if p.weapon=="grenade":p.node.position.y+=sin(clampf(p.age/p.duration,0,1)*PI)*.20
 		p.trail-=dt
 		if p.trail<=0:
 			p.trail=.045
 			beam(previous,p.node.position,.006 if p.weapon in ["rocket","cannon"] else .003,Color(1,.80,.36),.22)
-			if p.weapon in ["rocket","cannon"]:ball(previous,.008,Color(.54,.53,.47,.55),.38,Vector3(0,.025,0))
+			if p.weapon in ["rocket","cannon"]:puff(previous,.035,.7,true)
 		if p.age>=p.duration:
 			impact(p);p.node.queue_free();projectiles.erase(p)
 
 func impact(p: Dictionary) -> void:
 	impacts+=1
 	var at: Vector2=Vector2(p.to.x,p.to.z)
-	var explosive: bool=p.weapon in ["rocket","cannon"]
+	var explosive: bool=p.weapon in ["rocket","cannon","grenade"]
 	if explosive:
-		sound("explosion",p.to)
-		ring(at,Color(1,.57,.18),float(p.cfg.splash),.4)
-		ball(p.to,.055,Color(1,.49,.08),.24)
-		for i in range(7):
-			var vel := Vector3(random.randf_range(-.11,.11),random.randf_range(.07,.17),random.randf_range(-.11,.11))
-			ball(p.to+vel*.15,.025,Color(.28,.27,.25,.72),.85,vel)
+		sound({"rocket":"rocket_blast","cannon":"tank_impact","grenade":"grenade_blast"}[p.weapon],p.to)
+		var size=float(p.cfg.splash)*1.8
+		puff(p.to+Vector3.UP*.025,size,1.0,false)
+		for i in range(5):puff(p.to+Vector3(random.randf_range(-.025,.025),.03,random.randf_range(-.025,.025)),size,2.0+i*.35,true)
+		for i in range(7):ball(p.to,.004,Color(.4,.34,.22),.65,Vector3(random.randf_range(-.15,.15),.15,random.randf_range(-.15,.15)))
 		for enemy in game.living():
 			if enemy.faction==p.team:continue
 			var distance: float=enemy.pos().distance_to(at)
@@ -131,8 +134,21 @@ func _process(dt: float) -> void:
 		if effect.ttl<=0:effect.node.queue_free();visuals.erase(effect);continue
 		effect.node.position+=effect.velocity*dt
 		effect.node.scale*=1+effect.grow*dt
-		effect.node.material_override.albedo_color.a=minf(1,effect.ttl/effect.life*1.6)
+		if effect.has("smoke"):
+			var t=1-effect.ttl/effect.life
+			effect.node.material_override.set_shader_parameter("progress",lerpf(.38,.99,t) if effect.smoke else t)
+		else:effect.node.material_override.albedo_color.a=minf(1,effect.ttl/effect.life*1.6)
 
 func _exit_tree() -> void:
 	set_muted(true)
 	sounds.clear()
+
+func puff(p:Vector3,size:float,life:float,smoke:bool) -> void:
+	if visuals.size()>=100:return
+	var n=MeshInstance3D.new();var q=QuadMesh.new();q.size=Vector2.ONE*size;n.mesh=q
+	n.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var m=ShaderMaterial.new();m.shader=load("res://assets/vfx/soft_flipbook.gdshader")
+	m.set_shader_parameter("atlas",load("res://assets/vfx/fx.png"));m.set_shader_parameter("flow",load("res://assets/vfx/flow.png"))
+	m.set_shader_parameter("smoke_only",smoke);m.set_shader_parameter("opacity",.4 if smoke else .88)
+	n.material_override=m;add_child(n);n.position=p
+	visuals.append({"node":n,"ttl":life,"life":life,"velocity":Vector3(.008,.035 if smoke else .006,.005),"grow":.15,"smoke":smoke})

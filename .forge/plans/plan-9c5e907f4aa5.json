@@ -1,0 +1,47 @@
+{
+  "acceptance": [
+    {
+      "id": "A1",
+      "kind": "import",
+      "statement": "Godot editor import passes"
+    },
+    {
+      "id": "A2",
+      "kind": "gameplay",
+      "statement": "Semantic probe passes"
+    },
+    {
+      "id": "A3",
+      "kind": "runtime",
+      "statement": "Main scene smoke passes"
+    },
+    {
+      "id": "A4",
+      "kind": "assets",
+      "statement": "Asset contracts and provenance pass"
+    }
+  ],
+  "approval": {
+    "approved_at": "2026-09-18T15:04:28.762983+00:00",
+    "required": true,
+    "status": "approved"
+  },
+  "asset_jobs": [],
+  "base": {
+    "head": "d037a57e76adfd6bcad27e7041330b7ee9d5ba52",
+    "is_repository": true,
+    "status": ""
+  },
+  "brief": "集成资产任务最新士兵、有限侧步、T2、武器音效烟火、长桌三地图与办公人物；保持RTS/AI并验证原生与Web及许可",
+  "budget": {
+    "max_minutes": 180,
+    "max_repairs": 12
+  },
+  "created_at": "2026-09-18T15:03:53.305659+00:00",
+  "files": [],
+  "goal": "集成资产任务最新士兵、有限侧步、T2、武器音效烟火、长桌三地图与办公人物；保持RTS/AI并验证原生与Web及许可",
+  "in_scope": [],
+  "out_of_scope": [],
+  "plan_id": "plan-9c5e907f4aa5",
+  "schema": "godot-forge.build-plan.v1"
+}

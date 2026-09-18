@@ -1,0 +1,53 @@
+{
+  "animations": 0,
+  "attributes": [
+    "NORMAL",
+    "POSITION",
+    "TEXCOORD_0"
+  ],
+  "findings": [
+    {
+      "code": "glb.parse",
+      "message": "Valid GLB 2.0 JSON container",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.geometry",
+      "message": "14 primitives",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.triangle_budget",
+      "message": "28164 <= 100000",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.normals",
+      "message": "NORMAL attribute",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.uv",
+      "message": "TEXCOORD_0 attribute",
+      "status": "PASS"
+    }
+  ],
+  "generator": "Khronos glTF Blender I/O v5.2.40",
+  "has_normals": true,
+  "has_skin_weights": false,
+  "has_uv": true,
+  "images": 0,
+  "indices": 84492,
+  "joint_names": [],
+  "materials": 14,
+  "meshes": 14,
+  "passed": true,
+  "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/office-sandbox.glb",
+  "primitives": 14,
+  "sha256": "330805fd5343b287ec7acaf1826a5250517a3a6863f098fe0e3f7d918014a72c",
+  "size_bytes": 1785868,
+  "skin_joints": 0,
+  "skins": 0,
+  "triangles": 28164,
+  "vertices": 50065
+}

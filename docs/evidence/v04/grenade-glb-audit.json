@@ -1,0 +1,53 @@
+{
+  "animations": 0,
+  "attributes": [
+    "NORMAL",
+    "POSITION",
+    "TEXCOORD_0"
+  ],
+  "findings": [
+    {
+      "code": "glb.parse",
+      "message": "Valid GLB 2.0 JSON container",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.geometry",
+      "message": "4 primitives",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.triangle_budget",
+      "message": "536 <= 100000",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.normals",
+      "message": "NORMAL attribute",
+      "status": "PASS"
+    },
+    {
+      "code": "glb.uv",
+      "message": "TEXCOORD_0 attribute",
+      "status": "PASS"
+    }
+  ],
+  "generator": "Khronos glTF Blender I/O v1.8.19",
+  "has_normals": true,
+  "has_skin_weights": false,
+  "has_uv": true,
+  "images": 0,
+  "indices": 1608,
+  "joint_names": [],
+  "materials": 4,
+  "meshes": 1,
+  "passed": true,
+  "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/grenade.glb",
+  "primitives": 4,
+  "sha256": "7f9c128142dfb386793c3929e18bac791f0fc1ae9bafa4fbf62f79929334f345",
+  "size_bytes": 39596,
+  "skin_joints": 0,
+  "skins": 0,
+  "triangles": 536,
+  "vertices": 1022
+}

@@ -1,0 +1,156 @@
+[
+  {
+    "name": "rifle_idle",
+    "source_clip": "Idle",
+    "contact_authored": false,
+    "duration": 3.1333333333333333,
+    "root_motion": "none"
+  },
+  {
+    "name": "rifle_walk_rm",
+    "source_clip": "Walk",
+    "contact_authored": false,
+    "duration": 1.6666666666666667,
+    "root_motion": "calibrated derivative"
+  },
+  {
+    "name": "rifle_jog_rm",
+    "source_clip": "Jog_Fwd",
+    "contact_authored": false,
+    "duration": 1.1666666666666667,
+    "root_motion": "calibrated derivative"
+  },
+  {
+    "name": "cover_enter",
+    "source_clip": "Crouch_Enter",
+    "contact_authored": false,
+    "duration": 1.0333333333333334,
+    "root_motion": "none"
+  },
+  {
+    "name": "cover_idle",
+    "source_clip": "Crouch_Idle",
+    "contact_authored": false,
+    "duration": 3.6666666666666665,
+    "root_motion": "none"
+  },
+  {
+    "name": "cover_exit",
+    "source_clip": "Crouch_Exit",
+    "contact_authored": false,
+    "duration": 1.0333333333333334,
+    "root_motion": "none"
+  },
+  {
+    "name": "cover_shuffle_left",
+    "source_clip": "Crouch_Idle",
+    "contact_authored": true,
+    "duration": 1.0666666666666667,
+    "root_motion": "contact-authored finite step"
+  },
+  {
+    "name": "cover_shuffle_right",
+    "source_clip": "Crouch_Idle",
+    "contact_authored": true,
+    "duration": 1.0666666666666667,
+    "root_motion": "contact-authored finite step"
+  },
+  {
+    "name": "rifle_crouch_rm",
+    "source_clip": "Crouch_Fwd",
+    "contact_authored": false,
+    "duration": 2.5,
+    "root_motion": "calibrated derivative"
+  },
+  {
+    "name": "turn_left",
+    "source_clip": "Turn90_L",
+    "contact_authored": false,
+    "duration": 2.5,
+    "root_motion": "none"
+  },
+  {
+    "name": "turn_right",
+    "source_clip": "Turn90_R",
+    "contact_authored": false,
+    "duration": 2.5,
+    "root_motion": "none"
+  },
+  {
+    "name": "dodge_left_rm",
+    "source_clip": "Dodge_Left_RM",
+    "contact_authored": false,
+    "duration": 1.6333333333333333,
+    "root_motion": "author"
+  },
+  {
+    "name": "roll_rm",
+    "source_clip": "Roll_RM",
+    "contact_authored": false,
+    "duration": 1.8333333333333333,
+    "root_motion": "author"
+  },
+  {
+    "name": "crawl",
+    "source_clip": "Crawl_Fwd",
+    "contact_authored": false,
+    "duration": 2.7,
+    "root_motion": "none"
+  },
+  {
+    "name": "hit",
+    "source_clip": "Hit_Chest",
+    "contact_authored": false,
+    "duration": 0.4,
+    "root_motion": "none"
+  },
+  {
+    "name": "death",
+    "source_clip": "Death01",
+    "contact_authored": false,
+    "duration": 3.0,
+    "root_motion": "none"
+  },
+  {
+    "name": "pistol_fire",
+    "source_clip": "Pistol_Shoot",
+    "contact_authored": false,
+    "duration": 0.8,
+    "root_motion": "none"
+  },
+  {
+    "name": "reload",
+    "source_clip": "Pistol_Reload",
+    "contact_authored": false,
+    "duration": 2.1,
+    "root_motion": "none"
+  },
+  {
+    "name": "cover_peek_left",
+    "source_clip": "Crouch_Idle",
+    "contact_authored": false,
+    "duration": 3.6666666666666665,
+    "root_motion": "none"
+  },
+  {
+    "name": "cover_peek_right",
+    "source_clip": "Crouch_Idle",
+    "contact_authored": false,
+    "duration": 3.6666666666666665,
+    "root_motion": "none"
+  },
+  {
+    "name": "grenade_throw",
+    "source_clip": "Idle",
+    "contact_authored": false,
+    "duration": 1.2666666666666666,
+    "root_motion": "none"
+  },
+  {
+    "name": "rocket_aim",
+    "source_clip": "Idle",
+    "contact_authored": false,
+    "duration": 3.1333333333333333,
+    "root_motion": "none"
+  }
+]

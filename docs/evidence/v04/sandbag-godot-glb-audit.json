@@ -1,0 +1,45 @@
+{
+  "godot": {
+    "collision_nodes": 0,
+    "material_slots": 2,
+    "mesh_instances": 2,
+    "meshes": [
+      {
+        "aabb_position": [
+          -0.0295000001788139,
+          -0.00999999977648258,
+          -0.0209999997168779
+        ],
+        "aabb_size": [
+          0.0590000003576279,
+          0.0199999995529652,
+          0.0419999994337559
+        ],
+        "name": "sand canvas",
+        "surfaces": 1
+      },
+      {
+        "aabb_position": [
+          -0.00150000001303852,
+          -0.00600000005215406,
+          -0.0207499992102385
+        ],
+        "aabb_size": [
+          0.0529999993741512,
+          0.0120000001043081,
+          0.0414999984204769
+        ],
+        "name": "stitched seam",
+        "surfaces": 1
+      }
+    ],
+    "skeletons": []
+  },
+  "import_exit_code": 0,
+  "passed": true,
+  "runtime_exit_code": 0,
+  "runtime_output": null,
+  "source_path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/sandbag.glb",
+  "source_sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
+  "stage": "complete"
+}

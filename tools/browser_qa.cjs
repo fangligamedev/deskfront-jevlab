@@ -26,7 +26,7 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'output/playwright');
  function check(value,name){checks.push({test:name,passed:!!value});console.log((value?'PASS ':'FAIL ')+name);assert(value,name)}
  async function submit(c,agent=false){const response=await page.request.post(base+(agent?'/api/agent/command':'/api/command'),{data:c});const queued=await response.json();assert(response.ok(),JSON.stringify(queued));for(let i=0;i<70;i++){const result=await (await page.request.get(base+'/api/result/'+queued.id)).json();if('accepted'in result)return result;await page.waitForTimeout(150)}throw Error('Missing engine acknowledgement')}
  try{
-  const previousRun=(await state())?.run_id;const start=Date.now();await page.goto(base);await until(s=>s.run_id!==previousRun&&s.version==='0.3.0'&&s.units?.length===9);checks.push({test:'WebGL boots with nine units',passed:true,milliseconds:Date.now()-start});
+  const previousRun=(await state())?.run_id;const start=Date.now();await page.goto(base);await until(s=>s.run_id!==previousRun&&s.version==='0.4.0'&&s.units?.length===9);checks.push({test:'WebGL boots with nine units',passed:true,milliseconds:Date.now()-start});
   await page.getByRole('button',{name:'暂停',exact:true}).click();let s=await until(s=>s.paused);
   const frozen=s.time;await page.waitForTimeout(700);check((await state()).time===frozen,'Pause button freezes actual game');
   await page.getByRole('button',{name:'战术近景',exact:true}).click();await until(s=>s.camera==='battle');
@@ -63,8 +63,8 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'output/playwright');
   await page.keyboard.down('ArrowLeft');await page.waitForTimeout(450);await page.keyboard.up('ArrowLeft');
   await until(s=>Math.hypot(...s.camera_target.map((v,i)=>v-afterDrag[i]))>.015);check(true,'Arrow keys pan camera');
   const size=(await state()).camera_size;await page.mouse.wheel(0,-120);await until(s=>s.camera_size<size);check(true,'Mouse wheel zoom works after pan');
-  await page.keyboard.press('Home');s=await until(s=>Math.abs(s.camera_target[0]-.61)<.01&&Math.abs(s.camera_target[1]+.01)<.01);await page.waitForTimeout(700);
-  check(Math.abs(s.camera_target[0]-.61)<.01,'Home recenters camera');
+  await page.keyboard.press('Home');s=await until(s=>Math.abs(s.camera_target[0]-.54)<.01&&Math.abs(s.camera_target[1]-2.13)<.01);await page.waitForTimeout(700);
+  check(Math.abs(s.camera_target[0]-.54)<.01,'Home recenters camera');
   await page.keyboard.press('Digit2');await until(s=>s.selected_faction==='blue');
   s=await state();bounds=await canvas.boundingBox();
   const pixels=s.units.filter(u=>u.faction==='blue'&&u.hp>0).map(u=>[u.screen_position[0]/s.viewport[0]*bounds.width,u.screen_position[1]/s.viewport[1]*bounds.height]);

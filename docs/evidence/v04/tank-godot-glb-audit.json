@@ -1,0 +1,142 @@
+{
+  "godot": {
+    "collision_nodes": 0,
+    "material_slots": 10,
+    "mesh_instances": 5,
+    "meshes": [
+      {
+        "aabb_position": [
+          -0.00214268709532917,
+          -0.00155629741493613,
+          -0.00229040789417922
+        ],
+        "aabb_size": [
+          0.00428537419065833,
+          0.00311259482987225,
+          0.00458081578835845
+        ],
+        "name": "Tank_Turret",
+        "surfaces": 2
+      },
+      {
+        "aabb_position": [
+          -0.07023736089468,
+          -0.0504364967346191,
+          -0.00882820319384336
+        ],
+        "aabb_size": [
+          0.142324268817902,
+          0.100925035774708,
+          0.0367907993495464
+        ],
+        "name": "Tank_body",
+        "surfaces": 5
+      },
+      {
+        "aabb_position": [
+          -0.0737305656075478,
+          -0.0100590968504548,
+          -0.0131451115012169
+        ],
+        "aabb_size": [
+          0.147461131215096,
+          0.0201181937009096,
+          0.0262902230024338
+        ],
+        "name": "TrackMesh_R",
+        "surfaces": 1
+      },
+      {
+        "aabb_position": [
+          -0.0737305656075478,
+          -0.0100590940564871,
+          -0.0131451161578298
+        ],
+        "aabb_size": [
+          0.147461146116257,
+          0.0201181918382645,
+          0.0262902230024338
+        ],
+        "name": "TrackMesh_L",
+        "surfaces": 1
+      },
+      {
+        "aabb_position": [
+          -0.0752006769180298,
+          -0.00343429949134588,
+          -0.00271500018425286
+        ],
+        "aabb_size": [
+          0.0746397078037262,
+          0.00686862645670772,
+          0.00543004088103771
+        ],
+        "name": "Tank_Gun",
+        "surfaces": 1
+      }
+    ],
+    "skeletons": [
+      {
+        "bone_count": 45,
+        "bone_names": [
+          "Root",
+          "TankTrack22.L",
+          "TankTrack11.L",
+          "TankTrack10.L",
+          "TankTrack12.L",
+          "TankTrack9.L",
+          "TankTrack8.L",
+          "TankTrack14.L",
+          "TankTrack13.L",
+          "TankTrack15.L",
+          "TankTrack16.L",
+          "TankTrack6.L",
+          "TankTrack7.L",
+          "TankTrack18.L",
+          "TankTrack17.L",
+          "TankTrack5.L",
+          "TankTrack4.L",
+          "TankTrack2.L",
+          "TankTrack3.L",
+          "TankTrack19.L",
+          "TankTrack20.L",
+          "TankTrack1.L",
+          "TankTrack21.L",
+          "TankTrack22.R",
+          "TankTrack11.R",
+          "TankTrack10.R",
+          "TankTrack12.R",
+          "TankTrack9.R",
+          "TankTrack8.R",
+          "TankTrack14.R",
+          "TankTrack13.R",
+          "TankTrack15.R",
+          "TankTrack16.R",
+          "TankTrack6.R",
+          "TankTrack7.R",
+          "TankTrack18.R",
+          "TankTrack17.R",
+          "TankTrack5.R",
+          "TankTrack4.R",
+          "TankTrack2.R",
+          "TankTrack3.R",
+          "TankTrack19.R",
+          "TankTrack20.R",
+          "TankTrack1.R",
+          "TankTrack21.R"
+        ],
+        "name": "Skeleton3D",
+        "roots": [
+          "Root"
+        ]
+      }
+    ]
+  },
+  "import_exit_code": 0,
+  "passed": true,
+  "runtime_exit_code": 0,
+  "runtime_output": null,
+  "source_path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/tank.glb",
+  "source_sha256": "d46acaeb563f401bfb389bd7708342f97d0cd62f9b2c6dc88f8537be8c85ed80",
+  "stage": "complete"
+}

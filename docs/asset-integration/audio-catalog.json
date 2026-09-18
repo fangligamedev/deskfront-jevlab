@@ -1,0 +1,66 @@
+[
+  {
+    "event": "rifle",
+    "source": "rifle.ogg",
+    "license": "CC-BY-SA-3.0",
+    "author": "Q009",
+    "processing": "volume=0.65",
+    "derivative_license": "CC-BY-SA-3.0"
+  },
+  {
+    "event": "pistol",
+    "source": "pistol.ogg",
+    "license": "CC-BY-SA-3.0",
+    "author": "Q009",
+    "processing": "volume=0.6",
+    "derivative_license": "CC-BY-SA-3.0"
+  },
+  {
+    "event": "rocket_launch",
+    "source": "rlauncher.ogg",
+    "license": "CC-BY-SA-3.0",
+    "author": "Q009",
+    "processing": "volume=0.7",
+    "derivative_license": "CC-BY-SA-3.0"
+  },
+  {
+    "event": "grenade_blast",
+    "source": "grenade.ogg",
+    "license": "CC-BY-SA-3.0",
+    "author": "Q009",
+    "processing": "volume=0.7",
+    "derivative_license": "CC-BY-SA-3.0"
+  },
+  {
+    "event": "rocket_blast",
+    "source": "explosion.ogg",
+    "license": "CC-BY-SA-3.0",
+    "author": "Q009",
+    "processing": "volume=0.65",
+    "derivative_license": "CC-BY-SA-3.0"
+  },
+  {
+    "event": "tank_cannon",
+    "source": "glauncher.ogg",
+    "license": "CC-BY-SA-3.0",
+    "author": "Q009",
+    "processing": "asetrate=35280,aresample=44100,bass=g=5:f=100,volume=0.7",
+    "derivative_license": "CC-BY-SA-3.0"
+  },
+  {
+    "event": "tank_impact",
+    "source": "grenade3.ogg",
+    "license": "CC-BY-SA-3.0",
+    "author": "Q009",
+    "processing": "asetrate=33075,aresample=44100,bass=g=4:f=90,volume=0.65",
+    "derivative_license": "CC-BY-SA-3.0"
+  },
+  {
+    "event": "reload",
+    "source": "weapswitch.ogg",
+    "license": "CC-BY-SA-3.0",
+    "author": "Q009",
+    "processing": "volume=0.6",
+    "derivative_license": "CC-BY-SA-3.0"
+  }
+]

@@ -9,7 +9,7 @@ static func run(game, check: Callable) -> void:
 		game.decide(team)
 		check.call(game.decisions[team].action=="cover","AI initially prefers cover: "+team)
 	check.call(game.units.filter(func(u):return u.cover_id!="").size()>=7,"AI assigns protected stations instead of rushing objective")
-	check.call(game.units.all(func(u):return u.weapon_attachment!=null and u.weapon_attachment.bone_name=="hand.R"),"weapon geometry follows hand bone")
+	check.call(game.units.all(func(u):return u.actor!=null and u.actor.weapon!=null and u.actor.skeleton.find_bone("RightHand")>=0),"weapon geometry follows hand bone")
 	for u in game.units:u.hp=0;u.route.clear();u.cover_id=""
 	var rifle=game.units[0];var smg=game.units[1];var rocket=game.units[2];var target=game.units[6]
 	rifle.hp=100;target.hp=100;rifle.position=Vector3(.45,game.field.height,.43);target.position=Vector3(.70,game.field.height,.43)
@@ -55,7 +55,7 @@ static func run(game, check: Callable) -> void:
 	check.call(int(game.fx.launched.get("bayonet",0))==before_melee+1,"bayonet does not attack armor")
 	var old: Vector3=game.camera_target;game.pan_by(Vector3(.15,0,.10))
 	check.call(game.camera_target.distance_to(old)>.1,"RTS pan changes camera target")
-	game.pan_by(Vector3(500,0,500));check.call(game.camera_target.x<=1.7001 and game.camera_target.z<=1.3001,"camera pan is bounded")
+	game.pan_by(Vector3(500,0,500));check.call(game.camera_target.x<=2.0001 and game.camera_target.z<=4.1001,"camera pan is bounded")
 	game.set_camera("battle",true);check.call(game.camera_target.is_equal_approx(Vector3(.60,.84,-.02)),"camera recenter restores battlefield")
 	game.fx.audio_enabled=true;game.fx.set_muted(false);game.fx.sound("rifle",game.camera_target)
 	check.call(game.fx.audio_events>0 and game.fx.voices.size()>0,"sound uses actual AudioStreamPlayer3D")

@@ -45,6 +45,13 @@ var aim_time: float=0
 var turret: Node3D
 var muzzle: Node3D
 var reversing: bool=false
+var actor
+var actor_advanced: bool=false
+var grenade_count: int=2
+var grenade_time: float=-1
+var grenade_target
+var grenade_released: bool=false
+var tank_skeleton: Skeleton3D
 var weapon_attachment: BoneAttachment3D
 
 func weapon_config() -> Dictionary:
@@ -56,24 +63,7 @@ func weapon_config() -> Dictionary:
 	return cfg
 
 func install_weapon() -> void:
-	if tank:return
-	for n in model.find_children("*","MeshInstance3D",true,false):
-		if "rifle" in n.name.to_lower():n.visible=false
-	var skeleton: Skeleton3D=model.find_children("*","Skeleton3D",true,false)[0]
-	weapon_attachment=BoneAttachment3D.new();skeleton.add_child(weapon_attachment);weapon_attachment.bone_name="hand.R"
-	var root := Node3D.new();weapon_attachment.add_child(root)
-	root.transform=skeleton.get_bone_global_rest(skeleton.find_bone("hand.R")).affine_inverse()
-	var m=game.field.mat(game.colors[faction].darkened(.22),.3)
-	# Rest-space weapon geometry follows the existing right-hand skeleton in every clip.
-	if weapon=="rocket":
-		var tube := MeshInstance3D.new();var cylinder := CylinderMesh.new();cylinder.top_radius=.047;cylinder.bottom_radius=.047;cylinder.height=.51
-		tube.mesh=cylinder;tube.material_override=m;root.add_child(tube);tube.position=Vector3(-.35,.64,-.025)
-		game.field.cube(root,Vector3(-.35,.89,-.025),Vector3(.13,.065,.13),m)
-	else:
-		game.field.cube(root,Vector3(-.35,.74,-.025),Vector3(.065,.23 if weapon=="rifle" else .17,.075),m)
-		game.field.cube(root,Vector3(-.35,.50 if weapon=="rifle" else .56,-.025),Vector3(.029,.27 if weapon=="rifle" else .13,.029),m)
-		game.field.cube(root,Vector3(-.35,.71,-.10),Vector3(.047,.07,.14 if weapon=="smg" else .08),m)
-		game.field.cube(root,Vector3(-.35,.34 if weapon=="rifle" else .45,-.025),Vector3(.018,.09,.014),game.field.mat(Color(.67,.70,.67)))
+	pass # Weapon assets are attached to the imported hand anchors by toy_actor.gd.
 
 func pos() -> Vector2:
 	return Vector2(position.x,position.z)
@@ -86,38 +76,40 @@ func setup(owner_game, unit_id: String, team: String, p: Vector2, is_tank: bool=
 	tactical_role={"rifle":"overwatch","smg":"assault","rocket":"anti_armor"}.get(weapon,"armor")
 	ammo=int(game.config.weapons[weapon].magazine)
 	position=Vector3(p.x,game.field.height,p.y);goal=p
-	model=load("res://assets/models/tank.glb" if tank else "res://assets/models/infantry-"+faction+".glb").instantiate()
-	add_child(model)
-	if not tank:model.scale=Vector3.ONE*.069
-	var material := StandardMaterial3D.new()
-	material.albedo_color=game.colors[faction]
-	material.roughness=.35
-	for n in model.find_children("*","MeshInstance3D",true,false):n.material_override=material
-	for sk in model.find_children("*","Skeleton3D",true,false):bone_count+=sk.get_bone_count()
-	var players=model.find_children("*","AnimationPlayer",true,false)
-	if not players.is_empty():
-		anim=players[0]
-		var machine := AnimationNodeStateMachine.new()
-		for full in anim.get_animation_list():
-			if full=="RESET":continue
-			var key: String=String(full).get_slice("/",String(full).get_slice_count("/")-1)
-			animation_names[key]=full
-			var a: Animation=anim.get_animation(full)
-			a.loop_mode=Animation.LOOP_LINEAR if key in ["idle","run","aim","crouch","prone"] else Animation.LOOP_NONE
-			var an := AnimationNodeAnimation.new();an.animation=full
-			machine.add_node(key,an)
-		for a in animation_names:
-			for b in animation_names:
-				if a==b:continue
-				var transition := AnimationNodeStateMachineTransition.new();transition.xfade_time=.14
-				machine.add_transition(a,b,transition)
-		tree=AnimationTree.new();model.add_child(tree);tree.anim_player=tree.get_path_to(anim);tree.tree_root=machine;tree.active=true
-		playback=tree.get("parameters/playback")
-		if animation_names.has("idle"):playback.start("idle")
-	install_weapon()
-	if tank:
-		turret=model.find_child("TurretPivot",true,false)
-		muzzle=model.find_child("Muzzle",true,false)
+	if not tank:
+		actor=preload("res://scripts/toy_actor.gd").new();add_child(actor);actor.top_level=true
+		actor.global_position=global_position;actor.rotation.y=rotation.y+PI
+		actor.navigation_guard=func(p:Vector3):return game.field.walkable(Vector2(p.x,p.z))
+		actor.setup(game.colors[faction],"rocket" if weapon=="rocket" else "rifle")
+		model=actor.model;anim=actor.anim;tree=actor.tree;playback=actor.playback;bone_count=actor.skeleton.get_bone_count()
+		for clip_name in anim.get_animation_list():animation_names[clip_name]=clip_name
+	else:
+		model=Node3D.new();add_child(model)
+		var raw=load("res://assets/models/tank.glb").instantiate();model.add_child(raw)
+		var box=AABB();var first=true
+		for m in raw.find_children("*","MeshInstance3D",true,false):
+			var b=raw.global_transform.affine_inverse()*m.global_transform*m.get_aabb()
+			box=b if first else box.merge(b);first=false
+		var factor=.30/maxf(box.size.x,maxf(box.size.y,box.size.z))
+		raw.scale=Vector3.ONE*factor
+		var offset=Vector3(-box.get_center().x,-box.position.y,-box.get_center().z)
+		for c in raw.get_children():
+			if c is Node3D:c.position+=offset
+		raw.rotation.y=-PI/2 # T2 source forward -X becomes the game's -Z.
+		var mat=game.field.mat(game.colors[faction],.32)
+		for m in raw.find_children("*","MeshInstance3D",true,false):m.material_override=mat
+		anim=raw.find_children("*","AnimationPlayer",true,false)[0]
+		for n in anim.get_animation_list():anim.get_animation(n).loop_mode=Animation.LOOP_LINEAR
+		anim.play("TankArmature|Tank_Forward");anim.speed_scale=0
+		# This source's gun is a separate mesh; preserve its normalized transform under a game-space pivot.
+		var gun=raw.find_child("Tank_Gun",true,false)
+		turret=Node3D.new();turret.name="TurretPivot";model.add_child(turret)
+		if gun:
+			turret.global_position=gun.global_position
+			gun.reparent(turret,true)
+		var body=StaticBody3D.new();add_child(body);body.collision_layer=1;body.collision_mask=0
+		var col=CollisionShape3D.new();body.add_child(col);var shape=BoxShape3D.new();shape.size=Vector3(.13,.065,.21);col.shape=shape;col.position.y=.04
+		muzzle=Node3D.new();turret.add_child(muzzle);muzzle.position=Vector3(0,.02,-.15)
 	var torus := TorusMesh.new();torus.inner_radius=.027 if not tank else .10;torus.outer_radius=.031 if not tank else .105
 	ring=MeshInstance3D.new();ring.mesh=torus;add_child(ring);ring.position.y=.003;ring.scale.y=.10
 	var rm := StandardMaterial3D.new();rm.albedo_color=Color(.93,.81,.47);rm.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -127,7 +119,10 @@ func setup(owner_game, unit_id: String, team: String, p: Vector2, is_tank: bool=
 func animate(clip: String) -> void:
 	if clip==last_clip:return
 	last_clip=clip
-	if playback and animation_names.has(clip):playback.travel(clip)
+	if actor:
+		var mapped={"idle":"rifle_idle","run":"rifle_walk_rm","aim":"rocket_aim" if weapon=="rocket" else "rifle_idle","crouch":"cover_idle","prone":"cover_idle","reload":"reload","fire":"rocket_aim" if weapon=="rocket" else ("pistol_fire" if weapon=="pistol" else "rifle_idle"),"death":"death"}.get(clip,clip)
+		if cqb_stance=="peek" and clip in ["aim","fire","crouch"]:mapped="cover_peek_left"
+		if actor.anim.has_animation(mapped):actor.play(mapped)
 
 func in_cover() -> bool:
 	return cover_id!="" and not cover_slot.is_empty() and pos().distance_to(cover_slot.position)<(.028 if cover_slot.hard else .055)
@@ -196,7 +191,7 @@ func turn_weapon(enemy, moving: bool, dt: float) -> bool:
 			return absf(angle_difference(rotation.y+turret.rotation.y,desired))<.16
 		rotation.y=rotate_toward(rotation.y,desired,game.config.tactics.tank_turn_speed*dt)
 		return absf(angle_difference(rotation.y,desired))<.16
-	if not moving:rotation.y=lerp_angle(rotation.y,desired,minf(1,dt*10))
+	if not moving and not (actor and actor.stepping):rotation.y=lerp_angle(rotation.y,desired,minf(1,dt*10))
 	return true
 
 func hit(amount: float, pressure: float) -> void:
@@ -204,17 +199,26 @@ func hit(amount: float, pressure: float) -> void:
 	hp=maxf(0,hp-amount);suppression=minf(1,suppression+pressure)
 	if hp<=0:
 		state="dead";route.clear();game.field.release(id);animate("death");hp_fill.visible=false;ring.visible=false
+		if actor:actor.ragdoll(global_position+Vector3(.07,0,0),.25)
+		else:
+			for body in find_children("*","StaticBody3D",true,false):body.collision_layer=0
 		game.add_event(faction+" · "+id+" 失去战斗力")
 
 func tick(dt: float) -> void:
+	actor_advanced=false
 	if hp<=0:return
+	if actor and actor.global_position.distance_to(global_position)>.001 and not actor.stepping:actor.global_position=global_position
+	if grenade_time>=0:
+		grenade_time+=dt
+		if grenade_time>=.62 and not grenade_released:
+			grenade_released=true
+			if is_instance_valid(grenade_target):game.fx.launch(self,grenade_target,"grenade",true);game.shots+=1
+		if grenade_time>=1.267:grenade_time=-1;last_clip=""
+		return
 	ring.visible=selected
 	hp_fill.scale.x=maxf(.01,hp/max_hp)
 	cooldown=maxf(0,cooldown-dt)
 	reaction_cooldown=maxf(0,reaction_cooldown-dt)
-	if melee_until>game.elapsed:
-		model.position.z=-sin((melee_until-game.elapsed)/.24*PI)*.018
-	else:model.position.z=0
 	suppression=maxf(0,suppression-dt*game.config.soldier.suppression_decay)
 	if cover_id!="":
 		var valid: bool=false
@@ -241,27 +245,38 @@ func tick(dt: float) -> void:
 		for other in game.units:
 			if other!=self and other.hp>0 and other.pos().distance_to(target)<.029:occupied=true
 		# An occupied intermediate cell must not pin the follower against separation.
-		if pos().distance_to(target)<(.031 if occupied and route.size()>1 else .012):route.remove_at(0)
+		if pos().distance_to(target)<(.031 if occupied and route.size()>1 else (.008 if tank else .002)):route.remove_at(0)
 		else:
 			var speed: float=(game.config.tank.speed if tank else game.config.soldier.speed)*(1-suppression*.55)*formation_speed
-			var step: Vector2=pos().move_toward(target,speed*dt)
-			# local separation, avoiding exact overlap without shifting into obstacles
-			for other in game.units:
-				if other==self or other.hp<=0:continue
-				var distance: float=step.distance_to(other.pos())
-				var spacing: float=.11 if tank or other.tank else .028
-				if distance>.001 and distance<spacing:
-					var separated: Vector2=step+(step-other.pos()).normalized()*(spacing-distance)*.35
-					if game.field.walkable(separated,tank):step=separated
 			var direction: Vector2=target-pos()
 			var facing: float=atan2(-direction.x,-direction.y)
 			reversing=tank and order_mode=="reverse"
 			if reversing:facing=wrapf(facing+PI,-PI,PI)
-			rotation.y=rotate_toward(rotation.y,facing,game.config.tactics.tank_turn_speed*dt) if tank else lerp_angle(rotation.y,facing,minf(1,dt*12))
-			position.x=step.x;position.z=step.y
-			state="move";animate("run")
+			if tank:
+				rotation.y=rotate_toward(rotation.y,facing,game.config.tactics.tank_turn_speed*dt)
+				var step=pos().move_toward(target,speed*dt);position.x=step.x;position.z=step.y;position.y=game.field.ground_height(step)
+			else:
+				var lateral=false
+				if not cover_slot.is_empty() and pos().distance_to(cover_slot.position)<.18:
+					var normal:Vector2=cover_slot.normal
+					lateral=absf(direction.normalized().dot(normal))<.20
+					if lateral:facing=atan2(-normal.x,-normal.y)
+				if not lateral and not actor.stepping:
+					# Steer the root-motion direction; never translate a planted cover foot externally.
+					for other in game.units:
+						if other==self or other.hp<=0:continue
+						var apart=pos()-other.pos();var space=.13 if other.tank else .030
+						if apart.length()>.001 and apart.length()<space:
+							var steered=target+apart.normalized()*(space-apart.length())*.8
+							if game.field.walkable(steered):target=steered;direction=target-pos();facing=atan2(-direction.x,-direction.y)
+				if not actor.stepping:
+					rotation.y=facing;actor.rotation.y=facing+PI
+					actor.position.y=game.field.ground_height(pos())
+				actor.advance_drive(Vector3(target.x,actor.position.y,target.y),speed,dt,lateral)
+				global_position=actor.global_position;actor_advanced=true
+			state="move";last_clip="run"
 	var close_enemy=game.closest_enemy(self)
-	if not tank and close_enemy!=null and not close_enemy.tank and pos().distance_to(close_enemy.pos())<=game.config.weapons.bayonet.range and cooldown<=0 and game.field.melee_clear(pos(),close_enemy.pos()):
+	if not tank and close_enemy!=null and not close_enemy.tank and pos().distance_to(close_enemy.pos())<=game.config.weapons.bayonet.range and cooldown<=0 and not (actor and actor.stepping) and game.field.melee_clear(pos(),close_enemy.pos()):
 		cooldown=game.config.weapons.bayonet.cooldown;state="melee";melee_until=game.elapsed+.24
 		rotation.y=atan2(-(close_enemy.pos()-pos()).x,-(close_enemy.pos()-pos()).y)
 		animate("fire");game.fx.launch(self,close_enemy,"bayonet",true);return
@@ -272,7 +287,7 @@ func tick(dt: float) -> void:
 	enemy=game.find_target(self,target_id if target_id!="" else focus_id)
 	var aligned: bool=turn_weapon(enemy,moving,dt)
 	if enemy!=null:
-		if cooldown<=0 and aligned and (tank or (not moving and aim_time>=.16 and cqb_stance!="hide" and suppression<.95)):
+		if cooldown<=0 and aligned and (tank or (not moving and not actor.stepping and aim_time>=.16 and cqb_stance!="hide" and suppression<.95)):
 			fire(enemy)
 			return
 	if not moving:
@@ -296,4 +311,39 @@ func fire(enemy) -> void:
 			reload_timer=cfg.reload;game.fx.sound("reload",position,-7)
 
 func snapshot() -> Dictionary:
-	return {"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed}
+	return {"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed,"grenades":grenade_count,"asset_animation":actor.clip if actor else "tracks","root_distance":actor.roots_travelled if actor else 0,"cover_step":actor.stepping if actor else false,"contact_slip_max":actor.contact_slip_max if actor else 0}
+
+func presentation_tick(dt:float) -> void:
+	if tank:
+		if anim:anim.speed_scale=(.5 if state=="move" and hp>0 else 0.0)*game.speed
+		return
+	if not actor_advanced:
+		if not actor.stepping and not actor.dead:actor.rotation.y=rotation.y+PI
+		actor.advance_idle(dt)
+		global_position=actor.global_position
+	actor_advanced=false
+
+func request_grenade(enemy) -> bool:
+	if tank or hp<=0 or grenade_count<=0 or grenade_time>=0 or enemy==null:return false
+	if pos().distance_to(enemy.pos())>game.config.weapons.grenade.range or actor.stepping:return false
+	grenade_count-=1;grenade_time=0;grenade_released=false;grenade_target=enemy
+	route.clear();goal=pos();state="grenade"
+	var delta=enemy.pos()-pos();rotation.y=atan2(-delta.x,-delta.y)
+	actor.play("grenade_throw");cooldown=1.3
+	return true
+
+func equip(value:String) -> void:
+	if tank or value not in ["rifle","smg","rocket","pistol"]:return
+	weapon=value;ammo=int(game.config.weapons[value].magazine);reload_timer=0
+	tactical_role={"rifle":"overwatch","smg":"assault","rocket":"anti_armor","pistol":"assault"}[value]
+	actor.weapon.queue_free();actor.weapon_mode="rifle" if value=="smg" else value
+	actor.weapon=load("res://assets/models/"+actor.weapon_mode+".glb").instantiate();actor.add_child(actor.weapon)
+	for part in actor.weapon.find_children("*","MeshInstance3D",true,false):part.material_override=game.field.mat(game.colors[faction],.32)
+	actor.update_weapon()
+	last_clip=""
+
+func presentation_pause(value:bool) -> void:
+	if tank:
+		if anim:anim.speed_scale=0 if value else ((.5 if state=="move" and hp>0 else 0.0)*game.speed)
+	elif actor.dead:
+		for row in actor.bodies:row.body.freeze=value

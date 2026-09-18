@@ -2,7 +2,7 @@
 
 ## 运行结构
 
-Godot 4.5.1 / GDScript 是唯一状态真相源。`scenes/main.tscn` 启动 `scripts/game.gd`，加载 `data/battle.json` 和七个原创 Blender GLB。浏览器运行的也是同一 Godot 工程的 Web 导出，不是网页重写的模拟画面。
+Godot 4.5.1 / GDScript 是唯一状态真相源。`scenes/main.tscn` 启动 `scripts/game.gd`，加载 `data/battle.json`、`data/sandbox-maps.json` 及当前资源清单中的 Blender/glTF 资产。浏览器运行的也是同一 Godot 工程的 Web 导出，不是网页重写的模拟画面。
 
 ```mermaid
 flowchart LR
@@ -49,7 +49,7 @@ flowchart LR
 
 ## 动画
 
-三阵营拥有独立 GLB 和 Blender 文件，17骨骼同构，可直接共用语义动作。蒙皮采用分段刚性权重，适合塑料玩具；不是人类皮肤软组织变形。AnimationTree 连接八个状态，切换交叉淡化 0.14 秒。移动位移由游戏控制，动作是原地动画。人物使用独立打字循环，播放速率 0.6 倍。
+三阵营共用新版 50 骨骼士兵，通过材质区分；`toy_actor.gd` 的手动 AnimationTree 在同一战斗 tick 内采样根运动。Unit 跟随 Actor 位置，禁止叠加旧线性位移。有限侧步完成后才能变向或切换姿态，支撑脚使用双骨 IK；暂停冻结采样和 ragdoll。办公人物为 62 骨骼，独立 office_typing 循环以 0.6 倍播放。
 
 ## 控制服务
 
@@ -85,7 +85,7 @@ npm run test:browser
 
 最多100个短暂效果网格、20路音频；视觉随机数与命中随机数分离，画面细节不扰动战斗命中序列。暂停冻结弹道与效果；已播放的短音效自然结束。M立即停止声音并可重新启用。Web使用Godot默认的用户手势解锁机制；真实浏览器测试在AudioDestination前插入Analyser采样，验证非零PCM。
 
-武器形状是原创Godot几何附件，通过BoneAttachment3D挂到现有Blender骨架hand.R；不会把枪留在原地。刺刀复用射击骨骼姿态，叠加短距离前刺位移，尚未制作独立的高精度近战骨骼动画。
+武器现为纯色 GLB，通过 RightHand / LeftHand 世界锚点定位；刺刀仍是近战伤害与短刀光，不宣称独立精细近战骨骼动作。
 
 鼠标点击/框选在左键抬起时解析；中键及Alt左键优先进入镜头拖动模式。拖动跨越HUD也能正常释放。镜头平移限制在办公室区域内，Home复位；选中后的左右键地面指令经过同一权限/边界校验，并显示指令环。右键敌人下达追击，进入武器射程即停步射击。
 
@@ -102,3 +102,13 @@ npm run test:browser
 - 每次角色换控或外部战术指令会清理该阵营协调计划。当前一个阵营仅维护一组共享行军锚点，适用于三人小队；不是任意数量独立编队的完整RTS调度器。
 
 正俯视镜头的主要回归原因是位置插值时look_at使用默认世界UP：镜头接近垂直，微小水平跟随误差会改变画面朝向，连续拖动的世界位移互相抵消。顶视模式改用Vector3.FORWARD作为稳定up向量；增加多帧插值拖动测试，修改前稳定失败、修改后通过。此外拖动采用绝对鼠标坐标差，release补齐末段位移，覆盖事件合并情况。浏览器诊断确认鼠标事件完整到达，不能把这次故障归因于丢事件。
+
+## 0.4.0 资源集成边界
+
+地图 renderer 与 battlefield 共享同一 JSON。旋转物件保留旋转碰撞体，网格寻路使用包围旋转轮廓的保守 AABB；毁坏物件同时关闭碰撞和清理导航。河面禁行，桥面可通过并调整单位高度；原预览位于河中的目标移动至南岸。换图重载整局并更换 run_id，旧 Agent 观察无效。
+
+`unit.tick` 决定游戏状态，`presentation_tick` 只执行一次该 tick 的动画采样；步行根运动直接回写 Unit，侧步不受额外分离位移影响。布娃娃在独立 20 倍物理世界中驱动原蒙皮；死亡时复制静态掩体，后续掩体变化不实时更新尸体世界。新 VFX 使用已有弹道的发射/命中事件，未引入第二套伤害逻辑；视觉节点上限 100、音频声部 20。
+
+HTTP 额外开放 `map(index)`、`equip(weapon)` 给本地策划台，`grenade` 给已授权 Agent。地图/装备仍不属于 Agent 管理权限。状态新增 map/map_index、grenades、asset_animation、root_distance、cover_step、contact_slip_max。
+
+冲锋枪暂共用步枪外观，保留独立连射与音效；22 个动作已导入，但翻滚/闪避等没有新增独立玩家技能。站姿前进的原始动画质量与精细换弹手部动作仍有改进空间。

@@ -5,6 +5,7 @@ var clock: float=0
 var squads: Dictionary={}
 var formations: Dictionary={}
 var tank_next: Dictionary={}
+var grenade_next: Dictionary={}
 var counters: Dictionary={"bounds":0,"flanks":0,"cover_repositions":0,"tank_repositions":0,"formation_updates":0}
 
 func setup(g) -> void:
@@ -53,7 +54,7 @@ func publish(team: String, action: String) -> void:
 	game.decisions[team]={"action":action,"phase":s.phase,"reason":s.reason,"candidates":[],"tick":game.tick_id,"source":"squad_coordinator","confidence":0.0}
 
 func can_support(u) -> bool:
-	return u.route.is_empty() and u.reload_timer<=0 and u.suppression<.75 and u.cqb_stance!="hide" and game.find_target(u)!=null
+	return u.hp>0 and u.ammo>0 and u.route.is_empty() and u.reload_timer<=0 and u.suppression<.72 and u.cqb_stance!="hide" and game.elapsed-u.last_shot_at<game.config.tactics.support_memory and game.find_target(u)!=null
 
 func stop_formation(team: String) -> void:
 	if not formations.has(team):return
@@ -67,7 +68,8 @@ func plan(team: String) -> void:
 	if squad.is_empty():return
 	if not squads.has(team):
 		squads[team]={"phase":"take_cover","since":game.elapsed,"reason":"先预约掩体，再分工交火","mover":"","turn":0,"leader":squad[0].id,"anchor":squad_center(squad),"threat":""}
-		for u in squad:u.order_mode="take_cover";acquire(u,u.pos())
+		for u in squad:
+			if game.elapsed>=u.safety_until:u.order_mode="take_cover";acquire(u,u.pos())
 		publish(team,"cover");return
 	var s: Dictionary=squads[team]
 	if not squad.any(func(u):return u.id==s.leader):s.leader=squad[0].id
@@ -79,7 +81,7 @@ func plan(team: String) -> void:
 		var target=game.find_target(u)
 		if target!=null and u.pos().distance_to(target.pos())<nearest:nearest=u.pos().distance_to(target.pos());threat=target
 	health/=squad.size();pressure/=squad.size()
-	var contact: bool=threat!=null
+	var contact: bool=threat!=null or squad.any(func(u):return game.elapsed-u.last_threat_at<3)
 	if contact and s.phase=="advance":
 		stop_formation(team)
 		set_phase(team,"suppress","行军中接敌，停止队形推进并建立掩护")
@@ -98,7 +100,7 @@ func plan(team: String) -> void:
 	# A destroyed or flanked station invalidates protection immediately. Relocate one element.
 	if contact and s.phase!="take_cover" and s.phase!="bound":
 		for u in squad:
-			if not u.route.is_empty():continue
+			if not u.route.is_empty() or game.elapsed<u.safety_until:continue
 			var own_threat=game.closest_enemy(u)
 			if own_threat==null:continue
 			if u.cover_id=="" or (u.in_cover() and game.field.protection(u.pos(),own_threat.pos())<.2 and game.field.line_of_sight(own_threat.pos(),u.pos())):
@@ -128,11 +130,17 @@ func plan(team: String) -> void:
 		publish(team,"flank");return
 	if game.elapsed-s.since<game.config.tactics.suppress_seconds:
 		publish(team,"cover");return
+	# Flush an entrenched opponent while protected; do not throw during retreat/pinning.
+	if threat!=null and game.elapsed>=float(grenade_next.get(team,0)):
+		for u in squad:
+			if game.elapsed<u.safety_until or u.suppression>.45 or not u.in_cover() or not u.route.is_empty():continue
+			if threat.in_cover() and u.pos().distance_to(threat.pos())>.17 and u.request_grenade(threat):
+				grenade_next[team]=game.elapsed+12;publish(team,"grenade");return
 	var holders: Array=squad.filter(func(u):return can_support(u))
 	var choices: Array=squad.duplicate()
 	choices.sort_custom(func(a,b):return mover_priority(a,int(s.turn))<mover_priority(b,int(s.turn)))
 	for mover in choices:
-		if mover.suppression>.6 or mover.hp/mover.max_hp<.38 or not mover.route.is_empty():continue
+		if game.elapsed<mover.safety_until or mover.suppression>.5 or mover.hp/mover.max_hp<.50 or not mover.route.is_empty():continue
 		var protected_by: Array=holders.filter(func(u):return u!=mover)
 		if contact and protected_by.is_empty():continue
 		var destination: Vector2=game.objective
@@ -150,7 +158,7 @@ func plan(team: String) -> void:
 				mover.move_to(flank.position);mover.order_mode="cqb_flank";s.mover=mover.id;counters.flanks+=1
 				set_phase(team,"bound","敌方已受压制，从掩体端部绕侧清理")
 				publish(team,"flank");return
-	if not squad.any(func(u):return game.find_target(u)!=null):
+	if not contact and not squad.any(func(u):return game.elapsed<u.safety_until):
 		if not formations.has(team):begin_move(team,game.objective,squad.map(func(u):return u.id))
 		set_phase(team,"advance","没有射界，按柔性队形靠向下一个交战位置")
 		publish(team,"capture")
@@ -198,7 +206,7 @@ func update_formation(team: String, f: Dictionary) -> void:
 	var path: PackedVector2Array=f.path
 	while not path.is_empty() and f.anchor.distance_to(path[0])<.015:path.remove_at(0)
 	if not path.is_empty() and f.anchor.distance_to(center)<game.config.tactics.leader_leash:
-		var step: float=game.config.soldier.speed*game.config.tactics.update_interval
+		var step: float=game.config.tactics.run_speed*game.config.tactics.update_interval
 		while step>0 and not path.is_empty():
 			var distance: float=f.anchor.distance_to(path[0])
 			if distance<=step:f.anchor=path[0];path.remove_at(0);step-=distance
@@ -217,6 +225,7 @@ func update_formation(team: String, f: Dictionary) -> void:
 	var destinations: Array=[]
 	for i in range(squad.size()):
 		var u=squad[i]
+		if game.elapsed<u.safety_until:continue
 		var offset: Vector2=-heading*float(i)*.05 if narrow else side*(i-1)*width-heading*(.035 if i!=1 else 0.0)
 		var goal: Vector2=game.field.soft_offset(future,future+offset,.15)
 		if f.anchor.distance_to(f.destination)<.07:goal=game.field.soft_offset(f.destination,f.destination+offset,.15)
@@ -253,6 +262,7 @@ func plan_tank(tank) -> void:
 		if enemy.weapon=="rocket" and game.field.line_of_sight(enemy.pos(),tank.pos()):rocket_distance=minf(rocket_distance,tank.pos().distance_to(enemy.pos()))
 	var retreat: bool=rocket_distance<game.config.tactics.tank_danger_range or tank.hp/tank.max_hp<.35
 	var desired: float=.78 if retreat else game.config.tactics.tank_preferred_range
+	tank.safety_reason="anti_armor_threat" if retreat else ""
 	var distance: float=tank.pos().distance_to(target.pos())
 	if not retreat and distance>.36 and distance<.82 and game.field.line_of_sight(tank.pos(),target.pos()):
 		tank.route.clear();tank.goal=tank.pos();tank.order_mode="fire_support";return

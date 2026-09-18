@@ -5,8 +5,8 @@ from pathlib import Path
 import argparse, json, time, threading, uuid, collections, urllib.parse, math
 
 ROOT=Path(__file__).resolve().parents[1]
-ALLOWED={'control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade'}
-TACTICS={'move','capture','flank','cover','hold','retreat','attack','grenade'}
+ALLOWED={'control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture'}
+TACTICS={'move','capture','flank','cover','hold','retreat','attack','grenade','posture'}
 TEAMS={'green','blue','red'}
 
 def validate_command(c, agent=False):
@@ -23,6 +23,7 @@ def validate_command(c, agent=False):
     if c['action']=='control' and c.get('mode') not in {'game_ai','player','agent'}:return 'invalid_mode'
     if c['action']=='attack' and not isinstance(c.get('target_id'),str):return 'target_required'
     if c['action']=='map' and (type(c.get('index')) is not int or c['index'] not in range(3)):return 'invalid_map'
+    if c['action']=='posture' and c.get('posture') not in {'auto','stand','crouch','prone'}:return 'invalid_posture'
     if c['action']=='equip' and c.get('weapon') not in {'rifle','smg','rocket','pistol'}:return 'invalid_weapon'
     if agent and (not isinstance(c.get('run_id'),str) or type(c.get('seen_tick')) is not int):return 'observation_required'
     return None
@@ -77,10 +78,11 @@ class Handler(SimpleHTTPRequestHandler):
         path=urllib.parse.urlsplit(self.path).path
         if path=='/api/state':
             with STATE.lock:self.json(200,{'engine_live':bool(STATE.updated) and time.monotonic()-STATE.updated<3,'age_seconds':round(time.monotonic()-STATE.updated,2) if STATE.updated else None,'state':STATE.state,'pending':len(STATE.pending),'acks':list(STATE.results.values())[-12:]})
-        elif path=='/api/health':self.json(200,{'service':'deskfront-control','schema_version':1,'engine_live':bool(STATE.updated) and time.monotonic()-STATE.updated<3})
+        elif path=='/api/health':self.json(200,{'service':'deskfront-control','version':'0.5.0','schema_version':1,'engine_live':bool(STATE.updated) and time.monotonic()-STATE.updated<3})
         elif path.startswith('/api/result/'):
             id=path.rsplit('/',1)[-1]
             with STATE.lock:self.json(200,STATE.results.get(id,{'id':id,'status':'queued' if id in STATE.pending else 'unknown'}))
+        elif path=='/api/action-catalog':self.json(200,json.loads((ROOT/'data/action-catalog.json').read_text()))
         elif path=='/api/schema':self.json(200,{'schema_version':1,'actions':sorted(ALLOWED),'agent_actions':sorted(TACTICS),'factions':sorted(TEAMS),'coordinates':'Godot meters [x,z], +Y up','agent_required':['faction','action','run_id','seen_tick'],'authority':'Godot validates team ownership, units, bounds and observation freshness'})
         else:
             allowed=ROOT/'build/web' if path.startswith('/play/') else ROOT/'dashboard'

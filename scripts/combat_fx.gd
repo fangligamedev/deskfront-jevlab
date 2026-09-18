@@ -10,6 +10,8 @@ var audio_enabled: bool=DisplayServer.get_name()!="headless"
 var audio_events: int=0
 var impacts: int=0
 var launched: Dictionary={}
+var collision_counts: Dictionary={"cover":0,"unit":0,"miss":0,"friendly_block":0}
+var hit_log: Array=[]
 var random := RandomNumberGenerator.new()
 
 func setup(g) -> void:
@@ -62,7 +64,7 @@ func set_muted(value: bool) -> void:
 func launch(shooter, target, weapon: String, landed: bool) -> void:
 	var cfg: Dictionary=game.config.weapons[weapon]
 	launched[weapon]=int(launched.get(weapon,0))+1
-	var end: Vector3=Vector3(target.position.x,game.field.height+(.09 if target.tank else .055),target.position.z)
+	var end: Vector3=target.aim_point()
 	var from: Vector3=shooter.muzzle_position(end)
 	var dir: Vector3=(end-from).normalized()
 	sound(weapon,from)
@@ -70,7 +72,7 @@ func launch(shooter, target, weapon: String, landed: bool) -> void:
 		beam(from,end,.007,Color(.84,.91,.95),.14)
 		target.hit(float(cfg.damage),float(cfg.pressure));impacts+=1
 		return
-	if not landed:end+=Vector3(random.randf_range(.04,.09),-.02,random.randf_range(-.08,.08))
+	if not landed:end+=Vector3(random.randf_range(.026,.065),random.randf_range(-.025,.04),random.randf_range(-.06,.06))
 	var explosive: bool=weapon in ["rocket","cannon","grenade"]
 	puff(from,.048 if explosive else .027,.20,false)
 	beam(from,from+dir*.045,.009 if explosive else .006,Color(1,.91,.53),.10)
@@ -79,52 +81,94 @@ func launch(shooter, target, weapon: String, landed: bool) -> void:
 	if weapon=="grenade":
 		var shell=load("res://assets/models/grenade.glb").instantiate();n.add_child(shell);shell.scale=Vector3.ONE*.075;n.mesh=null
 		for part in shell.find_children("*","MeshInstance3D",true,false):part.material_override=game.field.mat(game.colors[shooter.faction],.32)
-	projectiles.append({"node":n,"from":from,"to":end,"age":0.0,"duration":maxf(.09,from.distance_to(end)/float(cfg.projectile_speed)),"cfg":cfg.duplicate(),"weapon":weapon,"team":shooter.faction,"target":target,"landed":landed,"trail":0.0})
+	projectiles.append({"node":n,"from":from,"to":end,"age":0.0,"duration":maxf(.09,from.distance_to(end)/float(cfg.projectile_speed)),"cfg":cfg.duplicate(),"weapon":weapon,"team":shooter.faction,"target":target,"shooter":shooter.id,"suppressed":[],"landed":landed,"trail":0.0})
+
+func trace(a: Vector3,b: Vector3,shooter_id: String) -> Dictionary:
+	var best: Dictionary=game.field.trace_cover(a,b)
+	for unit in game.living():
+		if unit.id==shooter_id:continue
+		var box: Dictionary=unit.hit_box()
+		var hit: Dictionary=game.field.ray_box(a,b,box.center,box.size,unit.rotation.y)
+		if not hit.is_empty() and (best.is_empty() or hit.fraction<best.fraction):
+			best=hit;best["unit"]=unit;best["kind"]="unit"
+	return best
 
 func physics_tick(dt: float) -> void:
+	if dt>.034:
+		var substeps: int=ceili(dt/.03333333)
+		for i in range(substeps):physics_tick(dt/substeps)
+		return
 	for p in projectiles.duplicate():
 		p.age+=dt
 		var previous: Vector3=p.node.position
-		p.node.position=p.from.lerp(p.to,clampf(p.age/p.duration,0,1))
-		if p.weapon=="grenade":p.node.position.y+=sin(clampf(p.age/p.duration,0,1)*PI)*.20
+		var next: Vector3=p.from.lerp(p.to,clampf(p.age/p.duration,0,1))
+		if p.weapon=="grenade":next.y+=sin(clampf(p.age/p.duration,0,1)*PI)*.20
+		# Continuous swept segment, not proximity to a preselected victim.
+		var collision: Dictionary=trace(previous,next,p.shooter)
+		if not collision.is_empty():next=collision.point
+		p.node.position=next
+		for unit in game.living():
+			if unit.faction==p.team or p.suppressed.has(unit.id):continue
+			var close: Vector3=Geometry3D.get_closest_point_to_segment(unit.aim_point(),previous,next)
+			if close.distance_to(unit.aim_point())<.07 and game.field.trace_cover(close,unit.aim_point()).is_empty():
+				unit.receive_pressure(float(p.cfg.pressure)*.55,p.from);p.suppressed.append(unit.id)
 		p.trail-=dt
 		if p.trail<=0:
 			p.trail=.045
-			beam(previous,p.node.position,.006 if p.weapon in ["rocket","cannon"] else .003,Color(1,.80,.36),.22)
+			beam(previous,next,.006 if p.weapon in ["rocket","cannon"] else .003,Color(1,.80,.36),.22)
 			if p.weapon in ["rocket","cannon"]:puff(previous,.035,.7,true)
-		if p.age>=p.duration:
+		if not collision.is_empty() or p.age>=p.duration:
+			p.to=next;p["collision"]=collision
 			impact(p);p.node.queue_free();projectiles.erase(p)
 
 func impact(p: Dictionary) -> void:
 	impacts+=1
-	var at: Vector2=Vector2(p.to.x,p.to.z)
+	var collision: Dictionary=p.get("collision",{})
+	var kind: String=collision.get("kind","miss")
+	collision_counts[kind]+=1
+	var at := Vector2(p.to.x,p.to.z)
 	var explosive: bool=p.weapon in ["rocket","cannon","grenade"]
+	if hit_log.size()<2000:hit_log.append({"time":game.elapsed,"weapon":p.weapon,"kind":kind,"id":collision.cover_id if kind=="cover" else (collision.unit.id if kind=="unit" else ""),"position":[p.to.x,p.to.y,p.to.z]})
 	if explosive:
 		sound({"rocket":"rocket_blast","cannon":"tank_impact","grenade":"grenade_blast"}[p.weapon],p.to)
 		var size=float(p.cfg.splash)*1.8
 		puff(p.to+Vector3.UP*.025,size,1.0,false)
 		for i in range(5):puff(p.to+Vector3(random.randf_range(-.025,.025),.03,random.randf_range(-.025,.025)),size,2.0+i*.35,true)
 		for i in range(7):ball(p.to,.004,Color(.4,.34,.22),.65,Vector3(random.randf_range(-.15,.15),.15,random.randf_range(-.15,.15)))
+		# Evaluate blast occlusion BEFORE destruction: the wall absorbs this blast,
+		# then the next shot may pass through its newly opened hole.
+		var blast: Vector3=p.to+(collision.get("normal",Vector3.ZERO) as Vector3)*.001
 		for enemy in game.living():
 			if enemy.faction==p.team:continue
-			var distance: float=enemy.pos().distance_to(at)
+			var distance: float=enemy.aim_point().distance_to(blast)
 			if distance>float(p.cfg.splash):continue
-			var direct: bool=enemy==p.target and p.landed and distance<.065
+			var direct: bool=kind=="unit" and collision.unit==enemy
+			var shield: bool=not game.field.trace_cover(blast,enemy.aim_point()).is_empty()
 			var damage: float=float(p.cfg.damage)*(1.0 if direct else .65*(1-distance/float(p.cfg.splash)))
+			if shield:damage=0
 			if enemy.tank:damage*=float(p.cfg.armor_multiplier)*enemy.armor_multiplier(Vector2(p.from.x,p.from.z))
-			else:damage*=1-game.field.protection(enemy.pos(),Vector2(p.from.x,p.from.z))
-			enemy.hit(damage,float(p.cfg.pressure)*(1-game.field.protection(enemy.pos(),Vector2(p.from.x,p.from.z))*.6))
+			enemy.hit(damage,float(p.cfg.pressure)*(.12 if shield else 1.0))
+			enemy.receive_pressure(0,p.from)
 		for c in game.field.covers:
-			if c.alive and Vector2(c.position[0],c.position[1]).distance_to(at)<float(p.cfg.splash)+.09:
-				if game.field.damage_cover(c.id,24 if p.weapon=="rocket" else 35):game.add_event("爆炸摧毁 "+c.id+"，通路已更新")
+			if not c.alive:continue
+			var center=Vector3(c.position[0],float(c.get("bottom",game.field.height))+c.height*.5,c.position[1])
+			var basis=Basis(Vector3.UP,float(c.get("yaw",0)))
+			var sz=c.get("ray_size",[c.size[0],c.height,c.size[1]])
+			var half=Vector3(sz[0],sz[1],sz[2])*.5
+			var local=basis.inverse()*(p.to-center)
+			var distance: float=local.distance_to(local.clamp(-half,half))
+			if distance>float(p.cfg.splash):continue
+			var amount: float=float(p.cfg.get("cover_damage",35))*(1-.65*distance/float(p.cfg.splash))
+			if game.field.damage_cover(c.id,amount):game.add_event("爆炸摧毁 "+c.id+"，射界与通路已更新")
 	else:
 		sound("impact",p.to,-11)
 		for i in range(3):ball(p.to,.004,Color(1,.88,.46),.17,Vector3(random.randf_range(-.1,.1),.06,random.randf_range(-.1,.1)))
-		var target=p.target
-		if is_instance_valid(target) and target.hp>0 and target.pos().distance_to(at)<.08:
-			var cover: float=game.field.protection(target.pos(),Vector2(p.from.x,p.from.z))
-			var damage: float=float(p.cfg.damage)*(1-cover)*(float(p.cfg.armor_multiplier)*target.armor_multiplier(Vector2(p.from.x,p.from.z)) if target.tank else 1.0)
-			target.hit(damage if p.landed else 0,float(p.cfg.pressure)*(1-cover*.6))
+		if kind=="cover":game.field.damage_cover(collision.cover_id,float(p.cfg.get("cover_damage",.3)))
+		if kind=="unit":
+			var target=collision.unit
+			if target.faction==p.team:collision_counts.friendly_block+=1;return
+			var damage: float=float(p.cfg.damage)*(float(p.cfg.armor_multiplier)*target.armor_multiplier(Vector2(p.from.x,p.from.z)) if target.tank else 1.0)
+			target.hit(damage,float(p.cfg.pressure));target.receive_pressure(0,p.from)
 
 func _process(dt: float) -> void:
 	if game==null:return

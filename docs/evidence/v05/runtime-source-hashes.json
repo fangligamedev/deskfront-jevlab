@@ -1,0 +1,14 @@
+{
+  "scripts/unit.gd": "d4879cb7c1a8c909070e09dbaae87a0957d8d2a8c59e14ac9790fefaa1deb94e",
+  "scripts/sandbox_map.gd": "cc71018456025ea79d2d4e5462ba7a83ae144eff5430730a76523e100dc5a5ed",
+  "scripts/battlefield.gd": "d8b0935881fffa91ed0e064cdac62fcbd4514e325ec327f5c4dfc16ac963e768",
+  "scripts/toy_actor.gd": "2c1d5cd32b0dadb69fecdea930f1f88c41889729b33b5d5a798d47ad5eb7ec64",
+  "scripts/tactics.gd": "9e9f46a3f0d193b4e02699bc4b522773eb262b549a6ddaf6ff14817626258300",
+  "scripts/bridge.gd": "3e870896a003cffec4a256ee6cf8a4c5581b1a487798d4ef756b275737bbc1f5",
+  "scripts/combat_fx.gd": "eae5534fdde038b5e5f3508ba49c6b467d5edf6a00afeb519a1adda628c88040",
+  "scripts/game.gd": "01fa7b65b49267979643099dcc311cf561ee998f161985bad9c333730ce09778",
+  "data/battle.json": "c7696b2eb0198564ff605d0428bdd1ff1f13d299bf4ac2baadaf349598e2da40",
+  "data/gait.json": "be6708d2a0d05320d87c478eb991765e98902c00223c325f0777307d05415110",
+  "data/sandbox-maps.json": "8c0c3f9992db32e4821c34ba4755e4b57101a0f8bba598c4b4347345c7b6c7c5",
+  "assets/models/toy-soldier.glb": "46908173aba464212eb9dd76e29f517bccd6e27f3aa57b737075a6c3881a46e9"
+}

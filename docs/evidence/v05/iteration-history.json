@@ -1,0 +1,107 @@
+[
+  {
+    "round": "pilot",
+    "count": 10,
+    "passed_with_that_rounds_gates": false,
+    "failure_indices": [
+      0,
+      2
+    ],
+    "longest_stall": 0
+  },
+  {
+    "round": "round1",
+    "count": 100,
+    "passed_with_that_rounds_gates": true,
+    "failure_indices": [],
+    "longest_stall": 0
+  },
+  {
+    "round": "round2",
+    "count": 84,
+    "passed_with_that_rounds_gates": false,
+    "failure_indices": [
+      1,
+      4,
+      7,
+      12,
+      13,
+      14,
+      23,
+      29,
+      30,
+      34,
+      37,
+      39,
+      41,
+      42,
+      43,
+      44,
+      45,
+      53,
+      55,
+      59,
+      61,
+      64,
+      67,
+      69,
+      72,
+      73,
+      74,
+      83
+    ],
+    "longest_stall": 26.0
+  },
+  {
+    "round": "repair",
+    "count": 20,
+    "passed_with_that_rounds_gates": false,
+    "failure_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      16,
+      17,
+      19
+    ],
+    "longest_stall": 56.5
+  },
+  {
+    "round": "repair2",
+    "count": 20,
+    "passed_with_that_rounds_gates": false,
+    "failure_indices": [
+      5
+    ],
+    "longest_stall": 5.5
+  },
+  {
+    "round": "round3",
+    "count": 100,
+    "passed_with_that_rounds_gates": false,
+    "failure_indices": [
+      19,
+      36,
+      49,
+      56,
+      66,
+      73,
+      78,
+      79,
+      84,
+      85
+    ],
+    "longest_stall": 12.0
+  }
+]

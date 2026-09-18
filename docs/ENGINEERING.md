@@ -112,3 +112,13 @@ npm run test:browser
 HTTP 额外开放 `map(index)`、`equip(weapon)` 给本地策划台，`grenade` 给已授权 Agent。地图/装备仍不属于 Agent 管理权限。状态新增 map/map_index、grenades、asset_animation、root_distance、cover_step、contact_slip_max。
 
 冲锋枪暂共用步枪外观，保留独立连射与音效；22 个动作已导入，但翻滚/闪避等没有新增独立玩家技能。站姿前进的原始动画质量与精细换弹手部动作仍有改进空间。
+
+
+## 0.5.0 战斗执行修正
+
+- Unit 把战术意图、姿态、位移和武器状态分开；生存反应有独立周期与迟滞。ToyActor 按跑/低姿/爬切换相应根运动，并按每个片段实测根速度缩放播放。
+- Battlefield 的 ray_box / cover_ray / trace_cover 对真实地图有向盒执行 slab 线段测试；无头快速模拟不依赖 PhysicsServer 每帧变换刷新。单位使用随姿态与朝向改变的身体盒，非逐三角网格碰撞。静态物理阻挡仍由 Godot CollisionShape3D 执行。
+- CombatFX 只对实际首个交点结算，手雷弧线分步，大时间步细分，近失弹独立产生压制。爆炸先检查遮挡再破坏，避免同一次爆炸先删除墙再无条件穿墙扣血。
+- 地图保存保守 AABB 给导航、有向原尺寸给射线，两者用途分离。选位同时检验原候选与取整后的实际落点；占位还检查空间邻近冲突。跳过短路径节点前验证整个线段，避免避让友军时切掉墙角。
+- 毁坏状态、物理层、视觉碎片、预约和寻路 revision 同步；碎块是无阻挡的最终残骸。
+- 新验收入口：`godot --headless --path . --script tests/combat_contract.gd`；100 场：`godot --headless --path . --script tests/tactical_rehearsal.gd -- --runs=100 --prefix=final`。重演特定失败可加 `--start=13 --runs=1`。Godot tick/Unit/FX/根运动均实际执行，无替代 Python 战斗模拟。

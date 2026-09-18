@@ -26,7 +26,7 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'output/playwright');
  function check(value,name){checks.push({test:name,passed:!!value});console.log((value?'PASS ':'FAIL ')+name);assert(value,name)}
  async function submit(c,agent=false){const response=await page.request.post(base+(agent?'/api/agent/command':'/api/command'),{data:c});const queued=await response.json();assert(response.ok(),JSON.stringify(queued));for(let i=0;i<70;i++){const result=await (await page.request.get(base+'/api/result/'+queued.id)).json();if('accepted'in result)return result;await page.waitForTimeout(150)}throw Error('Missing engine acknowledgement')}
  try{
-  const previousRun=(await state())?.run_id;const start=Date.now();await page.goto(base);await until(s=>s.run_id!==previousRun&&s.version==='0.4.0'&&s.units?.length===9);checks.push({test:'WebGL boots with nine units',passed:true,milliseconds:Date.now()-start});
+  const previousRun=(await state())?.run_id;const start=Date.now();await page.goto(base);await until(s=>s.run_id!==previousRun&&s.version==='0.5.0'&&s.units?.length===9);checks.push({test:'WebGL boots with nine units',passed:true,milliseconds:Date.now()-start});
   await page.getByRole('button',{name:'暂停',exact:true}).click();let s=await until(s=>s.paused);
   const frozen=s.time;await page.waitForTimeout(700);check((await state()).time===frozen,'Pause button freezes actual game');
   await page.getByRole('button',{name:'战术近景',exact:true}).click();await until(s=>s.camera==='battle');

@@ -1,0 +1,271 @@
+/Applications/Godot.app/Contents/MacOS/Godot --headless --editor --path /private/var/folders/n0/g017fqz54mv82fs6zncj33mw0000gn/T/deskfront-v05-source-audit-final-ddinseod/deskfront-jevlab --quit
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started 项目初始化 (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | 正在扫描文件结构……[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started 正在注册全局类…… (21 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started 正在扫描动作…… (32 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | bayonet.wav[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | cannon.wav[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | explosion.wav[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | grenade_blast.wav[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | impact.wav[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | order.wav[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | pistol.wav[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | reload.wav[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | rifle.wav[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | rocket.wav[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | rocket_blast.wav[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | rocket_launch.wav[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | smg.wav[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | tank_cannon.wav[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | tank_impact.wav[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | DeskfrontUI.otf[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | grenade.glb[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | infantry-blue.glb[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | infantry-green.glb[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | infantry-red.glb[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | office-sandbox.glb[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | office-worker.glb[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | office.glb[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | pistol.glb[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | rifle.glb[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | rocket.glb[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | sandbag.glb[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | tank.glb[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | toy-soldier.glb[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | worker.glb[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | flow.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | fx.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (32 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[   3% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[   6% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[   9% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  12% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  15% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  18% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  21% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  24% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  27% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  30% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  33% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  36% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  39% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  42% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  45% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  48% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  51% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  54% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  57% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  60% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  63% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  66% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  69% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  72% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  75% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  78% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  81% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  84% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  87% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  90% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[  93% ] [90m[1mreimport[22m | 正在准备重新加载文件……[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新加载前的操作……[39m[0m
+[   0% ] [90m[1mpreload_reimporting_scene[22m | Started 正在准备场景重新加载 (1 steps)[39m[0m
+[   0% ] [90m[1mpreload_reimporting_scene[22m | 正在分析场景 [空][39m[0m
+[  50% ] [90m[1mpreload_reimporting_scene[22m | 准备完成。[39m[0m
+[92m[ DONE ][39m [1mpreload_reimporting_scene[22m
+[0m
+[   0% ] [90m[1mreimport[22m | DeskfrontUI.otf[39m[0m
+[   3% ] [90m[1mreimport[22m | DeskfrontUI.otf[39m[0m
+[   6% ] [90m[1mreimport[22m | fx.png[39m[0m
+[   9% ] [90m[1mreimport[22m | DeskfrontUI.otf[39m[0m
+[  12% ] [90m[1mreimport[22m | fx.png[39m[0m
+[  15% ] [90m[1mreimport[22m | flow.png[39m[0m
+[  18% ] [90m[1mreimport[22m | tank_impact.wav[39m[0m
+[  21% ] [90m[1mreimport[22m | tank_cannon.wav[39m[0m
+[  24% ] [90m[1mreimport[22m | smg.wav[39m[0m
+[  27% ] [90m[1mreimport[22m | rocket_launch.wav[39m[0m
+[  30% ] [90m[1mreimport[22m | rocket_blast.wav[39m[0m
+[  33% ] [90m[1mreimport[22m | rocket.wav[39m[0m
+[  36% ] [90m[1mreimport[22m | bayonet.wav[39m[0m
+[  39% ] [90m[1mreimport[22m | cannon.wav[39m[0m
+[  42% ] [90m[1mreimport[22m | explosion.wav[39m[0m
+[  45% ] [90m[1mreimport[22m | grenade_blast.wav[39m[0m
+[  48% ] [90m[1mreimport[22m | rifle.wav[39m[0m
+[  51% ] [90m[1mreimport[22m | reload.wav[39m[0m
+[  54% ] [90m[1mreimport[22m | infantry-blue.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  57% ] [90m[1mreimport[22m | infantry-green.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  60% ] [90m[1mreimport[22m | infantry-red.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  63% ] [90m[1mreimport[22m | office-sandbox.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  66% ] [90m[1mreimport[22m | office-worker.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  69% ] [90m[1mreimport[22m | office.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  72% ] [90m[1mreimport[22m | pistol.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  75% ] [90m[1mreimport[22m | rifle.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  78% ] [90m[1mreimport[22m | rocket.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  81% ] [90m[1mreimport[22m | sandbag.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  84% ] [90m[1mreimport[22m | tank.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  87% ] [90m[1mreimport[22m | toy-soldier.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  90% ] [90m[1mreimport[22m | worker.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  93% ] [90m[1mreimport[22m | grenade.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started 导入场景 (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | 导入场景中...[39m[0m
+[   1% ] [90m[1mimport[22m | 执行自定义脚本...[39m[0m
+[  99% ] [90m[1mimport[22m | 保存中...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  96% ] [90m[1mreimport[22m | 正在结束资产导入……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (32 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新加载后的操作……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /private/var/folders/n0/g017fqz54mv82fs6zncj33mw0000gn/T/deskfront-v05-source-audit-final-ddinseod/deskfront-jevlab tests/semantic_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+FORGE_SEMANTIC_PASS deskfront checks=113
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /private/var/folders/n0/g017fqz54mv82fs6zncj33mw0000gn/T/deskfront-v05-source-audit-final-ddinseod/deskfront-jevlab tests/integration_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ASSET_INTEGRATION true checks=89
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /private/var/folders/n0/g017fqz54mv82fs6zncj33mw0000gn/T/deskfront-v05-source-audit-final-ddinseod/deskfront-jevlab --script tests/asset_probe.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ASSET_PROBE true
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /private/var/folders/n0/g017fqz54mv82fs6zncj33mw0000gn/T/deskfront-v05-source-audit-final-ddinseod/deskfront-jevlab --script tests/combat_contract.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+COMBAT_CONTRACT true checks=31
+
+/Library/Developer/CommandLineTools/usr/bin/python3 -m unittest discover -s tests -p test_*.py -v
+test_agent_cannot_run_admin (test_control.ControlContract) ... ok
+test_freshness_required (test_control.ControlContract) ... ok
+test_new_run_expires_old_moves (test_control.ControlContract) ... ok
+test_posture_contract (test_control.ControlContract) ... ok
+test_queue_is_not_ack (test_control.ControlContract) ... ok
+test_reset_ack_on_new_run (test_control.ControlContract) ... ok
+test_types_and_nan (test_control.ControlContract) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.001s
+
+OK

@@ -67,23 +67,24 @@ def leg(side,ankle):
 foot_base={side:rest[side+'Foot'].translation.copy() for side in ['Left','Right']}
 STEP=.44; STEP_TIME=1.05
 gait={'version':2,'import_scale':.075,'step_meters':STEP*.075,'step_seconds':STEP_TIME,'clips':{}}
-clips=[('rifle_idle','Idle'),('rifle_walk_rm','Walk'),('rifle_jog_rm','Jog_Fwd'),('cover_enter','Crouch_Enter'),('cover_idle','Crouch_Idle'),('cover_exit','Crouch_Exit'),('cover_shuffle_left','Crouch_Idle'),('cover_shuffle_right','Crouch_Idle'),('rifle_crouch_rm','Crouch_Fwd'),('turn_left','Turn90_L'),('turn_right','Turn90_R'),('dodge_left_rm','Dodge_Left_RM'),('roll_rm','Roll_RM'),('crawl','Crawl_Fwd'),('hit','Hit_Chest'),('death','Death01'),('pistol_fire','Pistol_Shoot'),('reload','Pistol_Reload'),('cover_peek_left','Crouch_Idle'),('cover_peek_right','Crouch_Idle'),('grenade_throw','Idle'),('rocket_aim','Idle')]
+clips=[('rifle_idle','Idle'),('rifle_walk_rm','Walk'),('rifle_jog_rm','Jog_Fwd'),('cover_enter','Crouch_Enter'),('cover_idle','Crouch_Idle'),('cover_exit','Crouch_Exit'),('cover_shuffle_left','Crouch_Idle'),('cover_shuffle_right','Crouch_Idle'),('rifle_crouch_rm','Crouch_Fwd'),('turn_left','Turn90_L'),('turn_right','Turn90_R'),('dodge_left_rm','Dodge_Left_RM'),('roll_rm','Roll_RM'),('crawl','Crawl_Fwd'),('hit','Hit_Chest'),('death','Death01'),('pistol_fire','Pistol_Shoot'),('reload','Pistol_Reload'),('cover_peek_left','Crouch_Idle'),('cover_peek_right','Crouch_Idle'),('grenade_throw','Idle'),('rocket_aim','Idle'),('prone_idle','Crawl_Fwd'),('prone_fire','Crawl_Fwd'),('prone_reload','Crawl_Fwd'),('crouch_reload','Crouch_Idle'),('bayonet','Idle'),('rifle_fire','Idle')]
 for new,old in clips:
  act=acts[old];src.animation_data.action=act
  if hasattr(act,'slots') and len(act.slots):src.animation_data.action_slot=act.slots[0]
  lateral=new in ['cover_shuffle_left','cover_shuffle_right']
+ prone=new.startswith('prone_')
  direction=1 if new=='cover_shuffle_left' else -1
  duration=STEP_TIME if lateral else (1.25 if new=='grenade_throw' else float(act.frame_range[1])/24); frames=max(2,round(duration*30))
  contacts=[]
  out=bpy.data.actions.new(new);rig.animation_data.action=out
  for frame in range(frames+1):
   # Imported animation keys are 24fps. Evaluate at fractional source frame, then key at 30fps.
-  f=frame/frames*float(act.frame_range[1]);scene.frame_set(int(f),subframe=f%1)
+  f=(.18 if prone else frame/frames)*float(act.frame_range[1]);scene.frame_set(int(f),subframe=f%1)
   for pb in rig.pose.bones:pb.matrix_basis=Matrix.Identity(4)
   bpy.context.view_layer.update()
   rootdelta=src.pose.bones['Root'].head-src.data.bones['Root'].head_local
   # Original locomotion in the public viewer is in-place. These calibrated root tracks are our derivative.
-  speed={'rifle_walk_rm':1.0,'rifle_jog_rm':2.2,'rifle_crouch_rm':.55}.get(new,0)
+  speed={'rifle_walk_rm':1.0,'rifle_jog_rm':2.2,'rifle_crouch_rm':.55,'crawl':.5}.get(new,0)
   rootdelta=Vector(rootdelta)*ratio;rootdelta.y-=speed*frame/30
   lateral_root=direction*STEP*ease(frame/frames) if lateral else 0.0
   rootdelta.x+=lateral_root
@@ -96,7 +97,7 @@ for new,old in clips:
    q=(sp.matrix.to_quaternion()@sr.to_quaternion().inverted())@rest[target].to_quaternion()
    if target=='Hips':pos=rest[target].translation+(sp.head-sr.translation)*ratio+Vector((lateral_root,-speed*frame/30,0))
    pb.matrix=Matrix.LocRotScale(pos,q,Vector((1,1,1)));bpy.context.view_layer.update()
-  if new not in ['roll_rm','crawl','death','pistol_fire','reload','grenade_throw']:
+  if not prone and new not in ['roll_rm','crawl','death','pistol_fire','reload','grenade_throw']:
    chest=rig.pose.bones['Spine2'].head.copy();z=chest.z-.06
    lean=0
    if new.startswith('cover_peek'):lean=(.17 if new.endswith('left') else -.17)*math.sin(math.pi*frame/frames)**2
@@ -106,6 +107,18 @@ for new,old in clips:
     arm('Right',(chest.x-.12,chest.y-.2,z+.08));arm('Left',(chest.x+.02,chest.y-.48,z+.09))
    else:
     arm('Right',(chest.x-.12,chest.y-.29,z));arm('Left',(chest.x-.055,chest.y-.55,z+.015))
+  if prone:
+   chest=rig.pose.bones['Spine2'].head.copy();chest.z+=.003*math.sin(2*math.pi*frame/frames)
+   recoil=.035*max(0,1-frame/5) if new=='prone_fire' else 0
+   reload_offset=.13*math.sin(math.pi*frame/frames)**2 if new=='prone_reload' else 0
+   arm('Right',(chest.x-.12,chest.y-.26+recoil,chest.z+.035))
+   arm('Left',(chest.x-.03,chest.y-.52+reload_offset,chest.z+.05))
+  if new in ['bayonet','rifle_fire','crouch_reload']:
+   chest=rig.pose.bones['Spine2'].head.copy();t=frame/frames
+   thrust=.30*math.sin(math.pi*t)**4 if new=='bayonet' else (-.035*max(0,1-frame/5) if new=='rifle_fire' else 0)
+   reload_offset=.18*math.sin(math.pi*t)**2 if new=='crouch_reload' else 0
+   arm('Right',(chest.x-.12,chest.y-.29-thrust,chest.z-.06))
+   arm('Left',(chest.x-.055,chest.y-.55-thrust+reload_offset,chest.z-.045))
   if new=='grenade_throw':
    chest=rig.pose.bones['Spine2'].head.copy();t=frame/frames
    stops=[(0,Vector((-.15,-.20,-.06))),(.32,Vector((-.22,.14,.29))),(.50,Vector((-.12,-.56,.14))),(.72,Vector((-.12,-.36,-.12))),(1,Vector((-.15,-.20,-.06)))]
@@ -135,7 +148,7 @@ for new,old in clips:
  if not lateral:
   mins=[min(x[i] for x in contacts) for i in range(2)]
   contacts=[[x[i]<=mins[i]+.027 for i in range(2)] for x in contacts]
- gait['clips'][new]={'duration':frames/30,'contacts':contacts,'loop':new in ['rifle_idle','rifle_walk_rm','rifle_jog_rm','rifle_crouch_rm','cover_idle','rocket_aim','crawl'],'root_displacement':[direction*STEP*.075 if lateral else 0,0,speed*frames/30*.075]}
+ gait['clips'][new]={'duration':frames/30,'contacts':contacts,'loop':new in ['rifle_idle','rifle_walk_rm','rifle_jog_rm','rifle_crouch_rm','cover_idle','rocket_aim','crawl','prone_idle'],'root_displacement':[direction*STEP*.075 if lateral else 0,0,speed*frames/30*.075]}
  baked.append(out);catalog.append({'name':new,'source_clip':old,'contact_authored':lateral,'duration':frames/30,'root_motion':'contact-authored finite step' if lateral else 'calibrated derivative' if speed else ('author' if '_rm' in new else 'none')})
  print('BAKED',new,flush=True)
 # Remove the source mannequin from the derived scene; preserve separate original GLB.

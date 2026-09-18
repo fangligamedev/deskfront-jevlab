@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "checks": {
+    "no_other_task_reviews": true,
+    "required_actions_docs_and_tests": true,
+    "final_executable_source_equals_clean_tested_source": true,
+    "clean_import_and_tests": true,
+    "extracted_web_service": true,
+    "runtime_evidence_hashes_match": true
+  },
+  "source_differences": [],
+  "packages": {
+    "Deskfront-source-0.5.0.zip": {
+      "bytes": 40490142,
+      "sha256": "0b3f5c6f52677d9b12deb9e425c6b00d667fb385d1e9de146b7d753d77d8c211"
+    },
+    "Deskfront-playable-web-0.5.0.zip": {
+      "bytes": 14321075,
+      "sha256": "fa8c4500d89232d86666604088053295bb0c8ba0e266af739f2009781fe4aab1"
+    },
+    "Deskfront-macos-0.5.0.zip": {
+      "bytes": 66998946,
+      "sha256": "475af3917c5cc2996df70e6a93dad6083ba0ef92b55eba672f702731100cabbf"
+    }
+  },
+  "clean_source_test": {
+    "source_directory": "/var/folders/n0/g017fqz54mv82fs6zncj33mw0000gn/T/deskfront-v05-source-audit-final-ddinseod/deskfront-jevlab",
+    "steps": [
+      {
+        "step": "import",
+        "exit_code": 0
+      },
+      {
+        "step": "test",
+        "exit_code": 0
+      }
+    ],
+    "passed": true,
+    "tested_source_archive_sha256": "d9a294711356f4fb0721e930dc512fe1130a8cc7d8d6c0fbd4fbed72a5c1734a"
+  },
+  "note": "Final archive differs from the clean tested candidate only in documentation/evidence; executable source/data/assets compared byte for byte. This hash audit is kept outside the source ZIP to avoid a recursive self hash."
+}

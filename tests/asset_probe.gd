@@ -1,6 +1,7 @@
 extends SceneTree
 func _initialize() -> void:
 	var report: Dictionary={"passed":true,"assets":[]}
+	var gait: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/gait.json"))
 	for filename in ["toy-soldier","office-worker"]:
 		var model=load("res://assets/models/"+filename+".glb").instantiate()
 		root.add_child(model)
@@ -27,8 +28,8 @@ func _initialize() -> void:
 					var first: Quaternion=a.track_get_key_value(track,0)
 					for k in range(a.track_get_key_count(track)):variation=maxf(variation,first.angle_to(a.track_get_key_value(track,k)))
 			var semantic=String(clip).get_slice("/",String(clip).get_slice_count("/")-1)
-			a.loop_mode=Animation.LOOP_LINEAR if semantic in ["idle","run","aim","crouch","prone","typing"] else Animation.LOOP_NONE
-			var passed: bool=missing.is_empty() and bone_tracks>0 and (max_root_drift<.001 or "_rm" in clip or "shuffle" in clip) and variation>.0001 and a.length>0
+			a.loop_mode=Animation.LOOP_LINEAR if (gait.clips.get(semantic,{}).get("loop",false) if filename=="toy-soldier" else semantic=="typing") else Animation.LOOP_NONE
+			var passed: bool=missing.is_empty() and bone_tracks>0 and (max_root_drift<.001 or "_rm" in clip or "shuffle" in clip or semantic=="crawl") and variation>.0001 and a.length>0
 			report.passed=report.passed and passed
 			item.clips.append({"id":semantic,"duration":a.length,"loop":a.loop_mode,"bone_tracks":bone_tracks,"missing_bones":missing,"root_horizontal_drift":max_root_drift,"rotation_variation":variation,"passed":passed})
 		report.passed=report.passed and item.skin and item.bones==(50 if filename=="toy-soldier" else 62)

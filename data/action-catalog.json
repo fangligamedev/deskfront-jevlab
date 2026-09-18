@@ -1,0 +1,536 @@
+{
+  "schema": "deskfront.action-catalog.v1",
+  "game_version": "0.5.0",
+  "coordinates": "meters [x,z]; +Y up",
+  "authority": "Godot",
+  "commands": {
+    "move": {
+      "required": [
+        "position"
+      ],
+      "series": [
+        "plan_path",
+        "run_or_crawl",
+        "arrive",
+        "auto_engage"
+      ]
+    },
+    "capture": {
+      "required": [],
+      "series": [
+        "formation",
+        "contact_stop",
+        "bound_or_cover",
+        "occupy_objective"
+      ]
+    },
+    "cover": {
+      "required": [],
+      "series": [
+        "filter_safe_reachable_slots",
+        "reserve",
+        "run_or_crawl",
+        "hide",
+        "peek_or_fire"
+      ]
+    },
+    "hold": {
+      "required": [],
+      "series": [
+        "stop",
+        "choose_posture",
+        "aim",
+        "fire_or_hide"
+      ]
+    },
+    "flank": {
+      "required": [],
+      "series": [
+        "query_cover_end",
+        "move",
+        "engage"
+      ],
+      "note": "显式外部指令不会替 Agent 自动证明有队友掩护；游戏 AI 自主推进必须有近期真实火力。"
+    },
+    "retreat": {
+      "required": [],
+      "series": [
+        "path_to_spawn",
+        "soft_cover_bias",
+        "run_or_crawl",
+        "hold"
+      ]
+    },
+    "attack": {
+      "required": [
+        "target_id"
+      ],
+      "series": [
+        "close_to_range",
+        "aim_or_breach",
+        "fire",
+        "cycle",
+        "reload"
+      ]
+    },
+    "grenade": {
+      "required": [],
+      "optional": [
+        "target_id"
+      ],
+      "series": [
+        "stand",
+        "throw_windup",
+        "release_at_0.62s",
+        "recover_at_1.267s"
+      ],
+      "conditions": [
+        "infantry",
+        "inventory_positive",
+        "range",
+        "not_reloading",
+        "not_cover_stepping",
+        "suppression_below_0.8"
+      ],
+      "errors": [
+        "grenade_unavailable",
+        "no_living_units"
+      ]
+    },
+    "posture": {
+      "required": [
+        "posture"
+      ],
+      "values": [
+        "auto",
+        "stand",
+        "crouch",
+        "prone"
+      ],
+      "series": [
+        "transition",
+        "stationary_pose_or_matching_gait"
+      ],
+      "conditions": [
+        "infantry",
+        "not_throwing",
+        "not_cover_stepping"
+      ],
+      "errors": [
+        "invalid_posture",
+        "infantry_required",
+        "action_busy"
+      ]
+    }
+  },
+  "unit_kinds": {
+    "infantry": {
+      "factions": [
+        "green",
+        "blue",
+        "red"
+      ],
+      "count_per_faction": 3,
+      "loadout": [
+        "rifle",
+        "smg",
+        "rocket"
+      ],
+      "posture": [
+        "stand",
+        "crouch",
+        "prone"
+      ],
+      "locomotion": [
+        "idle",
+        "run",
+        "crouch_run",
+        "crawl",
+        "cover_step",
+        "disabled"
+      ],
+      "states": [
+        "idle",
+        "move",
+        "aim",
+        "cover",
+        "fire",
+        "reload",
+        "suppressed",
+        "melee",
+        "grenade",
+        "dead",
+        "blocked"
+      ],
+      "weapon_states": [
+        "ready",
+        "fire",
+        "cooldown",
+        "reload",
+        "melee",
+        "throw",
+        "disabled"
+      ],
+      "cqb_stance": [
+        "open",
+        "crouch",
+        "hide",
+        "peek"
+      ]
+    },
+    "tank": {
+      "id": "red-tank",
+      "weapon": "cannon",
+      "posture": [
+        "armored"
+      ],
+      "locomotion": [
+        "idle",
+        "tracks",
+        "reverse",
+        "disabled"
+      ],
+      "orders": [
+        "fire_support",
+        "reposition",
+        "reverse",
+        "hold",
+        "move"
+      ],
+      "turret": "independent_yaw",
+      "track_clips": [
+        "Tank_Forward",
+        "Tank_Backwards",
+        "Tank_TurningLeft",
+        "Tank_TurningRight"
+      ]
+    },
+    "human": {
+      "role": "noncombat_office_worker",
+      "animation": "typing_loop",
+      "agent_controllable": false
+    }
+  },
+  "weapons": {
+    "rifle": {
+      "name": "步枪",
+      "range": 0.7,
+      "damage": 13.0,
+      "cooldown": 1.05,
+      "accuracy": 0.82,
+      "magazine": 8,
+      "reload": 2.0,
+      "projectile_speed": 4.0,
+      "armor_multiplier": 0.1,
+      "splash": 0.0,
+      "pressure": 0.12,
+      "cover_damage": 0.7
+    },
+    "smg": {
+      "name": "冲锋枪",
+      "range": 0.6,
+      "damage": 5.0,
+      "cooldown": 0.14,
+      "accuracy": 0.58,
+      "magazine": 24,
+      "reload": 2.5,
+      "projectile_speed": 4.5,
+      "armor_multiplier": 0.04,
+      "splash": 0.0,
+      "pressure": 0.055,
+      "cover_damage": 0.3
+    },
+    "rocket": {
+      "name": "火箭筒",
+      "range": 0.92,
+      "damage": 18.0,
+      "cooldown": 3.8,
+      "accuracy": 0.85,
+      "magazine": 1,
+      "reload": 3.8,
+      "projectile_speed": 0.95,
+      "armor_multiplier": 7.0,
+      "splash": 0.105,
+      "pressure": 0.42,
+      "cover_damage": 70
+    },
+    "cannon": {
+      "name": "坦克炮",
+      "range": 0.98,
+      "damage": 24.0,
+      "cooldown": 3.4,
+      "accuracy": 0.9,
+      "magazine": 1000,
+      "reload": 0.0,
+      "projectile_speed": 1.6,
+      "armor_multiplier": 1.0,
+      "splash": 0.13,
+      "pressure": 0.4,
+      "cover_damage": 85
+    },
+    "bayonet": {
+      "name": "刺刀",
+      "range": 0.075,
+      "damage": 29.0,
+      "cooldown": 0.85,
+      "accuracy": 1.0,
+      "magazine": 0,
+      "reload": 0.0,
+      "projectile_speed": 0.0,
+      "armor_multiplier": 0.0,
+      "splash": 0.0,
+      "pressure": 0.22
+    },
+    "grenade": {
+      "name": "手雷",
+      "range": 0.65,
+      "damage": 36,
+      "cooldown": 1.3,
+      "accuracy": 1,
+      "magazine": 2,
+      "reload": 0,
+      "projectile_speed": 0.7,
+      "armor_multiplier": 0.25,
+      "splash": 0.14,
+      "pressure": 0.6,
+      "cover_damage": 48
+    },
+    "pistol": {
+      "name": "手枪",
+      "range": 0.42,
+      "damage": 8,
+      "cooldown": 0.4,
+      "accuracy": 0.82,
+      "magazine": 12,
+      "reload": 2.0,
+      "projectile_speed": 4.0,
+      "armor_multiplier": 0.1,
+      "splash": 0.0,
+      "pressure": 0.12,
+      "cover_damage": 0.4
+    }
+  },
+  "clips": [
+    {
+      "name": "rifle_idle",
+      "source_clip": "Idle",
+      "contact_authored": false,
+      "duration": 3.1333333333333333,
+      "root_motion": "none"
+    },
+    {
+      "name": "rifle_walk_rm",
+      "source_clip": "Walk",
+      "contact_authored": false,
+      "duration": 1.6666666666666667,
+      "root_motion": "calibrated derivative"
+    },
+    {
+      "name": "rifle_jog_rm",
+      "source_clip": "Jog_Fwd",
+      "contact_authored": false,
+      "duration": 1.1666666666666667,
+      "root_motion": "calibrated derivative"
+    },
+    {
+      "name": "cover_enter",
+      "source_clip": "Crouch_Enter",
+      "contact_authored": false,
+      "duration": 1.0333333333333334,
+      "root_motion": "none"
+    },
+    {
+      "name": "cover_idle",
+      "source_clip": "Crouch_Idle",
+      "contact_authored": false,
+      "duration": 3.6666666666666665,
+      "root_motion": "none"
+    },
+    {
+      "name": "cover_exit",
+      "source_clip": "Crouch_Exit",
+      "contact_authored": false,
+      "duration": 1.0333333333333334,
+      "root_motion": "none"
+    },
+    {
+      "name": "cover_shuffle_left",
+      "source_clip": "Crouch_Idle",
+      "contact_authored": true,
+      "duration": 1.0666666666666667,
+      "root_motion": "contact-authored finite step"
+    },
+    {
+      "name": "cover_shuffle_right",
+      "source_clip": "Crouch_Idle",
+      "contact_authored": true,
+      "duration": 1.0666666666666667,
+      "root_motion": "contact-authored finite step"
+    },
+    {
+      "name": "rifle_crouch_rm",
+      "source_clip": "Crouch_Fwd",
+      "contact_authored": false,
+      "duration": 2.5,
+      "root_motion": "calibrated derivative"
+    },
+    {
+      "name": "turn_left",
+      "source_clip": "Turn90_L",
+      "contact_authored": false,
+      "duration": 2.5,
+      "root_motion": "none"
+    },
+    {
+      "name": "turn_right",
+      "source_clip": "Turn90_R",
+      "contact_authored": false,
+      "duration": 2.5,
+      "root_motion": "none"
+    },
+    {
+      "name": "dodge_left_rm",
+      "source_clip": "Dodge_Left_RM",
+      "contact_authored": false,
+      "duration": 1.6333333333333333,
+      "root_motion": "author"
+    },
+    {
+      "name": "roll_rm",
+      "source_clip": "Roll_RM",
+      "contact_authored": false,
+      "duration": 1.8333333333333333,
+      "root_motion": "author"
+    },
+    {
+      "name": "crawl",
+      "source_clip": "Crawl_Fwd",
+      "contact_authored": false,
+      "duration": 2.7,
+      "root_motion": "calibrated derivative"
+    },
+    {
+      "name": "hit",
+      "source_clip": "Hit_Chest",
+      "contact_authored": false,
+      "duration": 0.4,
+      "root_motion": "none"
+    },
+    {
+      "name": "death",
+      "source_clip": "Death01",
+      "contact_authored": false,
+      "duration": 3.0,
+      "root_motion": "none"
+    },
+    {
+      "name": "pistol_fire",
+      "source_clip": "Pistol_Shoot",
+      "contact_authored": false,
+      "duration": 0.8,
+      "root_motion": "none"
+    },
+    {
+      "name": "reload",
+      "source_clip": "Pistol_Reload",
+      "contact_authored": false,
+      "duration": 2.1,
+      "root_motion": "none"
+    },
+    {
+      "name": "cover_peek_left",
+      "source_clip": "Crouch_Idle",
+      "contact_authored": false,
+      "duration": 3.6666666666666665,
+      "root_motion": "none"
+    },
+    {
+      "name": "cover_peek_right",
+      "source_clip": "Crouch_Idle",
+      "contact_authored": false,
+      "duration": 3.6666666666666665,
+      "root_motion": "none"
+    },
+    {
+      "name": "grenade_throw",
+      "source_clip": "Idle",
+      "contact_authored": false,
+      "duration": 1.2666666666666666,
+      "root_motion": "none"
+    },
+    {
+      "name": "rocket_aim",
+      "source_clip": "Idle",
+      "contact_authored": false,
+      "duration": 3.1333333333333333,
+      "root_motion": "none"
+    },
+    {
+      "name": "prone_idle",
+      "source_clip": "Crawl_Fwd",
+      "contact_authored": false,
+      "duration": 2.7,
+      "root_motion": "none"
+    },
+    {
+      "name": "prone_fire",
+      "source_clip": "Crawl_Fwd",
+      "contact_authored": false,
+      "duration": 2.7,
+      "root_motion": "none"
+    },
+    {
+      "name": "prone_reload",
+      "source_clip": "Crawl_Fwd",
+      "contact_authored": false,
+      "duration": 2.7,
+      "root_motion": "none"
+    },
+    {
+      "name": "crouch_reload",
+      "source_clip": "Crouch_Idle",
+      "contact_authored": false,
+      "duration": 3.6666666666666665,
+      "root_motion": "none"
+    },
+    {
+      "name": "bayonet",
+      "source_clip": "Idle",
+      "contact_authored": false,
+      "duration": 3.1333333333333333,
+      "root_motion": "none"
+    },
+    {
+      "name": "rifle_fire",
+      "source_clip": "Idle",
+      "contact_authored": false,
+      "duration": 3.1333333333333333,
+      "root_motion": "none"
+    }
+  ],
+  "asset_only_clips": [
+    "turn_left",
+    "turn_right",
+    "dodge_left_rm",
+    "roll_rm",
+    "hit",
+    "death",
+    "rifle_walk_rm",
+    "cover_enter",
+    "cover_exit"
+  ],
+  "destruction_states": [
+    "intact",
+    "damaged",
+    "critical",
+    "destroyed"
+  ],
+  "limits": {
+    "friendly_fire": false,
+    "fog_of_war": false,
+    "unit_hit_geometry": "posture-oriented box",
+    "cover_hit_geometry": "oriented box matching map collider",
+    "destruction": "whole authored cover objects become rubble, not arbitrary mesh fracture",
+    "jev_adapter": "generic HTTP; vendor SDK not integrated"
+  }
+}

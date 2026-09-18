@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "health": {
+    "service": "deskfront-control",
+    "version": "0.5.0",
+    "schema_version": 1,
+    "engine_live": false
+  },
+  "action_catalog_version": "0.5.0",
+  "play": {
+    "status": 200,
+    "bytes": 5697
+  }
+}

@@ -23,6 +23,7 @@ var step_scale=1.0
 var step_direction=1.0
 var step_feet={}
 var blocked_steps=0
+var last_blocker: String=""
 var stop_after_step=false
 var foot_locks={}
 var contacts=[false,false]
@@ -32,6 +33,7 @@ var queued_clip=""
 var drive_goal=Vector3.INF
 var drive_limit=INF
 var walk_speed=.12
+var clip_speeds: Dictionary={}
 var navigation_guard:Callable
 const STEP_LENGTH=.033
 func stop_cover_move():
@@ -119,7 +121,7 @@ func setup(c:Color,weapon_id="rifle"):
  var sm=AnimationNodeStateMachine.new()
  for n in anim.get_animation_list():
   var an=AnimationNodeAnimation.new();an.animation=n;sm.add_node(n,an)
-  if n in ['rifle_idle','rifle_walk_rm','rifle_jog_rm','rifle_crouch_rm','cover_idle','rocket_aim','crawl']:
+  if n in ['rifle_idle','rifle_walk_rm','rifle_jog_rm','rifle_crouch_rm','cover_idle','rocket_aim','crawl','prone_idle']:
    anim.get_animation(n).loop_mode=Animation.LOOP_LINEAR
  for a in anim.get_animation_list():
   for b in anim.get_animation_list():
@@ -128,11 +130,13 @@ func setup(c:Color,weapon_id="rifle"):
  tree=AnimationTree.new();model.add_child(tree);tree.anim_player=tree.get_path_to(anim);tree.tree_root=sm
  tree.root_motion_track=NodePath('ToyRig/Skeleton3D:Root');tree.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL;tree.active=true
  playback=tree.get('parameters/playback');playback.start(clip)
- var walk=anim.get_animation('rifle_walk_rm')
- for i in range(walk.get_track_count()):
-  if str(walk.track_get_path(i)).ends_with(':Root') and walk.track_get_type(i)==Animation.TYPE_POSITION_3D:
-   var last=walk.track_get_key_count(i)-1
-   walk_speed=maxf(.001,walk.track_get_key_value(i,last).distance_to(walk.track_get_key_value(i,0))/walk.length)
+ for key in ["rifle_walk_rm","rifle_jog_rm","rifle_crouch_rm","crawl"]:
+  var walk=anim.get_animation(key)
+  for i in range(walk.get_track_count()):
+   if str(walk.track_get_path(i)).ends_with(':Root') and walk.track_get_type(i)==Animation.TYPE_POSITION_3D:
+    var last=walk.track_get_key_count(i)-1
+    clip_speeds[key]=maxf(.001,walk.track_get_key_value(i,last).distance_to(walk.track_get_key_value(i,0))/walk.length)
+ walk_speed=clip_speeds.rifle_walk_rm
  tree.advance(0)
  var shape=CollisionShape3D.new();var cap=CapsuleShape3D.new();cap.radius=.016;cap.height=.115;shape.shape=cap;shape.position.y=.065;add_child(shape)
  collision_layer=2;collision_mask=1
@@ -155,16 +159,18 @@ func _physics_process(dt):
   return
  skeleton.clear_bones_global_pose_override()
  if not stepping and cover_target!=Vector3.INF:begin_cover_step()
- tree.advance(dt*(root_speed if clip in ["rifle_walk_rm","rifle_jog_rm","rifle_crouch_rm"] else 1.0))
+ tree.advance(dt*(root_speed if clip in ["rifle_walk_rm","rifle_jog_rm","rifle_crouch_rm","crawl"] else 1.0))
  var motion=tree.get_root_motion_position()
- if clip in ['rifle_walk_rm','rifle_jog_rm','rifle_crouch_rm','roll_rm','dodge_left_rm','cover_shuffle_left','cover_shuffle_right']:
+ if clip in ['rifle_walk_rm','rifle_jog_rm','rifle_crouch_rm','crawl','roll_rm','dodge_left_rm','cover_shuffle_left','cover_shuffle_right']:
   if stepping:motion.x*=step_scale
   var displacement=global_basis*motion;displacement.y=0
   if not stepping and drive_goal!=Vector3.INF:
    var delta=drive_goal-global_position;delta.y=0
    displacement=delta.normalized()*minf(displacement.length(),delta.length())
-  if navigation_guard.is_valid() and not navigation_guard.call(global_position+displacement):displacement=Vector3.ZERO
+  if navigation_guard.is_valid() and not navigation_guard.call(global_position+displacement):displacement=Vector3.ZERO;last_blocker="navigation"
   var hit=move_and_collide(displacement) if displacement.length_squared()>.00000000001 else null
+  if hit:last_blocker=str(hit.get_collider().name)
+  elif displacement.length()>.0001:last_blocker=""
   roots_travelled+=displacement.length()
   if hit and stepping:
    stop_after_step=true;cover_target=Vector3.INF
@@ -231,7 +237,7 @@ func ragdoll(origin:Vector3,power=.5):
   var v=(global_position-origin);v.y=0;v=v.normalized()*power+Vector3.UP*power*.7
   row.body.apply_central_impulse(v*row.body.mass*RAG_SCALE*.5)
 
-func advance_drive(target:Vector3, speed:float, dt:float, lateral:bool):
+func advance_drive(target:Vector3, speed:float, dt:float, lateral:bool, gait_mode:String="run"):
  drive_goal=target
  if stepping:
   _physics_process(dt)
@@ -241,8 +247,9 @@ func advance_drive(target:Vector3, speed:float, dt:float, lateral:bool):
   play("cover_idle")
  else:
   cover_target=Vector3.INF
-  root_speed=clampf(speed/walk_speed,.05,5)
-  play("rifle_walk_rm")
+  var movement_clip={"run":"rifle_jog_rm","crouch_run":"rifle_crouch_rm","crawl":"crawl","walk":"rifle_walk_rm"}.get(gait_mode,"rifle_jog_rm")
+  root_speed=clampf(speed/float(clip_speeds.get(movement_clip,walk_speed)),.05,5)
+  play(movement_clip)
  _physics_process(dt)
 
 func advance_idle(dt:float):

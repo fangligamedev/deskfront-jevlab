@@ -15,6 +15,11 @@ class ControlContract(unittest.TestCase):
     def test_freshness_required(self):
         self.assertEqual(validate_command({'action':'capture'},True),'observation_required')
         self.assertIsNone(validate_command({'action':'capture','run_id':'test','seen_tick':50},True))
+    def test_posture_contract(self):
+        self.assertIsNone(validate_command({'action':'posture','posture':'prone','run_id':'r','seen_tick':1},True))
+        self.assertEqual(validate_command({'action':'posture','posture':'fly'}),'invalid_posture')
+        catalog=json.loads((Path(__file__).resolve().parents[1]/'data/action-catalog.json').read_text())
+        self.assertEqual(set(catalog['commands']),{'move','capture','cover','flank','retreat','hold','attack','grenade','posture'})
     def test_queue_is_not_ack(self):
         s=State();s.record=lambda *a:None
         self.assertEqual(s.submit({'action':'hold'})[0],409)

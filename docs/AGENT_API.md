@@ -23,7 +23,7 @@
   "action": "move",
   "faction": "green",
   "unit_ids": ["green-1", "green-2"],
-  "position": [0.50, 0.35],
+  "position": [0.54, 2.40],
   "run_id": "从最近状态读取",
   "seen_tick": 120
 }
@@ -62,3 +62,10 @@ python3 tools/agent_example.py --faction green
 单位新增tactical_role、order_mode、cqb_stance、in_cover、cover_slot、cover_risk、focus_id、formation_speed；坦克有reversing和turret_yaw（相对车体的弧度）。in_cover基于实际位置，预约不等于已经到位。cover_risk是选站时多威胁启发值，不是被击杀概率。
 
 决策source=squad_coordinator，candidates为空、confidence=0；策划台显示真实阶段与解释，不制造模型排名。外部Agent仍通过v1动作提交，掩护协调只自动接管game_ai阵营；整队move/capture/retreat复用柔性行军执行。
+
+
+## 0.5.0 姿态、自保与动作目录
+
+完整契约见 [AGENT_ACTION_STATES.md](AGENT_ACTION_STATES.md)，机器目录为 `GET /api/action-catalog`。新增 Agent `posture`（auto/stand/crouch/prone），补全 `grenade`（可给 target_id，库存/装填/压制/距离原子校验）。单位暴露 `posture`、`posture_order`、`locomotion`、`weapon_state`、`survival_reason`、`last_shot_at`、`last_shot_target`、`available_actions`、`action_counts`。四层状态彼此独立，不能仅凭旧 state 判断身体动作。
+
+`support_ids` 现在要求近期真的开过火且当前仍可射击。`combat_fx.collision_counts` 记录真实首个碰撞类型，`destruction_count` 记录完整物件摧毁次数，掩体暴露 max_hp、damage_stage 与用于射线的 ray_size/yaw/bottom。射击由几何命中决定，掩体不再仅靠减伤概率；结构破坏后会更新射界和导航。

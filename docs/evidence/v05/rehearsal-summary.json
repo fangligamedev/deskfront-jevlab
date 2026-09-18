@@ -1,0 +1,1813 @@
+{
+  "passed": true,
+  "count": 100,
+  "map_distribution": {
+    "crossroads": 34,
+    "river": 33,
+    "outpost": 33
+  },
+  "fixed_dt": 0.0333333333333333,
+  "simulated_seconds": 5843.566666666588,
+  "wall_seconds": 224.541,
+  "shots": 7733,
+  "destructions_including_scenario_injection": 323,
+  "navigation_errors": 0,
+  "animation_mismatches": 0,
+  "walk_samples": 0,
+  "max_unsafe_seconds": 1.5,
+  "max_stalled_seconds": 1.0,
+  "by_case": [
+    {
+      "case": "meeting",
+      "runs": 10,
+      "passed": 10,
+      "shots": 883,
+      "destructions_including_scenario_injection": 41,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 0.5
+    },
+    {
+      "case": "suppressed",
+      "runs": 10,
+      "passed": 10,
+      "shots": 705,
+      "destructions_including_scenario_injection": 32,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 0.5
+    },
+    {
+      "case": "flanked",
+      "runs": 10,
+      "passed": 10,
+      "shots": 716,
+      "destructions_including_scenario_injection": 34,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 1.0
+    },
+    {
+      "case": "cover_destroyed",
+      "runs": 10,
+      "passed": 10,
+      "shots": 826,
+      "destructions_including_scenario_injection": 34,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 0.5
+    },
+    {
+      "case": "wounded",
+      "runs": 10,
+      "passed": 10,
+      "shots": 850,
+      "destructions_including_scenario_injection": 30,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 1.0
+    },
+    {
+      "case": "corner",
+      "runs": 10,
+      "passed": 10,
+      "shots": 835,
+      "destructions_including_scenario_injection": 36,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 0.5
+    },
+    {
+      "case": "armor_threat",
+      "runs": 10,
+      "passed": 10,
+      "shots": 890,
+      "destructions_including_scenario_injection": 22,
+      "max_unsafe_seconds": 1.5,
+      "max_stalled_seconds": 1.0
+    },
+    {
+      "case": "grenade",
+      "runs": 10,
+      "passed": 10,
+      "shots": 761,
+      "destructions_including_scenario_injection": 31,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 0.5
+    },
+    {
+      "case": "crossfire",
+      "runs": 10,
+      "passed": 10,
+      "shots": 860,
+      "destructions_including_scenario_injection": 37,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 1.0
+    },
+    {
+      "case": "retreat",
+      "runs": 10,
+      "passed": 10,
+      "shots": 407,
+      "destructions_including_scenario_injection": 26,
+      "max_unsafe_seconds": 0.5,
+      "max_stalled_seconds": 0.5
+    }
+  ],
+  "runs": [
+    {
+      "index": 0,
+      "case": "meeting",
+      "seed": 19092026,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 33,
+      "destroyed": 4,
+      "alive": 8,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 0,
+        "miss": 2,
+        "unit": 31
+      }
+    },
+    {
+      "index": 1,
+      "case": "suppressed",
+      "seed": 19099945,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 67,
+      "destroyed": 4,
+      "alive": 7,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 0,
+        "miss": 9,
+        "unit": 53
+      }
+    },
+    {
+      "index": 2,
+      "case": "flanked",
+      "seed": 19107864,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 78,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 15,
+        "miss": 13,
+        "unit": 63
+      }
+    },
+    {
+      "index": 3,
+      "case": "cover_destroyed",
+      "seed": 19115783,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 79,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 0,
+        "miss": 24,
+        "unit": 52
+      }
+    },
+    {
+      "index": 4,
+      "case": "wounded",
+      "seed": 19123702,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 72,
+      "destroyed": 3,
+      "alive": 8,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 0,
+        "miss": 21,
+        "unit": 46
+      }
+    },
+    {
+      "index": 5,
+      "case": "corner",
+      "seed": 19131621,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 100,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 22,
+        "miss": 28,
+        "unit": 70
+      }
+    },
+    {
+      "index": 6,
+      "case": "armor_threat",
+      "seed": 19139540,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 96,
+      "destroyed": 2,
+      "alive": 4,
+      "collisions": {
+        "cover": 4,
+        "friendly_block": 2,
+        "miss": 29,
+        "unit": 63
+      }
+    },
+    {
+      "index": 7,
+      "case": "grenade",
+      "seed": 19147459,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 63,
+      "destroyed": 2,
+      "alive": 5,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 0,
+        "miss": 18,
+        "unit": 44
+      }
+    },
+    {
+      "index": 8,
+      "case": "crossfire",
+      "seed": 19155378,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 65,
+      "destroyed": 5,
+      "alive": 5,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 6,
+        "miss": 17,
+        "unit": 43
+      }
+    },
+    {
+      "index": 9,
+      "case": "retreat",
+      "seed": 19163297,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 39,
+      "destroyed": 1,
+      "alive": 6,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 5,
+        "miss": 9,
+        "unit": 30
+      }
+    },
+    {
+      "index": 10,
+      "case": "meeting",
+      "seed": 19171216,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 50,
+      "destroyed": 3,
+      "alive": 8,
+      "collisions": {
+        "cover": 6,
+        "friendly_block": 0,
+        "miss": 10,
+        "unit": 34
+      }
+    },
+    {
+      "index": 11,
+      "case": "suppressed",
+      "seed": 19179135,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 50,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 0,
+        "miss": 7,
+        "unit": 41
+      }
+    },
+    {
+      "index": 12,
+      "case": "flanked",
+      "seed": 19187054,
+      "map": "crossroads",
+      "passed": true,
+      "time": 58.1999999999993,
+      "shots": 86,
+      "destroyed": 2,
+      "alive": 2,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 1,
+        "miss": 21,
+        "unit": 65
+      }
+    },
+    {
+      "index": 13,
+      "case": "cover_destroyed",
+      "seed": 19194973,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 50,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 0,
+        "miss": 13,
+        "unit": 35
+      }
+    },
+    {
+      "index": 14,
+      "case": "wounded",
+      "seed": 19202892,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 116,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 9,
+        "miss": 13,
+        "unit": 99
+      }
+    },
+    {
+      "index": 15,
+      "case": "corner",
+      "seed": 19210811,
+      "map": "crossroads",
+      "passed": true,
+      "time": 54.8999999999994,
+      "shots": 87,
+      "destroyed": 4,
+      "alive": 4,
+      "collisions": {
+        "cover": 4,
+        "friendly_block": 2,
+        "miss": 18,
+        "unit": 64
+      }
+    },
+    {
+      "index": 16,
+      "case": "armor_threat",
+      "seed": 19218730,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 75,
+      "destroyed": 1,
+      "alive": 7,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 0,
+        "miss": 24,
+        "unit": 47
+      }
+    },
+    {
+      "index": 17,
+      "case": "grenade",
+      "seed": 19226649,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 53,
+      "destroyed": 3,
+      "alive": 7,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 7,
+        "miss": 9,
+        "unit": 41
+      }
+    },
+    {
+      "index": 18,
+      "case": "crossfire",
+      "seed": 19234568,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 92,
+      "destroyed": 3,
+      "alive": 4,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 1,
+        "miss": 29,
+        "unit": 61
+      }
+    },
+    {
+      "index": 19,
+      "case": "retreat",
+      "seed": 19242487,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 44,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 4,
+        "friendly_block": 0,
+        "miss": 8,
+        "unit": 32
+      }
+    },
+    {
+      "index": 20,
+      "case": "meeting",
+      "seed": 19250406,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 94,
+      "destroyed": 4,
+      "alive": 6,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 0,
+        "miss": 21,
+        "unit": 68
+      }
+    },
+    {
+      "index": 21,
+      "case": "suppressed",
+      "seed": 19258325,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 79,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 2,
+        "miss": 16,
+        "unit": 61
+      }
+    },
+    {
+      "index": 22,
+      "case": "flanked",
+      "seed": 19266244,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 50,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 4,
+        "friendly_block": 1,
+        "miss": 9,
+        "unit": 36
+      }
+    },
+    {
+      "index": 23,
+      "case": "cover_destroyed",
+      "seed": 19274163,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 82,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 17,
+        "miss": 25,
+        "unit": 55
+      }
+    },
+    {
+      "index": 24,
+      "case": "wounded",
+      "seed": 19282082,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.1333333333325,
+      "shots": 86,
+      "destroyed": 3,
+      "alive": 4,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 12,
+        "miss": 19,
+        "unit": 66
+      }
+    },
+    {
+      "index": 25,
+      "case": "corner",
+      "seed": 19290001,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 62,
+      "destroyed": 5,
+      "alive": 8,
+      "collisions": {
+        "cover": 6,
+        "friendly_block": 0,
+        "miss": 15,
+        "unit": 40
+      }
+    },
+    {
+      "index": 26,
+      "case": "armor_threat",
+      "seed": 19297920,
+      "map": "outpost",
+      "passed": true,
+      "time": 34.8000000000006,
+      "shots": 71,
+      "destroyed": 2,
+      "alive": 4,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 6,
+        "miss": 22,
+        "unit": 49
+      }
+    },
+    {
+      "index": 27,
+      "case": "grenade",
+      "seed": 19305839,
+      "map": "crossroads",
+      "passed": true,
+      "time": 54.4999999999995,
+      "shots": 87,
+      "destroyed": 4,
+      "alive": 4,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 22,
+        "miss": 14,
+        "unit": 72
+      }
+    },
+    {
+      "index": 28,
+      "case": "crossfire",
+      "seed": 19313758,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 133,
+      "destroyed": 4,
+      "alive": 6,
+      "collisions": {
+        "cover": 9,
+        "friendly_block": 0,
+        "miss": 43,
+        "unit": 81
+      }
+    },
+    {
+      "index": 29,
+      "case": "retreat",
+      "seed": 19321677,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.1999999999992,
+      "shots": 39,
+      "destroyed": 3,
+      "alive": 4,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 2,
+        "miss": 6,
+        "unit": 32
+      }
+    },
+    {
+      "index": 30,
+      "case": "meeting",
+      "seed": 19329596,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 120,
+      "destroyed": 5,
+      "alive": 8,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 0,
+        "miss": 21,
+        "unit": 97
+      }
+    },
+    {
+      "index": 31,
+      "case": "suppressed",
+      "seed": 19337515,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 64,
+      "destroyed": 2,
+      "alive": 5,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 0,
+        "miss": 18,
+        "unit": 45
+      }
+    },
+    {
+      "index": 32,
+      "case": "flanked",
+      "seed": 19345434,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 73,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 13,
+        "miss": 7,
+        "unit": 64
+      }
+    },
+    {
+      "index": 33,
+      "case": "cover_destroyed",
+      "seed": 19353353,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 81,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 1,
+        "miss": 18,
+        "unit": 62
+      }
+    },
+    {
+      "index": 34,
+      "case": "wounded",
+      "seed": 19361272,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 75,
+      "destroyed": 4,
+      "alive": 6,
+      "collisions": {
+        "cover": 4,
+        "friendly_block": 0,
+        "miss": 25,
+        "unit": 46
+      }
+    },
+    {
+      "index": 35,
+      "case": "corner",
+      "seed": 19369191,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 66,
+      "destroyed": 2,
+      "alive": 5,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 17,
+        "miss": 16,
+        "unit": 49
+      }
+    },
+    {
+      "index": 36,
+      "case": "armor_threat",
+      "seed": 19377110,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 77,
+      "destroyed": 1,
+      "alive": 5,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 0,
+        "miss": 20,
+        "unit": 55
+      }
+    },
+    {
+      "index": 37,
+      "case": "grenade",
+      "seed": 19385029,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 52,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 0,
+        "miss": 9,
+        "unit": 40
+      }
+    },
+    {
+      "index": 38,
+      "case": "crossfire",
+      "seed": 19392948,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 63,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 6,
+        "miss": 17,
+        "unit": 40
+      }
+    },
+    {
+      "index": 39,
+      "case": "retreat",
+      "seed": 19400867,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 49,
+      "destroyed": 2,
+      "alive": 6,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 10,
+        "miss": 11,
+        "unit": 36
+      }
+    },
+    {
+      "index": 40,
+      "case": "meeting",
+      "seed": 19408786,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 78,
+      "destroyed": 3,
+      "alive": 8,
+      "collisions": {
+        "cover": 9,
+        "friendly_block": 1,
+        "miss": 23,
+        "unit": 44
+      }
+    },
+    {
+      "index": 41,
+      "case": "suppressed",
+      "seed": 19416705,
+      "map": "outpost",
+      "passed": true,
+      "time": 55.3333333333328,
+      "shots": 41,
+      "destroyed": 4,
+      "alive": 4,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 0,
+        "miss": 8,
+        "unit": 31
+      }
+    },
+    {
+      "index": 42,
+      "case": "flanked",
+      "seed": 19424624,
+      "map": "crossroads",
+      "passed": true,
+      "time": 58.1666666666659,
+      "shots": 84,
+      "destroyed": 3,
+      "alive": 3,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 2,
+        "miss": 24,
+        "unit": 57
+      }
+    },
+    {
+      "index": 43,
+      "case": "cover_destroyed",
+      "seed": 19432543,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 101,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 12,
+        "friendly_block": 9,
+        "miss": 24,
+        "unit": 65
+      }
+    },
+    {
+      "index": 44,
+      "case": "wounded",
+      "seed": 19440462,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 59,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 9,
+        "miss": 11,
+        "unit": 47
+      }
+    },
+    {
+      "index": 45,
+      "case": "corner",
+      "seed": 19448381,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 86,
+      "destroyed": 2,
+      "alive": 5,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 0,
+        "miss": 20,
+        "unit": 64
+      }
+    },
+    {
+      "index": 46,
+      "case": "armor_threat",
+      "seed": 19456300,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 101,
+      "destroyed": 0,
+      "alive": 4,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 0,
+        "miss": 28,
+        "unit": 70
+      }
+    },
+    {
+      "index": 47,
+      "case": "grenade",
+      "seed": 19464219,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 62,
+      "destroyed": 4,
+      "alive": 7,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 4,
+        "miss": 14,
+        "unit": 46
+      }
+    },
+    {
+      "index": 48,
+      "case": "crossfire",
+      "seed": 19472138,
+      "map": "crossroads",
+      "passed": true,
+      "time": 46.4333333333333,
+      "shots": 91,
+      "destroyed": 2,
+      "alive": 3,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 1,
+        "miss": 20,
+        "unit": 66
+      }
+    },
+    {
+      "index": 49,
+      "case": "retreat",
+      "seed": 19480057,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 33,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 4,
+        "friendly_block": 0,
+        "miss": 5,
+        "unit": 24
+      }
+    },
+    {
+      "index": 50,
+      "case": "meeting",
+      "seed": 19487976,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 107,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 0,
+        "miss": 26,
+        "unit": 77
+      }
+    },
+    {
+      "index": 51,
+      "case": "suppressed",
+      "seed": 19495895,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 111,
+      "destroyed": 2,
+      "alive": 5,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 8,
+        "miss": 26,
+        "unit": 83
+      }
+    },
+    {
+      "index": 52,
+      "case": "flanked",
+      "seed": 19503814,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 48,
+      "destroyed": 2,
+      "alive": 5,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 0,
+        "miss": 6,
+        "unit": 39
+      }
+    },
+    {
+      "index": 53,
+      "case": "cover_destroyed",
+      "seed": 19511733,
+      "map": "outpost",
+      "passed": true,
+      "time": 55.0999999999994,
+      "shots": 66,
+      "destroyed": 4,
+      "alive": 4,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 17,
+        "miss": 11,
+        "unit": 54
+      }
+    },
+    {
+      "index": 54,
+      "case": "wounded",
+      "seed": 19519652,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 92,
+      "destroyed": 2,
+      "alive": 6,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 11,
+        "miss": 23,
+        "unit": 66
+      }
+    },
+    {
+      "index": 55,
+      "case": "corner",
+      "seed": 19527571,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 82,
+      "destroyed": 5,
+      "alive": 6,
+      "collisions": {
+        "cover": 7,
+        "friendly_block": 4,
+        "miss": 13,
+        "unit": 62
+      }
+    },
+    {
+      "index": 56,
+      "case": "armor_threat",
+      "seed": 19535490,
+      "map": "outpost",
+      "passed": true,
+      "time": 31.9333333333341,
+      "shots": 76,
+      "destroyed": 3,
+      "alive": 4,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 6,
+        "miss": 16,
+        "unit": 58
+      }
+    },
+    {
+      "index": 57,
+      "case": "grenade",
+      "seed": 19543409,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 129,
+      "destroyed": 3,
+      "alive": 4,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 1,
+        "miss": 40,
+        "unit": 87
+      }
+    },
+    {
+      "index": 58,
+      "case": "crossfire",
+      "seed": 19551328,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 111,
+      "destroyed": 2,
+      "alive": 3,
+      "collisions": {
+        "cover": 8,
+        "friendly_block": 0,
+        "miss": 26,
+        "unit": 77
+      }
+    },
+    {
+      "index": 59,
+      "case": "retreat",
+      "seed": 19559247,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 29,
+      "destroyed": 4,
+      "alive": 7,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 0,
+        "miss": 7,
+        "unit": 22
+      }
+    },
+    {
+      "index": 60,
+      "case": "meeting",
+      "seed": 19567166,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 118,
+      "destroyed": 4,
+      "alive": 8,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 82,
+        "miss": 6,
+        "unit": 111
+      }
+    },
+    {
+      "index": 61,
+      "case": "suppressed",
+      "seed": 19575085,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 67,
+      "destroyed": 3,
+      "alive": 4,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 0,
+        "miss": 13,
+        "unit": 53
+      }
+    },
+    {
+      "index": 62,
+      "case": "flanked",
+      "seed": 19583004,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 55,
+      "destroyed": 5,
+      "alive": 6,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 13,
+        "miss": 2,
+        "unit": 51
+      }
+    },
+    {
+      "index": 63,
+      "case": "cover_destroyed",
+      "seed": 19590923,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 107,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 1,
+        "miss": 32,
+        "unit": 72
+      }
+    },
+    {
+      "index": 64,
+      "case": "wounded",
+      "seed": 19598842,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 74,
+      "destroyed": 3,
+      "alive": 7,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 0,
+        "miss": 13,
+        "unit": 58
+      }
+    },
+    {
+      "index": 65,
+      "case": "corner",
+      "seed": 19606761,
+      "map": "outpost",
+      "passed": true,
+      "time": 53.2999999999995,
+      "shots": 61,
+      "destroyed": 3,
+      "alive": 4,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 17,
+        "miss": 9,
+        "unit": 52
+      }
+    },
+    {
+      "index": 66,
+      "case": "armor_threat",
+      "seed": 19614680,
+      "map": "crossroads",
+      "passed": true,
+      "time": 52.6999999999996,
+      "shots": 112,
+      "destroyed": 4,
+      "alive": 3,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 1,
+        "miss": 37,
+        "unit": 70
+      }
+    },
+    {
+      "index": 67,
+      "case": "grenade",
+      "seed": 19622599,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 61,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 0,
+        "miss": 14,
+        "unit": 44
+      }
+    },
+    {
+      "index": 68,
+      "case": "crossfire",
+      "seed": 19630518,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 68,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 4,
+        "friendly_block": 5,
+        "miss": 23,
+        "unit": 41
+      }
+    },
+    {
+      "index": 69,
+      "case": "retreat",
+      "seed": 19638437,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 48,
+      "destroyed": 0,
+      "alive": 7,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 5,
+        "miss": 10,
+        "unit": 37
+      }
+    },
+    {
+      "index": 70,
+      "case": "meeting",
+      "seed": 19646356,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 85,
+      "destroyed": 3,
+      "alive": 7,
+      "collisions": {
+        "cover": 10,
+        "friendly_block": 0,
+        "miss": 19,
+        "unit": 55
+      }
+    },
+    {
+      "index": 71,
+      "case": "suppressed",
+      "seed": 19654275,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 43,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 0,
+        "miss": 8,
+        "unit": 33
+      }
+    },
+    {
+      "index": 72,
+      "case": "flanked",
+      "seed": 19662194,
+      "map": "crossroads",
+      "passed": true,
+      "time": 51.7666666666663,
+      "shots": 77,
+      "destroyed": 4,
+      "alive": 3,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 1,
+        "miss": 21,
+        "unit": 52
+      }
+    },
+    {
+      "index": 73,
+      "case": "cover_destroyed",
+      "seed": 19670113,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 102,
+      "destroyed": 4,
+      "alive": 7,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 0,
+        "miss": 34,
+        "unit": 62
+      }
+    },
+    {
+      "index": 74,
+      "case": "wounded",
+      "seed": 19678032,
+      "map": "outpost",
+      "passed": true,
+      "time": 58.2333333333326,
+      "shots": 87,
+      "destroyed": 4,
+      "alive": 4,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 16,
+        "miss": 18,
+        "unit": 67
+      }
+    },
+    {
+      "index": 75,
+      "case": "corner",
+      "seed": 19685951,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 105,
+      "destroyed": 3,
+      "alive": 4,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 2,
+        "miss": 13,
+        "unit": 89
+      }
+    },
+    {
+      "index": 76,
+      "case": "armor_threat",
+      "seed": 19693870,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 99,
+      "destroyed": 5,
+      "alive": 5,
+      "collisions": {
+        "cover": 8,
+        "friendly_block": 0,
+        "miss": 29,
+        "unit": 62
+      }
+    },
+    {
+      "index": 77,
+      "case": "grenade",
+      "seed": 19701789,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 47,
+      "destroyed": 4,
+      "alive": 7,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 1,
+        "miss": 7,
+        "unit": 38
+      }
+    },
+    {
+      "index": 78,
+      "case": "crossfire",
+      "seed": 19709708,
+      "map": "crossroads",
+      "passed": true,
+      "time": 57.8666666666659,
+      "shots": 93,
+      "destroyed": 5,
+      "alive": 2,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 0,
+        "miss": 16,
+        "unit": 75
+      }
+    },
+    {
+      "index": 79,
+      "case": "retreat",
+      "seed": 19717627,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 44,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 0,
+        "miss": 6,
+        "unit": 33
+      }
+    },
+    {
+      "index": 80,
+      "case": "meeting",
+      "seed": 19725546,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 92,
+      "destroyed": 5,
+      "alive": 5,
+      "collisions": {
+        "cover": 5,
+        "friendly_block": 6,
+        "miss": 19,
+        "unit": 67
+      }
+    },
+    {
+      "index": 81,
+      "case": "suppressed",
+      "seed": 19733465,
+      "map": "crossroads",
+      "passed": true,
+      "time": 55.0999999999994,
+      "shots": 123,
+      "destroyed": 4,
+      "alive": 4,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 11,
+        "miss": 36,
+        "unit": 83
+      }
+    },
+    {
+      "index": 82,
+      "case": "flanked",
+      "seed": 19741384,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 82,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 6,
+        "friendly_block": 1,
+        "miss": 13,
+        "unit": 62
+      }
+    },
+    {
+      "index": 83,
+      "case": "cover_destroyed",
+      "seed": 19749303,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 81,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 17,
+        "miss": 9,
+        "unit": 72
+      }
+    },
+    {
+      "index": 84,
+      "case": "wounded",
+      "seed": 19757222,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 79,
+      "destroyed": 2,
+      "alive": 6,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 8,
+        "miss": 20,
+        "unit": 57
+      }
+    },
+    {
+      "index": 85,
+      "case": "corner",
+      "seed": 19765141,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 121,
+      "destroyed": 5,
+      "alive": 4,
+      "collisions": {
+        "cover": 7,
+        "friendly_block": 0,
+        "miss": 17,
+        "unit": 97
+      }
+    },
+    {
+      "index": 86,
+      "case": "armor_threat",
+      "seed": 19773060,
+      "map": "outpost",
+      "passed": true,
+      "time": 31.9333333333341,
+      "shots": 74,
+      "destroyed": 2,
+      "alive": 4,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 6,
+        "miss": 20,
+        "unit": 54
+      }
+    },
+    {
+      "index": 87,
+      "case": "grenade",
+      "seed": 19780979,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 98,
+      "destroyed": 2,
+      "alive": 4,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 7,
+        "miss": 11,
+        "unit": 85
+      }
+    },
+    {
+      "index": 88,
+      "case": "crossfire",
+      "seed": 19788898,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 72,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 9,
+        "friendly_block": 0,
+        "miss": 13,
+        "unit": 50
+      }
+    },
+    {
+      "index": 89,
+      "case": "retreat",
+      "seed": 19796817,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 27,
+      "destroyed": 4,
+      "alive": 6,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 0,
+        "miss": 3,
+        "unit": 23
+      }
+    },
+    {
+      "index": 90,
+      "case": "meeting",
+      "seed": 19804736,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 106,
+      "destroyed": 6,
+      "alive": 7,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 59,
+        "miss": 8,
+        "unit": 95
+      }
+    },
+    {
+      "index": 91,
+      "case": "suppressed",
+      "seed": 19812655,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 60,
+      "destroyed": 3,
+      "alive": 5,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 0,
+        "miss": 15,
+        "unit": 44
+      }
+    },
+    {
+      "index": 92,
+      "case": "flanked",
+      "seed": 19820574,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 83,
+      "destroyed": 4,
+      "alive": 5,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 22,
+        "miss": 14,
+        "unit": 68
+      }
+    },
+    {
+      "index": 93,
+      "case": "cover_destroyed",
+      "seed": 19828493,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 77,
+      "destroyed": 3,
+      "alive": 7,
+      "collisions": {
+        "cover": 2,
+        "friendly_block": 1,
+        "miss": 21,
+        "unit": 54
+      }
+    },
+    {
+      "index": 94,
+      "case": "wounded",
+      "seed": 19836412,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 110,
+      "destroyed": 3,
+      "alive": 7,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 0,
+        "miss": 43,
+        "unit": 64
+      }
+    },
+    {
+      "index": 95,
+      "case": "corner",
+      "seed": 19844331,
+      "map": "outpost",
+      "passed": true,
+      "time": 56.866666666666,
+      "shots": 65,
+      "destroyed": 4,
+      "alive": 4,
+      "collisions": {
+        "cover": 0,
+        "friendly_block": 15,
+        "miss": 13,
+        "unit": 52
+      }
+    },
+    {
+      "index": 96,
+      "case": "armor_threat",
+      "seed": 19852250,
+      "map": "crossroads",
+      "passed": true,
+      "time": 58.0999999999993,
+      "shots": 109,
+      "destroyed": 2,
+      "alive": 3,
+      "collisions": {
+        "cover": 3,
+        "friendly_block": 1,
+        "miss": 42,
+        "unit": 64
+      }
+    },
+    {
+      "index": 97,
+      "case": "grenade",
+      "seed": 19860169,
+      "map": "river",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 109,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 4,
+        "friendly_block": 0,
+        "miss": 22,
+        "unit": 81
+      }
+    },
+    {
+      "index": 98,
+      "case": "crossfire",
+      "seed": 19868088,
+      "map": "outpost",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 72,
+      "destroyed": 5,
+      "alive": 6,
+      "collisions": {
+        "cover": 6,
+        "friendly_block": 3,
+        "miss": 19,
+        "unit": 47
+      }
+    },
+    {
+      "index": 99,
+      "case": "retreat",
+      "seed": 19876007,
+      "map": "crossroads",
+      "passed": true,
+      "time": 59.9999999999992,
+      "shots": 55,
+      "destroyed": 3,
+      "alive": 6,
+      "collisions": {
+        "cover": 1,
+        "friendly_block": 11,
+        "miss": 13,
+        "unit": 41
+      }
+    }
+  ]
+}

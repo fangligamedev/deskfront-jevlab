@@ -1,0 +1,47 @@
+{
+  "acceptance": [
+    {
+      "id": "A1",
+      "kind": "import",
+      "statement": "Godot editor import passes"
+    },
+    {
+      "id": "A2",
+      "kind": "gameplay",
+      "statement": "Semantic probe passes"
+    },
+    {
+      "id": "A3",
+      "kind": "runtime",
+      "statement": "Main scene smoke passes"
+    },
+    {
+      "id": "A4",
+      "kind": "assets",
+      "statement": "Asset contracts and provenance pass"
+    }
+  ],
+  "approval": {
+    "approved_at": "2026-09-18T16:07:56.140419+00:00",
+    "required": true,
+    "status": "approved"
+  },
+  "asset_jobs": [],
+  "base": {
+    "head": "87f718b40568a29eb87f002f25bcd1025e84f482",
+    "is_repository": true,
+    "status": ""
+  },
+  "brief": "0.5 生存优先战术、姿态根运动、扫掠射线、可破坏掩体、Agent动作契约、100场演练和实机验收",
+  "budget": {
+    "max_minutes": 180,
+    "max_repairs": 12
+  },
+  "created_at": "2026-09-18T16:07:40.238727+00:00",
+  "files": [],
+  "goal": "0.5 生存优先战术、姿态根运动、扫掠射线、可破坏掩体、Agent动作契约、100场演练和实机验收",
+  "in_scope": [],
+  "out_of_scope": [],
+  "plan_id": "plan-c1e5038ca106",
+  "schema": "godot-forge.build-plan.v1"
+}

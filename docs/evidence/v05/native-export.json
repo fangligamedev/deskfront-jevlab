@@ -1,0 +1,361 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "samples": [
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 0.5,
+      "fps": 10.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 0.9,
+      "fps": 10.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 1.5,
+      "fps": 112.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 1.9,
+      "fps": 112.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 2.5,
+      "fps": 120.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 2.9,
+      "fps": 120.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 3.5,
+      "fps": 114.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 4.0,
+      "fps": 114.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 4.6,
+      "fps": 111.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 5.0,
+      "fps": 111.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 5.6,
+      "fps": 115.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 6.0,
+      "fps": 115.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 6.4,
+      "fps": 118.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 7.0,
+      "fps": 118.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 7.5,
+      "fps": 112.0,
+      "map": "crossroads",
+      "shots": 0,
+      "combat_fx": {
+        "audio_events": 0,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {},
+        "muted": false,
+        "projectiles": 0,
+        "visuals": 0
+      }
+    },
+    {
+      "run_id": "1789751209.0208-1575965149",
+      "version": "0.5.0",
+      "time": 8.1,
+      "fps": 112.0,
+      "map": "crossroads",
+      "shots": 1,
+      "combat_fx": {
+        "audio_events": 2,
+        "collision_counts": {
+          "cover": 0,
+          "friendly_block": 0,
+          "miss": 0,
+          "unit": 0
+        },
+        "impacts": 0,
+        "launched": {
+          "rocket": 1
+        },
+        "muted": false,
+        "projectiles": 1,
+        "visuals": 17
+      }
+    }
+  ],
+  "signing": "unsigned development export; not notarized"
+}

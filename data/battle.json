@@ -262,7 +262,7 @@
       ]
     }
   ],
-  "version": "0.4.0",
+  "version": "0.5.0",
   "loadout": [
     "rifle",
     "smg",
@@ -280,7 +280,8 @@
       "projectile_speed": 4.0,
       "armor_multiplier": 0.1,
       "splash": 0.0,
-      "pressure": 0.12
+      "pressure": 0.12,
+      "cover_damage": 0.7
     },
     "smg": {
       "name": "冲锋枪",
@@ -293,7 +294,8 @@
       "projectile_speed": 4.5,
       "armor_multiplier": 0.04,
       "splash": 0.0,
-      "pressure": 0.055
+      "pressure": 0.055,
+      "cover_damage": 0.3
     },
     "rocket": {
       "name": "火箭筒",
@@ -306,7 +308,8 @@
       "projectile_speed": 0.95,
       "armor_multiplier": 7.0,
       "splash": 0.105,
-      "pressure": 0.42
+      "pressure": 0.42,
+      "cover_damage": 70
     },
     "cannon": {
       "name": "坦克炮",
@@ -319,7 +322,8 @@
       "projectile_speed": 1.6,
       "armor_multiplier": 1.0,
       "splash": 0.13,
-      "pressure": 0.4
+      "pressure": 0.4,
+      "cover_damage": 85
     },
     "bayonet": {
       "name": "刺刀",
@@ -345,7 +349,8 @@
       "projectile_speed": 0.7,
       "armor_multiplier": 0.25,
       "splash": 0.14,
-      "pressure": 0.6
+      "pressure": 0.6,
+      "cover_damage": 48
     },
     "pistol": {
       "name": "手枪",
@@ -358,7 +363,8 @@
       "projectile_speed": 4.0,
       "armor_multiplier": 0.1,
       "splash": 0.0,
-      "pressure": 0.12
+      "pressure": 0.12,
+      "cover_damage": 0.4
     }
   },
   "tactics": {
@@ -380,6 +386,23 @@
     "turret_turn_speed": 2.6,
     "tank_front_armor": 0.72,
     "tank_side_armor": 1.0,
-    "tank_rear_armor": 1.4
+    "tank_rear_armor": 1.4,
+    "survival_hp": 0.42,
+    "prone_pressure": 0.58,
+    "recover_pressure": 0.25,
+    "support_memory": 2.3,
+    "posture_dwell": 1.1,
+    "crawl_speed": 0.038,
+    "crouch_speed": 0.075,
+    "run_speed": 0.18,
+    "safe_reaction_seconds": 0.45
+  },
+  "destruction": {
+    "sandbag": 85,
+    "crate": 45,
+    "wall": 150,
+    "building": 220,
+    "rock": 240,
+    "rubble": 75
   }
 }

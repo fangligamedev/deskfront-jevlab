@@ -137,7 +137,7 @@ func find_target(u, requested: String=""):
 	for enemy in units:
 		if enemy.faction==u.faction or enemy.hp<=0:continue
 		var d: float=u.pos().distance_to(enemy.pos())
-		if d<distance and field.line_of_sight(u.pos(),enemy.pos()):
+		if d<distance and u.can_engage(enemy):
 			if enemy.id==requested:return enemy
 			var score: float=-d+(1.5 if u.weapon=="rocket" and enemy.tank else 0.0)
 			if u.tank and enemy.weapon=="rocket":score+=.6
@@ -152,6 +152,7 @@ func _physics_process(delta: float) -> void:
 	if paused or winner!="":return
 	var dt: float=delta*speed
 	elapsed+=dt
+	field.simulation_time=elapsed
 	if worker_anim:worker_anim.speed_scale=.6*speed
 	fx.physics_tick(dt)
 	tactics_ai.tick(dt)
@@ -263,6 +264,11 @@ func set_camera(mode: String, instant: bool=false) -> void:
 	if instant and camera:
 		camera.position=camera_target+(Vector3(0,3.8,.001) if mode=="top" else Vector3(2.6,3.5,3.5));camera.look_at(camera_target,Vector3.FORWARD if camera_mode=="top" else Vector3.UP);camera.size=camera_size
 
+func player_grenade() -> void:
+	var ids: Array=living(selected_faction).filter(func(u):return u.selected and u.can_throw(closest_enemy(u))).map(func(u):return u.id)
+	if ids.is_empty():command_feedback="NO GRENADE READY";feedback_until=Time.get_ticks_msec()/1000.0+2;return
+	command({"action":"grenade","unit_ids":ids})
+
 func selected_ids() -> Array:
 	var ids: Array=[]
 	for u in units:
@@ -271,7 +277,7 @@ func selected_ids() -> Array:
 
 func command(c: Dictionary) -> Dictionary:
 	var action: String=str(c.get("action",""));var source: String=str(c.get("source","console"));var team: String=str(c.get("faction",selected_faction))
-	var rejected: String="";var tactics: Array=["move","capture","flank","cover","hold","retreat","attack","grenade"]
+	var rejected: String="";var tactics: Array=["move","capture","flank","cover","hold","retreat","attack","grenade","posture"]
 	if not control.has(team):rejected="unknown_faction"
 	elif source=="agent" and (not tactics.has(action) or control[team]!="agent"):rejected="authority_denied"
 	elif source=="agent" and str(c.get("run_id",""))!=run_id:rejected="stale_run"
@@ -292,6 +298,31 @@ func command(c: Dictionary) -> Dictionary:
 		if not is_finite(dest.x) or not is_finite(dest.y) or dest.x<config.bounds[0] or dest.x>config.bounds[2] or dest.y<config.bounds[1] or dest.y>config.bounds[3]:return ack(c,false,"position_out_of_bounds")
 	if tactics.has(action):
 		if winner!="":return ack(c,false,"match_finished")
+		if action=="grenade":
+			var members=living(team).filter(func(u):return ids.is_empty() or ids.has(u.id))
+			var requests: Array=[]
+			for u in members:
+				var target=closest_enemy(u)
+				if c.has("target_id"):
+					target=null
+					for enemy in living():
+						if enemy.id==str(c.target_id) and enemy.faction!=team:target=enemy
+				if not u.can_throw(target):return ack(c,false,"grenade_unavailable")
+				requests.append({"unit":u,"target":target})
+			if requests.is_empty():return ack(c,false,"no_living_units")
+			tactics_ai.cancel(team)
+			if source!="agent":control[team]="player"
+			for request in requests:request.unit.request_grenade(request.target)
+			return ack(c,true,"applied")
+		if action=="posture":
+			var value: String=str(c.get("posture","auto"))
+			if value not in ["auto","stand","crouch","prone"]:return ack(c,false,"invalid_posture")
+			var members=living(team).filter(func(u):return ids.is_empty() or ids.has(u.id))
+			if members.is_empty() or members.any(func(u):return u.tank):return ack(c,false,"infantry_required")
+			if members.any(func(u):return u.grenade_time>=0 or u.actor.stepping):return ack(c,false,"action_busy")
+			if source!="agent":control[team]="player"
+			for u in members:u.posture_order=value;u.posture_since=-10;u.update_posture(not u.route.is_empty())
+			return ack(c,true,"applied")
 		if action=="attack":
 			var target=null
 			for u in units:
@@ -360,7 +391,7 @@ func snapshot() -> Dictionary:
 		var state: Dictionary=u.snapshot()
 		var pixel: Vector2=camera.unproject_position(u.position+Vector3(0,.05,0))
 		state["screen_position"]=[pixel.x,pixel.y];unit_states.append(state)
-	return {"schema_version":1,"version":"0.4.0","map":map_data.get("id","legacy"),"map_index":map_index,"maps":["三线争夺场","河谷双桥","前哨阵地"],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"units":unit_states,"factions":config.factions,"control":control,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":config.rules.score_to_win},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"shots":shots,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
+	return {"schema_version":1,"version":"0.5.0","map":map_data.get("id","legacy"),"map_index":map_index,"maps":["三线争夺场","河谷双桥","前哨阵地"],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"units":unit_states,"factions":config.factions,"control":control,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":config.rules.score_to_win},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
 
 func screen_point(p: Vector2) -> Vector2:
 	var origin: Vector3=camera.project_ray_origin(p);var ray: Vector3=camera.project_ray_normal(p)
@@ -470,7 +501,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				if winner!="":get_tree().reload_current_scene()
 			KEY_F1:ui.visible=not ui.visible
 			KEY_F2:command({"action":"map","index":(map_index+1)%3})
-			KEY_G:command({"action":"grenade","unit_ids":selected_ids()})
+			KEY_G:player_grenade()
 			KEY_P:command({"action":"equip","weapon":"pistol","unit_ids":selected_ids()})
 
 func label(value: String, size: int, color: Color=Color(.86,.88,.80)) -> Label:
@@ -501,6 +532,7 @@ func make_hud() -> void:
 			if key in ["green","blue","red"]:command({"action":"control","faction":key,"mode":"player"})
 			elif key=="auto":command({"action":"control","mode":"game_ai"})
 			elif key=="map":command({"action":"map","index":(map_index+1)%3})
+			elif key=="grenade":player_grenade()
 			elif key=="view":set_camera("battle" if camera_mode=="office" else ("top" if camera_mode=="battle" else "office"))
 			else:command({"action":key,"unit_ids":selected_ids()})
 		)
@@ -538,4 +570,4 @@ func apply_map_config() -> void:
 		# Conservative axis-aligned nav envelope encloses the rotated visual and physical cover.
 		var sx=absf(cos(yaw))*o.size[0]+absf(sin(yaw))*o.size[2]
 		var sz=absf(sin(yaw))*o.size[0]+absf(cos(yaw))*o.size[2]
-		config.covers.append({"id":o.id,"position":o.position,"size":[sx,sz],"normal":[0,1] if sx>sz else [1,0],"height":o.size[1],"hp":65 if o.destructible else -1,"kind":"hard" if o.size[1]>.09 else o.kind})
+		config.covers.append({"id":o.id,"position":o.position,"size":[sx,sz],"normal":[0,1] if sx>sz else [1,0],"height":o.size[1],"hp":config.destruction.get(o.kind,180),"ray_size":o.size.duplicate(),"yaw":yaw,"bottom":.838+o.get("elevation",0),"kind":"hard" if o.size[1]>.09 else o.kind})

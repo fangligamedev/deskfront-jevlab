@@ -1,10 +1,10 @@
-# 资源与配置文档（0.4.0）
+# 资源与配置文档（0.5.0）
 
 ## 当前运行资产
 
 | 资产 | 运行接入 | 编辑来源 |
 |---|---|---|
-| toy-soldier.glb | 三阵营共用，50 骨骼 / 22 动作 / 5073 三角形 | source/latest/toy-soldier-retarget.blend |
+| toy-soldier.glb | 三阵营共用，50 骨骼 / 28 动作 / 5073 三角形 | source/latest/toy-soldier-retarget.blend |
 | tank.glb | T2，0.30 m，4 履带动作，独立炮塔 | source/latest/tank-original.blend |
 | rifle / pistol / rocket / grenade.glb | 手部锚点武器、手雷抛物线弹体 | source/latest 下对应 .blend |
 | office-sandbox.glb | 扩大办公室、1.91×4.40 m 桌面 | source/latest/sandbox-generated/office-sandbox-editable.blend |
@@ -18,10 +18,11 @@
 
 ## 数据与重建
 
+- `data/action-catalog.json`：Agent 命令、四层动作状态与武器系列。
 - `data/battle.json`：三阵营配色、默认装备、伤害/弹匣/射程/手雷与现有战术参数。
 - `data/sandbox-maps.json`：地图 bounds、spawns、tank_spawn、objective 和可旋转对象。
 - `data/gait.json`：侧步根轨迹、支撑/摆动相、单步 0.033 m / 1.067 秒。
-- `docs/asset-integration/animation-catalog.json`：动作来源与时长。
+- `docs/animation-catalog.json`：动作来源与时长。
 - `source/latest/tools/build_*.py`：士兵、桌面、办公人物、武器、音效和地图源脚本。Blender 脚本用 `blender -b --python <脚本>`，音效用 Python + ffmpeg，字体用 Python + fonttools。
 - 桌面与办公人物脚本导出到对应 source/latest 子目录，审核后复制 GLB 到 assets/models；其它脚本直接写各自 assets/data 路径。
 - 枪械和坦克编辑 .blend 后重新导出 glTF。保留 source/latest 中原始 GLB/FBX 与未改编动画库。

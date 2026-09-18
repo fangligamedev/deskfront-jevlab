@@ -1,0 +1,134 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "rifle projectile hits the first wall surface"
+    },
+    {
+      "passed": true,
+      "test": "rifle does not damage a target through intact tall cover"
+    },
+    {
+      "passed": true,
+      "test": "smg projectile hits the first wall surface"
+    },
+    {
+      "passed": true,
+      "test": "smg does not damage a target through intact tall cover"
+    },
+    {
+      "passed": true,
+      "test": "pistol projectile hits the first wall surface"
+    },
+    {
+      "passed": true,
+      "test": "pistol does not damage a target through intact tall cover"
+    },
+    {
+      "passed": true,
+      "test": "rocket projectile hits the first wall surface"
+    },
+    {
+      "passed": true,
+      "test": "rocket does not damage a target through intact tall cover"
+    },
+    {
+      "passed": true,
+      "test": "cannon projectile hits the first wall surface"
+    },
+    {
+      "passed": true,
+      "test": "cannon does not damage a target through intact tall cover"
+    },
+    {
+      "passed": true,
+      "test": "grenade projectile hits the first wall surface"
+    },
+    {
+      "passed": true,
+      "test": "grenade does not damage a target through intact tall cover"
+    },
+    {
+      "passed": true,
+      "test": "low cover blocks prone-height bullets"
+    },
+    {
+      "passed": true,
+      "test": "a shot above low cover remains legal"
+    },
+    {
+      "passed": true,
+      "test": "cover query selects the threat-opposite side of a wall"
+    },
+    {
+      "passed": true,
+      "test": "selected station actually intersects its claimed shielding object"
+    },
+    {
+      "passed": true,
+      "test": "real cannon impact destroys cover and rebuilds navigation"
+    },
+    {
+      "passed": true,
+      "test": "destroyed station reservations are removed"
+    },
+    {
+      "passed": true,
+      "test": "destroyed cover no longer blocks rays"
+    },
+    {
+      "passed": true,
+      "test": "next bullet crosses the breached gap and hits the actual body"
+    },
+    {
+      "passed": true,
+      "test": "nearest intervening hostile body intercepts the ray"
+    },
+    {
+      "passed": true,
+      "test": "friendly body blocks fire without friendly damage"
+    },
+    {
+      "passed": true,
+      "test": "prone head really lies below crouched head"
+    },
+    {
+      "passed": true,
+      "test": "crawl moves with calibrated root motion"
+    },
+    {
+      "passed": true,
+      "test": "low-cover concealment uses real prone pose"
+    },
+    {
+      "passed": true,
+      "test": "hard-cover concealment retains a physically crouched body"
+    },
+    {
+      "passed": true,
+      "test": "authorized Agent can request prone posture"
+    },
+    {
+      "passed": true,
+      "test": "unsupported posture rejected"
+    },
+    {
+      "passed": true,
+      "test": "posture obeys observation freshness and ownership"
+    },
+    {
+      "passed": true,
+      "test": "tank rotates hull before translating across its side"
+    },
+    {
+      "passed": true,
+      "test": "aligned tank resumes forward locomotion"
+    }
+  ],
+  "measured_head_heights": {
+    "cover_idle": 0.0697181224822998,
+    "prone_idle": 0.0307537913322449,
+    "rifle_idle": 0.122033894062042
+  },
+  "passed": true
+}

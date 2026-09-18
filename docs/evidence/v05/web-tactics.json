@@ -1,0 +1,1394 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Machine-readable Agent action catalog served",
+      "passed": true
+    },
+    {
+      "name": "Designer posture control produces actual prone animation",
+      "passed": true
+    },
+    {
+      "name": "RTS right-click ground executes crawl with actual root displacement",
+      "passed": true
+    },
+    {
+      "name": "Returning to auto posture switches clear-ground movement to combat jog",
+      "passed": true
+    },
+    {
+      "name": "External Agent posture executes through authenticated ownership/freshness contract",
+      "passed": true
+    },
+    {
+      "name": "No WebGL, JavaScript or shader errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "state": {
+    "bounds": [
+      -0.3,
+      0.8,
+      1.38,
+      3.46
+    ],
+    "camera": "top",
+    "camera_size": 3.5,
+    "camera_target": [
+      0.540000021457672,
+      2.13000011444092
+    ],
+    "combat_fx": {
+      "audio_events": 4,
+      "collision_counts": {
+        "cover": 0,
+        "friendly_block": 0,
+        "miss": 0,
+        "unit": 0
+      },
+      "impacts": 0,
+      "launched": {},
+      "muted": false,
+      "projectiles": 0,
+      "visuals": 0
+    },
+    "command_feedback": "MOVE / 1 UNITS",
+    "control": {
+      "blue": "player",
+      "green": "agent",
+      "red": "player"
+    },
+    "covers": [
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-0",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.13,
+          1.68
+        ],
+        "ray_size": [
+          0.34,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.341510386954658,
+          0.112750321709592
+        ],
+        "yaw": -0.20943951023932
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-1",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          1,
+          1.62
+        ],
+        "ray_size": [
+          0.3,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.302384482925305,
+          0.104433854076881
+        ],
+        "yaw": 0.20943951023932
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-2",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.55,
+          1.91
+        ],
+        "ray_size": [
+          0.25,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.25,
+          0.043
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-3",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.06,
+          2.3
+        ],
+        "ray_size": [
+          0.3,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.043,
+          0.3
+        ],
+        "yaw": 1.5707963267949
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-4",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          1.01,
+          2.31
+        ],
+        "ray_size": [
+          0.3,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.043,
+          0.3
+        ],
+        "yaw": 1.5707963267949
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-5",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.59,
+          2.57
+        ],
+        "ray_size": [
+          0.27,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.27,
+          0.043
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-6",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.12,
+          2.91
+        ],
+        "ray_size": [
+          0.3,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.302384482925305,
+          0.104433854076881
+        ],
+        "yaw": -0.20943951023932
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.06,
+        "hp": 85,
+        "id": "cover-7",
+        "kind": "sandbag",
+        "max_hp": 85,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.99,
+          2.88
+        ],
+        "ray_size": [
+          0.28,
+          0.06,
+          0.043
+        ],
+        "size": [
+          0.282821530910629,
+          0.100275620260526
+        ],
+        "yaw": 0.20943951023932
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.042,
+        "hp": 45,
+        "id": "crate-0",
+        "kind": "crate",
+        "max_hp": 45,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.32,
+          2.35
+        ],
+        "ray_size": [
+          0.09,
+          0.042,
+          0.06
+        ],
+        "size": [
+          0.09,
+          0.06
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.04,
+        "hp": 45,
+        "id": "crate-1",
+        "kind": "crate",
+        "max_hp": 45,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.78,
+          1.99
+        ],
+        "ray_size": [
+          0.08,
+          0.04,
+          0.065
+        ],
+        "size": [
+          0.08,
+          0.065
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.045,
+        "hp": 45,
+        "id": "crate-2",
+        "kind": "crate",
+        "max_hp": 45,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.9,
+          2.72
+        ],
+        "ray_size": [
+          0.085,
+          0.045,
+          0.07
+        ],
+        "size": [
+          0.085,
+          0.07
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.026,
+        "hp": 240,
+        "id": "rubble-0",
+        "kind": "rock",
+        "max_hp": 240,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.3,
+          1.49
+        ],
+        "ray_size": [
+          0.11,
+          0.026,
+          0.065
+        ],
+        "size": [
+          0.11,
+          0.065
+        ],
+        "yaw": 0
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.026,
+        "hp": 240,
+        "id": "rubble-1",
+        "kind": "rock",
+        "max_hp": 240,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.8,
+          1.4
+        ],
+        "ray_size": [
+          0.11,
+          0.026,
+          0.065
+        ],
+        "size": [
+          0.124702321426838,
+          0.0958105429404292
+        ],
+        "yaw": 0.314159265358979
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.026,
+        "hp": 240,
+        "id": "rubble-2",
+        "kind": "rock",
+        "max_hp": 240,
+        "normal": [
+          0,
+          1
+        ],
+        "position": [
+          0.24,
+          2.7
+        ],
+        "ray_size": [
+          0.11,
+          0.026,
+          0.065
+        ],
+        "size": [
+          0.127197910780255,
+          0.117242482386544
+        ],
+        "yaw": 0.628318530717959
+      },
+      {
+        "alive": true,
+        "bottom": 0.838,
+        "damage_stage": "intact",
+        "height": 0.026,
+        "hp": 240,
+        "id": "rubble-3",
+        "kind": "rock",
+        "max_hp": 240,
+        "normal": [
+          1,
+          0
+        ],
+        "position": [
+          0.76,
+          3.07
+        ],
+        "ray_size": [
+          0.11,
+          0.026,
+          0.065
+        ],
+        "size": [
+          0.117242482386544,
+          0.127197910780255
+        ],
+        "yaw": 0.942477796076938
+      }
+    ],
+    "decisions": {
+      "blue": {
+        "action": "hold",
+        "candidates": [],
+        "reason": "玩家/策划指令",
+        "source": "console",
+        "tick": 624
+      },
+      "green": {
+        "action": "move",
+        "candidates": [],
+        "reason": "玩家/策划指令",
+        "source": "player",
+        "tick": 2184
+      },
+      "red": {
+        "action": "hold",
+        "candidates": [],
+        "reason": "玩家/策划指令",
+        "source": "console",
+        "tick": 848
+      }
+    },
+    "destruction_count": 0,
+    "edge_pan": true,
+    "events": [
+      {
+        "text": "green 控制权 → agent",
+        "time": 17.9
+      },
+      {
+        "text": "参数更新 damage = 1.0",
+        "time": 2.9
+      },
+      {
+        "text": "green 控制权 → player",
+        "time": 2.9
+      },
+      {
+        "text": "red 控制权 → player",
+        "time": 2.9
+      },
+      {
+        "text": "blue 控制权 → player",
+        "time": 2.9
+      },
+      {
+        "text": "green 控制权 → player",
+        "time": 2.9
+      },
+      {
+        "text": "green · suppress · 步枪掩护、冲锋枪压制、火箭筒关注装甲",
+        "time": 2.1
+      },
+      {
+        "text": "战场就绪 · 三个阵营 · 九名步兵",
+        "time": 0
+      }
+    ],
+    "factions": [
+      {
+        "color": "607c48",
+        "goal": [
+          0.54,
+          2.17
+        ],
+        "id": "green",
+        "name": "苔绿侦察队",
+        "spawn": [
+          -0.05,
+          3.25
+        ]
+      },
+      {
+        "color": "3c6880",
+        "goal": [
+          0.54,
+          2.17
+        ],
+        "id": "blue",
+        "name": "钴蓝机动队",
+        "spawn": [
+          1.16,
+          1.17
+        ]
+      },
+      {
+        "color": "a35340",
+        "goal": [
+          0.54,
+          2.17
+        ],
+        "id": "red",
+        "name": "砖红守备队",
+        "spawn": [
+          0.1,
+          1.35
+        ]
+      }
+    ],
+    "fps": 3,
+    "last_action": {
+      "accepted": true,
+      "action": "posture",
+      "id": "75a699dd-5e04-4df8-b843-d68cb5a94fa4",
+      "message": "applied",
+      "tick": 2640
+    },
+    "map": "crossroads",
+    "map_index": 0,
+    "maps": [
+      "三线争夺场",
+      "河谷双桥",
+      "前哨阵地"
+    ],
+    "navigation_revision": 1,
+    "objective": {
+      "position": [
+        0.540000021457672,
+        2.17000007629395
+      ],
+      "radius": 0.17,
+      "score_to_win": 90,
+      "screen_position": [
+        640,
+        521.876831054688
+      ]
+    },
+    "obstacles": [],
+    "parameters": {
+      "accuracy": 0.72,
+      "cooldown": 1.3,
+      "damage": 1,
+      "hp": 100,
+      "magazine": 6,
+      "range": 0.65,
+      "reload": 2.2,
+      "speed": 0.12,
+      "suppression_decay": 0.12
+    },
+    "paused": false,
+    "reservations": {
+      "cover-0_1_0": "red-3",
+      "cover-0_1_2": "red-2",
+      "cover-6_1_0": "green-2",
+      "rubble-0_1_2": "red-1",
+      "rubble-2_1_1": "green-3"
+    },
+    "run_id": "1789751314.088-3973573454",
+    "schema_version": 1,
+    "scores": {
+      "blue": 0,
+      "green": 0,
+      "red": 0
+    },
+    "selected_faction": "green",
+    "shots": 0,
+    "speed": 1,
+    "tactical": {
+      "counters": {
+        "bounds": 0,
+        "cover_repositions": 0,
+        "flanks": 0,
+        "formation_updates": 0,
+        "tank_repositions": 0
+      },
+      "formations": {},
+      "path_queries": 26,
+      "squads": {}
+    },
+    "tank_spawned": false,
+    "tick": 2648,
+    "time": 19.9,
+    "units": [
+      {
+        "action_counts": {
+          "crouch/crouch_run/ready": 1,
+          "crouch/idle/ready": 2,
+          "prone/crawl/ready": 1,
+          "prone/idle/ready": 1,
+          "stand/idle/ready": 1,
+          "stand/run/ready": 2
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "cover_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "faction": "green",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.375,
+          3
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "green-1",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.367941439151764,
+          2.99999451637268
+        ],
+        "posture": "crouch",
+        "posture_order": "crouch",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.605881874493207,
+        "screen_position": [
+          589.808044433594,
+          763.998046875
+        ],
+        "selected": false,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "crouch/crouch_run/ready": 1,
+          "crouch/idle/ready": 2,
+          "prone/idle/ready": 1,
+          "stand/run/ready": 1
+        },
+        "ammo": 24,
+        "animation": "idle",
+        "asset_animation": "cover_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "cover-6",
+        "cover_risk": 0.206673044625004,
+        "cover_slot": "cover-6_1_0",
+        "cover_step": false,
+        "cqb_stance": "crouch",
+        "faction": "green",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.171600326895714,
+          3.00927090644836
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "green-2",
+        "in_cover": true,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.171600326895714,
+          3.00927090644836
+        ],
+        "posture": "crouch",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.329898975905962,
+        "screen_position": [
+          532.532531738281,
+          766.7041015625
+        ],
+        "selected": false,
+        "state": "cover",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "assault",
+        "turret_yaw": 0,
+        "weapon": "smg",
+        "weapon_name": "冲锋枪",
+        "weapon_range": 0.6,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "prone/idle/ready": 1,
+          "stand/idle/ready": 1,
+          "stand/run/ready": 1
+        },
+        "ammo": 1,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "rubble-2",
+        "cover_risk": 0.232718982765264,
+        "cover_slot": "rubble-2_1_1",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "faction": "green",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.299865931272507,
+          2.86280870437622
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "green-3",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.299865931272507,
+          2.86280870437622
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.510727172601037,
+        "screen_position": [
+          569.949462890625,
+          723.97900390625
+        ],
+        "selected": false,
+        "state": "cover",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "anti_armor",
+        "turret_yaw": 0,
+        "weapon": "rocket",
+        "weapon_name": "火箭筒",
+        "weapon_range": 0.92,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "prone/idle/ready": 1,
+          "stand/idle/ready": 2
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "faction": "blue",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          1.09599995613098,
+          1.16999995708466
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "blue-1",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          1.09599995613098,
+          1.16999995708466
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0,
+        "screen_position": [
+          802.193115234375,
+          230.162490844727
+        ],
+        "selected": false,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "stand/idle/ready": 1
+        },
+        "ammo": 24,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "faction": "blue",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          1.1599999666214,
+          1.16999995708466
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "blue-2",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          1.1599999666214,
+          1.16999995708466
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0,
+        "screen_position": [
+          820.862854003906,
+          230.162490844727
+        ],
+        "selected": false,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "assault",
+        "turret_yaw": 0,
+        "weapon": "smg",
+        "weapon_name": "冲锋枪",
+        "weapon_range": 0.6,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "stand/idle/ready": 1
+        },
+        "ammo": 1,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "",
+        "cover_risk": 0,
+        "cover_slot": "",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "faction": "blue",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          1.22399997711182,
+          1.16999995708466
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "blue-3",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          1.22399997711182,
+          1.16999995708466
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0,
+        "screen_position": [
+          839.532592773438,
+          230.162490844727
+        ],
+        "selected": false,
+        "state": "aim",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "anti_armor",
+        "turret_yaw": 0,
+        "weapon": "rocket",
+        "weapon_name": "火箭筒",
+        "weapon_range": 0.92,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "crouch/crouch_run/ready": 1,
+          "crouch/idle/ready": 1,
+          "stand/run/ready": 1
+        },
+        "ammo": 8,
+        "animation": "idle",
+        "asset_animation": "cover_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "rubble-0",
+        "cover_risk": 0.482679062432981,
+        "cover_slot": "rubble-0_1_2",
+        "cover_step": false,
+        "cqb_stance": "crouch",
+        "faction": "red",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.240583166480064,
+          1.54675281047821
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "red-1",
+        "in_cover": true,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.240583166480064,
+          1.54675281047821
+        ],
+        "posture": "crouch",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.289149010553956,
+        "screen_position": [
+          552.655822753906,
+          340.066680908203
+        ],
+        "selected": false,
+        "state": "cover",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "overwatch",
+        "turret_yaw": 0,
+        "weapon": "rifle",
+        "weapon_name": "步枪",
+        "weapon_range": 0.7,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "stand/idle/ready": 1,
+          "stand/run/ready": 1
+        },
+        "ammo": 24,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "cover-0",
+        "cover_risk": 0.490173342064336,
+        "cover_slot": "cover-0_1_2",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "faction": "red",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          -0.031194681301713,
+          1.7712949514389
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "red-2",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          -0.031194681301713,
+          1.7712949514389
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.510726923646871,
+        "screen_position": [
+          473.374359130859,
+          405.568817138672
+        ],
+        "selected": false,
+        "state": "cover",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "assault",
+        "turret_yaw": 0,
+        "weapon": "smg",
+        "weapon_name": "冲锋枪",
+        "weapon_range": 0.6,
+        "weapon_state": "ready"
+      },
+      {
+        "action_counts": {
+          "stand/idle/ready": 1,
+          "stand/run/ready": 1
+        },
+        "ammo": 1,
+        "animation": "idle",
+        "asset_animation": "rifle_idle",
+        "available_actions": [
+          "move",
+          "capture",
+          "cover",
+          "flank",
+          "retreat",
+          "hold",
+          "attack",
+          "posture"
+        ],
+        "bone_count": 50,
+        "contact_slip_max": 0,
+        "cover_id": "cover-0",
+        "cover_risk": 0.499745827255494,
+        "cover_slot": "cover-0_1_0",
+        "cover_step": false,
+        "cqb_stance": "open",
+        "faction": "red",
+        "focus_id": "",
+        "formation_speed": 1,
+        "goal": [
+          0.295236170291901,
+          1.7691011428833
+        ],
+        "grenades": 2,
+        "hp": 100,
+        "id": "red-3",
+        "in_cover": false,
+        "kind": "infantry",
+        "last_shot_at": -10,
+        "last_shot_target": "",
+        "locomotion": "idle",
+        "max_hp": 100,
+        "melee_ready": true,
+        "order_mode": "hold",
+        "path_failure": "",
+        "path_repairs": 0,
+        "position": [
+          0.295236170291901,
+          1.7691011428833
+        ],
+        "posture": "stand",
+        "posture_order": "auto",
+        "reload_remaining": 0,
+        "reversing": false,
+        "root_distance": 0.510726595995948,
+        "screen_position": [
+          568.598876953125,
+          404.928863525391
+        ],
+        "selected": false,
+        "state": "cover",
+        "suppression": 0,
+        "survival_reason": "",
+        "tactical_role": "anti_armor",
+        "turret_yaw": 0,
+        "weapon": "rocket",
+        "weapon_name": "火箭筒",
+        "weapon_range": 0.92,
+        "weapon_state": "ready"
+      }
+    ],
+    "version": "0.5.0",
+    "viewport": [
+      1280,
+      1021
+    ],
+    "weapons": {
+      "bayonet": {
+        "accuracy": 1,
+        "armor_multiplier": 0,
+        "cooldown": 0.85,
+        "damage": 29,
+        "magazine": 0,
+        "name": "刺刀",
+        "pressure": 0.22,
+        "projectile_speed": 0,
+        "range": 0.075,
+        "reload": 0,
+        "splash": 0
+      },
+      "cannon": {
+        "accuracy": 0.9,
+        "armor_multiplier": 1,
+        "cooldown": 3.4,
+        "cover_damage": 85,
+        "damage": 24,
+        "magazine": 1000,
+        "name": "坦克炮",
+        "pressure": 0.4,
+        "projectile_speed": 1.6,
+        "range": 0.98,
+        "reload": 0,
+        "splash": 0.13
+      },
+      "grenade": {
+        "accuracy": 1,
+        "armor_multiplier": 0.25,
+        "cooldown": 1.3,
+        "cover_damage": 48,
+        "damage": 36,
+        "magazine": 2,
+        "name": "手雷",
+        "pressure": 0.6,
+        "projectile_speed": 0.7,
+        "range": 0.65,
+        "reload": 0,
+        "splash": 0.14
+      },
+      "pistol": {
+        "accuracy": 0.82,
+        "armor_multiplier": 0.1,
+        "cooldown": 0.4,
+        "cover_damage": 0.4,
+        "damage": 8,
+        "magazine": 12,
+        "name": "手枪",
+        "pressure": 0.12,
+        "projectile_speed": 4,
+        "range": 0.42,
+        "reload": 2,
+        "splash": 0
+      },
+      "rifle": {
+        "accuracy": 0.82,
+        "armor_multiplier": 0.1,
+        "cooldown": 1.05,
+        "cover_damage": 0.7,
+        "damage": 13,
+        "magazine": 8,
+        "name": "步枪",
+        "pressure": 0.12,
+        "projectile_speed": 4,
+        "range": 0.7,
+        "reload": 2,
+        "splash": 0
+      },
+      "rocket": {
+        "accuracy": 0.85,
+        "armor_multiplier": 7,
+        "cooldown": 3.8,
+        "cover_damage": 70,
+        "damage": 18,
+        "magazine": 1,
+        "name": "火箭筒",
+        "pressure": 0.42,
+        "projectile_speed": 0.95,
+        "range": 0.92,
+        "reload": 3.8,
+        "splash": 0.105
+      },
+      "smg": {
+        "accuracy": 0.58,
+        "armor_multiplier": 0.04,
+        "cooldown": 0.14,
+        "cover_damage": 0.3,
+        "damage": 5,
+        "magazine": 24,
+        "name": "冲锋枪",
+        "pressure": 0.055,
+        "projectile_speed": 4.5,
+        "range": 0.6,
+        "reload": 2.5,
+        "splash": 0
+      }
+    },
+    "winner": "",
+    "worker_animation_time": 3.83824047040939
+  }
+}

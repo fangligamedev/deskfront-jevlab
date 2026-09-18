@@ -56,6 +56,7 @@ def main():
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/semantic_probe.tscn'])
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/integration_probe.tscn'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/asset_probe.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/combat_contract.gd'])
         run([os.sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py','-v'])
     if a.command in ['web','macos']:
         out=ROOT/'build'/a.command;out.mkdir(parents=True,exist_ok=True)
@@ -63,12 +64,18 @@ def main():
     if a.command=='bundle':
         out=ROOT/'dist';out.mkdir(exist_ok=True)
         excluded={'.git','.godot','node_modules','output','dist','build','__pycache__','.playwright-cli'}
-        files=[f for f in ROOT.rglob('*') if f.is_file() and not any(x in excluded for x in f.relative_to(ROOT).parts) and not f.name.endswith(('.blend1','.pyc')) and f.name!='package-audit.json']
+        # In a checkout, bundle only the Git index (including newly staged files),
+        # so concurrent untracked work does not silently enter an open-source release.
+        if (ROOT/'.git').exists():
+            listed=subprocess.run(['git','ls-files','-z'],cwd=ROOT,check=True,stdout=subprocess.PIPE).stdout.decode().split('\0')
+            candidates=[ROOT/n for n in listed if n]
+        else:candidates=ROOT.rglob('*')
+        files=[f for f in candidates if f.is_file() and not any(x in excluded for x in f.relative_to(ROOT).parts) and not f.name.endswith(('.blend1','.pyc')) and f.name!='package-audit.json']
         manifest={str(f.relative_to(ROOT)):digest(f) for f in files}
-        with zipfile.ZipFile(out/'Deskfront-source-0.4.0.zip','w',zipfile.ZIP_DEFLATED) as z:
+        with zipfile.ZipFile(out/'Deskfront-source-0.5.0.zip','w',zipfile.ZIP_DEFLATED) as z:
             for f in files:z.write(f,'deskfront-jevlab/'+str(f.relative_to(ROOT)))
-        with zipfile.ZipFile(out/'Deskfront-playable-web-0.4.0.zip','w',zipfile.ZIP_DEFLATED) as z:
-            for folder in ['build/web','dashboard','tools']:
+        with zipfile.ZipFile(out/'Deskfront-playable-web-0.5.0.zip','w',zipfile.ZIP_DEFLATED) as z:
+            for folder in ['build/web','dashboard','tools','data']:
                 for f in (ROOT/folder).rglob('*'):
                     if f.is_file() and '__pycache__' not in f.parts:z.write(f,str(f.relative_to(ROOT)))
             for n in ['README.md','LICENSE','THIRD_PARTY.md','启动桌面前线.command']:z.write(ROOT/n,n)
@@ -76,7 +83,7 @@ def main():
         (out/'source-hashes.json').write_text(json.dumps(manifest,indent=2))
         mac=ROOT/'build/macos/Deskfront.zip'
         if mac.exists():
-            packaged=out/'Deskfront-macos-0.4.0.zip'
+            packaged=out/'Deskfront-macos-0.5.0.zip'
             shutil.copy2(mac,packaged)
             with zipfile.ZipFile(packaged,'a',zipfile.ZIP_DEFLATED) as z:
                 for f in (ROOT/'docs/licenses').glob('*'):z.write(f,str(f.relative_to(ROOT)))

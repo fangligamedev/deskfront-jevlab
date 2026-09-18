@@ -88,8 +88,8 @@
   },
   {
     "path": "assets/models/toy-soldier.glb",
-    "sha256": "634bc2951e768834b12fd44165f500e1840a84401baaae422ac6d115da458a62",
-    "bytes": 1390668,
+    "sha256": "46908173aba464212eb9dd76e29f517bccd6e27f3aa57b737075a6c3881a46e9",
+    "bytes": 1586124,
     "license": "CC0-1.0",
     "author": "nisu + Quaternius / Deskfront retarget",
     "source_url": "https://opengameart.org/content/rigged-lowpoly-ww2-soldier",
@@ -107,10 +107,10 @@
       "source/latest/tools/build_soldier.py"
     ],
     "source_hashes": {
-      "source/latest/toy-soldier-retarget.blend": "94e53abd51488fc1c35ff1c62a7a41a134be28c58fb91bac1afe900f9c8c0945",
+      "source/latest/toy-soldier-retarget.blend": "6358cb8fd7a17272a1481b2d3878fe9f409b4182bc3655a3dbdb5f6fa6963fbc",
       "source/latest/soldier-original.fbx": "e5abab6089d66181f755d8878a7ee08c89a0d0358e527b379db86022626b22e0",
       "source/latest/ual-author-preview.glb": "beadbb31178e65db6d3819c571933ffea1444fda3cf89b52fe1ff157e44e5d05",
-      "source/latest/tools/build_soldier.py": "7e58cc8071de3aff6c726585de5651ebc45be797e4d8be73e64f6a9cb4459982"
+      "source/latest/tools/build_soldier.py": "d586bedad32bff3db970ccff13b50b6eaceb97cbc46a5fa9b7da696d71e72ff0"
     }
   },
   {

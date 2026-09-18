@@ -13,7 +13,7 @@ func _ready() -> void:
 	check(game.units.size()==9,"exactly nine infantry in three factions")
 	for u in game.units:
 		check(u.bone_count==50,"50 imported bones: "+u.id)
-		check(u.animation_names.size()==22,"22 imported animation clips: "+u.id)
+		check(u.animation_names.size()==28,"28 imported animation clips: "+u.id)
 		check(u.playback!=null,"AnimationTree configured: "+u.id)
 	check(game.worker_anim!=null and game.worker_anim.is_playing(),"worker typing clip active")
 	var start_time=game.worker_anim.current_animation_position

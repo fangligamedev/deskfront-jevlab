@@ -4,6 +4,7 @@ func check(ok:bool,name:String):
  checks.append({"test":name,"passed":ok})
  if not ok:push_error(name)
 func _ready():
+ DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://output/integration"))
  for index in range(3):
   get_tree().set_meta("deskfront_map",index)
   var g=load("res://scenes/main.tscn").instantiate();add_child(g);g.set_physics_process(false);g.fx.set_muted(true)

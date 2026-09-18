@@ -109,6 +109,9 @@ static func run(g, check: Callable) -> void:
 	g.tactics_ai.squads.green.phase="suppress";g.tactics_ai.squads.green.since=g.elapsed-10
 	var bound_distance: float=g.config.tactics.bound_distance;g.config.tactics.bound_distance=.015
 	g.tactics_ai.plan("green")
+	check.call(g.tactics_ai.squads.green.phase!="bound","having a firing arc without recent covering shots does not authorize a bound")
+	for soldier in g.units.slice(0,3):soldier.last_shot_at=g.elapsed;soldier.last_shot_target=target.id;soldier.ammo=8;soldier.safety_until=0;soldier.posture="crouch"
+	g.tactics_ai.plan("green")
 	var movers: Array=g.units.slice(0,3).filter(func(u):return not u.route.is_empty())
 	check.call(g.tactics_ai.squads.green.phase=="bound" and movers.size()==1 and movers[0].order_mode=="cqb_flank","suppressed enemy permits exactly one CQB flanker while two soldiers hold")
 	if movers.size()==1:

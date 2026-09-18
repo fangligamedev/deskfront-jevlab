@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "test": "WebGL boots with nine units",
+      "passed": true,
+      "milliseconds": 3408
+    },
+    {
+      "test": "Pause button freezes actual game",
+      "passed": true
+    },
+    {
+      "test": "Minimap movement reaches Godot and AI does not steal control",
+      "passed": true
+    },
+    {
+      "test": "Real keyboard 2 takes over blue squad",
+      "passed": true
+    },
+    {
+      "test": "Real keyboard C issues cover command",
+      "passed": true
+    },
+    {
+      "test": "Tank button adds exactly one tank",
+      "passed": true
+    },
+    {
+      "test": "External Agent action round-trip has engine acknowledgement",
+      "passed": true
+    },
+    {
+      "test": "Stale Agent run rejected through HTTP",
+      "passed": true
+    },
+    {
+      "test": "Agent cannot hijack red faction",
+      "passed": true
+    },
+    {
+      "test": "Designer parameter reaches runtime",
+      "passed": true
+    },
+    {
+      "test": "Reset restores data and removes reinforcement",
+      "passed": true
+    },
+    {
+      "test": "Responsive tablet layout preserves playable iframe",
+      "passed": true
+    },
+    {
+      "test": "No browser or game console errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "headless_fps": [
+    8,
+    8,
+    8,
+    7,
+    7,
+    8,
+    8,
+    7
+  ]
+}

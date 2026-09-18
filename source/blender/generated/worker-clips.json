@@ -1,0 +1,27 @@
+{
+  "typing": {
+    "duration": 5.0,
+    "fps": 24,
+    "loop": true,
+    "root_motion": "in_place",
+    "bones": [
+      "root",
+      "hips",
+      "spine",
+      "neck",
+      "head",
+      "upper_arm.L",
+      "forearm.L",
+      "hand.L",
+      "thigh.L",
+      "shin.L",
+      "foot.L",
+      "upper_arm.R",
+      "forearm.R",
+      "hand.R",
+      "thigh.R",
+      "shin.R",
+      "foot.R"
+    ]
+  }
+}

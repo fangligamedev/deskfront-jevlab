@@ -1,0 +1,101 @@
+{
+  "acceptance": [
+    {
+      "id": "A1",
+      "kind": "import",
+      "statement": "Godot editor import passes"
+    },
+    {
+      "id": "A2",
+      "kind": "gameplay",
+      "statement": "Semantic probe passes"
+    },
+    {
+      "id": "A3",
+      "kind": "runtime",
+      "statement": "Main scene smoke passes"
+    },
+    {
+      "id": "A4",
+      "kind": "assets",
+      "statement": "Asset contracts and provenance pass"
+    }
+  ],
+  "approval": {
+    "approved_at": "2026-09-18T08:53:29.367637+00:00",
+    "required": true,
+    "status": "approved"
+  },
+  "asset_jobs": [
+    {
+      "id": "office",
+      "provider": "local Blender",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "infantry-green",
+      "provider": "local Blender",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "infantry-blue",
+      "provider": "local Blender",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "infantry-red",
+      "provider": "local Blender",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "worker",
+      "provider": "local Blender",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "tank",
+      "provider": "local Blender",
+      "license": "CC0-1.0"
+    },
+    {
+      "id": "sandbag",
+      "provider": "local Blender",
+      "license": "CC0-1.0"
+    }
+  ],
+  "base": {
+    "head": null,
+    "is_repository": false,
+    "status": null
+  },
+  "brief": "Godot+Blender 原创开源桌面三阵营战术游戏：骨骼动画、掩体与压制、玩家接管、人物打字、坦克增援、本地策划控制台、Agent状态/动作接口、可复现构建及交付报告。用户已明确要求开发并交付。",
+  "budget": {
+    "max_minutes": 240,
+    "max_repairs": 12
+  },
+  "created_at": "2026-09-18T08:50:21.164746+00:00",
+  "files": [
+    "data/battle.json",
+    "scripts",
+    "source/blender",
+    "dashboard",
+    "tools",
+    "tests",
+    "docs"
+  ],
+  "goal": "Godot+Blender 原创开源桌面三阵营战术游戏：骨骼动画、掩体与压制、玩家接管、人物打字、坦克增援、本地策划控制台、Agent状态/动作接口、可复现构建及交付报告。用户已明确要求开发并交付。",
+  "in_scope": [
+    "Three factions, nine skinned infantry, tabletop cover combat",
+    "Slow typing worker and tank reinforcement",
+    "Player control and real local designer console",
+    "Versioned Agent interface with explicit Jev integration boundary",
+    "MIT source, CC0 models, Web and macOS export"
+  ],
+  "out_of_scope": [
+    "Unspecified external Jev service",
+    "Online multiplayer",
+    "Commercial RTS content scale"
+  ],
+  "plan_id": "plan-70dc44d82f2c",
+  "schema": "godot-forge.build-plan.v1"
+}

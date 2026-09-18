@@ -1,0 +1,10 @@
+{
+  "created_at": "2026-09-18T08:47:51.305921+00:00",
+  "dimension": "3d",
+  "godot_feature": "4.5",
+  "main_scene": "res://scenes/main.tscn",
+  "project_id": "589eed3f-988f-498f-805f-a1ff81d91fb4",
+  "schema": "godot-forge.project.v1",
+  "semantic_probe": "res://tests/semantic_probe.tscn",
+  "title": "Deskfront · 桌面前线"
+}

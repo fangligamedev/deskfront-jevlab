@@ -1,0 +1,593 @@
+[
+  {
+    "file": "infantry-blue-glb-audit.json",
+    "passed": true,
+    "triangles": 2960,
+    "meshes": 1,
+    "godot": null,
+    "sha256": "713d6873c5b13bbb28e40eed0dc8e3302aa710894e34290d93edaf7a18d59296"
+  },
+  {
+    "file": "infantry-blue-godot-glb-audit.json",
+    "passed": true,
+    "triangles": null,
+    "meshes": null,
+    "godot": {
+      "collision_nodes": 0,
+      "material_slots": 2,
+      "mesh_instances": 1,
+      "meshes": [
+        {
+          "aabb_position": [
+            -0.413999974727631,
+            0.0149999856948853,
+            -0.189999997615814
+          ],
+          "aabb_size": [
+            0.827999949455261,
+            1.73000001907349,
+            0.439999997615814
+          ],
+          "name": "SkinnedInfantry",
+          "surfaces": 2
+        }
+      ],
+      "skeletons": [
+        {
+          "bone_count": 17,
+          "bone_names": [
+            "root",
+            "hips",
+            "spine",
+            "neck",
+            "head",
+            "upper_arm.L",
+            "forearm.L",
+            "hand.L",
+            "upper_arm.R",
+            "forearm.R",
+            "hand.R",
+            "thigh.L",
+            "shin.L",
+            "foot.L",
+            "thigh.R",
+            "shin.R",
+            "foot.R"
+          ],
+          "name": "Skeleton3D",
+          "roots": [
+            "root"
+          ]
+        }
+      ]
+    },
+    "sha256": "713d6873c5b13bbb28e40eed0dc8e3302aa710894e34290d93edaf7a18d59296"
+  },
+  {
+    "file": "infantry-green-glb-audit.json",
+    "passed": true,
+    "triangles": 2960,
+    "meshes": 1,
+    "godot": null,
+    "sha256": "acb25c0e407d114df3965fa0de938b6dbd2982e41f2065341a402ba45420fbc1"
+  },
+  {
+    "file": "infantry-green-godot-glb-audit.json",
+    "passed": true,
+    "triangles": null,
+    "meshes": null,
+    "godot": {
+      "collision_nodes": 0,
+      "material_slots": 2,
+      "mesh_instances": 1,
+      "meshes": [
+        {
+          "aabb_position": [
+            -0.413999974727631,
+            0.0149999856948853,
+            -0.189999997615814
+          ],
+          "aabb_size": [
+            0.827999949455261,
+            1.73000001907349,
+            0.439999997615814
+          ],
+          "name": "SkinnedInfantry",
+          "surfaces": 2
+        }
+      ],
+      "skeletons": [
+        {
+          "bone_count": 17,
+          "bone_names": [
+            "root",
+            "hips",
+            "spine",
+            "neck",
+            "head",
+            "upper_arm.L",
+            "forearm.L",
+            "hand.L",
+            "upper_arm.R",
+            "forearm.R",
+            "hand.R",
+            "thigh.L",
+            "shin.L",
+            "foot.L",
+            "thigh.R",
+            "shin.R",
+            "foot.R"
+          ],
+          "name": "Skeleton3D",
+          "roots": [
+            "root"
+          ]
+        }
+      ]
+    },
+    "sha256": "acb25c0e407d114df3965fa0de938b6dbd2982e41f2065341a402ba45420fbc1"
+  },
+  {
+    "file": "infantry-red-glb-audit.json",
+    "passed": true,
+    "triangles": 2960,
+    "meshes": 1,
+    "godot": null,
+    "sha256": "7cdfed64e0da9382ff4b58f275c5192e1ae93ceaab8ff328ed8269bfe9129292"
+  },
+  {
+    "file": "infantry-red-godot-glb-audit.json",
+    "passed": true,
+    "triangles": null,
+    "meshes": null,
+    "godot": {
+      "collision_nodes": 0,
+      "material_slots": 2,
+      "mesh_instances": 1,
+      "meshes": [
+        {
+          "aabb_position": [
+            -0.413999974727631,
+            0.0149999856948853,
+            -0.189999997615814
+          ],
+          "aabb_size": [
+            0.827999949455261,
+            1.73000001907349,
+            0.439999997615814
+          ],
+          "name": "SkinnedInfantry",
+          "surfaces": 2
+        }
+      ],
+      "skeletons": [
+        {
+          "bone_count": 17,
+          "bone_names": [
+            "root",
+            "hips",
+            "spine",
+            "neck",
+            "head",
+            "upper_arm.L",
+            "forearm.L",
+            "hand.L",
+            "upper_arm.R",
+            "forearm.R",
+            "hand.R",
+            "thigh.L",
+            "shin.L",
+            "foot.L",
+            "thigh.R",
+            "shin.R",
+            "foot.R"
+          ],
+          "name": "Skeleton3D",
+          "roots": [
+            "root"
+          ]
+        }
+      ]
+    },
+    "sha256": "7cdfed64e0da9382ff4b58f275c5192e1ae93ceaab8ff328ed8269bfe9129292"
+  },
+  {
+    "file": "office-glb-audit.json",
+    "passed": true,
+    "triangles": 27840,
+    "meshes": 14,
+    "godot": null,
+    "sha256": "68189f11647ababa51c62ac40b62030e8710162035b67944b55b3e89154d5d69"
+  },
+  {
+    "file": "office-godot-glb-audit.json",
+    "passed": true,
+    "triangles": null,
+    "meshes": null,
+    "godot": {
+      "collision_nodes": 0,
+      "material_slots": 14,
+      "mesh_instances": 14,
+      "meshes": [
+        {
+          "aabb_position": [
+            -1.79999995231628,
+            -1.10000002384186,
+            -0.0324999988079071
+          ],
+          "aabb_size": [
+            3.59999990463257,
+            2.20000004768372,
+            2.50250005722046
+          ],
+          "name": "aged mint plaster",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.219999954104424,
+            -0.145000010728836,
+            -0.695000052452087
+          ],
+          "aabb_size": [
+            2.46000027656555,
+            1.51750004291534,
+            0.850000023841858
+          ],
+          "name": "archive cardboard",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.902499914169312,
+            -0.010499999858439,
+            -0.495499968528748
+          ],
+          "aabb_size": [
+            2.25,
+            0.927999973297119,
+            0.605499982833862
+          ],
+          "name": "blue book",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.250000059604645,
+            -0.0185000002384186,
+            -0.00499999988824129
+          ],
+          "aabb_size": [
+            2.86500000953674,
+            0.958500027656555,
+            0.675000071525574
+          ],
+          "name": "brass",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -1.20770502090454,
+            -0.799000024795532,
+            -0.27299565076828
+          ],
+          "aabb_size": [
+            2.3427050113678,
+            1.26361966133118,
+            2.34631276130676
+          ],
+          "name": "charcoal",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.174999997019768,
+            -0.125,
+            -0.00400000018998981
+          ],
+          "aabb_size": [
+            0.349999994039536,
+            0.25,
+            0.00800000037997961
+          ],
+          "name": "CRT dark glass",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -2.00399994850159,
+            -0.0274999998509884,
+            -0.980999946594238
+          ],
+          "aabb_size": [
+            2.96799993515015,
+            1.06949996948242,
+            1.74000000953674
+          ],
+          "name": "oak edging",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -1.79999995231628,
+            -0.0299999993294477,
+            -1.5
+          ],
+          "aabb_size": [
+            3.59999990463257,
+            0.0599999986588955,
+            3.0
+          ],
+          "name": "ochre carpet",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.170000016689301,
+            -0.0439999960362911,
+            -1.4485000371933
+          ],
+          "aabb_size": [
+            2.74249982833862,
+            1.67150008678436,
+            2.48750019073486
+          ],
+          "name": "paper",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.105261653661728,
+            -0.272500038146973,
+            -0.00900000613182783
+          ],
+          "aabb_size": [
+            0.430823743343353,
+            0.27400004863739,
+            0.0120000001043081
+          ],
+          "name": "phosphor",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.0799999982118607,
+            -0.0155000034719706,
+            -0.109999999403954
+          ],
+          "aabb_size": [
+            1.47200000286102,
+            0.0689999684691429,
+            1.49000000953674
+          ],
+          "name": "rust enamel",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -1.75,
+            -0.850000023841858,
+            -0.0250000953674316
+          ],
+          "aabb_size": [
+            3.5,
+            1.625,
+            2.46000003814697
+          ],
+          "name": "sage painted steel",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -1.99500000476837,
+            -0.0299999993294477,
+            -0.75
+          ],
+          "aabb_size": [
+            2.95000004768372,
+            0.0599999986588955,
+            1.5
+          ],
+          "name": "warm gray laminate",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.439999967813492,
+            -0.0450000017881393,
+            -0.230000019073486
+          ],
+          "aabb_size": [
+            1.02799987792969,
+            0.470000028610229,
+            0.745000004768372
+          ],
+          "name": "yellowed ABS",
+          "surfaces": 1
+        }
+      ],
+      "skeletons": []
+    },
+    "sha256": "68189f11647ababa51c62ac40b62030e8710162035b67944b55b3e89154d5d69"
+  },
+  {
+    "file": "sandbag-glb-audit.json",
+    "passed": true,
+    "triangles": 540,
+    "meshes": 2,
+    "godot": null,
+    "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a"
+  },
+  {
+    "file": "sandbag-godot-glb-audit.json",
+    "passed": true,
+    "triangles": null,
+    "meshes": null,
+    "godot": {
+      "collision_nodes": 0,
+      "material_slots": 2,
+      "mesh_instances": 2,
+      "meshes": [
+        {
+          "aabb_position": [
+            -0.0295000001788139,
+            -0.00999999977648258,
+            -0.0209999997168779
+          ],
+          "aabb_size": [
+            0.0590000003576279,
+            0.0199999995529652,
+            0.0419999994337559
+          ],
+          "name": "sand canvas",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.00150000001303852,
+            -0.00600000005215406,
+            -0.0207499992102385
+          ],
+          "aabb_size": [
+            0.0529999993741512,
+            0.0120000001043081,
+            0.0414999984204769
+          ],
+          "name": "stitched seam",
+          "surfaces": 1
+        }
+      ],
+      "skeletons": []
+    },
+    "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a"
+  },
+  {
+    "file": "tank-glb-audit.json",
+    "passed": true,
+    "triangles": 3796,
+    "meshes": 3,
+    "godot": null,
+    "sha256": "d9c8b51b110d0d21e42af9e613bd9ca6f506ea816a033f6951f1921d5fbfb5e4"
+  },
+  {
+    "file": "tank-godot-glb-audit.json",
+    "passed": true,
+    "triangles": null,
+    "meshes": null,
+    "godot": {
+      "collision_nodes": 0,
+      "material_slots": 3,
+      "mesh_instances": 3,
+      "meshes": [
+        {
+          "aabb_position": [
+            -0.016499999910593,
+            -0.0329999998211861,
+            -0.107500001788139
+          ],
+          "aabb_size": [
+            0.162999987602234,
+            0.0724999979138374,
+            0.215000003576279
+          ],
+          "name": "rubber treads",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.0575000010430813,
+            -0.0299999993294477,
+            -0.180000007152557
+          ],
+          "aabb_size": [
+            0.115000002086163,
+            0.13400000333786,
+            0.280000001192093
+          ],
+          "name": "tank body",
+          "surfaces": 1
+        },
+        {
+          "aabb_position": [
+            -0.0250000078231096,
+            -0.017000000923872,
+            -0.025000000372529
+          ],
+          "aabb_size": [
+            0.0500000081956387,
+            0.164000004529953,
+            0.200000017881393
+          ],
+          "name": "wheel hubs",
+          "surfaces": 1
+        }
+      ],
+      "skeletons": []
+    },
+    "sha256": "d9c8b51b110d0d21e42af9e613bd9ca6f506ea816a033f6951f1921d5fbfb5e4"
+  },
+  {
+    "file": "worker-glb-audit.json",
+    "passed": true,
+    "triangles": 2268,
+    "meshes": 1,
+    "godot": null,
+    "sha256": "1dc36a161593b7d79b2bb028c06c493276376c448eb9a85b362f6c0448f08d91"
+  },
+  {
+    "file": "worker-godot-glb-audit.json",
+    "passed": true,
+    "triangles": null,
+    "meshes": null,
+    "godot": {
+      "collision_nodes": 0,
+      "material_slots": 4,
+      "mesh_instances": 1,
+      "meshes": [
+        {
+          "aabb_position": [
+            -0.413999974727631,
+            0.0149999856948853,
+            -0.179999992251396
+          ],
+          "aabb_size": [
+            0.827999949455261,
+            1.71000003814697,
+            0.323000013828278
+          ],
+          "name": "SkinnedWorker",
+          "surfaces": 4
+        }
+      ],
+      "skeletons": [
+        {
+          "bone_count": 17,
+          "bone_names": [
+            "root",
+            "hips",
+            "spine",
+            "neck",
+            "head",
+            "upper_arm.L",
+            "forearm.L",
+            "hand.L",
+            "upper_arm.R",
+            "forearm.R",
+            "hand.R",
+            "thigh.L",
+            "shin.L",
+            "foot.L",
+            "thigh.R",
+            "shin.R",
+            "foot.R"
+          ],
+          "name": "Skeleton3D",
+          "roots": [
+            "root"
+          ]
+        }
+      ]
+    },
+    "sha256": "1dc36a161593b7d79b2bb028c06c493276376c448eb9a85b362f6c0448f08d91"
+  }
+]

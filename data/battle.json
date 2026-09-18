@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "seed": 18092026,
+  "table_height": 0.82,
+  "bounds": [-0.08, -0.62, 1.32, 0.57],
+  "cell_size": 0.025,
+  "soldier": {"hp": 100.0, "speed": 0.12, "range": 0.65, "damage": 9.0, "cooldown": 1.3, "accuracy": 0.72, "magazine": 6, "reload": 2.2, "suppression_decay": 0.12},
+  "tank": {"hp": 420.0, "speed": 0.075, "range": 0.95, "damage": 28.0, "cooldown": 3.2},
+  "rules": {"capture_radius": 0.17, "score_to_win": 90.0, "match_seconds": 300.0, "reinforce_hp_ratio": 0.58, "reinforce_after": 25.0, "ai_interval": 2.5},
+  "objective": [0.57, 0.02],
+  "factions": [
+    {"id":"green","name":"苔绿侦察队","color":"607c48","spawn":[0.12,0.35],"goal":[0.45,0.12]},
+    {"id":"blue","name":"钴蓝机动队","color":"3c6880","spawn":[0.24,-0.48],"goal":[0.48,-0.12]},
+    {"id":"red","name":"砖红守备队","color":"a35340","spawn":[1.08,-0.25],"goal":[0.75,0.05]}
+  ],
+  "covers": [
+    {"id":"green_bags","position":[0.21,0.23],"size":[0.25,0.045],"normal":[0,-1],"height":0.043,"hp":180,"kind":"sandbag"},
+    {"id":"blue_bags","position":[0.29,-0.33],"size":[0.25,0.045],"normal":[0,1],"height":0.043,"hp":180,"kind":"sandbag"},
+    {"id":"red_bags","position":[0.92,-0.14],"size":[0.045,0.25],"normal":[-1,0],"height":0.043,"hp":140,"kind":"sandbag"},
+    {"id":"notebook","position":[0.25,0.015],"size":[0.17,0.19],"normal":[1,0],"height":0.034,"hp":-1,"kind":"notebook"},
+    {"id":"pencil_barrier","position":[0.69,-0.28],"size":[0.04,0.21],"normal":[-1,0],"height":0.028,"hp":65,"kind":"pencil"},
+    {"id":"eraser","position":[0.79,0.30],"size":[0.14,0.065],"normal":[0,-1],"height":0.035,"hp":-1,"kind":"eraser"}
+  ],
+  "obstacles": [
+    {"id":"lamp","position":[0.29,-0.57],"size":[0.17,0.10]},
+    {"id":"tray","position":[1.11,0.34],"size":[0.34,0.31]},
+    {"id":"sharpener","position":[0.84,-0.46],"size":[0.12,0.12]}
+  ]
+}

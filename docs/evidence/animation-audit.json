@@ -1,0 +1,1175 @@
+{
+  "animation": {
+    "clip_count": 8,
+    "clips": [
+      {
+        "length_seconds": 2.0,
+        "loop_mode": 1,
+        "position_displacements": [
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hips",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hand.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.R",
+            "vertical_meters": 0.0
+          }
+        ],
+        "position_targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.R",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R"
+        ],
+        "resource_name": "idle",
+        "targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.L",
+          "hand.R",
+          "head",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R",
+          "upper_arm.L",
+          "upper_arm.R"
+        ],
+        "track_count": 38
+      },
+      {
+        "loop_mode": 1,
+        "position_displacements": [
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hips",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hand.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.R",
+            "vertical_meters": 0.0
+          }
+        ],
+        "position_targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.R",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R"
+        ],
+        "resource_name": "run",
+        "targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.L",
+          "hand.R",
+          "head",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R",
+          "upper_arm.L",
+          "upper_arm.R"
+        ],
+        "track_count": 38
+      },
+      {
+        "length_seconds": 2.0,
+        "loop_mode": 1,
+        "position_displacements": [
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hips",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hand.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.R",
+            "vertical_meters": 0.0
+          }
+        ],
+        "position_targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.R",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R"
+        ],
+        "resource_name": "aim",
+        "targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.L",
+          "hand.R",
+          "head",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R",
+          "upper_arm.L",
+          "upper_arm.R"
+        ],
+        "track_count": 38
+      },
+      {
+        "length_seconds": 0.41666666,
+        "position_displacements": [
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hips",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hand.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.R",
+            "vertical_meters": 0.0
+          }
+        ],
+        "position_targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.R",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R"
+        ],
+        "resource_name": "fire",
+        "targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.L",
+          "hand.R",
+          "head",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R",
+          "upper_arm.L",
+          "upper_arm.R"
+        ],
+        "track_count": 38
+      },
+      {
+        "length_seconds": 2.0,
+        "loop_mode": 1,
+        "position_displacements": [
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hips",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hand.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.R",
+            "vertical_meters": 0.0
+          }
+        ],
+        "position_targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.R",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R"
+        ],
+        "resource_name": "crouch",
+        "targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.L",
+          "hand.R",
+          "head",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R",
+          "upper_arm.L",
+          "upper_arm.R"
+        ],
+        "track_count": 38
+      },
+      {
+        "length_seconds": 2.0,
+        "loop_mode": 1,
+        "position_displacements": [
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hips",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hand.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.R",
+            "vertical_meters": 0.0
+          }
+        ],
+        "position_targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.R",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R"
+        ],
+        "resource_name": "prone",
+        "targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.L",
+          "hand.R",
+          "head",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R",
+          "upper_arm.L",
+          "upper_arm.R"
+        ],
+        "track_count": 38
+      },
+      {
+        "length_seconds": 2.0,
+        "position_displacements": [
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hips",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hand.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "thigh.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "foot.R",
+            "vertical_meters": 0.0
+          }
+        ],
+        "position_targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.R",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R"
+        ],
+        "resource_name": "reload",
+        "targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.L",
+          "hand.R",
+          "head",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R",
+          "upper_arm.L",
+          "upper_arm.R"
+        ],
+        "track_count": 38
+      },
+      {
+        "length_seconds": 1.25,
+        "position_displacements": [
+          {
+            "horizontal_meters": 2.3617697e-08,
+            "net_translation": [
+              0.0,
+              -0.69000013,
+              -2.3617697e-08
+            ],
+            "target": "hips",
+            "vertical_meters": -0.69000013
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "forearm.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "hand.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.01000003827633904,
+            "net_translation": [
+              -5.0000000112460086e-09,
+              -0.01000008774534148,
+              -0.010000038276337789
+            ],
+            "target": "thigh.L",
+            "vertical_meters": -0.01000008774534148
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.L",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.007041173625615629,
+            "net_translation": [
+              0.007031008256664,
+              -4.422999999997845e-05,
+              0.000378218086278
+            ],
+            "target": "foot.L",
+            "vertical_meters": -4.422999999997845e-05
+          },
+          {
+            "horizontal_meters": 0.01000003827633904,
+            "net_translation": [
+              5.0000000112460086e-09,
+              -0.01000008774534148,
+              -0.010000038276337789
+            ],
+            "target": "thigh.R",
+            "vertical_meters": -0.01000008774534148
+          },
+          {
+            "horizontal_meters": 0.0,
+            "net_translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "target": "shin.R",
+            "vertical_meters": 0.0
+          },
+          {
+            "horizontal_meters": 0.007041173625615629,
+            "net_translation": [
+              -0.007031008256664,
+              -4.422999999997845e-05,
+              0.000378218086278
+            ],
+            "target": "foot.R",
+            "vertical_meters": -4.422999999997845e-05
+          }
+        ],
+        "position_targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.R",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R"
+        ],
+        "resource_name": "death",
+        "targets": [
+          "foot.L",
+          "foot.R",
+          "forearm.L",
+          "forearm.R",
+          "hand.L",
+          "hand.R",
+          "head",
+          "hips",
+          "shin.L",
+          "shin.R",
+          "thigh.L",
+          "thigh.R",
+          "upper_arm.L",
+          "upper_arm.R"
+        ],
+        "track_count": 38
+      }
+    ],
+    "path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/output/infantry-library.tres",
+    "sha256": "cdeec9d267a57caef8345ed29ca6194c3b94a2bb6f9668eb87f3d34b638ad95f"
+  },
+  "contract_findings": [
+    {
+      "clip": "fire",
+      "code": "animation.one_shot",
+      "loop_mode": 0,
+      "status": "PASS"
+    },
+    {
+      "clip": "reload",
+      "code": "animation.one_shot",
+      "loop_mode": 0,
+      "status": "PASS"
+    },
+    {
+      "clip": "death",
+      "code": "animation.one_shot",
+      "loop_mode": 0,
+      "status": "PASS"
+    }
+  ],
+  "passed": true,
+  "target_compatibility": {
+    "all_targets_match": true,
+    "clips": [
+      {
+        "coverage": 1.0,
+        "matched_count": 14,
+        "missing_targets": [],
+        "resource_name": "idle",
+        "target_count": 14
+      },
+      {
+        "coverage": 1.0,
+        "matched_count": 14,
+        "missing_targets": [],
+        "resource_name": "run",
+        "target_count": 14
+      },
+      {
+        "coverage": 1.0,
+        "matched_count": 14,
+        "missing_targets": [],
+        "resource_name": "aim",
+        "target_count": 14
+      },
+      {
+        "coverage": 1.0,
+        "matched_count": 14,
+        "missing_targets": [],
+        "resource_name": "fire",
+        "target_count": 14
+      },
+      {
+        "coverage": 1.0,
+        "matched_count": 14,
+        "missing_targets": [],
+        "resource_name": "crouch",
+        "target_count": 14
+      },
+      {
+        "coverage": 1.0,
+        "matched_count": 14,
+        "missing_targets": [],
+        "resource_name": "prone",
+        "target_count": 14
+      },
+      {
+        "coverage": 1.0,
+        "matched_count": 14,
+        "missing_targets": [],
+        "resource_name": "reload",
+        "target_count": 14
+      },
+      {
+        "coverage": 1.0,
+        "matched_count": 14,
+        "missing_targets": [],
+        "resource_name": "death",
+        "target_count": 14
+      }
+    ]
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "schema": "godot-forge.asset-provenance-set.v1",
+  "assets": [
+    {
+      "path": "assets/models/office.glb",
+      "kind": "model",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/office.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/generated/office.blend": "77a568925da76a118f479e0260c54511f0d65d02e798741a7362dc9c178ccca7"
+      },
+      "sha256": "68189f11647ababa51c62ac40b62030e8710162035b67944b55b3e89154d5d69",
+      "size_bytes": 1763196,
+      "created_at": "2026-09-18T10:26:31.211840+00:00"
+    },
+    {
+      "path": "assets/models/infantry-green.glb",
+      "kind": "character",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/infantry-green.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/generated/infantry-green.blend": "1bf8e424cbe3e4df9146a75f70d2dd5ca390cd5539b6b96362ae4df9fb851f85"
+      },
+      "sha256": "acb25c0e407d114df3965fa0de938b6dbd2982e41f2065341a402ba45420fbc1",
+      "size_bytes": 331400,
+      "created_at": "2026-09-18T10:26:31.212732+00:00"
+    },
+    {
+      "path": "assets/models/infantry-blue.glb",
+      "kind": "character",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/infantry-blue.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/generated/infantry-blue.blend": "774920ecd7ebd6ace00bdc2c4f2b6cbf76f2a53e8e52022fe3c64067dad25113"
+      },
+      "sha256": "713d6873c5b13bbb28e40eed0dc8e3302aa710894e34290d93edaf7a18d59296",
+      "size_bytes": 331408,
+      "created_at": "2026-09-18T10:26:31.213349+00:00"
+    },
+    {
+      "path": "assets/models/infantry-red.glb",
+      "kind": "character",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/infantry-red.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/generated/infantry-red.blend": "812ed1144687e216b414cd29224dc44eb31f8603b1d5130328b3c1e7a071d329"
+      },
+      "sha256": "7cdfed64e0da9382ff4b58f275c5192e1ae93ceaab8ff328ed8269bfe9129292",
+      "size_bytes": 331412,
+      "created_at": "2026-09-18T10:26:31.213928+00:00"
+    },
+    {
+      "path": "assets/models/worker.glb",
+      "kind": "character",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/worker.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/generated/worker.blend": "c030e1f4e8235ea80019cc96499796a5ca71fcd0a2a454febdd60408e63f149b"
+      },
+      "sha256": "1dc36a161593b7d79b2bb028c06c493276376c448eb9a85b362f6c0448f08d91",
+      "size_bytes": 195612,
+      "created_at": "2026-09-18T10:26:31.214349+00:00"
+    },
+    {
+      "path": "assets/models/tank.glb",
+      "kind": "model",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/tank.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/generated/tank.blend": "0fe90da3a1e9ec486073ab41b545a70e0f075b3e6d713c905e3662e7f38a3db5"
+      },
+      "sha256": "d9c8b51b110d0d21e42af9e613bd9ca6f506ea816a033f6951f1921d5fbfb5e4",
+      "size_bytes": 255700,
+      "created_at": "2026-09-18T10:26:31.214783+00:00"
+    },
+    {
+      "path": "assets/models/sandbag.glb",
+      "kind": "model",
+      "origin": "original",
+      "license": "CC0-1.0",
+      "release_status": "allowed",
+      "provider": "local Blender Python",
+      "model": "original procedural authored mesh",
+      "prompt": "See source/blender/build_assets.py",
+      "source_files": [
+        "source/blender/build_assets.py",
+        "source/blender/generated/sandbag.blend"
+      ],
+      "source_hashes": {
+        "source/blender/build_assets.py": "2aaf635cedcca6375b07fbdee7f17ad31cf9182f409904e1098cc3d0cd7064db",
+        "source/blender/generated/sandbag.blend": "fbbeb55374f4aa8b1c13ba12f5114a3153b7ddacdf27a08af012963398e84b60"
+      },
+      "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
+      "size_bytes": 40072,
+      "created_at": "2026-09-18T10:26:31.215124+00:00"
+    }
+  ]
+}

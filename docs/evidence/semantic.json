@@ -1,0 +1,844 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "exactly nine infantry in three factions"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: green-1"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: green-1"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: green-1"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: green-2"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: green-2"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: green-2"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: green-3"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: green-3"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: green-3"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: blue-1"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: blue-1"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: blue-1"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: blue-2"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: blue-2"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: blue-2"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: blue-3"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: blue-3"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: blue-3"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: red-1"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: red-1"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: red-1"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: red-2"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: red-2"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: red-2"
+    },
+    {
+      "passed": true,
+      "test": "17 imported bones: red-3"
+    },
+    {
+      "passed": true,
+      "test": "8 imported animation clips: red-3"
+    },
+    {
+      "passed": true,
+      "test": "AnimationTree configured: red-3"
+    },
+    {
+      "passed": true,
+      "test": "worker typing clip active"
+    },
+    {
+      "passed": true,
+      "test": "typing animation advances in real engine frames"
+    },
+    {
+      "passed": true,
+      "test": "cover protects against frontal attack"
+    },
+    {
+      "passed": true,
+      "test": "flanked cover loses protection"
+    },
+    {
+      "passed": true,
+      "test": "cover reservation is exclusive"
+    },
+    {
+      "passed": true,
+      "test": "sharpener blocks line of sight"
+    },
+    {
+      "passed": true,
+      "test": "player takeover accepted"
+    },
+    {
+      "passed": true,
+      "test": "player move accepted"
+    },
+    {
+      "passed": true,
+      "test": "player-selected infantry actually moves"
+    },
+    {
+      "passed": true,
+      "test": "AI does not override player faction"
+    },
+    {
+      "passed": true,
+      "test": "movement respects blocked navigation cells"
+    },
+    {
+      "passed": true,
+      "test": "out of bounds command rejected"
+    },
+    {
+      "passed": true,
+      "test": "Agent cannot control unassigned faction"
+    },
+    {
+      "passed": true,
+      "test": "stale run rejected"
+    },
+    {
+      "passed": true,
+      "test": "stale observation rejected"
+    },
+    {
+      "passed": true,
+      "test": "fresh authorized Agent action accepted"
+    },
+    {
+      "passed": true,
+      "test": "cross-faction unit command rejected"
+    },
+    {
+      "passed": true,
+      "test": "AI combat fires real shots"
+    },
+    {
+      "passed": true,
+      "test": "combat deals damage"
+    },
+    {
+      "passed": true,
+      "test": "utility decisions are visible"
+    },
+    {
+      "passed": true,
+      "test": "losing red faction triggers reinforcement"
+    },
+    {
+      "passed": true,
+      "test": "tank reinforcement cannot be duplicated"
+    },
+    {
+      "passed": true,
+      "test": "exactly one tank"
+    },
+    {
+      "passed": true,
+      "test": "destroyed obstacle rebuilds navigation"
+    },
+    {
+      "passed": true,
+      "test": "destroyed cover loses protection"
+    },
+    {
+      "passed": true,
+      "test": "pause freezes battle simulation"
+    },
+    {
+      "passed": true,
+      "test": "capture score produces victory"
+    }
+  ],
+  "failures": [],
+  "final": {
+    "bounds": [
+      -0.08,
+      -0.62,
+      1.32,
+      0.57
+    ],
+    "camera": "office",
+    "control": {
+      "blue": "game_ai",
+      "green": "game_ai",
+      "red": "game_ai"
+    },
+    "covers": [
+      {
+        "alive": true,
+        "height": 0.043,
+        "hp": 180.0,
+        "id": "green_bags",
+        "kind": "sandbag",
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "position": [
+          0.21,
+          0.23
+        ],
+        "size": [
+          0.25,
+          0.045
+        ]
+      },
+      {
+        "alive": true,
+        "height": 0.043,
+        "hp": 180.0,
+        "id": "blue_bags",
+        "kind": "sandbag",
+        "normal": [
+          0.0,
+          1.0
+        ],
+        "position": [
+          0.29,
+          -0.33
+        ],
+        "size": [
+          0.25,
+          0.045
+        ]
+      },
+      {
+        "alive": true,
+        "height": 0.043,
+        "hp": 140.0,
+        "id": "red_bags",
+        "kind": "sandbag",
+        "normal": [
+          -1.0,
+          0.0
+        ],
+        "position": [
+          0.92,
+          -0.14
+        ],
+        "size": [
+          0.045,
+          0.25
+        ]
+      },
+      {
+        "alive": true,
+        "height": 0.034,
+        "hp": -1.0,
+        "id": "notebook",
+        "kind": "notebook",
+        "normal": [
+          1.0,
+          0.0
+        ],
+        "position": [
+          0.25,
+          0.015
+        ],
+        "size": [
+          0.17,
+          0.19
+        ]
+      },
+      {
+        "alive": false,
+        "height": 0.028,
+        "hp": -935.0,
+        "id": "pencil_barrier",
+        "kind": "pencil",
+        "normal": [
+          -1.0,
+          0.0
+        ],
+        "position": [
+          0.69,
+          -0.28
+        ],
+        "size": [
+          0.04,
+          0.21
+        ]
+      },
+      {
+        "alive": true,
+        "height": 0.035,
+        "hp": -1.0,
+        "id": "eraser",
+        "kind": "eraser",
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "position": [
+          0.79,
+          0.3
+        ],
+        "size": [
+          0.14,
+          0.065
+        ]
+      }
+    ],
+    "decisions": {
+      "blue": {
+        "action": "retreat",
+        "candidates": [
+          {
+            "action": "retreat",
+            "reason": "保存低生命单位",
+            "score": 0.8214
+          },
+          {
+            "action": "capture",
+            "reason": "争夺中央黄铜标记",
+            "score": 0.819
+          },
+          {
+            "action": "flank",
+            "reason": "从侧面避开敌人正面防线",
+            "score": 0.8
+          },
+          {
+            "action": "cover",
+            "reason": "利用朝向掩体降低压制",
+            "score": 0.4184
+          }
+        ],
+        "confidence": 0.8214,
+        "reason": "保存低生命单位",
+        "source": "utility_game_ai",
+        "tick": 1209
+      },
+      "green": {
+        "action": "retreat",
+        "candidates": [
+          {
+            "action": "retreat",
+            "reason": "保存低生命单位",
+            "score": 0.8382
+          },
+          {
+            "action": "capture",
+            "reason": "争夺中央黄铜标记",
+            "score": 0.819
+          },
+          {
+            "action": "flank",
+            "reason": "从侧面避开敌人正面防线",
+            "score": 0.8
+          },
+          {
+            "action": "cover",
+            "reason": "利用朝向掩体降低压制",
+            "score": 0.4632
+          }
+        ],
+        "confidence": 0.8382,
+        "reason": "保存低生命单位",
+        "source": "utility_game_ai",
+        "tick": 1964
+      },
+      "red": {
+        "action": "flank",
+        "candidates": [
+          {
+            "action": "flank",
+            "reason": "从侧面避开敌人正面防线",
+            "score": 0.8
+          },
+          {
+            "action": "capture",
+            "reason": "争夺中央黄铜标记",
+            "score": 0.726
+          },
+          {
+            "action": "cover",
+            "reason": "利用朝向掩体降低压制",
+            "score": 0.346933333333333
+          },
+          {
+            "action": "retreat",
+            "reason": "保存低生命单位",
+            "score": 0.0506
+          }
+        ],
+        "confidence": 0.8,
+        "reason": "从侧面避开敌人正面防线",
+        "source": "utility_game_ai",
+        "tick": 1964
+      }
+    },
+    "events": [
+      {
+        "text": "战斗结束 · green · 目标控制积分达成",
+        "time": 33.2
+      },
+      {
+        "text": "green · green-1 失去战斗力",
+        "time": 33.2
+      },
+      {
+        "text": "红方失势 · 后方坦克增援抵达",
+        "time": 33.1
+      },
+      {
+        "text": "green · green-2 失去战斗力",
+        "time": 24.8
+      },
+      {
+        "text": "blue · blue-1 失去战斗力",
+        "time": 22.6
+      },
+      {
+        "text": "blue · blue-2 失去战斗力",
+        "time": 20.1
+      },
+      {
+        "text": "green · green-3 失去战斗力",
+        "time": 19.5
+      },
+      {
+        "text": "blue · blue-3 失去战斗力",
+        "time": 7.2
+      },
+      {
+        "text": "blue 控制权 → game_ai",
+        "time": 3.0
+      },
+      {
+        "text": "green 控制权 → game_ai",
+        "time": 3.0
+      },
+      {
+        "text": "blue 控制权 → agent",
+        "time": 3.0
+      },
+      {
+        "text": "green 控制权 → player",
+        "time": 0.0
+      },
+      {
+        "text": "战场就绪 · 三个阵营 · 九名步兵",
+        "time": 0.0
+      }
+    ],
+    "factions": [
+      {
+        "color": "607c48",
+        "goal": [
+          0.45,
+          0.12
+        ],
+        "id": "green",
+        "name": "苔绿侦察队",
+        "spawn": [
+          0.12,
+          0.35
+        ]
+      },
+      {
+        "color": "3c6880",
+        "goal": [
+          0.48,
+          -0.12
+        ],
+        "id": "blue",
+        "name": "钴蓝机动队",
+        "spawn": [
+          0.24,
+          -0.48
+        ]
+      },
+      {
+        "color": "a35340",
+        "goal": [
+          0.75,
+          0.05
+        ],
+        "id": "red",
+        "name": "砖红守备队",
+        "spawn": [
+          1.08,
+          -0.25
+        ]
+      }
+    ],
+    "fps": 1.0,
+    "last_action": {
+      "accepted": true,
+      "action": "pause",
+      "id": "local",
+      "message": "applied",
+      "tick": 1981
+    },
+    "navigation_revision": 2,
+    "objective": {
+      "position": [
+        0.569999992847443,
+        0.0199999995529652
+      ],
+      "radius": 0.17,
+      "score_to_win": 90.0
+    },
+    "obstacles": [
+      {
+        "id": "lamp",
+        "position": [
+          0.29,
+          -0.57
+        ],
+        "size": [
+          0.17,
+          0.1
+        ]
+      },
+      {
+        "id": "tray",
+        "position": [
+          1.11,
+          0.34
+        ],
+        "size": [
+          0.34,
+          0.31
+        ]
+      },
+      {
+        "id": "sharpener",
+        "position": [
+          0.84,
+          -0.46
+        ],
+        "size": [
+          0.12,
+          0.12
+        ]
+      }
+    ],
+    "parameters": {
+      "accuracy": 0.72,
+      "cooldown": 1.3,
+      "damage": 9.0,
+      "hp": 100.0,
+      "magazine": 6.0,
+      "range": 0.65,
+      "reload": 2.2,
+      "speed": 0.12,
+      "suppression_decay": 0.12
+    },
+    "paused": false,
+    "reservations": {
+
+    },
+    "run_id": "1789727721.38431-4025715778",
+    "schema_version": 1,
+    "scores": {
+      "blue": 2.83333333333333,
+      "green": 90.0,
+      "red": 0.1
+    },
+    "selected_faction": "blue",
+    "shots": 111,
+    "speed": 1.0,
+    "tank_spawned": true,
+    "tick": 1983,
+    "time": 33.2,
+    "units": [
+      {
+        "ammo": 1,
+        "animation": "death",
+        "bone_count": 17,
+        "cover_id": "",
+        "faction": "green",
+        "goal": [
+          0.120000004768372,
+          0.355000019073486
+        ],
+        "hp": 0.0,
+        "id": "green-1",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.538275003433228,
+          0.0587133318185806
+        ],
+        "selected": false,
+        "state": "dead",
+        "suppression": 0.3
+      },
+      {
+        "ammo": 2,
+        "animation": "death",
+        "bone_count": 17,
+        "cover_id": "",
+        "faction": "green",
+        "goal": [
+          0.595000028610229,
+          0.0300000309944153
+        ],
+        "hp": 0.0,
+        "id": "green-2",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.635154187679291,
+          0.0148444259539247
+        ],
+        "selected": false,
+        "state": "dead",
+        "suppression": 0.73
+      },
+      {
+        "ammo": 5,
+        "animation": "death",
+        "bone_count": 17,
+        "cover_id": "pencil_barrier",
+        "faction": "green",
+        "goal": [
+          0.745000004768372,
+          -0.219999998807907
+        ],
+        "hp": 0.0,
+        "id": "green-3",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.742708683013916,
+          -0.164595097303391
+        ],
+        "selected": false,
+        "state": "dead",
+        "suppression": 1.0
+      },
+      {
+        "ammo": 2,
+        "animation": "death",
+        "bone_count": 17,
+        "cover_id": "",
+        "faction": "blue",
+        "goal": [
+          0.245000019669533,
+          -0.469999998807907
+        ],
+        "hp": 0.0,
+        "id": "blue-1",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.467954814434052,
+          -0.221576720476151
+        ],
+        "selected": false,
+        "state": "dead",
+        "suppression": 0.11
+      },
+      {
+        "ammo": 1,
+        "animation": "death",
+        "bone_count": 17,
+        "cover_id": "",
+        "faction": "blue",
+        "goal": [
+          0.595000028610229,
+          0.0300000309944153
+        ],
+        "hp": 0.0,
+        "id": "blue-2",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.584159731864929,
+          0.0259128846228123
+        ],
+        "selected": false,
+        "state": "dead",
+        "suppression": 0.35
+      },
+      {
+        "ammo": 6,
+        "animation": "death",
+        "bone_count": 17,
+        "cover_id": "",
+        "faction": "blue",
+        "goal": [
+          0.620000004768372,
+          0.0300000309944153
+        ],
+        "hp": 0.0,
+        "id": "blue-3",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.617748320102692,
+          0.0188413858413696
+        ],
+        "selected": false,
+        "state": "dead",
+        "suppression": 0.88
+      },
+      {
+        "ammo": 5,
+        "animation": "run",
+        "bone_count": 17,
+        "cover_id": "",
+        "faction": "red",
+        "goal": [
+          0.520000040531158,
+          0.0300000309944153
+        ],
+        "hp": 20.0,
+        "id": "red-1",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.35551705956459,
+          -0.0951619222760201
+        ],
+        "selected": false,
+        "state": "move",
+        "suppression": 0.0
+      },
+      {
+        "ammo": 0,
+        "animation": "reload",
+        "bone_count": 17,
+        "cover_id": "",
+        "faction": "red",
+        "goal": [
+          0.570000052452087,
+          0.0300000309944153
+        ],
+        "hp": 20.0,
+        "id": "red-2",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.396955877542496,
+          -0.0932840630412102
+        ],
+        "selected": false,
+        "state": "reload",
+        "suppression": 0.0
+      },
+      {
+        "ammo": 0,
+        "animation": "reload",
+        "bone_count": 17,
+        "cover_id": "",
+        "faction": "red",
+        "goal": [
+          0.620000004768372,
+          0.0300000309944153
+        ],
+        "hp": 20.0,
+        "id": "red-3",
+        "kind": "infantry",
+        "max_hp": 100.0,
+        "position": [
+          0.471339702606201,
+          -0.0938718914985657
+        ],
+        "selected": false,
+        "state": "reload",
+        "suppression": 0.0
+      },
+      {
+        "ammo": 6,
+        "animation": "fire",
+        "bone_count": 0,
+        "cover_id": "",
+        "faction": "red",
+        "goal": [
+          1.04499995708466,
+          -0.294999986886978
+        ],
+        "hp": 420.0,
+        "id": "red-tank",
+        "kind": "tank",
+        "max_hp": 420.0,
+        "position": [
+          1.20000004768372,
+          -0.46000000834465
+        ],
+        "selected": false,
+        "state": "fire",
+        "suppression": 0.0
+      }
+    ],
+    "winner": "green",
+    "worker_animation_time": 0.183659873964654
+  },
+  "passed": true
+}

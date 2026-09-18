@@ -1,0 +1,283 @@
+{
+  "assets": [
+    {
+      "asset": "infantry-green",
+      "bones": 17,
+      "clips": [
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "aim",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0255411174148321
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "crouch",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0268251821398735
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 1.25,
+          "id": "death",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 1.57079672813416
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 0.416666656732559,
+          "id": "fire",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.542106211185455
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "idle",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0255411174148321
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "prone",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0333193577826023
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "reload",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.552470743656158
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 1.0,
+          "id": "run",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.590710699558258
+        }
+      ],
+      "skin": true
+    },
+    {
+      "asset": "infantry-blue",
+      "bones": 17,
+      "clips": [
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "aim",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0255411174148321
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "crouch",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0268251821398735
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 1.25,
+          "id": "death",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 1.57079672813416
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 0.416666656732559,
+          "id": "fire",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.542106211185455
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "idle",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0255411174148321
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "prone",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0333193577826023
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "reload",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.552470743656158
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 1.0,
+          "id": "run",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.590710699558258
+        }
+      ],
+      "skin": true
+    },
+    {
+      "asset": "infantry-red",
+      "bones": 17,
+      "clips": [
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "aim",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0255411174148321
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "crouch",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0268251821398735
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 1.25,
+          "id": "death",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 1.57079672813416
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 0.416666656732559,
+          "id": "fire",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.542106211185455
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "idle",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0255411174148321
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "prone",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0333193577826023
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 2.0,
+          "id": "reload",
+          "loop": 0,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.552470743656158
+        },
+        {
+          "bone_tracks": 38,
+          "duration": 1.0,
+          "id": "run",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.590710699558258
+        }
+      ],
+      "skin": true
+    },
+    {
+      "asset": "worker",
+      "bones": 17,
+      "clips": [
+        {
+          "bone_tracks": 29,
+          "duration": 5.0,
+          "id": "typing",
+          "loop": 1,
+          "missing_bones": [],
+          "passed": true,
+          "root_horizontal_drift": 0.0,
+          "rotation_variation": 0.0256343055516481
+        }
+      ],
+      "skin": true
+    }
+  ],
+  "passed": true
+}

@@ -1,6 +1,6 @@
 {
   "schema": "deskfront.action-catalog.v1",
-  "game_version": "0.6.0",
+  "game_version": "0.6.5-flag.1",
   "coordinates": "meters [x,z]; +Y up",
   "authority": "Godot",
   "commands": {
@@ -141,6 +141,16 @@
     "leave_building": {
       "description": "沿来路撤离建筑，不能直接跳楼",
       "unit_ids": "exactly one garrison member"
+    },
+    "debug_visualize": {
+      "required": [
+        "value"
+      ],
+      "optional": [
+        "unit"
+      ],
+      "authority": "console only; does not change control ownership",
+      "description": "Show actual planned waypoints and sampled history. Empty unit shows all units."
     }
   },
   "unit_kinds": {

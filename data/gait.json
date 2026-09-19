@@ -6,6 +6,14 @@
   "clips": {
     "rifle_idle": {
       "duration": 3.1333333333333333,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.005664652772247791,
+        "before_max_m": 0.0057772681117057795,
+        "max_correction_m": 0.0057772681117057795,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -397,6 +405,19 @@
     },
     "rifle_walk_rm": {
       "duration": 1.6666666666666667,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.005899779126048088,
+        "before_max_m": 0.007299426198005676,
+        "max_correction_m": 0.007299426198005676,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {
+        "support_samples": 34,
+        "old_speed": 1.0,
+        "fitted_speed": 0.8973648250103003,
+        "game_speed": 0.06730236187577253
+      },
       "contacts": [
         [
           true,
@@ -496,11 +517,11 @@
         ],
         [
           false,
-          true
+          false
         ],
         [
           false,
-          true
+          false
         ],
         [
           false,
@@ -595,11 +616,11 @@
           false
         ],
         [
-          true,
+          false,
           false
         ],
         [
-          true,
+          false,
           false
         ]
       ],
@@ -607,11 +628,24 @@
       "root_displacement": [
         0,
         0,
-        0.125
+        0.11217060312628754
       ]
     },
     "rifle_jog_rm": {
       "duration": 1.1666666666666667,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.004031460732221603,
+        "before_max_m": 0.02651328295469284,
+        "max_correction_m": 0.008682188764214515,
+        "running_flight_preserved": true
+      },
+      "stride_fit": {
+        "support_samples": 10,
+        "old_speed": 2.2,
+        "fitted_speed": 4.415644568204882,
+        "game_speed": 0.33117334261536613
+      },
       "contacts": [
         [
           false,
@@ -762,14 +796,162 @@
       "root_displacement": [
         0,
         0,
-        0.1925
+        0.3863688997179271
+      ]
+    },
+    "rifle_sprint_rm": {
+      "duration": 0.8333333333333334,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.005311714857816696,
+        "before_max_m": 0.027750123292207718,
+        "max_correction_m": 0.008669387921690941,
+        "running_flight_preserved": true
+      },
+      "stride_fit": {
+        "support_samples": 7,
+        "old_speed": 4.0,
+        "fitted_speed": 6.507300376892091,
+        "game_speed": 0.4880475282669068
+      },
+      "contacts": [
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          true,
+          false
+        ],
+        [
+          true,
+          false
+        ],
+        [
+          true,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          true
+        ],
+        [
+          false,
+          true
+        ],
+        [
+          false,
+          true
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ],
+        [
+          false,
+          false
+        ]
+      ],
+      "loop": true,
+      "root_displacement": [
+        0,
+        0,
+        0.40670627355575567
       ]
     },
     "cover_enter": {
       "duration": 1.0333333333333334,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.0007029632572084665,
+        "before_max_m": 0.0017220040317624807,
+        "max_correction_m": 0.0017220040317624807,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
-          true,
+          false,
+          true
+        ],
+        [
+          false,
+          true
+        ],
+        [
+          false,
+          true
+        ],
+        [
+          false,
           true
         ],
         [
@@ -834,67 +1016,55 @@
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
+          true
         ],
         [
           true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
+          true
         ]
       ],
       "loop": false,
@@ -906,6 +1076,14 @@
     },
     "cover_idle": {
       "duration": 3.6666666666666665,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.0007702382281422615,
+        "before_max_m": -0.0007032980443909765,
+        "max_correction_m": 0.0007702382281422615,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -1361,69 +1539,17 @@
     },
     "cover_exit": {
       "duration": 1.0333333333333334,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.000702965771779418,
+        "before_max_m": 0.001597836473956704,
+        "max_correction_m": 0.001597836473956704,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
-          false
-        ],
-        [
-          true,
           true
         ],
         [
@@ -1488,6 +1614,66 @@
         ],
         [
           true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          false,
           true
         ]
       ],
@@ -1500,6 +1686,14 @@
     },
     "cover_shuffle_left": {
       "duration": 1.0666666666666667,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.0007838367484509944,
+        "before_max_m": 0.00014680620515719056,
+        "max_correction_m": 0.0007838367484509944,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -1643,6 +1837,14 @@
     },
     "cover_shuffle_right": {
       "duration": 1.0666666666666667,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.0007827888708561659,
+        "before_max_m": 0.00014768874971196055,
+        "max_correction_m": 0.0007827888708561659,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -1786,6 +1988,14 @@
     },
     "rifle_crouch_rm": {
       "duration": 2.5,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.0033532205969095228,
+        "before_max_m": 0.008076505735516548,
+        "max_correction_m": 0.008076505735516548,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           false,
@@ -2101,6 +2311,14 @@
     },
     "turn_left": {
       "duration": 2.5,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.00561380535364151,
+        "before_max_m": 0.006819798052310943,
+        "max_correction_m": 0.006819798052310943,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -2416,6 +2634,14 @@
     },
     "turn_right": {
       "duration": 2.5,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.005751402676105499,
+        "before_max_m": 0.006435426324605941,
+        "max_correction_m": 0.006435426324605941,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -2731,6 +2957,14 @@
     },
     "dodge_left_rm": {
       "duration": 1.6333333333333333,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.00077877505682418,
+        "before_max_m": 0.036057496815920284,
+        "max_correction_m": 0.036057496815920284,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -2942,6 +3176,14 @@
     },
     "roll_rm": {
       "duration": 1.8333333333333333,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.005266970364696988,
+        "before_max_m": 0.07575809181990358,
+        "max_correction_m": 0.07575809181990358,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           false,
@@ -3177,6 +3419,14 @@
     },
     "crawl": {
       "duration": 2.7,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.0037137843668460842,
+        "before_max_m": 0.002470801770687103,
+        "max_correction_m": 0.0037137843668460842,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -3516,6 +3766,14 @@
     },
     "hit": {
       "duration": 0.4,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.005125319212675094,
+        "before_max_m": 0.005775085464119911,
+        "max_correction_m": 0.005775085464119911,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -3579,6 +3837,14 @@
     },
     "death": {
       "duration": 3.0,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.005654856562614441,
+        "before_max_m": 0.0060220291838049885,
+        "max_correction_m": 0.0060220291838049885,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           false,
@@ -3954,6 +4220,14 @@
     },
     "pistol_fire": {
       "duration": 0.8,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.0057597532868385315,
+        "before_max_m": 0.0057597532868385315,
+        "max_correction_m": 0.0057597532868385315,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -4065,6 +4339,14 @@
     },
     "reload": {
       "duration": 2.1,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.0057597532868385315,
+        "before_max_m": 0.005785212479531765,
+        "max_correction_m": 0.005785212479531765,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -4332,6 +4614,14 @@
     },
     "cover_peek_left": {
       "duration": 3.6666666666666665,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.000774851068854332,
+        "before_max_m": -0.0007033582543954253,
+        "max_correction_m": 0.000774851068854332,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -4787,6 +5077,14 @@
     },
     "cover_peek_right": {
       "duration": 3.6666666666666665,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.0007682713447138667,
+        "before_max_m": -0.0007032221183180809,
+        "max_correction_m": 0.0007682713447138667,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -5242,6 +5540,14 @@
     },
     "grenade_throw": {
       "duration": 1.2666666666666666,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.0056666979566216465,
+        "before_max_m": 0.0057772681117057795,
+        "max_correction_m": 0.0057772681117057795,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -5409,6 +5715,14 @@
     },
     "rocket_aim": {
       "duration": 3.1333333333333333,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.005664652772247791,
+        "before_max_m": 0.0057772681117057795,
+        "max_correction_m": 0.0057772681117057795,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -5799,8 +6113,40 @@
       ]
     },
     "prone_idle": {
-      "duration": 2.7,
+      "duration": 2.9,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.003983312845230102,
+        "before_max_m": -0.0028779029846191405,
+        "max_correction_m": 0.003983312845230102,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
         [
           true,
           true
@@ -6138,8 +6484,40 @@
       ]
     },
     "prone_fire": {
-      "duration": 2.7,
+      "duration": 2.9,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.003983312845230102,
+        "before_max_m": -0.0028779029846191405,
+        "max_correction_m": 0.003983312845230102,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
         [
           true,
           true
@@ -6477,8 +6855,40 @@
       ]
     },
     "prone_reload": {
-      "duration": 2.7,
+      "duration": 2.9,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.003983312845230102,
+        "before_max_m": -0.0028779029846191405,
+        "max_correction_m": 0.003983312845230102,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
         [
           true,
           true
@@ -6817,6 +7227,14 @@
     },
     "crouch_reload": {
       "duration": 3.6666666666666665,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": -0.0007702382281422615,
+        "before_max_m": -0.0007032980443909765,
+        "max_correction_m": 0.0007702382281422615,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -7272,6 +7690,14 @@
     },
     "bayonet": {
       "duration": 3.1333333333333333,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.005664652772247791,
+        "before_max_m": 0.0057772681117057795,
+        "max_correction_m": 0.0057772681117057795,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,
@@ -7663,6 +8089,14 @@
     },
     "rifle_fire": {
       "duration": 3.1333333333333333,
+      "ground_fit": {
+        "method": "deformed_mesh_support",
+        "before_min_m": 0.005664652772247791,
+        "before_max_m": 0.0057772681117057795,
+        "max_correction_m": 0.0057772681117057795,
+        "running_flight_preserved": false
+      },
+      "stride_fit": {},
       "contacts": [
         [
           true,

@@ -142,3 +142,9 @@ LM 的意图与调用状态全集、配置和错误处理见 [LM_CONTROL.md](LM_
 ```
 
 `wait` 仍然仅是 LM 控制器的保持意图，不是 Godot 命令。`gun_id` 仅用于 `man_at_gun`，`floor` 仅用于 `garrison`，无关的可选字段应省略，不能填写 null。
+
+## 中央旗点与坦克部署扩展
+
+`state.objective.flag` 包含 `owner`、`held_seconds`、`required_seconds`、`remaining_seconds`、`contested`。以这些值规划占旗、替补与防守；`capture` 接受命令并不代表占旗成功。
+
+所有单位快照增加 `deployment_phase` 和 `combat_ready`；坦克依次为 `parked → entering → active`。前两阶段不接受战斗动作；LLM 不会对未入场坦克发请求。`state.tank_reserve` 可观察预放和入场过程。详见 [中央夺旗与坦克入场](FLAG_MODE.md)。

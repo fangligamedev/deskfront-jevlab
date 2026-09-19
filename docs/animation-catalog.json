@@ -21,6 +21,13 @@
     "root_motion": "calibrated derivative"
   },
   {
+    "name": "rifle_sprint_rm",
+    "source_clip": "Sprint",
+    "contact_authored": false,
+    "duration": 0.8333333333333334,
+    "root_motion": "calibrated derivative"
+  },
+  {
     "name": "cover_enter",
     "source_clip": "Crouch_Enter",
     "contact_authored": false,
@@ -155,23 +162,23 @@
   },
   {
     "name": "prone_idle",
-    "source_clip": "Crawl_Fwd",
+    "source_clip": "Crawl_Idle",
     "contact_authored": false,
-    "duration": 2.7,
+    "duration": 2.9,
     "root_motion": "none"
   },
   {
     "name": "prone_fire",
-    "source_clip": "Crawl_Fwd",
+    "source_clip": "Crawl_Idle",
     "contact_authored": false,
-    "duration": 2.7,
+    "duration": 2.9,
     "root_motion": "none"
   },
   {
     "name": "prone_reload",
-    "source_clip": "Crawl_Fwd",
+    "source_clip": "Crawl_Idle",
     "contact_authored": false,
-    "duration": 2.7,
+    "duration": 2.9,
     "root_motion": "none"
   },
   {

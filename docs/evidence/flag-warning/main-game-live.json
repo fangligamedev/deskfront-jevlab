@@ -1,0 +1,31 @@
+{
+  "url": "http://127.0.0.1:8768/?view=execution",
+  "engine_live": true,
+  "version": "0.6.5-flag.1",
+  "build_id": "main-a2739fd192d1",
+  "expected_build_id": "main-a2739fd192d1",
+  "matches": true,
+  "backend_warning_protocol": true,
+  "warnings_received": 28,
+  "flag": {
+    "alerts": {
+      "blue": {
+        "active": false
+      },
+      "green": {
+        "active": false
+      },
+      "red": {
+        "active": false
+      }
+    },
+    "capture_epoch": 8,
+    "contested": false,
+    "countdown_seconds": 0,
+    "held_seconds": 30.0,
+    "mode": "center_flag",
+    "owner": "red",
+    "remaining_seconds": 0.0,
+    "required_seconds": 30.0
+  }
+}

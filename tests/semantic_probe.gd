@@ -13,7 +13,7 @@ func _ready() -> void:
 	check(game.units.size()==9,"exactly nine infantry in three factions")
 	for u in game.units:
 		check(u.bone_count==50,"50 imported bones: "+u.id)
-		check(u.animation_names.size()==28,"28 imported animation clips: "+u.id)
+		check(u.animation_names.size()==29,"29 imported animation clips: "+u.id)
 		check(u.playback!=null,"AnimationTree configured: "+u.id)
 	check(game.worker_anim!=null and game.worker_anim.is_playing(),"worker typing clip active")
 	var start_time=game.worker_anim.current_animation_position
@@ -75,8 +75,11 @@ func _ready() -> void:
 	check(not field.covers[4].alive,"destroyed cover loses protection")
 	var t=game.elapsed;game.command({"action":"pause","value":true});game._physics_process(1)
 	check(game.elapsed==t,"pause freezes battle simulation")
-	game.paused=false;game.winner="";game.scores.green=game.config.rules.score_to_win;game._physics_process(.1)
-	check(game.winner=="green","capture score produces victory")
+	game.paused=false;game.winner=""
+	for member in game.units:member.position.x=-2
+	game.units[0].hp=100;game.units[0].position=Vector3(game.objective.x,game.field.height,game.objective.y)
+	game.flag_objective.holder="green";game.flag_objective.held_seconds=game.flag_objective.required_seconds-.05;game.update_flag(.1)
+	check(game.winner=="green","continuous flag hold produces victory")
 	var combat=load("res://scenes/main.tscn").instantiate()
 	combat.use_legacy_fixture=true
 	add_child(combat)

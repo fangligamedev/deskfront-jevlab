@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "scenario_id": "6d5e00d4-e6eb-4300-8d12-a50df9b0c7bd",
+  "scenario_name": "三线夺旗场",
+  "model": "deepseek-v4-flash-260425",
+  "designer_call_ids": [
+    120
+  ],
+  "layout_cover_count": 8,
+  "loadouts": {
+    "green": [
+      "smg",
+      "rifle",
+      "rocket"
+    ],
+    "blue": [
+      "rifle",
+      "smg",
+      "rocket"
+    ],
+    "red": [
+      "rifle",
+      "smg",
+      "rocket"
+    ]
+  },
+  "validation": {
+    "errors": [],
+    "note": "导航可达性与入口指标，不代表已证明战术平衡",
+    "open_approaches": 4,
+    "passed": true,
+    "spawn_routes": [
+      1.36923890560865,
+      1.32352821901441,
+      1.29246206209064,
+      0.653553310781717,
+      0.699263967573643,
+      0.719974629580975,
+      1.04246198385954,
+      1.01139595732093,
+      0.980329927057028
+    ]
+  },
+  "run_id": "1789784826.089-3359430899",
+  "controls": {
+    "green": "player",
+    "blue": "lm",
+    "red": "lm"
+  },
+  "duration_seconds": 63.5,
+  "winner": "red",
+  "facts": {
+    "teams": {
+      "green": {
+        "alive": 0,
+        "hp": 0.0,
+        "units": 3
+      },
+      "blue": {
+        "alive": 0,
+        "hp": 0.0,
+        "units": 3
+      },
+      "red": {
+        "alive": 3,
+        "hp": 224.0,
+        "units": 3
+      }
+    },
+    "shots": 110,
+    "destruction_count": 0,
+    "objective": {
+      "flag": {
+        "contested": false,
+        "held_seconds": 30.0,
+        "mode": "center_flag",
+        "owner": "red",
+        "remaining_seconds": 0.0,
+        "required_seconds": 30.0
+      },
+      "position": [
+        0.540000021457672,
+        2.17000007629395
+      ],
+      "radius": 0.17,
+      "score_to_win": 30.0,
+      "screen_position": [
+        640.0,
+        439.954742431641
+      ]
+    }
+  },
+  "combat_llm_calls": 60,
+  "combat_call_phases": {
+    "discarded": 1,
+    "executed": 54,
+    "rejected": 5
+  },
+  "analysis_id": "d50a908e-a169-4052-8490-7831626d262c",
+  "final_report_id": "a35a3d49-d2a2-4b67-a3bb-e82954d9ffcc",
+  "report_call_id": 362,
+  "report_evidence_ticks": [
+    25,
+    4653,
+    5799,
+    7449
+  ],
+  "verification": {
+    "python_tests": 41,
+    "studio_contract": 11,
+    "semantic": 113,
+    "project_test": "passed",
+    "web_export": "passed",
+    "forge_build": "report-85d3bda5703c"
+  },
+  "limits": [
+    "Navigation validation is not proof of balance or tactical quality.",
+    "Report schema and tick IDs are validated; semantic and causal claims still need review.",
+    "Final coordinate/intent prompt refinement could not be live-tested: Ark AccountOverdueError HTTP 403.",
+    "This local working version has not been pushed or tagged."
+  ],
+  "reviewed_scenario_id": "c517f961-4a21-477f-88aa-45d21e3bebfd"
+}

@@ -12,6 +12,15 @@ var impacts: int=0
 var launched: Dictionary={}
 var collision_counts: Dictionary={"cover":0,"unit":0,"miss":0,"friendly_block":0}
 var hit_log: Array=[]
+var pools:Dictionary={}
+var variant_cursor:Dictionary={}
+var variant_sounds:Dictionary={}
+var budget=JSON.parse_string(FileAccess.get_file_as_string("res://data/presentation.json"))
+var dropped_visuals=0
+var stolen_voices=0
+var reused_visuals=0
+var peak_visuals=0
+var peak_voices=0
 var random := RandomNumberGenerator.new()
 
 func setup(g) -> void:
@@ -19,40 +28,91 @@ func setup(g) -> void:
 	for key in ["rifle","smg","rocket","cannon","explosion","impact","bayonet","order","reload","pistol","grenade","rocket_blast","tank_impact","grenade_blast"]:
 		sounds[key]=load("res://assets/audio/"+{"rocket":"rocket_launch","cannon":"tank_cannon","grenade":"reload"}.get(key,key)+".wav")
 
+	for key in ["rifle","smg","pistol","rocket","cannon","grenade_blast"]:
+		var stem:String={"rocket":"rocket_launch","cannon":"tank_cannon"}.get(key,key)
+		variant_sounds[key]=[sounds[key],load("res://assets/audio/"+stem+"_2.wav"),load("res://assets/audio/"+stem+"_3.wav")]
+	for bus_name in ["Weapons","Blasts","Interface"]:
+		if AudioServer.get_bus_index(bus_name)<0:
+			AudioServer.add_bus();AudioServer.set_bus_name(AudioServer.bus_count-1,bus_name)
+			var limiter=AudioEffectLimiter.new();limiter.ceiling_db=-1;AudioServer.add_bus_effect(AudioServer.bus_count-1,limiter)
+
+func acquire(kind:String,priority:int)->MeshInstance3D:
+	if visuals.size()>=int(budget.visuals):
+		var victim={}
+		for effect in visuals:
+			if int(effect.get("priority",1))<priority:victim=effect;break
+		if victim.is_empty():dropped_visuals+=1;return null
+		recycle(victim);visuals.erase(victim);dropped_visuals+=1
+	var n:MeshInstance3D
+	if pools.has(kind) and not pools[kind].is_empty():n=pools[kind].pop_back();reused_visuals+=1
+	else:
+		n=MeshInstance3D.new();add_child(n);n.set_meta("kind",kind)
+		if kind=="ball":
+			var mesh=SphereMesh.new();mesh.radius=1;mesh.height=2;mesh.radial_segments=8;mesh.rings=4;n.mesh=mesh
+		elif kind=="beam":n.mesh=BoxMesh.new()
+		elif kind=="ring":
+			var mesh=TorusMesh.new();mesh.inner_radius=.86;mesh.outer_radius=1;mesh.rings=20;mesh.ring_segments=6;n.mesh=mesh
+		else:
+			n.mesh=QuadMesh.new()
+			var m=ShaderMaterial.new();m.shader=preload("res://assets/vfx/soft_flipbook.gdshader")
+			m.set_shader_parameter("atlas",preload("res://assets/vfx/fx.png"));m.set_shader_parameter("flow",preload("res://assets/vfx/flow.png"));n.material_override=m
+		if kind!="puff":n.material_override=material(Color.WHITE)
+		n.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	n.visible=true;n.transform=Transform3D.IDENTITY
+	peak_visuals=maxi(peak_visuals,visuals.size()+1)
+	return n
+
+func recycle(effect:Dictionary):
+	var n:MeshInstance3D=effect.node;n.hide()
+	var kind:String=n.get_meta("kind")
+	if not pools.has(kind):pools[kind]=[]
+	if pools[kind].size()<int(budget.pool_per_kind):pools[kind].append(n)
+	else:n.queue_free()
+
 func material(color: Color, glow: bool=true) -> StandardMaterial3D:
 	var m := StandardMaterial3D.new();m.albedo_color=color
 	m.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED if glow else BaseMaterial3D.SHADING_MODE_PER_PIXEL
 	m.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;m.no_depth_test=false
 	return m
 
-func ball(p: Vector3, radius: float, color: Color, ttl: float, velocity: Vector3=Vector3.ZERO) -> void:
-	if visuals.size()>=100:return
-	var n := MeshInstance3D.new();var mesh := SphereMesh.new()
-	mesh.radius=radius;mesh.height=radius*2;mesh.radial_segments=8;mesh.rings=4;n.mesh=mesh
-	n.material_override=material(color);add_child(n);n.position=p
-	visuals.append({"node":n,"ttl":ttl,"life":ttl,"velocity":velocity,"grow":1.4})
+func ball(p:Vector3,radius:float,color:Color,ttl:float,velocity:Vector3=Vector3.ZERO)->void:
+	var n=acquire("ball",1)
+	if n==null:return
+	n.scale=Vector3.ONE*radius;n.position=p;n.material_override.albedo_color=color
+	visuals.append({"node":n,"ttl":ttl,"life":ttl,"velocity":velocity,"grow":1.4,"priority":1})
 
-func beam(a: Vector3, b: Vector3, width: float, color: Color, ttl: float) -> void:
-	if a.distance_to(b)<.0001 or visuals.size()>=100:return
-	var n := MeshInstance3D.new();var mesh := BoxMesh.new();mesh.size=Vector3(width,width,a.distance_to(b));n.mesh=mesh
-	n.material_override=material(color);add_child(n);n.position=(a+b)*.5;n.look_at(b)
-	visuals.append({"node":n,"ttl":ttl,"life":ttl,"velocity":Vector3.ZERO,"grow":0.0})
+func beam(a:Vector3,b:Vector3,width:float,color:Color,ttl:float)->void:
+	if a.distance_to(b)<.0001:return
+	var n=acquire("beam",2)
+	if n==null:return
+	n.position=(a+b)*.5;n.look_at(b);n.scale=Vector3(width,width,a.distance_to(b));n.material_override.albedo_color=color
+	visuals.append({"node":n,"ttl":ttl,"life":ttl,"velocity":Vector3.ZERO,"grow":0.0,"priority":2})
 
-func ring(p: Vector2, color: Color, radius: float=.04, ttl: float=.75) -> void:
-	if visuals.size()>=100:return
-	var n := MeshInstance3D.new();var mesh := TorusMesh.new();mesh.inner_radius=radius*.86;mesh.outer_radius=radius
-	mesh.rings=20;mesh.ring_segments=6;n.mesh=mesh;n.material_override=material(color)
-	add_child(n);n.position=Vector3(p.x,game.field.height+.006,p.y);n.scale.y=.12
-	visuals.append({"node":n,"ttl":ttl,"life":ttl,"velocity":Vector3.ZERO,"grow":.7})
+func ring(p:Vector2,color:Color,radius:float=.04,ttl:float=.75)->void:
+	var n=acquire("ring",3)
+	if n==null:return
+	n.scale=Vector3(radius,.12*radius,radius);n.position=Vector3(p.x,game.field.height+.006,p.y);n.material_override.albedo_color=color
+	visuals.append({"node":n,"ttl":ttl,"life":ttl,"velocity":Vector3.ZERO,"grow":.7,"priority":3})
 
 func sound(key: String, p: Vector3, quiet: float=0) -> void:
 	if muted or not audio_enabled or not sounds.has(key):return
-	voices=voices.filter(func(v):return is_instance_valid(v))
-	if voices.size()>=20:return
-	var player := AudioStreamPlayer3D.new();add_child(player);player.position=p
-	player.stream=sounds[key];player.unit_size=6;player.max_distance=25
-	player.volume_db=(-15 if key=="smg" else -9)+quiet;player.pitch_scale=random.randf_range(.94,1.06)
-	player.finished.connect(player.queue_free);voices.append(player);player.play();audio_events+=1
+	var priority:int=3 if key in ["explosion","cannon","rocket_blast","tank_impact","grenade_blast"] else (2 if key in ["rifle","smg","pistol","rocket"] else 1)
+	var player:AudioStreamPlayer3D
+	for voice in voices:
+		if not voice.playing:player=voice;break
+	if player==null and voices.size()<int(budget.voices):
+		player=AudioStreamPlayer3D.new();add_child(player);voices.append(player)
+	if player==null:
+		for voice in voices:
+			if int(voice.get_meta("priority",1))<priority:player=voice;stolen_voices+=1;break
+	if player==null:return
+	player.stop();player.set_meta("priority",priority);player.position=p
+	var variants:Array=variant_sounds.get(key,[sounds[key]])
+	var cursor:int=int(variant_cursor.get(key,0));player.stream=variants[cursor%variants.size()];variant_cursor[key]=cursor+1
+	player.unit_size=1.2;player.max_distance=8
+	player.bus="Blasts" if priority==3 else ("Weapons" if priority==2 else "Interface")
+	player.volume_db=float(budget.weapon_gain_db.get(key,-9))+quiet;player.pitch_scale=random.randf_range(.98,1.02)
+	player.play();audio_events+=1;peak_voices=maxi(peak_voices,voices.filter(func(v):return v.playing).size())
 
 func set_muted(value: bool) -> void:
 	muted=value
@@ -70,7 +130,7 @@ func launch(shooter, target, weapon: String, landed: bool) -> void:
 	sound("cannon" if weapon=="at_cannon" else weapon,from)
 	if weapon=="bayonet":
 		beam(from,end,.007,Color(.84,.91,.95),.14)
-		target.hit(float(cfg.damage),float(cfg.pressure));impacts+=1
+		target.hit(float(cfg.damage),float(cfg.pressure),from,.10);impacts+=1
 		return
 	if not landed:end+=Vector3(random.randf_range(.026,.065),random.randf_range(-.025,.04),random.randf_range(-.06,.06))
 	var explosive: bool=weapon in ["rocket","cannon","at_cannon","grenade"]
@@ -147,7 +207,7 @@ func impact(p: Dictionary) -> void:
 			var damage: float=float(p.cfg.damage)*(1.0 if direct else .65*(1-distance/float(p.cfg.splash)))
 			if shield:damage=0
 			if enemy.tank:damage*=float(p.cfg.armor_multiplier)*enemy.armor_multiplier(Vector2(p.from.x,p.from.z))
-			enemy.hit(damage,float(p.cfg.pressure)*(.12 if shield else 1.0))
+			enemy.hit(damage,float(p.cfg.pressure)*(.12 if shield else 1.0),blast,.55*(1-distance/float(p.cfg.splash)))
 			enemy.receive_pressure(0,p.from)
 		for c in game.field.covers:
 			if not c.alive:continue
@@ -168,16 +228,16 @@ func impact(p: Dictionary) -> void:
 			var target=collision.unit
 			if target.faction==p.team:collision_counts.friendly_block+=1;return
 			var damage: float=float(p.cfg.damage)*(float(p.cfg.armor_multiplier)*target.armor_multiplier(Vector2(p.from.x,p.from.z)) if target.tank else 1.0)
-			target.hit(damage,float(p.cfg.pressure));target.receive_pressure(0,p.from)
+			target.hit(damage,float(p.cfg.pressure),p.from,.12);target.receive_pressure(0,p.from)
 
 func _process(dt: float) -> void:
 	if game==null:return
 	if game.paused or game.winner!="":return
 	for effect in visuals.duplicate():
 		effect.ttl-=dt*game.speed
-		if effect.ttl<=0:effect.node.queue_free();visuals.erase(effect);continue
-		effect.node.position+=effect.velocity*dt
-		effect.node.scale*=1+effect.grow*dt
+		if effect.ttl<=0:recycle(effect);visuals.erase(effect);continue
+		effect.node.position+=effect.velocity*dt*game.speed
+		effect.node.scale*=1+effect.grow*dt*game.speed
 		if effect.has("smoke"):
 			var t=1-effect.ttl/effect.life
 			effect.node.material_override.set_shader_parameter("progress",lerpf(.38,.99,t) if effect.smoke else t)
@@ -188,11 +248,13 @@ func _exit_tree() -> void:
 	sounds.clear()
 
 func puff(p:Vector3,size:float,life:float,smoke:bool) -> void:
-	if visuals.size()>=100:return
-	var n=MeshInstance3D.new();var q=QuadMesh.new();q.size=Vector2.ONE*size;n.mesh=q
-	n.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var m=ShaderMaterial.new();m.shader=load("res://assets/vfx/soft_flipbook.gdshader")
-	m.set_shader_parameter("atlas",load("res://assets/vfx/fx.png"));m.set_shader_parameter("flow",load("res://assets/vfx/flow.png"))
-	m.set_shader_parameter("smoke_only",smoke);m.set_shader_parameter("opacity",.4 if smoke else .88)
-	n.material_override=m;add_child(n);n.position=p
-	visuals.append({"node":n,"ttl":life,"life":life,"velocity":Vector3(.008,.035 if smoke else .006,.005),"grow":.15,"smoke":smoke})
+	var n=acquire("puff",1 if smoke else 3)
+	if n==null:return
+	n.scale=Vector3.ONE*size;n.position=p
+	var m:ShaderMaterial=n.material_override
+	m.set_shader_parameter("progress",.38 if smoke else 0.0)
+	m.set_shader_parameter("smoke_only",smoke);m.set_shader_parameter("opacity",.36 if smoke else .88)
+	visuals.append({"node":n,"ttl":life,"life":life,"velocity":Vector3(.008,.035 if smoke else .006,.005),"grow":.15,"smoke":smoke,"priority":1 if smoke else 3})
+
+func metrics()->Dictionary:
+	return {"visual_budget":budget.visuals,"voice_budget":budget.voices,"peak_visuals":peak_visuals,"peak_voices":peak_voices,"dropped_visuals":dropped_visuals,"stolen_voices":stolen_voices,"reused_visuals":reused_visuals}

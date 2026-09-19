@@ -46,7 +46,7 @@ func run():
  var enemy=g.units[6];enemy.position=u.position+Vector3(.2,0,0);enemy.actor.global_position=enemy.global_position
  u.hp=20;u.target_id=enemy.id;u.reaction_at=0;u.last_threat_at=g.elapsed;u.survival_tick()
  check(u.target_id=="" and u.safety_until>g.elapsed,"emergency survival clears explicit pursuit target")
- g.spawn_tank();var tank=g.units[-1];g.command({"action":"control","faction":"red","mode":"lm"});tank.hp=100;tank.reaction_at=0;tank.survival_tick()
+ g.spawn_tank();var tank=g.units[-1];tank.deployment_phase="active";g.command({"action":"control","faction":"red","mode":"lm"});tank.hp=100;tank.reaction_at=0;tank.survival_tick()
  check(not tank.available_actions().has("flank") and not tank.available_actions().has("posture") and not tank.available_actions().has("grenade"),"tank exposes only its implemented LM tactical actions")
  check(tank.safety_until>g.elapsed,"LM-controlled tank retains emergency anti-armor escape guard")
  # Switching back restores native coordinator ownership.
@@ -55,7 +55,7 @@ func run():
  # A tank on the protected side must not hide an exposed infantry flank.
  var flank_game=load("res://scenes/main.tscn").instantiate();root.add_child(flank_game);flank_game.set_physics_process(false);flank_game.fx.set_muted(true)
  var scout=flank_game.units[0];var flanker=flank_game.units[6]
- flank_game.spawn_tank();var armor=flank_game.units[-1]
+ flank_game.spawn_tank();var armor=flank_game.units[-1];armor.deployment_phase="active"
  var sandbag=flank_game.field.covers.filter(func(c):return c.kind!="hard")[0]
  var station=flank_game.field.slots(sandbag).filter(func(s):return flank_game.field.walkable(s.position))[0]
  for other in flank_game.units:

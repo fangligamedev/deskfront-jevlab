@@ -1,21 +1,29 @@
 [
   {
     "path": "assets/models/sandbag.glb",
-    "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
-    "bytes": 40072,
+    "sha256": "5b48ff6be93f72b9b234719f348c29e13b27a5cb1d4128f975294ed42c143724",
+    "bytes": 39068,
     "license": "CC0-1.0",
     "author": "Deskfront original",
     "source_url": null,
     "additional_sources": [],
     "approval": "user requested integration",
     "integrated_in_main_game": true,
-    "source_files": [],
-    "source_hashes": {}
+    "source_files": [
+      "source/optimization/optimize_meshes.py",
+      "source/optimization/sandbag-optimized.blend",
+      "source/optimization/originals/sandbag.glb"
+    ],
+    "source_hashes": {
+      "source/optimization/optimize_meshes.py": "3f05421a9022e8feea5e3b462831a888a87144a8b1066989b3b3843db697bf75",
+      "source/optimization/sandbag-optimized.blend": "3155069803de03b5abb0d173c1b6d71188855e499d7e20ef0b6428033a12cb13",
+      "source/optimization/originals/sandbag.glb": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a"
+    }
   },
   {
     "path": "assets/models/rocket.glb",
-    "sha256": "6274d778346a7c41d52627b6c76085729194dd1ac61c447c06e0f0ab2e9fd2a6",
-    "bytes": 78780,
+    "sha256": "2d958a1a968e83201fe1348bb266b3f0f6880f9bda7c75fa833bc33cae388c24",
+    "bytes": 82600,
     "license": "CC0-1.0",
     "author": "Deskfront original",
     "source_url": null,
@@ -33,8 +41,8 @@
   },
   {
     "path": "assets/models/tank.glb",
-    "sha256": "d46acaeb563f401bfb389bd7708342f97d0cd62f9b2c6dc88f8537be8c85ed80",
-    "bytes": 912836,
+    "sha256": "6eb64422fc5fcd002bd69a003da26a2a9fdc6867960a78da177a725d72895bc9",
+    "bytes": 827964,
     "license": "CC0-1.0",
     "author": "Quaternius",
     "source_url": "https://poly.pizza/m/FA5daiyZQq",
@@ -54,8 +62,8 @@
   },
   {
     "path": "assets/models/rifle.glb",
-    "sha256": "0d80dd2118c884172a856455968be14eadc97f041d27d52bfa75fedb708fa486",
-    "bytes": 457644,
+    "sha256": "044b814197c051d217f0bcba96c9c6854d8a3164d5c7aeefa814eb685f782a76",
+    "bytes": 464596,
     "license": "CC0-1.0",
     "author": "Pichuliru",
     "source_url": "https://opengameart.org/content/cc0-flat-guns-west",
@@ -71,8 +79,8 @@
   },
   {
     "path": "assets/models/grenade.glb",
-    "sha256": "7f9c128142dfb386793c3929e18bac791f0fc1ae9bafa4fbf62f79929334f345",
-    "bytes": 39596,
+    "sha256": "5fae624fef5e60a746291ed4ec9f42418395c6a9e50aafb4349365a2bff518fb",
+    "bytes": 38016,
     "license": "CC0-1.0",
     "author": "Pichuliru",
     "source_url": "https://opengameart.org/content/cc0-flat-grenades",
@@ -88,8 +96,8 @@
   },
   {
     "path": "assets/models/toy-soldier.glb",
-    "sha256": "46908173aba464212eb9dd76e29f517bccd6e27f3aa57b737075a6c3881a46e9",
-    "bytes": 1586124,
+    "sha256": "26789bad02f2618088b0558ce1a7584192f49dd1ad31a9c53a74ff1142f83f26",
+    "bytes": 1549048,
     "license": "CC0-1.0",
     "author": "nisu + Quaternius / Deskfront retarget",
     "source_url": "https://opengameart.org/content/rigged-lowpoly-ww2-soldier",
@@ -107,16 +115,16 @@
       "source/latest/tools/build_soldier.py"
     ],
     "source_hashes": {
-      "source/latest/toy-soldier-retarget.blend": "6358cb8fd7a17272a1481b2d3878fe9f409b4182bc3655a3dbdb5f6fa6963fbc",
+      "source/latest/toy-soldier-retarget.blend": "f1cdf167ad418dabac77f8a55b4499a645b7fd7a9693a3ea9db2b72728800f8b",
       "source/latest/soldier-original.fbx": "e5abab6089d66181f755d8878a7ee08c89a0d0358e527b379db86022626b22e0",
       "source/latest/ual-author-preview.glb": "beadbb31178e65db6d3819c571933ffea1444fda3cf89b52fe1ff157e44e5d05",
-      "source/latest/tools/build_soldier.py": "d586bedad32bff3db970ccff13b50b6eaceb97cbc46a5fa9b7da696d71e72ff0"
+      "source/latest/tools/build_soldier.py": "3f896a5776657d82bfd0ab7344af25ed12851456144ba585ed5fcd951d75be79"
     }
   },
   {
     "path": "assets/models/pistol.glb",
-    "sha256": "d8a284503309a7fcb215326034db5b0b2151a9b6920c39d018f975ff4b6fd84b",
-    "bytes": 158212,
+    "sha256": "1217dd0d291f5904d2bf24583f8567f0d0e85d85435dc5e80795a2fe258f85f9",
+    "bytes": 155080,
     "license": "CC0-1.0",
     "author": "Pichuliru",
     "source_url": "https://opengameart.org/content/cc0-flat-guns-west",
@@ -132,8 +140,8 @@
   },
   {
     "path": "assets/vfx/soft_flipbook.gdshader",
-    "sha256": "b2d5ac8992b19ab33e15efa701253444d162c4af851660a17dcfb964a0693ceb",
-    "bytes": 1545,
+    "sha256": "d48d921cece65d6d4dad0bd477e66a9c6046c53d4364270fb5ede2a480908070",
+    "bytes": 1590,
     "license": "MIT",
     "author": "Deskfront original",
     "source_url": null,
@@ -896,5 +904,157 @@
       "source/latest/antitank-gun.glb": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
       "source/latest/tools/build_antitank_gun.py": "f0374cbb777fa20c491e475652345e99aaa5ae08ea9892a706d07dc6ca4ada99"
     }
+  },
+  {
+    "path": "assets/models/office-expanded.glb",
+    "sha256": "1a4112a37d876b0d361b6cce024b791003e656c29c9e06e4f2d5e2e7a3fd8d51",
+    "bytes": 1793612,
+    "license": "CC0-1.0",
+    "author": "Deskfront original",
+    "source_url": null,
+    "source_files": [
+      "source/latest/tools/build_office_battlefield.py",
+      "source/latest/office-battlefield-generated/office-expanded-editable.blend"
+    ],
+    "source_hashes": {
+      "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+      "source/latest/office-battlefield-generated/office-expanded-editable.blend": "36fa8a3366145aacadbcbdf5118a527b42baf902e55bebb5fb3c87fa1df8dfd5"
+    },
+    "additional_sources": [],
+    "approval": "user requested office battlefield redesign",
+    "integrated_in_main_game": true
+  },
+  {
+    "path": "assets/models/office-books.glb",
+    "sha256": "7908ed9d2a70fe4dd67c4a3be7f334bb9bc55f70507550340624d8b7b9471fc3",
+    "bytes": 99916,
+    "license": "CC0-1.0",
+    "author": "Deskfront original",
+    "source_url": null,
+    "source_files": [
+      "source/latest/tools/build_office_battlefield.py",
+      "source/latest/office-battlefield-generated/office-books-editable.blend"
+    ],
+    "source_hashes": {
+      "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+      "source/latest/office-battlefield-generated/office-books-editable.blend": "71b1183e88bd3de715cb36aa229e2942089ec4781d83528eb579545bbe2b34b4"
+    },
+    "additional_sources": [],
+    "approval": "user requested office battlefield redesign",
+    "integrated_in_main_game": true
+  },
+  {
+    "path": "assets/models/office-binder.glb",
+    "sha256": "bcb04eb4aa822ff562b11ba2e1430bfd0ff5d54c78bdad3a235483c08db941e5",
+    "bytes": 57404,
+    "license": "CC0-1.0",
+    "author": "Deskfront original",
+    "source_url": null,
+    "source_files": [
+      "source/latest/tools/build_office_battlefield.py",
+      "source/latest/office-battlefield-generated/office-binder-editable.blend"
+    ],
+    "source_hashes": {
+      "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+      "source/latest/office-battlefield-generated/office-binder-editable.blend": "06e4943084f84c4e6a404c6f90dcfa17b98d72ff0aca79dac8618edb070fcdca"
+    },
+    "additional_sources": [],
+    "approval": "user requested office battlefield redesign",
+    "integrated_in_main_game": true
+  },
+  {
+    "path": "assets/models/office-filebox.glb",
+    "sha256": "ec1e09d048a0d35b0270a2e6cdc16d8d396030f2ee4bacb2e31ddc8d02c1867c",
+    "bytes": 38352,
+    "license": "CC0-1.0",
+    "author": "Deskfront original",
+    "source_url": null,
+    "source_files": [
+      "source/latest/tools/build_office_battlefield.py",
+      "source/latest/office-battlefield-generated/office-filebox-editable.blend"
+    ],
+    "source_hashes": {
+      "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+      "source/latest/office-battlefield-generated/office-filebox-editable.blend": "deb7fdeaafc25f9ff14f0cef6f17baeb239fec795c6132271fa2833114ce68ca"
+    },
+    "additional_sources": [],
+    "approval": "user requested office battlefield redesign",
+    "integrated_in_main_game": true
+  },
+  {
+    "path": "assets/models/office-keyboard.glb",
+    "sha256": "ed87044a4ccf3bb84c9ad925d22ba1e42c8242a4093eaff3d070dd27690f8b42",
+    "bytes": 509144,
+    "license": "CC0-1.0",
+    "author": "Deskfront original",
+    "source_url": null,
+    "source_files": [
+      "source/latest/tools/build_office_battlefield.py",
+      "source/latest/office-battlefield-generated/office-keyboard-editable.blend"
+    ],
+    "source_hashes": {
+      "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+      "source/latest/office-battlefield-generated/office-keyboard-editable.blend": "67572421f1b96272de62f1b07ee8e80b9c24dd7cd2112e2e2c29a1f33a8218fe"
+    },
+    "additional_sources": [],
+    "approval": "user requested office battlefield redesign",
+    "integrated_in_main_game": true
+  },
+  {
+    "path": "assets/models/office-printer.glb",
+    "sha256": "55f61667e2561822a099bd81cbc2701aa6f324be4f1351aad3c11f8d002aae7e",
+    "bytes": 129680,
+    "license": "CC0-1.0",
+    "author": "Deskfront original",
+    "source_url": null,
+    "source_files": [
+      "source/latest/tools/build_office_battlefield.py",
+      "source/latest/office-battlefield-generated/office-printer-editable.blend"
+    ],
+    "source_hashes": {
+      "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+      "source/latest/office-battlefield-generated/office-printer-editable.blend": "925be7b6d3f7f56fbd0213d3c22c841e911ca165a2d9c408f01c7f04b94aab7b"
+    },
+    "additional_sources": [],
+    "approval": "user requested office battlefield redesign",
+    "integrated_in_main_game": true
+  },
+  {
+    "path": "assets/models/office-stapler.glb",
+    "sha256": "8c2bad70e5e24c9fd278452a7bf04aa36c99aedfafb59969791fe161fd9e4c1f",
+    "bytes": 39740,
+    "license": "CC0-1.0",
+    "author": "Deskfront original",
+    "source_url": null,
+    "source_files": [
+      "source/latest/tools/build_office_battlefield.py",
+      "source/latest/office-battlefield-generated/office-stapler-editable.blend"
+    ],
+    "source_hashes": {
+      "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+      "source/latest/office-battlefield-generated/office-stapler-editable.blend": "62be30c6e6830b03ea913c7b365a1fa4c9b9f61b667c88cbf2c3c0e6f3f74e88"
+    },
+    "additional_sources": [],
+    "approval": "user requested office battlefield redesign",
+    "integrated_in_main_game": true
+  },
+  {
+    "path": "assets/models/office-mug.glb",
+    "sha256": "07e4539350139d27db7efd5883e87911f7e0b0007ea278249fa3bfe038e1df71",
+    "bytes": 106792,
+    "license": "CC0-1.0",
+    "author": "Deskfront original",
+    "source_url": null,
+    "source_files": [
+      "source/latest/tools/build_office_battlefield.py",
+      "source/latest/office-battlefield-generated/office-mug-editable.blend"
+    ],
+    "source_hashes": {
+      "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+      "source/latest/office-battlefield-generated/office-mug-editable.blend": "e61f7abc3583318f45e7110cabd2016ae86bacd37942555edbc368b101b69c34"
+    },
+    "additional_sources": [],
+    "approval": "user requested office battlefield redesign",
+    "integrated_in_main_game": true
   }
 ]

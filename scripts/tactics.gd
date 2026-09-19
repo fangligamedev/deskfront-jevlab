@@ -1,6 +1,11 @@
 extends Node
 ## Original squad coordinator. Formation ideas mapped to Jurney's PDF in docs/TACTICS.md.
 var game
+var flag_next: Dictionary={}
+var flag_progress: Dictionary={}
+var flag_hints: Dictionary={}
+var hint_cursor: int=0
+var hint_clock: float=0
 var clock: float=0
 var squads: Dictionary={}
 var formations: Dictionary={}
@@ -25,6 +30,7 @@ func squad_center(squad: Array) -> Vector2:
 	return p/maxi(1,squad.size())
 
 func tick(dt: float) -> void:
+	refresh_flag_hint(dt)
 	clock-=dt
 	if clock>0:return
 	clock=game.config.tactics.update_interval
@@ -72,6 +78,12 @@ func stop_formation(team: String) -> void:
 	formations.erase(team)
 
 func plan(team: String) -> void:
+	if game.config.rules.get("mode","")=="center_flag":
+		for gun in game.at_guns:
+			if gun.faction==team and gun.crew_id!="" and gun.enemy_tank()==null and game.elapsed>30:gun.release("装甲威胁解除，返回旗点任务")
+		if game.building:
+			for u in game.living(team):
+				if u.garrison_phase=="stationed" and game.elapsed-u.last_shot_at>15 and game.elapsed>30:game.building.leave(u)
 	# Equipment users keep their own executable route. Do not overwrite it with a formation.
 	for gun in game.at_guns:
 		if gun.faction!=team or gun.crew_id!="" or gun.enemy_tank()==null:continue
@@ -81,14 +93,15 @@ func plan(team: String) -> void:
 			if gun.claim(u):
 				if formations.has(team):formations[team].ids.erase(u.id)
 				break
-	if team=="blue" and game.building and not game.building.collapsed:
+	if team=="blue" and game.building and not game.building.collapsed and (game.config.rules.get("mode","")!="center_flag" or game.elapsed<30):
 		for u in game.living(team):
-			if u.garrison_phase=="" and u.gun_id=="" and u.hp/u.max_hp>.65 and u.suppression<.35 and u.pos().distance_to(game.building.approach())<.8:
+			if u.weapon=="rifle" and not game.living(team).any(func(v):return v.garrison_phase!="") and u.garrison_phase=="" and u.gun_id=="" and u.hp/u.max_hp>.65 and u.suppression<.35 and u.pos().distance_to(game.building.approach())<.8:
 				if game.building.enter(u,2):
 					if formations.has(team):formations[team].ids.erase(u.id)
 	var squad: Array=game.living(team).filter(func(u):return not u.tank and u.gun_id=="" and u.garrison_phase=="")
 	for armor in game.living(team).filter(func(u):return u.tank):plan_tank(armor)
 	if squad.is_empty():return
+	if game.config.rules.get("mode","")=="center_flag":plan_flag(team,squad);return
 	if not squads.has(team):
 		squads[team]={"phase":"take_cover","since":game.elapsed,"reason":"先预约掩体，再分工交火","mover":"","turn":0,"leader":squad[0].id,"anchor":squad_center(squad),"threat":""}
 		for u in squad:
@@ -275,6 +288,7 @@ func update_formation(team: String, f: Dictionary) -> void:
 			if not f.retreat:acquire(u,u.pos(),.18)
 
 func plan_tank(tank) -> void:
+	if tank.deployment_phase!="active":return
 	if game.elapsed<float(tank_next.get(tank.id,-1)):return
 	tank_next[tank.id]=game.elapsed+game.config.tactics.tank_replan_seconds
 	var target=game.find_target(tank)
@@ -316,3 +330,90 @@ func snapshot() -> Dictionary:
 		var f: Dictionary=formations[team]
 		result.formations[team]={"leader":f.leader,"anchor":[f.anchor.x,f.anchor.y],"destination":[f.destination.x,f.destination.y],"shape":f.shape,"ids":f.ids}
 	return result
+
+func flag_options(u) -> Array:
+	var output: Array=[]
+	var urgent: bool=game.control[u.faction]=="lm" and game.flag_emergency(u.faction)
+	if u.tank or (not urgent and (u.hp/u.max_hp<.45 or u.suppression>.65 or game.elapsed<u.safety_until)):return output
+	var direction: Vector2=(game.objective-u.pos()).normalized()
+	var side=Vector2(-direction.y,direction.x)
+	var threats: Array=[]
+	for enemy in enemies(u.faction):
+		if enemy.pos().distance_to(u.pos())<game.config.weapons[enemy.weapon].range+.4:threats.append(enemy.pos())
+	var supporting: bool=game.living(u.faction).any(func(v):return v!=u and can_support(v))
+	# A healthy unit can attempt one short exposed leg after sustained stalemate.
+	# Low health, suppression and survival vetoes above remain authoritative.
+	var stalled: bool=game.elapsed-float(flag_progress.get(u.faction,0))>=8.0 and u.hp/u.max_hp>=.65 and u.suppression<.35
+	# Follow the navigation route around props before choosing the next short leg.
+	# Straight-line steps alone can repeatedly select the same side of a sandbag.
+	var goals: Array=[]
+	for angle in range(0,360,45):
+		var destination: Vector2=game.objective+Vector2.from_angle(deg_to_rad(angle))*.10
+		if not game.field.walkable(destination):continue
+		var full: PackedVector2Array=game.field.path(u.pos(),destination)
+		var travelled: float=0
+		for i in range(1,full.size()):
+			travelled+=full[i-1].distance_to(full[i])
+			if travelled>=.24 or i==full.size()-1:
+				goals.append(full[i]);break
+	for offset in [0.0,.18,-.18,.30,-.30]:goals.append(u.pos().move_toward(game.objective,.24)+side*offset)
+	for goal: Vector2 in goals:
+		if not game.field.walkable(goal) or goal.distance_to(u.pos())<.04:continue
+		var path: PackedVector2Array=game.field.path(u.pos(),goal)
+		if path.is_empty() or game.field.route_length(path)>.55:continue
+		var exposure: float=game.field.route_exposure(path,threats)
+		if not urgent and exposure>(.24 if supporting or stalled else .12):continue
+		if game.living(u.faction).any(func(v):return v!=u and v.pos().distance_to(goal)<.065):continue
+		var remaining: float=game.field.route_length(game.field.path(goal,game.objective))
+		output.append({"position":[goal.x,goal.y],"exposure":exposure,"cost":remaining+exposure*4+game.field.route_length(path)*.2})
+	output.sort_custom(func(a,b):return a.cost<b.cost)
+	return output
+
+func refresh_flag_hint(dt: float) -> void:
+	# Spread advisory route searches over time; /api/sync must only read state.
+	hint_clock-=dt
+	if hint_clock>0 or game.units.is_empty():return
+	hint_clock=.10
+	for i in game.units.size():
+		hint_cursor=(hint_cursor+1)%game.units.size()
+		var u=game.units[hint_cursor]
+		if u.hp<=0 or u.tank or game.control[u.faction]!="lm" or u.deployment_phase!="active":continue
+		var cached: Dictionary=flag_hints.get(u.id,{})
+		if cached.get("until",0)>game.elapsed and cached.get("revision",-1)==game.field.revision:continue
+		flag_hints[u.id]={"until":game.elapsed+1.0,"revision":game.field.revision,"data":{"advance_options":flag_options(u).slice(0,2)}}
+		return
+
+func flag_hint(u) -> Dictionary:
+	var cached: Dictionary=flag_hints.get(u.id,{})
+	var valid: bool=cached.get("until",0)>game.elapsed and cached.get("revision",-1)==game.field.revision
+	return {"advance_options":cached.data.advance_options if valid else [],"inside_flag":u.pos().distance_to(game.objective)<=game.config.rules.capture_radius,"pending":not valid}
+
+func plan_flag(team: String, squad: Array) -> void:
+	if not squads.has(team):squads[team]={"phase":"advance","since":game.elapsed,"reason":"向中央旗点分段推进","mover":"","turn":0,"leader":squad[0].id,"anchor":squad_center(squad),"threat":""}
+	var s: Dictionary=squads[team];s.anchor=squad_center(squad)
+	if not squad.any(func(u):return u.id==s.mover and not u.route.is_empty()):s.mover=""
+	if not squad.any(func(u):return u.id==s.leader):s.leader=squad[0].id
+	var healthy: Array=squad.filter(func(u):return u.hp/u.max_hp>=.45 and u.suppression<.65 and game.elapsed>=u.safety_until)
+	var defenders: Array=healthy.filter(func(u):return u.pos().distance_to(game.objective)<=game.config.rules.capture_radius)
+	for defender in defenders:
+		defender.route.clear();defender.goal=defender.pos();defender.order_mode="hold"
+	if not defenders.is_empty():
+		formations.erase(team);set_phase(team,"defend","守住旗圈，迎击来敌；危险时仍可自保撤离")
+		publish(team,"hold")
+	else:set_phase(team,"advance","保留掩护，沿低暴露的短路线接近旗点")
+	if game.elapsed<float(flag_next.get(team,0)):return
+	flag_next[team]=game.elapsed+1.4
+	var movers: Array=healthy.filter(func(u):return u.route.is_empty() and not defenders.has(u) and u.grenade_time<0)
+	movers.sort_custom(func(a,b):return mover_priority(a,int(s.turn))<mover_priority(b,int(s.turn)))
+	for u in movers:
+		var target=game.find_target(u)
+		if target!=null and game.elapsed-u.last_shot_at<2 and u.in_cover() and game.elapsed-float(flag_progress.get(team,0))<6.0:continue
+		var options=flag_options(u)
+		if not options.is_empty():
+			formations.erase(team);var p: Array=options[0].position
+			u.move_to(Vector2(p[0],p[1]));u.order_mode="flag_advance";s.mover=u.id;s.turn+=1;flag_progress[team]=game.elapsed
+			if defenders.is_empty():publish(team,"capture")
+			return
+		# No safe open step: improve a protected station towards the objective.
+		if acquire(u,game.objective,.38,false):u.order_mode="take_cover";s.turn+=1;publish(team,"cover");return
+	if defenders.is_empty():publish(team,"cover")

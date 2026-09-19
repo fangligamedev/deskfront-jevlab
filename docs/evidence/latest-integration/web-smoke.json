@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "errors": [],
+  "build_id": "main-23f14c742448",
+  "version": "0.6.4-integrated.1",
+  "resource_hash": "05d3f4e3bcfacd7828cc61271f565bd91562c3a4c75c45d66ddfc84e2dd7262a",
+  "bones": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50
+  ],
+  "audio": [
+    {
+      "state": "running",
+      "sampleRate": 48000
+    }
+  ],
+  "camera": "battle"
+}

@@ -1,0 +1,102 @@
+{
+  "from": "deskfront-optimization@2a861ca",
+  "assets": [
+    {
+      "path": "assets/models/sandbag.glb",
+      "sha256": "5b48ff6be93f72b9b234719f348c29e13b27a5cb1d4128f975294ed42c143724"
+    },
+    {
+      "path": "assets/models/rocket.glb",
+      "sha256": "2d958a1a968e83201fe1348bb266b3f0f6880f9bda7c75fa833bc33cae388c24"
+    },
+    {
+      "path": "assets/models/office-worker.glb",
+      "sha256": "f86c8da9aa6ed54d60b682c69c83b5cfdc808b5b0479945b6b768dbf22e1b8cd"
+    },
+    {
+      "path": "assets/models/tank.glb",
+      "sha256": "6eb64422fc5fcd002bd69a003da26a2a9fdc6867960a78da177a725d72895bc9"
+    },
+    {
+      "path": "assets/models/rifle.glb",
+      "sha256": "044b814197c051d217f0bcba96c9c6854d8a3164d5c7aeefa814eb685f782a76"
+    },
+    {
+      "path": "assets/models/grenade.glb",
+      "sha256": "5fae624fef5e60a746291ed4ec9f42418395c6a9e50aafb4349365a2bff518fb"
+    },
+    {
+      "path": "assets/models/toy-soldier.glb",
+      "sha256": "26789bad02f2618088b0558ce1a7584192f49dd1ad31a9c53a74ff1142f83f26"
+    },
+    {
+      "path": "assets/models/pistol.glb",
+      "sha256": "1217dd0d291f5904d2bf24583f8567f0d0e85d85435dc5e80795a2fe258f85f9"
+    },
+    {
+      "path": "assets/vfx/soft_flipbook.gdshader",
+      "sha256": "d48d921cece65d6d4dad0bd477e66a9c6046c53d4364270fb5ede2a480908070"
+    },
+    {
+      "path": "assets/audio/pistol_2.wav",
+      "sha256": "929ecb1ca1fafbe43cb6141dde095dbb58f7393b3f7c91ed586632766b0746e0"
+    },
+    {
+      "path": "assets/audio/pistol_3.wav",
+      "sha256": "dfeb5ec85556f89c146dffb9efa023bec23e72054458726d475ea78b1c6afb44"
+    },
+    {
+      "path": "assets/audio/grenade_blast_2.wav",
+      "sha256": "197f5ed86c34926367d1dabdfba6573e164de0ae98e7ea7754076a30a14b3453"
+    },
+    {
+      "path": "assets/audio/rifle_2.wav",
+      "sha256": "1cf0c59b960380cc04a09bae3422462b9ceb9364e1e86b71b36940a9f67d2025"
+    },
+    {
+      "path": "assets/audio/rifle_3.wav",
+      "sha256": "d11e94cf3eb53274676fd3484d289024946da037721f713f04d933303e6a0be3"
+    },
+    {
+      "path": "assets/audio/grenade_blast_3.wav",
+      "sha256": "6b233e7636c8b124797b47b1c58946736c0d59d9bcaa8d8d989cee7d3b55baee"
+    },
+    {
+      "path": "assets/audio/tank_cannon_2.wav",
+      "sha256": "782381b6e0e79959d32848fcb6dc9873cda7e481a8eea03eec717d59164f885f"
+    },
+    {
+      "path": "assets/audio/tank_cannon_3.wav",
+      "sha256": "76e365f46b977f3a1b1114e5f0696d791a55840a76882c94fb43e3454180a2ac"
+    },
+    {
+      "path": "assets/audio/rocket_launch_3.wav",
+      "sha256": "32d02bb189d2c594246a8b708bae54b9c3c4ec6d20cb93ab8da01872904f9d0a"
+    },
+    {
+      "path": "assets/audio/rocket_launch_2.wav",
+      "sha256": "eaa328945ea7f2ea96044bd0907f2a7a0d4ab8a27e63862fd929dd3836c9fc35"
+    },
+    {
+      "path": "assets/audio/smg_2.wav",
+      "sha256": "a22513bde9d235a5434f2686e28275b49d2815f9814571dae2d327259f3478a0"
+    },
+    {
+      "path": "assets/audio/smg_3.wav",
+      "sha256": "cd9f4952f2341f71abbbca519031a5077a2d93cbb4a27a08955bd03eb4e1cf13"
+    }
+  ],
+  "retained_main_overrides": [
+    {
+      "path": "assets/models/office-worker.glb",
+      "preview_sha256": "f86c8da9aa6ed54d60b682c69c83b5cfdc808b5b0479945b6b768dbf22e1b8cd",
+      "integrated_sha256": "3d7eaffe84177071ea5aedc1e2c71562a9afae6faef938f706cd3cd628ccb023",
+      "reason": "保留主工程并行任务已升级的商务办公室人物，未用较旧预览人物覆盖。"
+    }
+  ],
+  "integrated_build": {
+    "id": "main-23f14c742448",
+    "runtime_sha256": "23f14c742448db8c4284b9218c9df00b38eb7c451df82ec694ea77aa84d7c109",
+    "assets_sha256": "05d3f4e3bcfacd7828cc61271f565bd91562c3a4c75c45d66ddfc84e2dd7262a"
+  }
+}

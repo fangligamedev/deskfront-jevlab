@@ -1,0 +1,11 @@
+{
+  "actors": 9,
+  "all_settled": true,
+  "frames": 360,
+  "hinges_per_actor": 4,
+  "limited_joints_per_actor": 13,
+  "max_segment_stretch": 0.00000117424250301035,
+  "max_span_m": 0.0807685777544975,
+  "max_speed_m_s": 0.962511253356934,
+  "passed": true
+}

@@ -1,0 +1,47 @@
+{
+  "acceptance": [
+    {
+      "id": "A1",
+      "kind": "import",
+      "statement": "Godot editor import passes"
+    },
+    {
+      "id": "A2",
+      "kind": "gameplay",
+      "statement": "Semantic probe passes"
+    },
+    {
+      "id": "A3",
+      "kind": "runtime",
+      "statement": "Main scene smoke passes"
+    },
+    {
+      "id": "A4",
+      "kind": "assets",
+      "statement": "Asset contracts and provenance pass"
+    }
+  ],
+  "approval": {
+    "approved_at": "2026-09-19T03:46:13.536182+00:00",
+    "required": true,
+    "status": "approved"
+  },
+  "asset_jobs": [],
+  "base": {
+    "head": "ffbe4fd45e42f26f2484747cc509ce814f50ba06",
+    "is_repository": true,
+    "status": "M .env.example\n M .forge/assets.json\n M README.md\n M assets/models/grenade.glb\n M assets/models/pistol.glb\n M assets/models/rifle.glb\n M assets/models/rocket.glb\n M assets/models/sandbag.glb\n M assets/models/tank.glb\n M assets/models/toy-soldier.glb\n M assets/vfx/soft_flipbook.gdshader\n M dashboard/app.js\n M dashboard/index.html\n M dashboard/style.css\n M data/action-catalog.json\n M data/battle.json\n M data/gait.json\n M docs/AGENT_ACTION_STATES.md\n M docs/DESIGN.md\n M docs/README.md\n M docs/animation-catalog.json\n M docs/asset-integration/asset-provenance.json\n M export_presets.cfg\n M package-lock.json\n M package.json\n M scripts/battlefield.gd\n M scripts/combat_fx.gd\n M scripts/game.gd\n M scripts/sandbox_map.gd\n M scripts/tactics.gd\n M scripts/toy_actor.gd\n M scripts/unit.gd\n M source/latest/tools/build_soldier.py\n M source/latest/toy-soldier-retarget.blend\n M tests/combat_checks.gd\n M tests/equipment_contract.gd\n M tests/equipment_squad.gd\n M tests/integration_probe.gd\n M tests/lm_contract.gd\n M tests/semantic_probe.gd\n M tests/tactics_checks.gd\n M tests/test_control.py\n M tools/asset_browser_qa.cjs\n M tools/browser_qa.cjs\n M tools/lm_browser_qa.cjs\n M tools/lm_controller.py\n M tools/project.py\n M tools/run.py\n M tools/server.py\n?? .forge/plans/plan-0b17c7af9ff9.json\n?? .forge/plans/plan-aacc84dd5e6a.json\n?? assets/audio/grenade_blast_2.wav\n?? assets/audio/grenade_blast_2.wav.import\n?? assets/audio/grenade_blast_3.wav\n?? assets/audio/grenade_blast_3.wav.import\n?? assets/audio/pistol_2.wav\n?? assets/audio/pistol_2.wav.import\n?? assets/audio/pistol_3.wav\n?? assets/audio/pistol_3.wav.import\n?? assets/audio/rifle_2.wav\n?? assets/audio/rifle_2.wav.import\n?? assets/audio/rifle_3.wav\n?? assets/audio/rifle_3.wav.import\n?? assets/audio/rocket_launch_2.wav\n?? assets/audio/rocket_launch_2.wav.import\n?? assets/audio/rocket_launch_3.wav\n?? assets/audio/rocket_launch_3.wav.import\n?? assets/audio/smg_2.wav\n?? assets/audio/smg_2.wav.import\n?? assets/audio/smg_3.wav\n?? assets/audio/smg_3.wav.import\n?? assets/audio/tank_cannon_2.wav\n?? assets/audio/tank_cannon_2.wav.import\n?? assets/audio/tank_cannon_3.wav\n?? assets/audio/tank_cannon_3.wav.import\n?? dashboard/debug-console.js\n?? dashboard/execution-view.js\n?? dashboard/llm-log.js\n?? dashboard/studio.js\n?? dashboard/views.js\n?? data/build-info.json\n?? data/presentation.json\n?? data/studio-example.json\n?? data/studio-scenario.schema.json\n?? data/weapon-attachments.json\n?? docs/DEBUG_VISUALIZE.md\n?? docs/FLAG_MODE.md\n?? docs/LLM_CALL_LOG.md\n?? docs/demo/\n?? docs/evidence/anatomy/\n?? docs/evidence/charge/\n?? docs/evidence/debug-visualize/\n?? docs/evidence/flag-mode.json\n?? docs/evidence/flag-warning/\n?? docs/evidence/grounding/\n?? docs/evidence/latest-integration/\n?? docs/evidence/motion-continuity/\n?? docs/evidence/studio-flow.json\n?? docs/reviews/\n?? docs/studio/\n?? scripts/debug_visualize.gd\n?? scripts/debug_visualize.gd.uid\n?? scripts/flag_objective.gd\n?? scripts/flag_objective.gd.uid\n?? scripts/map_rules.gd\n?? scripts/map_rules.gd.uid\n?? scripts/scenario_validator.gd\n?? scripts/scenario_validator.gd.uid\n?? scripts/sole_contact.gd\n?? scripts/sole_contact.gd.uid\n?? scripts/tank_visual.gd\n?? scripts/tank_visual.gd.uid\n?? source/optimization/\n?? tests/anatomy_probe.gd\n?? tests/anatomy_probe.gd.uid\n?? tests/anatomy_probe.tscn\n?? tests/charge_probe.gd\n?? tests/charge_probe.gd.uid\n?? tests/charge_probe.tscn\n?? tests/debug_visualize_contract.gd\n?? tests/debug_visualize_contract.gd.uid\n?? tests/fixtures/\n?? tests/flag_tank_contract.gd\n?? tests/flag_tank_contract.gd.uid\n?? tests/flag_warning_contract.gd\n?? tests/flag_warning_contract.gd.uid\n?? tests/flag_warning_server.py\n?? tests/ground_probe.gd\n?? tests/ground_probe.gd.uid\n?? tests/ground_probe.tscn\n?? tests/motion_continuity.gd\n?? tests/motion_continuity.gd.uid\n?? tests/ragdoll_anatomy.gd\n?? tests/ragdoll_anatomy.gd.uid\n?? tests/ragdoll_anatomy.tscn\n?? tests/scenario_preflight.gd\n?? tests/scenario_preflight.gd.uid\n?? tests/studio_contract.gd\n?? tests/studio_contract.gd.uid\n?? tests/test_debug_visualize.py\n?? tests/test_flag_warning.py\n?? tests/test_jev.py\n?? tests/test_lm_call_log.py\n?? tests/test_studio.py\n?? tools/debug_browser_qa.cjs\n?? tools/flag_warning_browser_qa.cjs\n?? tools/jev_client.py\n?? tools/latest_integration_smoke.cjs\n?? tools/lm_call_log.py\n?? tools/optimization/\n?? tools/scenario_authoring.py\n?? tools/studio.py\n?? tools/studio_cli.py"
+  },
+  "brief": "# AI 桌面对抗演示\n\n在保留策划网页、战术执行、独立游戏入口的基础上，实现双人站立桌面演示：模型按意图生成受约束关卡，编辑器逐项展现布局，双方从桌边逐兵入场，游戏 AI / LLM 按真实来源指挥，夺旗至胜负，记录战局并可将复盘用于下一关。\n\n使用既有玩具兵、装备和场景组件；新增程序化站立人类与桌面呈现，不替换原素材。生成过程先取得并验证方案，再按可审计步骤执行，不能将本地预设伪装为 JEV。JEV 未配置时只声明接口兼容。\n\n验收：真实 Godot 场景两名站立玩家、桌边待命单位、未部署不交战/占旗、逐兵进入后激活、仅绿红参战、胜负冻结、逐步建场可暂停、控制台录像或明确浏览器限制、回放时间线与战后报告/下一关关联。预定预算 60 分钟、最多 3 轮修复；无外部密钥时用显式本地方案做机制验收。\n",
+  "budget": {
+    "max_minutes": 60,
+    "max_repairs": 3
+  },
+  "created_at": "2026-09-19T03:45:27.131051+00:00",
+  "files": [],
+  "goal": "实现双人桌面 AI 演示导演闭环与录像入口",
+  "in_scope": [],
+  "out_of_scope": [],
+  "plan_id": "plan-e0520ed7fa30",
+  "schema": "godot-forge.build-plan.v1"
+}

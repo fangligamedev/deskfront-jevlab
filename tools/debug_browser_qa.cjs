@@ -1,0 +1,55 @@
+const {chromium}=require('playwright');
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const url=process.env.DEBUG_TEST_URL||'http://127.0.0.1:8786';
+const out=path.resolve(__dirname,'../docs/evidence/debug-visualize');fs.mkdirSync(out,{recursive:true});
+(async()=>{
+ const browser=await chromium.launch({headless:true,args:['--use-angle=metal','--enable-gpu']});
+ const page=await browser.newPage({viewport:{width:1920,height:1200}}),checks=[],errors=[];
+ page.on('pageerror',e=>errors.push(String(e)));
+ page.on('console',m=>{if(m.type()==='error'&&!m.text().includes('favicon'))errors.push(m.text())});
+ const state=async()=>await(await page.request.get(url+'/api/state')).json();
+ async function until(f,ms=40000){const end=Date.now()+ms;while(Date.now()<end){const d=await state();if(f(d))return d;await page.waitForTimeout(250)}throw Error('timeout: '+f.toString())}
+ const check=(ok,name)=>{checks.push({test:name,passed:!!ok});assert(ok,name)};
+ try{
+  await page.goto(url);let d=await until(d=>d.engine_live&&d.state.units?.length===9);
+  check(Object.values(d.state.control).every(v=>v==='lm'),'new Web game defaults three factions to LLM');
+  check(!d.state.debug_visualize.enabled,'debug overlay initially off');
+  await page.waitForFunction(()=>live&&!!state.units);
+  await page.locator('#debugToggle').check();d=await until(d=>d.state.debug_visualize?.enabled);
+  check(Object.values(d.state.control).every(v=>v==='lm'),'actual checkbox does not take control from LLM');
+  d=await until(d=>(d.lm.metrics?.responses>0||d.lm.metrics?.errors>0)&&d.state.debug_visualize.units.some(u=>u.trail.length>1));
+  check(d.state.debug_visualize.units.some(u=>u.trail.length>1),'real game positions produce travelled traces');
+  await page.getByLabel('跟踪单位').selectOption('green-1');
+  d=await until(d=>d.state.debug_visualize.unit==='green-1'&&d.state.debug_visualize.units.length===1);
+  check(d.state.debug_visualize.units[0].unit_id==='green-1','unit selector filters Godot overlay');
+  await page.waitForFunction(()=>document.querySelector('#liveLogMeta').textContent.includes('green-1')&&document.querySelector('#liveLogBody').textContent.includes('command_id'));
+  await page.waitForTimeout(1800);
+  check((await page.locator('#liveLogBody').textContent()).includes('IN /'),'persistent input/output visible in left column');
+  await page.waitForFunction(()=>[...document.querySelector('#liveLogCalls').options].some(o=>o.textContent.includes('引擎已执行')||o.textContent.includes('调用失败')));
+  const recordId=await page.locator('#liveLogCalls option').evaluateAll(options=>options.find(o=>o.textContent.includes('引擎已执行')||o.textContent.includes('调用失败')).value);
+  await page.locator('#liveLogCalls').selectOption(recordId);await page.waitForTimeout(500);
+  const record=await(await page.request.get(url+'/api/lm/calls/'+recordId)).json();
+  check(record.provider==='volcengine_ark','live audit originates from actual configured Ark provider');
+  if(record.phase==='executed')check(!!record.parsed_response&&record.receipt?.accepted,'actual model reply reached accepted engine receipt');
+  const providerMetrics=(await state()).lm.metrics;
+  check(record.run_id===d.state.run_id&&record.unit_id==='green-1','log linked to current run and selected soldier');
+  check(!!record.request?.messages?.length&&!!record.response_text,'live panel uses real request and raw response');
+  await page.locator('#liveLogFollow').uncheck();const pinned=await page.locator('#liveLogCalls').inputValue();await page.waitForTimeout(1800);
+  check(await page.locator('#liveLogCalls').inputValue()===pinned,'can pin an I/O record for comparison');
+  await page.locator('#map').click({position:{x:160,y:150}});await until(d=>d.state.control.green==='player'&&d.state.debug_visualize.units.some(u=>u.waypoints.length>0));
+  await page.locator('#pause').click();d=await until(d=>d.state.paused);
+  const row=d.state.debug_visualize.units[0];check(!!row.command.command_id&&!!row.command.reason,'actual accepted instruction ID and reason exposed');
+  await page.locator('[data-camera="battle"]').click();await until(d=>d.state.camera==='battle');await page.waitForTimeout(1600);
+  await page.locator('#game').screenshot({path:path.join(out,'game-paths.png')});
+  await page.screenshot({path:path.join(out,'dashboard.png'),fullPage:true});
+  await page.locator('#debugToggle').uncheck();d=await until(d=>!d.state.debug_visualize.enabled);
+  check(d.state.debug_visualize.units.length===0,'off removes runtime route payload and projection');
+  const oldRun=d.state.run_id;await page.locator('#reset').click();d=await until(d=>d.state.run_id!==oldRun);
+  check(Object.values(d.state.control).every(v=>v==='lm'),'restart restores default LLM');
+  await page.waitForFunction(r=>state.run_id===r,d.state.run_id);
+  await page.locator('#pause').click();await until(d=>d.state.paused);
+  await page.waitForTimeout(1800);check(!(await page.locator('#liveLogMeta').textContent()).includes(oldRun),'new match clears pinned old-run log');
+  check(errors.length===0,'no JavaScript / Godot / WebGL errors');
+  fs.writeFileSync(path.join(out,'web.json'),JSON.stringify({passed:true,checks,errors,build:d.state.build_id,lm:{responses:providerMetrics.responses||0,accepted:providerMetrics.accepted||0,error:record.error||null,live_response_verified:!!record.parsed_response,provider_http_status:record.http_status},call:{id:record.id,run_id:record.run_id,provider:record.provider,phase:record.phase,decision:record.parsed_response,receipt:record.receipt},trace:row},null,2));
+ }catch(e){fs.writeFileSync(path.join(out,'web.json'),JSON.stringify({passed:false,checks,errors,failure:String(e)},null,2));await page.screenshot({path:path.join(out,'failure.png'),fullPage:true});throw e}finally{await browser.close()}
+})();

@@ -23,6 +23,8 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: python3 tools/check_project.py
       - run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+        env:
+          DESKFRONT_PYTHON_ONLY: '1'
       - run: git diff --check
 
   godot:

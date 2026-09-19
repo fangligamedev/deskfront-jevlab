@@ -1,0 +1,374 @@
+{
+  "approaches": 8,
+  "bounds": [
+    -0.3,
+    0.8,
+    3.28,
+    3.46
+  ],
+  "checks": [
+    {
+      "passed": true,
+      "test": "new default office map loads"
+    },
+    {
+      "passed": true,
+      "test": "right desk is twice the original width"
+    },
+    {
+      "passed": true,
+      "test": "no miniature buildings or gun emplacements on office map"
+    },
+    {
+      "passed": true,
+      "test": "no visible sandbox base or rim"
+    },
+    {
+      "passed": true,
+      "test": "all tactical obstacles are office equipment"
+    },
+    {
+      "passed": true,
+      "test": "green-1 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "green-1 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "green-2 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "green-2 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "green-3 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "green-3 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "blue-1 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "blue-1 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "blue-2 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "blue-2 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "blue-3 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "blue-3 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "red-1 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "red-1 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "red-2 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "red-2 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "red-3 spawns on unobstructed desk"
+    },
+    {
+      "passed": true,
+      "test": "red-3 can reach flag"
+    },
+    {
+      "passed": true,
+      "test": "flag has at least four unobstructed approach directions"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks west-book-cover"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: west-book-cover"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: west-book-cover"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks west-binder"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: west-binder"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: west-binder"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks west-inbox"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: west-inbox"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: west-inbox"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks near-keyboard"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: near-keyboard"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: near-keyboard"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks green-stapler"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: green-stapler"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: green-stapler"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks center-ledgers"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: center-ledgers"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: center-ledgers"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks north-binder"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: north-binder"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: north-binder"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks north-keyboard"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: north-keyboard"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: north-keyboard"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks north-mug"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: north-mug"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: north-mug"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks east-printer"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: east-printer"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: east-printer"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks printer-paper"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: printer-paper"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: printer-paper"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks east-archive"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: east-archive"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: east-archive"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks east-ledgers"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: east-ledgers"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: east-ledgers"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks blue-binder"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: blue-binder"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: blue-binder"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks south-archive"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: south-archive"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: south-archive"
+    },
+    {
+      "passed": true,
+      "test": "navigation blocks center-stapler"
+    },
+    {
+      "passed": true,
+      "test": "visible model and AI cover share identity: center-stapler"
+    },
+    {
+      "passed": true,
+      "test": "office prop blocks actual projectile ray: center-stapler"
+    },
+    {
+      "passed": true,
+      "test": "book stack exposes reservable cover slots"
+    },
+    {
+      "passed": true,
+      "test": "book cover reduces frontal exposure"
+    },
+    {
+      "passed": true,
+      "test": "cardboard box is destructible"
+    },
+    {
+      "passed": true,
+      "test": "destroying cardboard updates visuals collision and navigation together"
+    },
+    {
+      "passed": true,
+      "test": "printer remains a hard office obstacle"
+    },
+    {
+      "passed": true,
+      "test": "tank enters expanded office desk"
+    },
+    {
+      "passed": true,
+      "test": "tank has a hull-width route to flag"
+    },
+    {
+      "passed": true,
+      "test": "real root-motion soldier traverses office props and reaches flag"
+    }
+  ],
+  "final_position": [
+    1.49709272384644,
+    2.16008234024048
+  ],
+  "passed": true,
+  "routes": [
+    {
+      "distance": 2.07279211655259,
+      "id": "green-1"
+    },
+    {
+      "distance": 2.02279213443398,
+      "id": "green-2"
+    },
+    {
+      "distance": 1.94779212772846,
+      "id": "green-3"
+    },
+    {
+      "distance": 1.64246233925223,
+      "id": "blue-1"
+    },
+    {
+      "distance": 1.69246230274439,
+      "id": "blue-2"
+    },
+    {
+      "distance": 1.7674623504281,
+      "id": "blue-3"
+    },
+    {
+      "distance": 1.88921381160617,
+      "id": "red-1"
+    },
+    {
+      "distance": 1.93921376392245,
+      "id": "red-2"
+    },
+    {
+      "distance": 2.01421381160617,
+      "id": "red-3"
+    }
+  ]
+}

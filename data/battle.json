@@ -25,16 +25,19 @@
     "speed": 0.075,
     "range": 0.95,
     "damage": 28.0,
-    "cooldown": 3.2
+    "cooldown": 3.2,
+    "deployment_speed": 0.06
   },
   "rules": {
     "capture_radius": 0.17,
-    "score_to_win": 90.0,
+    "score_to_win": 30.0,
     "match_seconds": 300.0,
     "reinforce_hp_ratio": 0.58,
     "reinforce_after": 25.0,
     "ai_interval": 1.6,
-    "cover_hold_seconds": 6.0
+    "cover_hold_seconds": 6.0,
+    "mode": "center_flag",
+    "hold_seconds": 30.0
   },
   "objective": [
     0.57,
@@ -409,7 +412,12 @@
     "crawl_speed": 0.038,
     "crouch_speed": 0.075,
     "run_speed": 0.18,
-    "safe_reaction_seconds": 0.45
+    "safe_reaction_seconds": 0.45,
+    "sprint_speed": 0.3,
+    "sprint_enter_distance": 0.24,
+    "sprint_exit_distance": 0.1,
+    "move_acceleration": 0.72,
+    "move_braking": 1.1
   },
   "destruction": {
     "sandbag": 85,

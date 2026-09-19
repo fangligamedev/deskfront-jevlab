@@ -14,3 +14,6 @@
 *.wav binary
 *.ogg binary
 *.otf binary
+
+# Preserve captured validation output verbatim, including its trailing spaces.
+docs/evidence/**/*.log -whitespace

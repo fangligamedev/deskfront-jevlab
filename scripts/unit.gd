@@ -80,6 +80,8 @@ var no_progress_seconds: float=0
 var path_repairs: int=0
 var path_failure: String=""
 var previous_hull_yaw: float=0
+var deployment_phase: String="active"
+var deployment_goal:=Vector2.ZERO
 var track_clip: String="TankArmature|Tank_Forward"
 
 func weapon_config() -> Dictionary:
@@ -103,41 +105,20 @@ func setup(owner_game, unit_id: String, team: String, p: Vector2, is_tank: bool=
 	weapon="cannon" if tank else game.config.loadout[(int(unit_id.get_slice("-",1))-1)%3]
 	tactical_role={"rifle":"overwatch","smg":"assault","rocket":"anti_armor"}.get(weapon,"armor")
 	ammo=int(game.config.weapons[weapon].magazine)
-	position=Vector3(p.x,game.field.height,p.y);goal=p
+	position=Vector3(p.x,game.field.ground_height(p),p.y);goal=p
 	if not tank:
 		actor=preload("res://scripts/toy_actor.gd").new();add_child(actor);actor.top_level=true
 		actor.global_position=global_position;actor.rotation.y=rotation.y+PI
 		actor.navigation_guard=func(p:Vector3):return garrison_phase!="" or game.field.walkable(Vector2(p.x,p.z))
+		actor.ground_sampler=func(at:Vector3):return actor.global_position.y if garrison_phase!="" else game.field.ground_height(Vector2(at.x,at.z))
 		actor.setup(game.colors[faction],"rocket" if weapon=="rocket" else "rifle")
 		model=actor.model;anim=actor.anim;tree=actor.tree;playback=actor.playback;bone_count=actor.skeleton.get_bone_count()
 		for clip_name in anim.get_animation_list():animation_names[clip_name]=clip_name
 	else:
-		model=Node3D.new();add_child(model)
-		var raw=load("res://assets/models/tank.glb").instantiate();model.add_child(raw)
-		var box=AABB();var first=true
-		for m in raw.find_children("*","MeshInstance3D",true,false):
-			var b=raw.global_transform.affine_inverse()*m.global_transform*m.get_aabb()
-			box=b if first else box.merge(b);first=false
-		var factor=.30/maxf(box.size.x,maxf(box.size.y,box.size.z))
-		raw.scale=Vector3.ONE*factor
-		var offset=Vector3(-box.get_center().x,-box.position.y,-box.get_center().z)
-		for c in raw.get_children():
-			if c is Node3D:c.position+=offset
-		raw.rotation.y=-PI/2 # T2 source forward -X becomes the game's -Z.
-		var mat=game.field.mat(game.colors[faction],.32)
-		for m in raw.find_children("*","MeshInstance3D",true,false):m.material_override=mat
-		anim=raw.find_children("*","AnimationPlayer",true,false)[0]
-		for n in anim.get_animation_list():anim.get_animation(n).loop_mode=Animation.LOOP_LINEAR
-		anim.play("TankArmature|Tank_Forward");anim.speed_scale=0
-		# This source's gun is a separate mesh; preserve its normalized transform under a game-space pivot.
-		var gun=raw.find_child("Tank_Gun",true,false)
-		turret=Node3D.new();turret.name="TurretPivot";model.add_child(turret)
-		if gun:
-			turret.global_position=gun.global_position
-			gun.reparent(turret,true)
+		model=preload("res://scripts/tank_visual.gd").new();add_child(model)
+		model.setup(game.field.mat(game.colors[faction],.32));turret=model.turret;muzzle=model.muzzle
 		var body=StaticBody3D.new();add_child(body);body.collision_layer=1;body.collision_mask=0
-		var col=CollisionShape3D.new();body.add_child(col);var shape=BoxShape3D.new();shape.size=Vector3(.13,.065,.21);col.shape=shape;col.position.y=.04
-		muzzle=Node3D.new();turret.add_child(muzzle);muzzle.position=Vector3(0,.02,-.15)
+		var col=CollisionShape3D.new();body.add_child(col);var shape=BoxShape3D.new();shape.size=Vector3(.18,.08,.25);col.shape=shape;col.position.y=.04
 	var torus := TorusMesh.new();torus.inner_radius=.027 if not tank else .10;torus.outer_radius=.031 if not tank else .105
 	ring=MeshInstance3D.new();ring.mesh=torus;add_child(ring);ring.position.y=.003;ring.scale.y=.10
 	var rm := StandardMaterial3D.new();rm.albedo_color=Color(.93,.81,.47);rm.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -164,6 +145,7 @@ func aim_point() -> Vector3:
 	return box.center+Vector3.UP*box.size.y*.22
 
 func can_engage(enemy) -> bool:
+	if deployment_phase!="active" or enemy.get("deployment_phase")=="entering":return false
 	if enemy.tank and weapon not in ["rocket","cannon"]:return false
 	var hit: Dictionary=game.field.trace_cover(muzzle_position(enemy.aim_point()),enemy.aim_point())
 	if hit.is_empty():return true
@@ -175,6 +157,10 @@ func receive_pressure(amount: float, origin: Vector3) -> void:
 	last_threat_at=game.elapsed;last_threat_position=Vector2(origin.x,origin.z)
 
 func survival_tick() -> void:
+	# During imminent flag defeat, honor LM counterattack orders even at low health.
+	# Damage, suppression, navigation and animation constraints still apply.
+	if game.control[faction]=="lm" and game.flag_emergency(faction):
+		safety_until=0;safety_reason="";return
 	if tank:
 		if game.control[faction]=="lm" and game.elapsed>=reaction_at:
 			reaction_at=game.elapsed+.4
@@ -194,9 +180,9 @@ func survival_tick() -> void:
 	var outmatched:bool=armor_threat!=null and weapon not in ["rocket","cannon"] and game.field.line_of_sight(armor_threat.pos(),pos()) and armor_threat.pos().distance_to(pos())<.85
 	# A tank must not erase a nearer flank threat: cover is safe only if both
 	# directions are protected. Escape the exposed flank before hiding from armor.
-	var compromised: bool=in_cover() and game.field.protection(pos(),enemy.pos())<.2
+	var compromised: bool=in_cover() and enemy.pos().distance_to(pos())<game.config.weapons[enemy.weapon].range and enemy.can_engage(self) and game.field.protection(pos(),enemy.pos())<.2
 	if outmatched and not compromised:enemy=armor_threat
-	compromised=compromised or (in_cover() and game.field.protection(pos(),enemy.pos())<.2)
+	compromised=compromised or (in_cover() and enemy.pos().distance_to(pos())<game.config.weapons[enemy.weapon].range and enemy.can_engage(self) and game.field.protection(pos(),enemy.pos())<.2)
 	var danger: bool=outmatched or compromised or (under_fire and (hp/max_hp<game.config.tactics.survival_hp or suppression>.72))
 	if not danger:return
 	safety_until=game.elapsed+3.0
@@ -248,7 +234,12 @@ func update_posture(moving: bool) -> void:
 	if posture_order!="auto" and not (game.control[faction]=="lm" and (game.elapsed<safety_until or suppression>.72)):desired=posture_order
 	if desired!=posture and (game.elapsed-posture_since>=game.config.tactics.posture_dwell or desired=="prone" or cqb_stance=="hide"):
 		posture=desired;posture_since=game.elapsed;last_clip=""
+	var was_sprinting:bool=locomotion=="sprint"
 	locomotion=("crawl" if posture=="prone" else ("crouch_run" if posture=="crouch" else "run")) if moving else "idle"
+
+	if moving and posture=="stand" and garrison_phase=="" and suppression<game.config.tactics.prone_pressure:
+		var threshold:float=game.config.tactics.sprint_exit_distance if was_sprinting else game.config.tactics.sprint_enter_distance
+		if pos().distance_to(goal)>threshold:locomotion="sprint"
 
 func record_action() -> void:
 	if hp<=0:weapon_state="disabled";locomotion="disabled";return
@@ -268,6 +259,8 @@ func armor_multiplier(from: Vector2) -> float:
 
 func muzzle_position(target: Vector3) -> Vector3:
 	if tank and muzzle:return muzzle.global_position
+	# Teleports can precede presentation synchronization; never fire from a stale socket.
+	if actor and actor.global_position.distance_to(global_position)<=.001:return actor.muzzle_world
 	var y: float=.026 if posture=="prone" else (.068 if posture=="crouch" else .093)
 	if cqb_stance=="hide":y=.025
 	var start := global_position+Vector3.UP*y
@@ -337,17 +330,30 @@ func turn_weapon(enemy, moving: bool, dt: float) -> bool:
 	if not moving and not (actor and actor.stepping):rotation.y=lerp_angle(rotation.y,desired,minf(1,dt*10))
 	return true
 
-func hit(amount: float, pressure: float) -> void:
+func hit(amount: float, pressure: float, origin:Vector3=Vector3.INF, impulse:float=.25) -> void:
 	if hp<=0:return
 	hp=maxf(0,hp-amount);suppression=minf(1,suppression+pressure)
 	if hp<=0:
 		state="dead";route.clear();game.field.release(id);animate("death");hp_fill.visible=false;ring.visible=false
-		if actor:actor.ragdoll(global_position+Vector3(.07,0,0),.25)
+		if actor:actor.ragdoll(global_position+Vector3(.07,0,0) if origin==Vector3.INF else origin,impulse)
 		else:
 			for body in find_children("*","StaticBody3D",true,false):body.collision_layer=0
 		game.add_event(faction+" · "+id+" 失去战斗力")
 
+func deployment_tick(dt: float) -> void:
+	if deployment_phase!="entering":return
+	var direction: Vector2=deployment_goal-pos()
+	rotation.y=rotate_toward(rotation.y,atan2(-direction.x,-direction.y),1.2*dt)
+	var next: Vector2=pos().move_toward(deployment_goal,float(game.config.tank.get("deployment_speed",.06))*dt)
+	position=Vector3(next.x,game.field.ground_height(next),next.y);state="move";locomotion="tracks"
+	if next.distance_to(deployment_goal)<.004:
+		deployment_phase="active";goal=pos();state="idle";cooldown=1.0
+		game.add_event("红方坦克驶入阵地 · 可以参战")
+
 func tick(dt: float) -> void:
+	if deployment_phase!="active":
+		if tank:deployment_tick(dt)
+		return
 	actor_advanced=false
 	if hp<=0:return
 	if actor and actor.global_position.distance_to(global_position)>.001 and not actor.stepping:actor.global_position=global_position
@@ -370,6 +376,7 @@ func tick(dt: float) -> void:
 		if not valid:game.field.release(id);cover_id="";cover_slot={};peeking=false;cqb_stance="open"
 	if route_revision!=game.field.revision and not route.is_empty():route=navigation_path(goal);route_revision=game.field.revision
 	if gun_id!="":
+		actor.weapon.hide()
 		for gun in game.at_guns:
 			if gun.id==gun_id:gun.drive(self,dt);return
 	if garrison_phase!="" and game.building:
@@ -390,57 +397,58 @@ func tick(dt: float) -> void:
 				if candidate.id==target_id:move_to(candidate.pos())
 			pursuit_clock=.7
 	pursuit_clock-=dt
+	# Consume reached nodes before selecting this tick's animation and velocity.
+	# Intermediate nodes are steering targets, never an implicit stop/idle order.
+	while not route.is_empty():
+		var can_skip: bool=route.size()>1 and game.field.segment_walkable(pos(),route[1],tank)
+		var arrival: float=.008 if tank else .002
+		if route.size()==1 and not tank:
+			var threat=game.closest_enemy(self)
+			if cover_id=="" or threat==null or game.field.protection(pos(),threat.pos())>.2:arrival=.012
+		if pos().distance_to(route[0])>=(.024 if can_skip else arrival):break
+		route.remove_at(0)
 	var moving: bool=not route.is_empty()
 	update_posture(moving)
 	if not moving:reversing=false
 	aim_time=0 if moving else aim_time+dt
 	if moving:
 		var target: Vector2=route[0]
-		var occupied: bool=false
-		for other in game.units:
-			if other!=self and other.hp>0 and other.pos().distance_to(target)<.029:occupied=true
-		# Never skip a corner waypoint to avoid a teammate: that can cut through a solid cell.
-		var can_skip: bool=route.size()>1 and game.field.segment_walkable(pos(),route[1],tank)
-		var arrival: float=.008 if tank else .002
-		if route.size()==1 and not tank:
-			var threat=game.closest_enemy(self)
-			if cover_id=="" or threat==null or game.field.protection(pos(),threat.pos())>.2:arrival=.012
-		if pos().distance_to(target)<(.024 if can_skip else arrival):route.remove_at(0)
+		var base_speed: float=game.config.tank.speed if tank else float(game.config.tactics.get(locomotion+"_speed",game.config.tactics.run_speed))
+		if locomotion=="crouch_run":base_speed=game.config.tactics.crouch_speed
+		var speed: float=base_speed*(game.config.soldier.speed/.12 if not tank else 1.0)*(1-suppression*.18)*formation_speed
+		var direction: Vector2=target-pos()
+		var facing: float=atan2(-direction.x,-direction.y)
+		reversing=tank and order_mode=="reverse"
+		if reversing:facing=wrapf(facing+PI,-PI,PI)
+		if tank:
+			rotation.y=rotate_toward(rotation.y,facing,game.config.tactics.tank_turn_speed*dt)
+			# Pivot the hull before translating; a tank cannot strafe towards a waypoint.
+			var aligned_hull: bool=absf(angle_difference(rotation.y,facing))<.35
+			var step=pos().move_toward(target,speed*dt if aligned_hull else 0.0);position.x=step.x;position.z=step.y;position.y=game.field.ground_height(step)
 		else:
-			var base_speed: float=game.config.tank.speed if tank else float(game.config.tactics.get(locomotion+"_speed",game.config.tactics.run_speed))
-			if locomotion=="crouch_run":base_speed=game.config.tactics.crouch_speed
-			var speed: float=base_speed*(game.config.soldier.speed/.12 if not tank else 1.0)*(1-suppression*.18)*formation_speed
-			var direction: Vector2=target-pos()
-			var facing: float=atan2(-direction.x,-direction.y)
-			reversing=tank and order_mode=="reverse"
-			if reversing:facing=wrapf(facing+PI,-PI,PI)
-			if tank:
-				rotation.y=rotate_toward(rotation.y,facing,game.config.tactics.tank_turn_speed*dt)
-				# Pivot the hull before translating; a tank cannot strafe towards a waypoint.
-				var aligned_hull: bool=absf(angle_difference(rotation.y,facing))<.35
-				var step=pos().move_toward(target,speed*dt if aligned_hull else 0.0);position.x=step.x;position.z=step.y;position.y=game.field.ground_height(step)
-			else:
-				var lateral=false
-				if posture!="prone" and not cover_slot.is_empty() and pos().distance_to(cover_slot.position)<.07 and direction.length()<.055:
-					var normal:Vector2=cover_slot.normal
-					lateral=absf(direction.normalized().dot(normal))<.20
-					if lateral:facing=atan2(-normal.x,-normal.y)
-				if not lateral and not actor.stepping:
-					# Steer the root-motion direction; never translate a planted cover foot externally.
-					for other in game.units:
-						if other==self or other.hp<=0:continue
-						if not other.tank and route.size()>1 and pos().distance_to(target)<.015:continue
-						var apart=pos()-other.pos();var space=.13 if other.tank else .030
-						if apart.length()>.001 and apart.length()<space:
-							var steered=target+apart.normalized()*(space-apart.length())*.8
-							if game.field.segment_walkable(pos(),steered) and game.field.segment_walkable(steered,target):target=steered;direction=target-pos();facing=atan2(-direction.x,-direction.y)
-				if not actor.stepping:
-					rotation.y=facing;actor.rotation.y=facing+PI
-					actor.position.y=game.field.ground_height(pos())
-				actor.advance_drive(Vector3(target.x,actor.position.y,target.y),speed,dt,lateral,locomotion)
-				if lateral:locomotion="cover_step"
-				global_position=actor.global_position;actor_advanced=true
-			state="move";last_clip="run"
+			var lateral=false
+			if posture!="prone" and not cover_slot.is_empty() and pos().distance_to(cover_slot.position)<.07 and direction.length()<.055:
+				var normal:Vector2=cover_slot.normal
+				lateral=absf(direction.normalized().dot(normal))<.20
+				if lateral:facing=atan2(-normal.x,-normal.y)
+			if not lateral and not actor.stepping:
+				# Steer the root-motion direction; never translate a planted cover foot externally.
+				for other in game.units:
+					if other==self or other.hp<=0:continue
+					if not other.tank and route.size()>1 and pos().distance_to(target)<.015:continue
+					var apart=pos()-other.pos();var space=.13 if other.tank else .030
+					if apart.length()>.001 and apart.length()<space:
+						var steered=target+apart.normalized()*(space-apart.length())*.8
+						if game.field.segment_walkable(pos(),steered) and game.field.segment_walkable(steered,target):target=steered;direction=target-pos();facing=atan2(-direction.x,-direction.y)
+			if not actor.stepping:
+				rotation.y=facing;actor.rotation.y=facing+PI
+				actor.position.y=game.field.ground_height(pos())
+			actor.drive_limit=pos().distance_to(goal)
+			actor.acceleration=game.config.tactics.move_acceleration;actor.braking=game.config.tactics.move_braking
+			actor.advance_drive(Vector3(target.x,actor.position.y,target.y),speed,dt,lateral,locomotion)
+			if lateral:locomotion="cover_step"
+			global_position=actor.global_position;actor_advanced=true
+		state="move";last_clip="run"
 	var close_enemy=game.closest_enemy(self)
 	if not tank and close_enemy!=null and not close_enemy.tank and pos().distance_to(close_enemy.pos())<=game.config.weapons.bayonet.range and cooldown<=0 and not (actor and actor.stepping) and game.field.melee_clear(pos(),close_enemy.pos()):
 		cooldown=game.config.weapons.bayonet.cooldown;state="melee";melee_until=game.elapsed+.24
@@ -464,6 +472,7 @@ func tick(dt: float) -> void:
 		else:animate("aim" if enemy!=null else "idle")
 
 func fire(enemy) -> void:
+	if deployment_phase!="active":return
 	var cfg: Dictionary=weapon_config()
 	cooldown=cfg.cooldown
 	last_shot_at=game.elapsed;last_shot_target=enemy.id
@@ -471,6 +480,7 @@ func fire(enemy) -> void:
 	var landed: bool=game.rng.randf()<chance
 	game.shots+=1
 	game.fx.launch(self,enemy,weapon,landed)
+	if actor:actor.recoil=1.0
 	# The projectile retains this shot's current designer-adjusted values.
 	if not game.fx.projectiles.is_empty():game.fx.projectiles[-1].cfg=cfg
 	state="fire";animate("fire");fire_until=game.elapsed+.22
@@ -480,14 +490,14 @@ func fire(enemy) -> void:
 			reload_timer=cfg.reload;game.fx.sound("reload",position,-7)
 
 func snapshot() -> Dictionary:
-	var combat: Dictionary={"engageable_targets":[],"incoming_threats":[],"path_active":not route.is_empty()}
+	var combat: Dictionary={"flag_hint":game.tactics_ai.flag_hint(self) if game.control[faction]=="lm" and game.tactics_ai and deployment_phase=="active" else {},"engageable_targets":[],"incoming_threats":[],"path_active":not route.is_empty()}
 	if game.control[faction]=="lm" and hp>0:
 		for enemy in game.living():
 			if enemy.faction==faction:continue
 			var distance: float=pos().distance_to(enemy.pos())
 			if distance<weapon_config().range and can_engage(enemy):combat.engageable_targets.append(enemy.id)
 			if distance<enemy.weapon_config().range and enemy.can_engage(self):combat.incoming_threats.append(enemy.id)
-	return {"combat":combat,"gun_id":gun_id,"building_phase":garrison_phase,"building_floor":garrison_floor,"elevation":position.y-game.field.height,"lm_intent":lm_intent,"lm_reason":lm_reason,"path_repairs":path_repairs,"path_failure":path_failure,"posture":posture,"locomotion":locomotion,"weapon_state":weapon_state,"posture_order":posture_order,"survival_reason":safety_reason if game.elapsed<safety_until else "","last_shot_at":last_shot_at,"last_shot_target":last_shot_target,"action_counts":action_counts,"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed,"grenades":grenade_count,"available_actions":available_actions(),"asset_animation":actor.clip if actor else track_clip,"root_distance":actor.roots_travelled if actor else 0,"cover_step":actor.stepping if actor else false,"contact_slip_max":actor.contact_slip_max if actor else 0}
+	return {"deployment_phase":deployment_phase,"combat_ready":deployment_phase=="active","combat":combat,"gun_id":gun_id,"building_phase":garrison_phase,"building_floor":garrison_floor,"elevation":position.y-game.field.height,"lm_intent":lm_intent,"lm_reason":lm_reason,"path_repairs":path_repairs,"path_failure":path_failure,"posture":posture,"locomotion":locomotion,"weapon_state":weapon_state,"posture_order":posture_order,"survival_reason":safety_reason if game.elapsed<safety_until else "","last_shot_at":last_shot_at,"last_shot_target":last_shot_target,"action_counts":action_counts,"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed,"grenades":grenade_count,"available_actions":available_actions(),"asset_animation":actor.clip if actor else track_clip,"root_distance":actor.roots_travelled if actor else 0,"movement_speed":actor.actual_speed if actor else 0,"animation_rate":actor.root_speed if actor else 0,"ground_correction":actor.ground_correction if actor else 0,"cover_step":actor.stepping if actor else false,"contact_slip_max":actor.contact_slip_max if actor else 0}
 
 func presentation_tick(dt:float) -> void:
 	if actor and not actor.stepping and posture=="prone" and actor.clip=="cover_idle":animate("reload" if reload_timer>0 else "aim")
@@ -506,6 +516,7 @@ func presentation_tick(dt:float) -> void:
 		global_position=actor.global_position
 	if not actor.stepping and posture=="prone" and actor.clip=="cover_idle":animate("reload" if reload_timer>0 else "aim")
 	if gun_id!="":
+		actor.weapon.hide()
 		for gun in game.at_guns:
 			if gun.id==gun_id:gun.pose_crew(self)
 	actor_advanced=false
@@ -514,6 +525,7 @@ func can_throw(enemy) -> bool:
 	return not tank and hp>0 and grenade_count>0 and grenade_time<0 and enemy!=null and pos().distance_to(enemy.pos())<=game.config.weapons.grenade.range and not actor.stepping and reload_timer<=0 and suppression<.8
 
 func available_actions() -> Array:
+	if deployment_phase!="active":return []
 	if hp<=0:return []
 	if gun_id!="":return ["hold","leave_gun","cover","retreat"]
 	if garrison_phase!="":return ["hold","leave_building","cover","retreat"]

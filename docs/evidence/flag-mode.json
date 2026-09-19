@@ -1,0 +1,242 @@
+{
+  "date": "2026-09-19",
+  "flag_hold_seconds": 30,
+  "runs": [
+    {
+      "map": "crossroads",
+      "mode": "game_ai",
+      "real_api": false,
+      "forced_tank_reinforcement": true,
+      "metrics": {
+        "duration": 60.5,
+        "infantry_alive": 7,
+        "infantry_hp": 311.7,
+        "shots": 54,
+        "destroyed": 50,
+        "cover_sample_ratio": 0.141,
+        "scores": {
+          "blue": 0.0,
+          "green": 0.0,
+          "red": 30.0166666666662
+        },
+        "winner": "red"
+      },
+      "llm_metrics": {},
+      "unit_last_actions": [
+        {
+          "id": "green-1",
+          "phase": "active",
+          "hp": 74.0,
+          "last_shot_at": 42.7333333333322
+        },
+        {
+          "id": "green-2",
+          "phase": "active",
+          "hp": 100.0,
+          "last_shot_at": -10.0
+        },
+        {
+          "id": "green-3",
+          "phase": "active",
+          "hp": 0.0,
+          "last_shot_at": 23.8499999999999
+        },
+        {
+          "id": "blue-1",
+          "phase": "active",
+          "hp": 19.7,
+          "last_shot_at": -10.0
+        },
+        {
+          "id": "blue-2",
+          "phase": "active",
+          "hp": 3.7,
+          "last_shot_at": 25.8166666666665
+        },
+        {
+          "id": "blue-3",
+          "phase": "active",
+          "hp": 0.0,
+          "last_shot_at": 26.9666666666664
+        },
+        {
+          "id": "red-1",
+          "phase": "active",
+          "hp": 7.5,
+          "last_shot_at": 39.999999999999
+        },
+        {
+          "id": "red-2",
+          "phase": "active",
+          "hp": 81.8,
+          "last_shot_at": -10.0
+        },
+        {
+          "id": "red-3",
+          "phase": "active",
+          "hp": 25.0,
+          "last_shot_at": 59.2333333333313
+        },
+        {
+          "id": "red-tank",
+          "phase": "active",
+          "hp": 0.0,
+          "last_shot_at": 40.7666666666656
+        }
+      ]
+    },
+    {
+      "map": "crossroads",
+      "mode": "lm",
+      "real_api": true,
+      "forced_tank_reinforcement": true,
+      "metrics": {
+        "duration": 60.7,
+        "infantry_alive": 4,
+        "infantry_hp": 228.7,
+        "shots": 106,
+        "destroyed": 5,
+        "cover_sample_ratio": 0.027,
+        "scores": {
+          "blue": 0.0,
+          "green": 0.0,
+          "red": 30.0166666666662
+        },
+        "winner": "red"
+      },
+      "llm_metrics": {
+        "unit_calls": {
+          "green-1": 9,
+          "green-2": 7,
+          "green-3": 5,
+          "blue-1": 9,
+          "blue-2": 11,
+          "blue-3": 5,
+          "red-1": 11,
+          "red-2": 10,
+          "red-3": 10,
+          "red-tank": 10
+        },
+        "responses": 84,
+        "tokens": 709679,
+        "latency_ms_total": 159311,
+        "unit_decisions": {
+          "green-1": 8,
+          "green-2": 7,
+          "green-3": 5,
+          "blue-2": 10,
+          "blue-1": 8,
+          "blue-3": 5,
+          "red-1": 11,
+          "red-2": 10,
+          "red-3": 10,
+          "red-tank": 9
+        },
+        "model_actions": {
+          "move": 56,
+          "attack": 5,
+          "capture": 17,
+          "hold": 3,
+          "cover": 2
+        },
+        "accepted": 70,
+        "rejected": 13,
+        "last_error": "invalid_target",
+        "error_codes": {
+          "invalid_target": 1
+        },
+        "errors": 1,
+        "fallbacks": 1,
+        "discarded": 3
+      },
+      "unit_last_actions": [
+        {
+          "id": "green-1",
+          "phase": "active",
+          "hp": 0.0,
+          "last_shot_at": 43.9166666666655
+        },
+        {
+          "id": "green-2",
+          "phase": "active",
+          "hp": 0.0,
+          "last_shot_at": 37.3666666666658
+        },
+        {
+          "id": "green-3",
+          "phase": "active",
+          "hp": 0.0,
+          "last_shot_at": 20.5833333333334
+        },
+        {
+          "id": "blue-1",
+          "phase": "active",
+          "hp": 0.0,
+          "last_shot_at": 39.7166666666657
+        },
+        {
+          "id": "blue-2",
+          "phase": "active",
+          "hp": 13.7,
+          "last_shot_at": 40.6666666666656
+        },
+        {
+          "id": "blue-3",
+          "phase": "active",
+          "hp": 0.0,
+          "last_shot_at": 22.05
+        },
+        {
+          "id": "red-1",
+          "phase": "active",
+          "hp": 67.0,
+          "last_shot_at": 49.8833333333318
+        },
+        {
+          "id": "red-2",
+          "phase": "active",
+          "hp": 87.0,
+          "last_shot_at": 47.5166666666653
+        },
+        {
+          "id": "red-3",
+          "phase": "active",
+          "hp": 61.0,
+          "last_shot_at": 55.9333333333314
+        },
+        {
+          "id": "red-tank",
+          "phase": "active",
+          "hp": 420.0,
+          "last_shot_at": 49.7166666666651
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "flag_tank_contract": 22,
+    "semantic": 113,
+    "three_map_integration": 92,
+    "combat_contract": 31,
+    "lm_contract": 23,
+    "python_tests": 25
+  },
+  "limitations": [
+    "短时三方演练不等同于平衡性或胜率测试",
+    "LLM 有引擎拦截及一次 invalid_target 后本地回退，未隐藏",
+    "坦克使用原资源 rest 几何；未实现履带独立滚动动画"
+  ],
+  "verification": {
+    "full_test_command": "python3 tools/project.py test",
+    "full_test_exit_code": 0,
+    "full_test_log": "output/flag-final-tests.log",
+    "web_export_exit_code": 0,
+    "browser_verified": [
+      "正俯视可见上方红色待命坦克",
+      "真实点击重新开始成功",
+      "真实点击增援后同一坦克驶入并进入 active",
+      "中央旗进度和胜利状态同步"
+    ],
+    "live_url": "http://127.0.0.1:8768/"
+  }
+}

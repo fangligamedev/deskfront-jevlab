@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-import subprocess,sys,os,pathlib,urllib.request,webbrowser,time,argparse
+import subprocess,sys,os,pathlib,urllib.request,webbrowser,time,argparse,json
+from project import stamp_build
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 def main():
     p=argparse.ArgumentParser();p.add_argument('--port',type=int,default=8768);p.add_argument('--no-open',action='store_true');a=p.parse_args()
-    if not (ROOT/'build/web/index.html').exists():subprocess.run([sys.executable,str(ROOT/'tools/project.py'),'web'],check=True)
+    stamp_build()
+    build=ROOT/'build/web/build-info.json'
+    stale=not build.exists() or json.loads(build.read_text())!=json.loads((ROOT/'data/build-info.json').read_text())
+    if stale or not (ROOT/'build/web/index.html').exists():subprocess.run([sys.executable,str(ROOT/'tools/project.py'),'web'],check=True)
     url=f'http://127.0.0.1:{a.port}'
     try:
         with urllib.request.urlopen(url+'/api/health',timeout=1) as r:

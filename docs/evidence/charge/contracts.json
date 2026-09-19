@@ -1,0 +1,126 @@
+{
+  "acceleration_ramp": [
+    0.012,
+    0.024,
+    0.036,
+    0.048,
+    0.06,
+    0.072,
+    0.084,
+    0.096,
+    0.108,
+    0.12,
+    0.132,
+    0.144,
+    0.156,
+    0.168,
+    0.18,
+    0.192,
+    0.204,
+    0.216,
+    0.228,
+    0.24,
+    0.252,
+    0.264,
+    0.276,
+    0.288,
+    0.3,
+    0.3,
+    0.3,
+    0.3,
+    0.3,
+    0.3
+  ],
+  "blocked_clip": "rifle_idle",
+  "blocked_count": 54,
+  "blocked_speed": 0,
+  "checks": [
+    {
+      "passed": true,
+      "test": "run actual speed follows requested 0.18"
+    },
+    {
+      "passed": true,
+      "test": "run planted feet horizontal drift stays within 0.5 mm"
+    },
+    {
+      "passed": true,
+      "test": "run stop produces zero residual translation"
+    },
+    {
+      "passed": true,
+      "test": "sprint actual speed follows requested 0.3"
+    },
+    {
+      "passed": true,
+      "test": "sprint planted feet horizontal drift stays within 0.5 mm"
+    },
+    {
+      "passed": true,
+      "test": "sprint stop produces zero residual translation"
+    },
+    {
+      "passed": true,
+      "test": "sprint actual speed follows requested 0.15"
+    },
+    {
+      "passed": true,
+      "test": "sprint planted feet horizontal drift stays within 0.5 mm"
+    },
+    {
+      "passed": true,
+      "test": "sprint stop produces zero residual translation"
+    },
+    {
+      "passed": true,
+      "test": "charge accelerates to target over about 0.42 seconds"
+    },
+    {
+      "passed": true,
+      "test": "blocked charge stops animation instead of running in place"
+    },
+    {
+      "passed": true,
+      "test": "arrival brakes without overshoot and returns to idle"
+    }
+  ],
+  "measurements": [
+    {
+      "ankle_vertical_adjustment_m": 0.0000849766656756401,
+      "contact_samples": 80,
+      "driving_clip": "rifle_jog_rm",
+      "mode": "run",
+      "native_stride_speed": 0.331173354597547,
+      "rate": 0.543521987808295,
+      "releases": 2,
+      "requested": 0.18,
+      "slip_m": 0.0,
+      "steady_speed": 0.17999999721845
+    },
+    {
+      "ankle_vertical_adjustment_m": 0.000188051722943783,
+      "contact_samples": 54,
+      "driving_clip": "rifle_sprint_rm",
+      "mode": "sprint",
+      "native_stride_speed": 0.488047575665655,
+      "rate": 0.614694171138594,
+      "releases": 0,
+      "requested": 0.3,
+      "slip_m": 0.0,
+      "steady_speed": 0.299999992052714
+    },
+    {
+      "ankle_vertical_adjustment_m": 0.0000799400731921196,
+      "contact_samples": 72,
+      "driving_clip": "rifle_jog_rm",
+      "mode": "sprint",
+      "native_stride_speed": 0.331173354597547,
+      "rate": 0.452934989840246,
+      "releases": 3,
+      "requested": 0.15,
+      "slip_m": 0.0,
+      "steady_speed": 0.150000001071021
+    }
+  ],
+  "passed": true
+}

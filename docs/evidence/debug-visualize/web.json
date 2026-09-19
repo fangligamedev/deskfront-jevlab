@@ -1,0 +1,279 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "test": "new Web game defaults three factions to LLM",
+      "passed": true
+    },
+    {
+      "test": "debug overlay initially off",
+      "passed": true
+    },
+    {
+      "test": "actual checkbox does not take control from LLM",
+      "passed": true
+    },
+    {
+      "test": "real game positions produce travelled traces",
+      "passed": true
+    },
+    {
+      "test": "unit selector filters Godot overlay",
+      "passed": true
+    },
+    {
+      "test": "persistent input/output visible in left column",
+      "passed": true
+    },
+    {
+      "test": "live audit originates from actual configured Ark provider",
+      "passed": true
+    },
+    {
+      "test": "actual model reply reached accepted engine receipt",
+      "passed": true
+    },
+    {
+      "test": "log linked to current run and selected soldier",
+      "passed": true
+    },
+    {
+      "test": "live panel uses real request and raw response",
+      "passed": true
+    },
+    {
+      "test": "can pin an I/O record for comparison",
+      "passed": true
+    },
+    {
+      "test": "actual accepted instruction ID and reason exposed",
+      "passed": true
+    },
+    {
+      "test": "off removes runtime route payload and projection",
+      "passed": true
+    },
+    {
+      "test": "restart restores default LLM",
+      "passed": true
+    },
+    {
+      "test": "new match clears pinned old-run log",
+      "passed": true
+    },
+    {
+      "test": "no JavaScript / Godot / WebGL errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "build": "main-a2739fd192d1",
+  "lm": {
+    "responses": 6,
+    "accepted": 6,
+    "error": null,
+    "live_response_verified": true,
+    "provider_http_status": 200
+  },
+  "call": {
+    "id": 1234,
+    "run_id": "1789788002.241-2522019426",
+    "provider": "volcengine_ark",
+    "phase": "executed",
+    "decision": {
+      "action": "move",
+      "intent": "advance",
+      "posture": "auto",
+      "position": [
+        -0.0750000029802322,
+        3.02500009536743
+      ],
+      "reason": "无威胁，向旗圈低暴露短路推进，配合友军建立火力"
+    },
+    "receipt": {
+      "accepted": true,
+      "action": "move",
+      "id": "4f51f9f6-f67a-4076-93f0-2567707885af",
+      "message": "applied",
+      "tick": 143
+    }
+  },
+  "trace": {
+    "command": {
+      "action": "move",
+      "command_id": "2ec30b13-dee9-41b6-8c51-3aa8dfc167a3",
+      "reason": "玩家/策划指令",
+      "source": "console",
+      "tick": 463
+    },
+    "control": "player",
+    "cover_id": "",
+    "navigation_revision": 2,
+    "next": [
+      -0.0750000029802322,
+      0.837999999523163,
+      2.97499990463257
+    ],
+    "order": "formation",
+    "path_failure": "",
+    "safety": "",
+    "state": "move",
+    "suppression": 0,
+    "target_id": "",
+    "trail": [
+      [
+        -0.122832082211971,
+        0.837999999523163,
+        3.198322057724
+      ],
+      [
+        -0.123472310602665,
+        0.837999999523163,
+        3.18405175209045
+      ],
+      [
+        -0.123985655605793,
+        0.837999999523163,
+        3.17160701751709
+      ],
+      [
+        -0.124294735491276,
+        0.837999999523163,
+        3.15740537643433
+      ],
+      [
+        -0.124456472694874,
+        0.837999999523163,
+        3.14997410774231
+      ],
+      [
+        -0.120780289173126,
+        0.837999999523163,
+        3.14101767539978
+      ],
+      [
+        -0.109885886311531,
+        0.837999999523163,
+        3.11951327323914
+      ],
+      [
+        -0.108455821871758,
+        0.837999999523163,
+        3.11307406425476
+      ],
+      [
+        -0.105493225157261,
+        0.837999999523163,
+        3.09973454475403
+      ],
+      [
+        -0.103039912879467,
+        0.837999999523163,
+        3.07860159873962
+      ],
+      [
+        -0.0998519361019135,
+        0.837999999523163,
+        3.06847810745239
+      ],
+      [
+        -0.0929815471172333,
+        0.837999999523163,
+        3.05645847320557
+      ],
+      [
+        -0.0859253108501434,
+        0.837999999523163,
+        3.04402494430542
+      ],
+      [
+        -0.0801394209265709,
+        0.837999999523163,
+        3.03398680686951
+      ],
+      [
+        -0.0792786478996277,
+        0.837999999523163,
+        3.02829456329346
+      ],
+      [
+        -0.0782855972647667,
+        0.837999999523163,
+        3.02114486694336
+      ]
+    ],
+    "unit_id": "green-1",
+    "waypoints": [
+      [
+        -0.0750000029802322,
+        0.837999999523163,
+        2.97499990463257
+      ],
+      [
+        -0.0750000029802322,
+        0.837999999523163,
+        2.95000004768372
+      ],
+      [
+        -0.0750000029802322,
+        0.837999999523163,
+        2.92499995231628
+      ],
+      [
+        -0.0750000029802322,
+        0.837999999523163,
+        2.90000009536743
+      ],
+      [
+        -0.0750000029802322,
+        0.837999999523163,
+        2.875
+      ],
+      [
+        -0.0750000029802322,
+        0.837999999523163,
+        2.84999990463257
+      ],
+      [
+        -0.050000011920929,
+        0.837999999523163,
+        2.82500004768372
+      ],
+      [
+        -0.050000011920929,
+        0.837999999523163,
+        2.79999995231628
+      ],
+      [
+        -0.0250000059604645,
+        0.837999999523163,
+        2.77500009536743
+      ],
+      [
+        -0.0250000059604645,
+        0.837999999523163,
+        2.75
+      ],
+      [
+        0,
+        0.837999999523163,
+        2.72500014305115
+      ],
+      [
+        0,
+        0.837999999523163,
+        2.70000004768372
+      ],
+      [
+        0.0250000059604645,
+        0.837999999523163,
+        2.67499995231628
+      ],
+      [
+        0.0250000059604645,
+        0.837999999523163,
+        2.65000009536743
+      ]
+    ]
+  }
+}

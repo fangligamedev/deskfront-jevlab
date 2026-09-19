@@ -1,0 +1,205 @@
+{
+  "failures": [],
+  "passed": true,
+  "rows": [
+    {
+      "clip": "bayonet",
+      "flight_allowed": false,
+      "max_m": -0.0000438069619121961,
+      "min_m": -0.000076265016105026
+    },
+    {
+      "clip": "cover_enter",
+      "flight_allowed": false,
+      "max_m": -0.0000127507082652301,
+      "min_m": -0.000331213610479608
+    },
+    {
+      "clip": "cover_exit",
+      "flight_allowed": false,
+      "max_m": 0.0,
+      "min_m": -0.000331214803736657
+    },
+    {
+      "clip": "cover_idle",
+      "flight_allowed": false,
+      "max_m": -0.000331567978719249,
+      "min_m": -0.000362852326361462
+    },
+    {
+      "clip": "cover_peek_left",
+      "flight_allowed": false,
+      "max_m": -0.000332033872837201,
+      "min_m": -0.000371182279195637
+    },
+    {
+      "clip": "cover_peek_right",
+      "flight_allowed": false,
+      "max_m": -0.000331698218360543,
+      "min_m": -0.000358094199327752
+    },
+    {
+      "clip": "cover_shuffle_left",
+      "flight_allowed": false,
+      "max_m": 0.0,
+      "min_m": -0.00039962527807802
+    },
+    {
+      "clip": "cover_shuffle_right",
+      "flight_allowed": false,
+      "max_m": 0.0,
+      "min_m": -0.000396896910388023
+    },
+    {
+      "clip": "crawl",
+      "flight_allowed": false,
+      "max_m": 0.000888038193807006,
+      "min_m": -0.00082857912639156
+    },
+    {
+      "clip": "crouch_reload",
+      "flight_allowed": false,
+      "max_m": -0.000331567978719249,
+      "min_m": -0.000362852326361462
+    },
+    {
+      "clip": "death",
+      "flight_allowed": false,
+      "max_m": 0.000823815877083689,
+      "min_m": -0.000387818989111111
+    },
+    {
+      "clip": "dodge_left_rm",
+      "flight_allowed": false,
+      "max_m": 0.0,
+      "min_m": -0.000100047574960627
+    },
+    {
+      "clip": "grenade_throw",
+      "flight_allowed": false,
+      "max_m": -0.0000438069619121961,
+      "min_m": -0.0000743223936296999
+    },
+    {
+      "clip": "hit",
+      "flight_allowed": false,
+      "max_m": -0.0000438492788816802,
+      "min_m": -0.0000753976419218816
+    },
+    {
+      "clip": "pistol_fire",
+      "flight_allowed": false,
+      "max_m": -0.0000447145866928622,
+      "min_m": -0.0000447145866928622
+    },
+    {
+      "clip": "prone_fire",
+      "flight_allowed": false,
+      "max_m": 0.000105790175439324,
+      "min_m": -0.000979398377239704
+    },
+    {
+      "clip": "prone_idle",
+      "flight_allowed": false,
+      "max_m": -0.00000000764339347369969,
+      "min_m": -0.00108519662171602
+    },
+    {
+      "clip": "prone_reload",
+      "flight_allowed": false,
+      "max_m": -0.00000000764339347369969,
+      "min_m": -0.00108519662171602
+    },
+    {
+      "clip": "reload",
+      "flight_allowed": false,
+      "max_m": -0.0000437295675510541,
+      "min_m": -0.0000458149770565797
+    },
+    {
+      "clip": "rifle_crouch_rm",
+      "flight_allowed": false,
+      "max_m": 0.0,
+      "min_m": -0.000305951543850824
+    },
+    {
+      "clip": "rifle_fire",
+      "flight_allowed": false,
+      "max_m": -0.0000438069619121961,
+      "min_m": -0.000076265016105026
+    },
+    {
+      "clip": "rifle_idle",
+      "flight_allowed": false,
+      "max_m": -0.0000438069619121961,
+      "min_m": -0.000076265016105026
+    },
+    {
+      "clip": "rifle_jog_rm",
+      "flight_allowed": true,
+      "max_m": 0.0197071563452482,
+      "min_m": -0.000000493921106681228
+    },
+    {
+      "clip": "rifle_sprint_rm",
+      "flight_allowed": true,
+      "max_m": 0.0196002814918756,
+      "min_m": 0.0
+    },
+    {
+      "clip": "rifle_walk_rm",
+      "flight_allowed": false,
+      "max_m": 0.0,
+      "min_m": -0.0000619268830632791
+    },
+    {
+      "clip": "rocket_aim",
+      "flight_allowed": false,
+      "max_m": -0.0000438069619121961,
+      "min_m": -0.000076265016105026
+    },
+    {
+      "clip": "roll_rm",
+      "flight_allowed": false,
+      "max_m": 0.00194539478980005,
+      "min_m": -0.00151443015784025
+    },
+    {
+      "clip": "turn_left",
+      "flight_allowed": false,
+      "max_m": 0.0,
+      "min_m": -0.0000634802781860344
+    },
+    {
+      "clip": "turn_right",
+      "flight_allowed": false,
+      "max_m": 0.0,
+      "min_m": -0.000105366489151493
+    },
+    {
+      "max_m": 0.0,
+      "min_m": -0.0000427364284405485,
+      "mode": "walk",
+      "support_max_m": 0.0
+    },
+    {
+      "max_m": 0.0202763434499502,
+      "min_m": -0.000345586217008531,
+      "mode": "run",
+      "support_max_m": 0.0
+    },
+    {
+      "max_m": 0.0204154700040817,
+      "min_m": -0.000151582644321024,
+      "mode": "sprint",
+      "support_max_m": 0.0
+    },
+    {
+      "max_m": 0.0,
+      "min_m": -0.000306128174997866,
+      "mode": "crouch_run",
+      "support_max_m": 0.0
+    }
+  ],
+  "vertex_count": 5228
+}

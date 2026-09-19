@@ -412,5 +412,5 @@ func inside_object(p: Vector2,o: Dictionary) -> bool:
 
 func ground_height(p: Vector2) -> float:
 	for b in config.get("bridges",[]):
-		if inside_object(p,b):return .838+b.size[1]
+		if inside_object(p,b):return height+b.size[1]+b.get("elevation",0)
 	return height

@@ -5,7 +5,7 @@ func check(ok:bool,name:String):
  if not ok:push_error(name)
 func _ready():
  DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://output/integration"))
- for index in range(3):
+ for index in range(4):
   get_tree().set_meta("deskfront_map",index)
   var g=load("res://scenes/main.tscn").instantiate();add_child(g);g.set_physics_process(false);g.fx.set_muted(true)
   await get_tree().physics_frame
@@ -20,7 +20,9 @@ func _ready():
   g.spawn_tank();var t=g.units[-1]
   check(t.muzzle!=null and t.turret!=null,"map %d: T2 turret/muzzle adapted"%index)
   check((t.muzzle.global_position-t.global_position).normalized().dot(-t.global_basis.z)>.5,"map %d: T2 muzzle matches -Z forward"%index)
-  check(g.field.walkable(t.pos(),true),"map %d: rear tank spawn fits navigation"%index)
+  check(t.deployment_phase=="entering" and t.pos().y<g.config.bounds[1],"map %d: tank starts visibly above battle"%index)
+  for step in range(900):t.tick(1.0/60)
+  check(t.deployment_phase=="active" and g.field.walkable(t.pos(),true),"map %d: slow tank entry reaches navigation"%index)
   if index==1:
    check(not g.field.walkable(Vector2(.54,2.09)),"river is blocked")
    check(g.field.walkable(Vector2(.04,2.09)) and g.field.walkable(Vector2(1.01,2.09)),"both bridges are walkable")

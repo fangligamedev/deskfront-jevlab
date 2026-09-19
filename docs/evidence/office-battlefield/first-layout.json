@@ -1,0 +1,1677 @@
+{
+  "at_guns": [],
+  "bounds": [
+    -0.3,
+    0.8,
+    3.28,
+    3.46
+  ],
+  "build_id": "main-51f876af93ee",
+  "building": {
+
+  },
+  "camera": "battle",
+  "camera_size": 4.9,
+  "camera_target": [
+    1.49000000953674,
+    2.07999992370605
+  ],
+  "combat_fx": {
+    "audio_events": 0,
+    "budgets": {
+      "dropped_visuals": 0,
+      "peak_visuals": 0,
+      "peak_voices": 0,
+      "reused_visuals": 0,
+      "stolen_voices": 0,
+      "visual_budget": 96.0,
+      "voice_budget": 20.0
+    },
+    "collision_counts": {
+      "cover": 0,
+      "friendly_block": 0,
+      "miss": 0,
+      "unit": 0
+    },
+    "impacts": 0,
+    "launched": {
+
+    },
+    "muted": false,
+    "projectiles": 0,
+    "visuals": 0
+  },
+  "command_feedback": "",
+  "control": {
+    "blue": "lm",
+    "green": "lm",
+    "red": "lm"
+  },
+  "control_epochs": {
+    "blue": 0,
+    "green": 0,
+    "red": 0
+  },
+  "covers": [
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.067,
+      "hp": 180,
+      "id": "west-book-cover",
+      "kind": "books",
+      "label": "office-books",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        0.23,
+        2.77
+      ],
+      "ray_size": [
+        0.4,
+        0.067,
+        0.24
+      ],
+      "size": [
+        0.429508771727044,
+        0.293333576882003
+      ],
+      "yaw": -0.139626340159546
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.06,
+      "hp": 180,
+      "id": "west-binder",
+      "kind": "binder",
+      "label": "office-binder",
+      "max_hp": 180,
+      "normal": [
+        1,
+        0
+      ],
+      "position": [
+        0.13,
+        2.1
+      ],
+      "ray_size": [
+        0.28,
+        0.06,
+        0.36
+      ],
+      "size": [
+        0.28,
+        0.36
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.18,
+      "hp": 180,
+      "id": "west-inbox",
+      "kind": "hard",
+      "label": "office-filebox",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        0.18,
+        1.27
+      ],
+      "ray_size": [
+        0.33,
+        0.18,
+        0.28
+      ],
+      "size": [
+        0.33,
+        0.28
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.048,
+      "hp": 180,
+      "id": "near-keyboard",
+      "kind": "keyboard",
+      "label": "office-keyboard",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        1.01,
+        3.13
+      ],
+      "ray_size": [
+        0.53,
+        0.048,
+        0.21
+      ],
+      "size": [
+        0.554068427634646,
+        0.281718037944564
+      ],
+      "yaw": -0.139626340159546
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.055,
+      "hp": 180,
+      "id": "green-stapler",
+      "kind": "stapler",
+      "label": "office-stapler",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        0.63,
+        3.36
+      ],
+      "ray_size": [
+        0.2,
+        0.055,
+        0.075
+      ],
+      "size": [
+        0.2,
+        0.075
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.072,
+      "hp": 180,
+      "id": "center-ledgers",
+      "kind": "books",
+      "label": "office-books",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        1.03,
+        2.43
+      ],
+      "ray_size": [
+        0.34,
+        0.072,
+        0.23
+      ],
+      "size": [
+        0.34,
+        0.23
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.06,
+      "hp": 180,
+      "id": "north-binder",
+      "kind": "binder",
+      "label": "office-binder",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        1.06,
+        1.68
+      ],
+      "ray_size": [
+        0.39,
+        0.06,
+        0.27
+      ],
+      "size": [
+        0.39,
+        0.27
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.04,
+      "hp": 180,
+      "id": "north-keyboard",
+      "kind": "keyboard",
+      "label": "office-keyboard",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        1.38,
+        1.05
+      ],
+      "ray_size": [
+        0.48,
+        0.04,
+        0.18
+      ],
+      "size": [
+        0.48,
+        0.18
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.16,
+      "hp": -1,
+      "id": "north-mug",
+      "kind": "hard",
+      "label": "office-mug",
+      "max_hp": -1,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        0.8,
+        1.12
+      ],
+      "ray_size": [
+        0.14,
+        0.16,
+        0.12
+      ],
+      "size": [
+        0.14,
+        0.12
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.29,
+      "hp": -1,
+      "id": "east-printer",
+      "kind": "hard",
+      "label": "office-printer",
+      "max_hp": -1,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        2.63,
+        1.48
+      ],
+      "ray_size": [
+        0.53,
+        0.29,
+        0.43
+      ],
+      "size": [
+        0.53,
+        0.43
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.065,
+      "hp": 180,
+      "id": "printer-paper",
+      "kind": "books",
+      "label": "office-books",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        2.17,
+        1.66
+      ],
+      "ray_size": [
+        0.34,
+        0.065,
+        0.25
+      ],
+      "size": [
+        0.34,
+        0.25
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.18,
+      "hp": 180,
+      "id": "east-archive",
+      "kind": "hard",
+      "label": "office-filebox",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        2.59,
+        2.18
+      ],
+      "ray_size": [
+        0.33,
+        0.18,
+        0.26
+      ],
+      "size": [
+        0.33,
+        0.26
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.07,
+      "hp": 180,
+      "id": "east-ledgers",
+      "kind": "books",
+      "label": "office-books",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        2.26,
+        2.78
+      ],
+      "ray_size": [
+        0.4,
+        0.07,
+        0.25
+      ],
+      "size": [
+        0.430900502736645,
+        0.303236257569419
+      ],
+      "yaw": 0.139626340159546
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.055,
+      "hp": 180,
+      "id": "blue-binder",
+      "kind": "binder",
+      "label": "office-binder",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        2.93,
+        3.18
+      ],
+      "ray_size": [
+        0.32,
+        0.055,
+        0.25
+      ],
+      "size": [
+        0.32,
+        0.25
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.16,
+      "hp": 180,
+      "id": "south-archive",
+      "kind": "hard",
+      "label": "office-filebox",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        1.58,
+        3.18
+      ],
+      "ray_size": [
+        0.3,
+        0.16,
+        0.26
+      ],
+      "size": [
+        0.3,
+        0.26
+      ],
+      "yaw": 0.0
+    },
+    {
+      "alive": true,
+      "bottom": 0.838,
+      "damage_stage": "intact",
+      "height": 0.06,
+      "hp": 180,
+      "id": "center-stapler",
+      "kind": "stapler",
+      "label": "office-stapler",
+      "max_hp": 180,
+      "normal": [
+        0,
+        1
+      ],
+      "position": [
+        1.87,
+        2.44
+      ],
+      "ray_size": [
+        0.23,
+        0.06,
+        0.09
+      ],
+      "size": [
+        0.23,
+        0.09
+      ],
+      "yaw": 0.0
+    }
+  ],
+  "debug_visualize": {
+    "enabled": false,
+    "history_limit": 100,
+    "unit": "",
+    "units": []
+  },
+  "decisions": {
+
+  },
+  "demo": {
+
+  },
+  "destruction_count": 0,
+  "edge_pan": true,
+  "events": [
+    {
+      "text": "战场就绪 · 三个阵营 · 九名步兵",
+      "time": 0.0
+    }
+  ],
+  "factions": [
+    {
+      "color": "607c48",
+      "goal": [
+        1.49,
+        2.15
+      ],
+      "id": "green",
+      "name": "苔绿侦察队",
+      "spawn": [
+        0.01,
+        3.2
+      ]
+    },
+    {
+      "color": "3c6880",
+      "goal": [
+        1.49,
+        2.15
+      ],
+      "id": "blue",
+      "name": "钴蓝机动队",
+      "spawn": [
+        2.98,
+        2.67
+      ]
+    },
+    {
+      "color": "a35340",
+      "goal": [
+        1.49,
+        2.15
+      ],
+      "id": "red",
+      "name": "砖红守备队",
+      "spawn": [
+        1.94,
+        1.03
+      ]
+    }
+  ],
+  "fps": 1.0,
+  "last_action": {
+
+  },
+  "map": "office-front",
+  "map_index": 3,
+  "maps": [
+    "三线争夺场",
+    "河谷双桥",
+    "前哨阵地",
+    "办公桌 · 文件争夺"
+  ],
+  "navigation_revision": 1,
+  "objective": {
+    "flag": {
+      "alerts": {
+        "blue": {
+          "active": false
+        },
+        "green": {
+          "active": false
+        },
+        "red": {
+          "active": false
+        }
+      },
+      "capture_epoch": 0,
+      "contested": false,
+      "countdown_seconds": 30,
+      "held_seconds": 0.0,
+      "mode": "center_flag",
+      "owner": "",
+      "remaining_seconds": 30.0,
+      "required_seconds": 30.0
+    },
+    "position": [
+      1.49000000953674,
+      2.15000009536743
+    ],
+    "radius": 0.17,
+    "score_to_win": 30.0,
+    "screen_position": [
+      633.866394042969,
+      365.39794921875
+    ]
+  },
+  "obstacles": [],
+  "parameters": {
+    "accuracy": 0.72,
+    "cooldown": 1.3,
+    "damage": 9.0,
+    "hp": 100.0,
+    "magazine": 6.0,
+    "range": 0.65,
+    "reload": 2.2,
+    "speed": 0.12,
+    "suppression_decay": 0.12
+  },
+  "paused": true,
+  "reservations": {
+
+  },
+  "resource_hash": "d8f4cc3016576d3c5095fa749138ac0386a5df72f512a5756b7a4b2c90baa9b5",
+  "run_id": "1789794044.92288-1643813598",
+  "scenario": {
+    "briefing": "",
+    "id": "",
+    "name": "办公桌 · 文件争夺",
+    "tactical_plan": []
+  },
+  "schema_version": 1,
+  "scores": {
+    "blue": 0.0,
+    "green": 0.0,
+    "red": 0.0
+  },
+  "selected_faction": "green",
+  "shots": 0,
+  "speed": 1.0,
+  "tactical": {
+    "counters": {
+      "bounds": 0,
+      "cover_repositions": 0,
+      "flanks": 0,
+      "formation_updates": 0,
+      "tank_repositions": 0
+    },
+    "formations": {
+
+    },
+    "path_queries": 0,
+    "squads": {
+
+    }
+  },
+  "tank_reserve": {
+    "action_counts": {
+
+    },
+    "ammo": 1000,
+    "animation": "",
+    "animation_rate": 0,
+    "asset_animation": "TankArmature|Tank_Forward",
+    "available_actions": [],
+    "bone_count": 0,
+    "building_floor": 0,
+    "building_phase": "",
+    "combat": {
+      "engageable_targets": [],
+      "flag_hint": {
+
+      },
+      "incoming_threats": [],
+      "path_active": false
+    },
+    "combat_ready": false,
+    "contact_slip_max": 0,
+    "cover_id": "",
+    "cover_risk": 0,
+    "cover_slot": "",
+    "cover_step": false,
+    "cqb_stance": "open",
+    "deployment_phase": "parked",
+    "elevation": -0.000000000476837125340523,
+    "faction": "red",
+    "focus_id": "",
+    "formation_speed": 1.0,
+    "goal": [
+      1.91999995708466,
+      0.540000021457672
+    ],
+    "grenades": 2,
+    "ground_correction": 0,
+    "gun_id": "",
+    "hp": 420.0,
+    "id": "red-tank",
+    "in_cover": false,
+    "kind": "tank",
+    "last_shot_at": -10.0,
+    "last_shot_target": "",
+    "lm_intent": "",
+    "lm_reason": "",
+    "locomotion": "idle",
+    "max_hp": 420.0,
+    "melee_ready": false,
+    "movement_speed": 0,
+    "order_mode": "hold",
+    "path_failure": "",
+    "path_repairs": 0,
+    "position": [
+      1.91999995708466,
+      0.540000021457672
+    ],
+    "posture": "stand",
+    "posture_order": "auto",
+    "reload_remaining": 0.0,
+    "reversing": false,
+    "root_distance": 0,
+    "selected": false,
+    "state": "idle",
+    "suppression": 0.0,
+    "survival_reason": "",
+    "tactical_role": "armor",
+    "turret_yaw": 0.0,
+    "weapon": "cannon",
+    "weapon_name": "坦克炮",
+    "weapon_range": 0.98,
+    "weapon_state": "ready"
+  },
+  "tank_spawned": false,
+  "tick": 24,
+  "time": 0.0,
+  "units": [
+    {
+      "action_counts": {
+
+      },
+      "ammo": 8,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "green",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        -0.0540000014007092,
+        3.20000004768372
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "green-1",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        -0.0540000014007092,
+        3.20000004768372
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        359.740875244141,
+        352.50830078125
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7,
+      "weapon_state": "ready"
+    },
+    {
+      "action_counts": {
+
+      },
+      "ammo": 24,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "green",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        0.00999999977648258,
+        3.20000004768372
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "green-2",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        0.00999999977648258,
+        3.20000004768372
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        367.289916992188,
+        356.018829345703
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "assault",
+      "turret_yaw": 0.0,
+      "weapon": "smg",
+      "weapon_name": "冲锋枪",
+      "weapon_range": 0.6,
+      "weapon_state": "ready"
+    },
+    {
+      "action_counts": {
+
+      },
+      "ammo": 1,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "green",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        0.0740000009536743,
+        3.20000004768372
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "green-3",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        0.0740000009536743,
+        3.20000004768372
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        374.838958740234,
+        359.529357910156
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "anti_armor",
+      "turret_yaw": 0.0,
+      "weapon": "rocket",
+      "weapon_name": "火箭筒",
+      "weapon_range": 0.92,
+      "weapon_state": "ready"
+    },
+    {
+      "action_counts": {
+
+      },
+      "ammo": 8,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "blue",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        2.91599988937378,
+        2.67000007629395
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "blue-1",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        2.91599988937378,
+        2.67000007629395
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        756.505004882812,
+        476.283905029297
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7,
+      "weapon_state": "ready"
+    },
+    {
+      "action_counts": {
+
+      },
+      "ammo": 24,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "blue",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        2.98000001907349,
+        2.67000007629395
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "blue-2",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        2.98000001907349,
+        2.67000007629395
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        764.054077148438,
+        479.794464111328
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "assault",
+      "turret_yaw": 0.0,
+      "weapon": "smg",
+      "weapon_name": "冲锋枪",
+      "weapon_range": 0.6,
+      "weapon_state": "ready"
+    },
+    {
+      "action_counts": {
+
+      },
+      "ammo": 1,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "blue",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        3.04399991035461,
+        2.67000007629395
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "blue-3",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        3.04399991035461,
+        2.67000007629395
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        771.603149414062,
+        483.304962158203
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "anti_armor",
+      "turret_yaw": 0.0,
+      "weapon": "rocket",
+      "weapon_name": "火箭筒",
+      "weapon_range": 0.92,
+      "weapon_state": "ready"
+    },
+    {
+      "action_counts": {
+
+      },
+      "ammo": 8,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "red",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        1.87600004673004,
+        1.02999997138977
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "red-1",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        1.87600004673004,
+        1.02999997138977
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        777.534606933594,
+        298.141540527344
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "overwatch",
+      "turret_yaw": 0.0,
+      "weapon": "rifle",
+      "weapon_name": "步枪",
+      "weapon_range": 0.7,
+      "weapon_state": "ready"
+    },
+    {
+      "action_counts": {
+
+      },
+      "ammo": 24,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "red",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        1.94000005722046,
+        1.02999997138977
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "red-2",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        1.94000005722046,
+        1.02999997138977
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        785.083679199219,
+        301.652099609375
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "assault",
+      "turret_yaw": 0.0,
+      "weapon": "smg",
+      "weapon_name": "冲锋枪",
+      "weapon_range": 0.6,
+      "weapon_state": "ready"
+    },
+    {
+      "action_counts": {
+
+      },
+      "ammo": 1,
+      "animation": "",
+      "animation_rate": 1.0,
+      "asset_animation": "rifle_idle",
+      "available_actions": [
+        "move",
+        "capture",
+        "cover",
+        "retreat",
+        "hold",
+        "attack",
+        "flank",
+        "posture"
+      ],
+      "bone_count": 50,
+      "building_floor": 0,
+      "building_phase": "",
+      "combat": {
+        "engageable_targets": [],
+        "flag_hint": {
+          "advance_options": [],
+          "inside_flag": false,
+          "pending": true
+        },
+        "incoming_threats": [],
+        "path_active": false
+      },
+      "combat_ready": true,
+      "contact_slip_max": 0.0,
+      "cover_id": "",
+      "cover_risk": 0,
+      "cover_slot": "",
+      "cover_step": false,
+      "cqb_stance": "open",
+      "deployment_phase": "active",
+      "elevation": -0.000000000476837125340523,
+      "faction": "red",
+      "focus_id": "",
+      "formation_speed": 1.0,
+      "goal": [
+        2.00399994850159,
+        1.02999997138977
+      ],
+      "grenades": 2,
+      "ground_correction": -0.0000438089370727868,
+      "gun_id": "",
+      "hp": 100.0,
+      "id": "red-3",
+      "in_cover": false,
+      "kind": "infantry",
+      "last_shot_at": -10.0,
+      "last_shot_target": "",
+      "lm_intent": "",
+      "lm_reason": "",
+      "locomotion": "idle",
+      "max_hp": 100.0,
+      "melee_ready": true,
+      "movement_speed": 0.0,
+      "order_mode": "hold",
+      "path_failure": "",
+      "path_repairs": 0,
+      "position": [
+        2.00399994850159,
+        1.02999997138977
+      ],
+      "posture": "stand",
+      "posture_order": "auto",
+      "reload_remaining": 0.0,
+      "reversing": false,
+      "root_distance": 0.0,
+      "screen_position": [
+        792.632751464844,
+        305.16259765625
+      ],
+      "selected": false,
+      "state": "idle",
+      "suppression": 0.0,
+      "survival_reason": "",
+      "tactical_role": "anti_armor",
+      "turret_yaw": 0.0,
+      "weapon": "rocket",
+      "weapon_name": "火箭筒",
+      "weapon_range": 0.92,
+      "weapon_state": "ready"
+    }
+  ],
+  "version": "0.6.5-flag.1",
+  "viewport": [
+    1280.0,
+    720.0
+  ],
+  "weapons": {
+    "at_cannon": {
+      "accuracy": 0.9,
+      "armor_multiplier": 2.8,
+      "cooldown": 3.8,
+      "cover_damage": 85.0,
+      "damage": 75.0,
+      "magazine": 1000.0,
+      "name": "反坦克炮",
+      "pressure": 0.4,
+      "projectile_speed": 1.6,
+      "range": 2.05,
+      "reload": 0.0,
+      "splash": 0.1
+    },
+    "bayonet": {
+      "accuracy": 1.0,
+      "armor_multiplier": 0.0,
+      "cooldown": 0.85,
+      "damage": 29.0,
+      "magazine": 0.0,
+      "name": "刺刀",
+      "pressure": 0.22,
+      "projectile_speed": 0.0,
+      "range": 0.075,
+      "reload": 0.0,
+      "splash": 0.0
+    },
+    "cannon": {
+      "accuracy": 0.9,
+      "armor_multiplier": 1.0,
+      "cooldown": 3.4,
+      "cover_damage": 85.0,
+      "damage": 24.0,
+      "magazine": 1000.0,
+      "name": "坦克炮",
+      "pressure": 0.4,
+      "projectile_speed": 1.6,
+      "range": 0.98,
+      "reload": 0.0,
+      "splash": 0.13
+    },
+    "grenade": {
+      "accuracy": 1.0,
+      "armor_multiplier": 0.25,
+      "cooldown": 1.3,
+      "cover_damage": 48.0,
+      "damage": 36.0,
+      "magazine": 2.0,
+      "name": "手雷",
+      "pressure": 0.6,
+      "projectile_speed": 0.7,
+      "range": 0.65,
+      "reload": 0.0,
+      "splash": 0.14
+    },
+    "pistol": {
+      "accuracy": 0.82,
+      "armor_multiplier": 0.1,
+      "cooldown": 0.4,
+      "cover_damage": 0.4,
+      "damage": 8.0,
+      "magazine": 12.0,
+      "name": "手枪",
+      "pressure": 0.12,
+      "projectile_speed": 4.0,
+      "range": 0.42,
+      "reload": 2.0,
+      "splash": 0.0
+    },
+    "rifle": {
+      "accuracy": 0.82,
+      "armor_multiplier": 0.1,
+      "cooldown": 1.05,
+      "cover_damage": 0.7,
+      "damage": 13.0,
+      "magazine": 8.0,
+      "name": "步枪",
+      "pressure": 0.12,
+      "projectile_speed": 4.0,
+      "range": 0.7,
+      "reload": 2.0,
+      "splash": 0.0
+    },
+    "rocket": {
+      "accuracy": 0.85,
+      "armor_multiplier": 7.0,
+      "cooldown": 3.8,
+      "cover_damage": 70.0,
+      "damage": 18.0,
+      "magazine": 1.0,
+      "name": "火箭筒",
+      "pressure": 0.42,
+      "projectile_speed": 0.95,
+      "range": 0.92,
+      "reload": 3.8,
+      "splash": 0.105
+    },
+    "smg": {
+      "accuracy": 0.58,
+      "armor_multiplier": 0.04,
+      "cooldown": 0.14,
+      "cover_damage": 0.3,
+      "damage": 5.0,
+      "magazine": 24.0,
+      "name": "冲锋枪",
+      "pressure": 0.055,
+      "projectile_speed": 4.5,
+      "range": 0.6,
+      "reload": 2.5,
+      "splash": 0.0
+    }
+  },
+  "winner": "",
+  "worker_animation_time": 0.0
+}

@@ -6,6 +6,7 @@ static func isolate(g) -> void:
 	for u in g.units:u.hp=0;u.route.clear();u.cover_id="";u.cover_slot={};u.focus_id="";u.target_id=""
 
 static func run(g, check: Callable) -> void:
+	var objective_mode=g.config.rules.get("mode","");g.config.rules.mode="legacy_cqb_contract"
 	isolate(g)
 	var field=g.field;var rifle=g.units[0];var target=g.units[6]
 	# A thin blocker between former LOS samples must still occlude the segment.
@@ -142,3 +143,5 @@ static func run(g, check: Callable) -> void:
 	for i in range(1,13):
 		g.pan_to(Vector2(640+i*13,360+i*3));g._process(.15)
 	check.call(g.camera_target.x<camera_start.x-.20 and g.camera.global_basis.x.dot(Vector3.RIGHT)>.99,"top camera preserves screen axes during interpolated multi-frame pan")
+
+	g.config.rules.mode=objective_mode

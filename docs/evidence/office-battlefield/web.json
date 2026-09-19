@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "test": "new office is the default exported map",
+      "passed": true
+    },
+    {
+      "test": "office props replace sandbox fortifications",
+      "passed": true
+    },
+    {
+      "test": "real mouse selection and ground order move soldier around office props",
+      "passed": true
+    },
+    {
+      "test": "real movement into office flag starts countdown",
+      "passed": true
+    },
+    {
+      "test": "tank drives onto expanded desktop in exported game",
+      "passed": true
+    },
+    {
+      "test": "no game script shader or browser errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8784/favicon.ico"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:8784/favicon.ico"
+    }
+  ],
+  "build_id": "main-95e33487c32f",
+  "map": "office-front",
+  "fps": 120,
+  "origin": [
+    0.00999999977648258,
+    3.20000004768372
+  ],
+  "final_position": [
+    1.47182583808899,
+    2.16110920906067
+  ],
+  "audio": [
+    "running"
+  ],
+  "provider": "isolated deterministic test LM, no cloud calls"
+}

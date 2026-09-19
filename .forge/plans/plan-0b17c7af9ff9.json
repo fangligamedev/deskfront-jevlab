@@ -1,0 +1,47 @@
+{
+  "acceptance": [
+    {
+      "id": "A1",
+      "kind": "import",
+      "statement": "Godot editor import passes"
+    },
+    {
+      "id": "A2",
+      "kind": "gameplay",
+      "statement": "Semantic probe passes"
+    },
+    {
+      "id": "A3",
+      "kind": "runtime",
+      "statement": "Main scene smoke passes"
+    },
+    {
+      "id": "A4",
+      "kind": "assets",
+      "statement": "Asset contracts and provenance pass"
+    }
+  ],
+  "approval": {
+    "approved_at": "2026-09-19T01:44:50.851334+00:00",
+    "required": true,
+    "status": "approved"
+  },
+  "asset_jobs": [],
+  "base": {
+    "head": "ffbe4fd45e42f26f2484747cc509ce814f50ba06",
+    "is_repository": true,
+    "status": "M .forge/assets.json\n M README.md\n M assets/models/grenade.glb\n M assets/models/pistol.glb\n M assets/models/rifle.glb\n M assets/models/rocket.glb\n M assets/models/sandbag.glb\n M assets/models/tank.glb\n M assets/models/toy-soldier.glb\n M assets/vfx/soft_flipbook.gdshader\n M dashboard/app.js\n M dashboard/index.html\n M dashboard/style.css\n M data/action-catalog.json\n M data/battle.json\n M data/gait.json\n M docs/AGENT_ACTION_STATES.md\n M docs/DESIGN.md\n M docs/README.md\n M docs/animation-catalog.json\n M docs/asset-integration/asset-provenance.json\n M export_presets.cfg\n M package-lock.json\n M package.json\n M scripts/battlefield.gd\n M scripts/combat_fx.gd\n M scripts/game.gd\n M scripts/sandbox_map.gd\n M scripts/tactics.gd\n M scripts/toy_actor.gd\n M scripts/unit.gd\n M source/latest/tools/build_soldier.py\n M source/latest/toy-soldier-retarget.blend\n M tests/combat_checks.gd\n M tests/equipment_contract.gd\n M tests/equipment_squad.gd\n M tests/integration_probe.gd\n M tests/lm_contract.gd\n M tests/semantic_probe.gd\n M tests/tactics_checks.gd\n M tools/asset_browser_qa.cjs\n M tools/browser_qa.cjs\n M tools/lm_browser_qa.cjs\n M tools/lm_controller.py\n M tools/project.py\n M tools/run.py\n M tools/server.py\n?? assets/audio/grenade_blast_2.wav\n?? assets/audio/grenade_blast_2.wav.import\n?? assets/audio/grenade_blast_3.wav\n?? assets/audio/grenade_blast_3.wav.import\n?? assets/audio/pistol_2.wav\n?? assets/audio/pistol_2.wav.import\n?? assets/audio/pistol_3.wav\n?? assets/audio/pistol_3.wav.import\n?? assets/audio/rifle_2.wav\n?? assets/audio/rifle_2.wav.import\n?? assets/audio/rifle_3.wav\n?? assets/audio/rifle_3.wav.import\n?? assets/audio/rocket_launch_2.wav\n?? assets/audio/rocket_launch_2.wav.import\n?? assets/audio/rocket_launch_3.wav\n?? assets/audio/rocket_launch_3.wav.import\n?? assets/audio/smg_2.wav\n?? assets/audio/smg_2.wav.import\n?? assets/audio/smg_3.wav\n?? assets/audio/smg_3.wav.import\n?? assets/audio/tank_cannon_2.wav\n?? assets/audio/tank_cannon_2.wav.import\n?? assets/audio/tank_cannon_3.wav\n?? assets/audio/tank_cannon_3.wav.import\n?? dashboard/llm-log.js\n?? data/build-info.json\n?? data/presentation.json\n?? data/weapon-attachments.json\n?? docs/FLAG_MODE.md\n?? docs/LLM_CALL_LOG.md\n?? docs/evidence/anatomy/\n?? docs/evidence/charge/\n?? docs/evidence/flag-mode.json\n?? docs/evidence/grounding/\n?? docs/evidence/latest-integration/\n?? docs/reviews/\n?? docs/studio/\n?? scripts/flag_objective.gd\n?? scripts/flag_objective.gd.uid\n?? scripts/sole_contact.gd\n?? scripts/sole_contact.gd.uid\n?? scripts/tank_visual.gd\n?? scripts/tank_visual.gd.uid\n?? source/optimization/\n?? tests/anatomy_probe.gd\n?? tests/anatomy_probe.gd.uid\n?? tests/anatomy_probe.tscn\n?? tests/charge_probe.gd\n?? tests/charge_probe.gd.uid\n?? tests/charge_probe.tscn\n?? tests/flag_tank_contract.gd\n?? tests/flag_tank_contract.gd.uid\n?? tests/ground_probe.gd\n?? tests/ground_probe.gd.uid\n?? tests/ground_probe.tscn\n?? tests/ragdoll_anatomy.gd\n?? tests/ragdoll_anatomy.gd.uid\n?? tests/ragdoll_anatomy.tscn\n?? tests/test_lm_call_log.py\n?? tools/latest_integration_smoke.cjs\n?? tools/lm_call_log.py\n?? tools/optimization/"
+  },
+  "brief": "# AI 战术沙盒：创造、操纵、复盘\n\n定位：开源的 Godot 战术游戏沙盒。一个已配置的 LLM 连接承担关卡设计师、战斗指挥官、战场分析员三种角色；玩家可接管任意阵营。\n\n首版范围：使用现有三张地图的桌面和道具资产，LLM 生成数据化掩体布置、三方出生部署、装备与中央守旗规则；静态规则和 Godot 实际导航均校验通过才能加载。不会生成或执行任意代码、下载未知资源或宣称生成任意类型游戏。\n\n交付闭环：输入关卡意图 → 生成并检查战术关卡 → 选择玩家阵营和对手控制 → 加载暂停待开始 → 对战 → 按需态势分析和自动战后报告 → 导出关卡与报告。\n\n验收：非法关卡不破坏当前对局；九个出生点可走到旗点、掩体不堵死主路线；自定义关卡可重开；LLM 真实返回记录进统一调用日志；模型报告关联真实局次、采样事实和引用 Tick；切换局次不把旧报告混入新局；真实 Web 完成生成、加载、玩家/LLM 选择、分析及查看报告。\n\n预算：沿用现有 DeepSeek 连接与逐兵调用上限；关卡生成最多两次尝试（失败反馈后一次修正），一次分析/战后报告一次调用，服务端限制并发和频率。新增资源为代码与 JSON，不新增媒体服务费用。保留本工作区已有资源与动画改动。\n",
+  "budget": {
+    "max_minutes": 60,
+    "max_repairs": 3
+  },
+  "created_at": "2026-09-19T01:42:14.812290+00:00",
+  "files": [],
+  "goal": "实现 AI 创建战术关卡、控制战斗、基于事实复盘的开放沙盒闭环",
+  "in_scope": [],
+  "out_of_scope": [],
+  "plan_id": "plan-0b17c7af9ff9",
+  "schema": "godot-forge.build-plan.v1"
+}

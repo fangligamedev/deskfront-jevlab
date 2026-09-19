@@ -1,6 +1,8 @@
 extends RefCounted
 
 static func run(game, check: Callable) -> void:
+	var objective_mode=game.config.rules.get("mode", "")
+	game.config.rules.mode="legacy_cqb_contract"
 	game.set_physics_process(false);game.fx.set_muted(true)
 	for team in ["green","blue","red"]:
 		var weapons: Array=[]
@@ -60,3 +62,5 @@ static func run(game, check: Callable) -> void:
 	game.fx.audio_enabled=true;game.fx.set_muted(false);game.fx.sound("rifle",game.camera_target)
 	check.call(game.fx.audio_events>0 and game.fx.voices.size()>0,"sound uses actual AudioStreamPlayer3D")
 	game.fx.set_muted(true);check.call(game.fx.voices.is_empty() and game.fx.muted,"mute stops live voices")
+
+	game.config.rules.mode=objective_mode

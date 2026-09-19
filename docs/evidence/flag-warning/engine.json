@@ -1,0 +1,73 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "claim starts a 30 second countdown"
+    },
+    {
+      "passed": true,
+      "test": "both enemy factions warned, holder not threatened"
+    },
+    {
+      "passed": true,
+      "test": "explicit loss and casualty priority"
+    },
+    {
+      "passed": true,
+      "test": "contesting pauses countdown rather than running down"
+    },
+    {
+      "passed": true,
+      "test": "contested warning explains paused clock"
+    },
+    {
+      "passed": true,
+      "test": "never displays zero before victory"
+    },
+    {
+      "passed": true,
+      "test": "zero coincides with actual victory"
+    },
+    {
+      "passed": true,
+      "test": "new holder starts fresh epoch and 30 seconds"
+    },
+    {
+      "passed": true,
+      "test": "empty flag clears countdown and warnings"
+    },
+    {
+      "passed": true,
+      "test": "normal safety policy remains without flag emergency"
+    },
+    {
+      "passed": true,
+      "test": "low health LM counterattack is accepted during flag emergency"
+    },
+    {
+      "passed": true,
+      "test": "automatic retreat does not overwrite emergency LM order"
+    },
+    {
+      "passed": true,
+      "test": "queued orders from pre-capture observation are rejected"
+    },
+    {
+      "passed": true,
+      "test": "emergency does not bypass unit authority"
+    },
+    {
+      "passed": true,
+      "test": "game pause stops flag countdown"
+    },
+    {
+      "passed": true,
+      "test": "native HUD visibly renders 30 second warning"
+    },
+    {
+      "passed": true,
+      "test": "retaking cancels own emergency"
+    }
+  ],
+  "passed": true
+}

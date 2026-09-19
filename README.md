@@ -1,12 +1,28 @@
-# Deskfront · 桌面前线
+# Deskfront AI Sandbox · 桌面战术沙盒
 
-**Godot + Blender 开源桌面战术原型。** 三支玩具兵小队在办公室桌面交战，人类继续操作电脑。支持玩家 RTS 操作、游戏 AI、逐单位 DeepSeek LLM 和外部 Agent。
+**让 AI 创造关卡、指挥游戏、解释战局的开源 Godot + Blender 项目。** 连接一个 LLM，它可以设计具有战术取舍的桌面对抗关卡、部署三方玩具兵，在对局中接管士兵与坦克，并依据真实战斗记录输出态势和战后分析。玩家保留 RTS 操作与随时接管的权利。
+
+当前实现以中央夺旗为可玩的基础环境：不是只展示 AI 建议，而是让数据化关卡进入 Godot，经过同一套导航、掩体、武器、生存和胜负规则执行。
+
+[创作—对抗—复盘使用指南](docs/studio/README.md) · [开放 API](docs/studio/API.md) · [关卡 JSON Schema](data/studio-scenario.schema.json)
 
 [完整文档目录](docs/README.md) · [动作接口](docs/AGENT_ACTION_STATES.md) · [贡献指南](CONTRIBUTING.md) · [更新日志](CHANGELOG.md)
 
-当前发布标记 **v9.19**（2026-09-19）；游戏运行时版本 **0.6.4-integrated.1**。本次整理工程、文档和开发流程，不改动上一版战斗规则；历史 V0.1 标签保留。
+当前发布标记 **v9.19**（2026-09-19）；游戏运行时版本 **0.6.4-integrated.1**。历史标签保持不变。当前工作版新增中央夺旗：独占旗圈守满 30 秒获胜，争夺暂停，弃旗清零；红方坦克预停上方桌面并缓慢驶入。详见 [夺旗模式](docs/FLAG_MODE.md)。
 
 ![蓝军进驻桌面右上角小楼](docs/evidence/v06/web-building-garrison.png)
+
+## 从一个意图开始
+
+打开策划台 **AI 创作沙盒** → 描述想体验的战术 → LLM 生成并通过 Godot 校验 → 查看布阵 → 选择玩家和对手控制 → 进入关卡、继续开局 → 分析态势或阅读自动战后报告。
+
+不配置模型也能导入 [示例关卡](data/studio-example.json) 并用游戏 AI 试玩。默认 LLM 使用现有火山方舟 DeepSeek 配置；Key 只留在服务端。所有模型角色的真实输入和返回可在“LLM 调用日志”核对。
+
+## 双人桌面演示
+
+顶部新增 **演示导演**：描述意图 → 模型设计并验证关卡 → 逐项放置 → 双方从桌边派兵 → 夺旗 → 复盘并生成下一关。也可选择明确标注的本地示例排练；提供窗口录制和事件时间线导出。
+
+[演示使用指南](docs/demo/README.md) · [导演接口](docs/demo/API.md) · [验收与当前限制](docs/demo/DELIVERY.md) · [策划、执行、独立游戏视图](docs/VIEWS.md)
 
 ## 游戏能力
 
@@ -15,7 +31,8 @@
 - 先寻找保护，再掩护推进；跑动、低姿移动、匍匐、探头、换弹与撤退。
 - 反坦克炮接管、推行、部署、开炮和弃炮；轻武器不会攻击坦克。
 - 蓝军沿楼梯进入两层小楼、守窗和撤离；楼板失效会坍塌。
-- 本地策划台展示真实状态、参数、控制权、逐单位 LLM 决策和引擎回执。
+- 本地策划台展示真实状态、参数、控制权、逐单位 LLM 决策和引擎回执；[LLM 调用日志](docs/LLM_CALL_LOG.md)可查看完整输入、原始返回并导出 JSON。
+- 左下角常驻 LLM 输入 / 输出；勾选 **Debug Visualize** 查看真实路点、已走轨迹、当前指令和执行约束。[使用与接口](docs/DEBUG_VISUALIZE.md)。
 
 Godot 是唯一战斗状态来源。Blender 原稿、骨骼、动画、素材来源和许可随源码提供。
 
@@ -26,7 +43,7 @@ Godot 是唯一战斗状态来源。Blender 原稿、骨骼、动画、素材来
 ```sh
 git clone https://github.com/fangligamedev/deskfront-jevlab.git
 cd deskfront-jevlab
-git checkout v9.19
+# 历史稳定版可执行 git checkout v9.19；AI 沙盒与 JEV 接入使用 main
 python3 tools/project.py import
 python3 tools/project.py web
 python3 tools/run.py
@@ -40,9 +57,15 @@ python3 tools/run.py
 
 Godot 打开 project.godot，按 **F5**。另运行 `python3 tools/server.py`，控制台打开 **http://127.0.0.1:8768/?native=1**。同一端口只连接一个游戏实例，避免网页游戏和原生窗口争用状态。多实例和平台设置见 [开发指南](docs/DEVELOPMENT.md)。
 
+### TypeSafe JEV 战斗版本
+
+已接入 JEV 原生结构化决策 API，9 名士兵和坦克逐单位选择战术。服务端设置 `DESKFRONT_LM_PROVIDER=typesafe_jev`、`TYPESAFE_API_KEY` 和 `TYPESAFE_MODEL=jev-1.13.0` 后重启服务；界面自动显示 TypeSafe JEV。战斗状态、原始回答、概率及执行回执均可在模型日志中查看。详见 [JEV 使用与验收](docs/JEV_CONTROL.md)。
+
+JEV 用于战术选择；自然语言关卡创作和叙述式战报保留独立的 DeepSeek 文本模型配置。
+
 ### 可选 LLM
 
-不配 Key 也可完整游玩。复制 .env.example 为 .env，设置自己的 ARK_API_KEY 和已开通的 DESKFRONT_LM_MODEL，重启服务，点击顶部「开始 DeepSeek LLM 对战」。按钮会让三个阵营的步兵和坦克由模型独立决策，并恢复战斗；对局已结束时会先重开。单纯切换控制下拉框仍尊重暂停状态。
+不配 Key 时可手动选择「游戏 AI」完整游玩。复制 .env.example 为 .env，设置自己的 ARK_API_KEY 和已开通的 DESKFRONT_LM_MODEL，重启服务，主游戏新局默认三方 LLM 驱动；也可点击顶部「开始 DeepSeek LLM 对战」。按钮会让三个阵营的步兵和坦克由模型独立决策，并恢复战斗；对局已结束时会先重开。单纯切换控制下拉框仍尊重暂停状态。
 
 步兵与坦克独立决策；默认每局最多 600 次请求、并发 3。真实调用产生供应商费用，重开会重置本局预算。Key 仅在本地服务端读取，不提交 .env。[完整 LLM 配置](docs/LM_CONTROL.md)。
 
@@ -60,7 +83,7 @@ Godot 打开 project.godot，按 **F5**。另运行 `python3 tools/server.py`，
 | 视角 / 静音 / 暂停 | V / M / 空格 |
 | 坦克增援 / 隐藏 HUD | T / F1 |
 
-全局或按阵营切换「游戏 AI / DeepSeek LLM / 外部 Agent / 玩家」。控制台可调整姿态、装备、上楼、撤楼、接管炮和弃炮。设施按钮会接管对应阵营；交回 AI 后继续自主作战。占点累计 90 分或消灭其他阵营获胜，规则以 [battle.json](data/battle.json) 为准。
+全局或按阵营切换「游戏 AI / DeepSeek LLM / 外部 Agent / 玩家」。控制台可调整姿态、装备、上楼、撤楼、接管炮和弃炮。设施按钮会接管对应阵营；交回 AI 后继续自主作战。独占旗圈达到守旗时长获胜；自定义关卡可设为 20–90 秒，默认 30 秒。
 
 ## 工程结构
 

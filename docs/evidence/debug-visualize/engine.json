@@ -1,0 +1,65 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "new main game defaults all factions to LLM"
+    },
+    {
+      "passed": true,
+      "test": "diagnostics off: no route payload"
+    },
+    {
+      "passed": true,
+      "test": "debug toggle accepted"
+    },
+    {
+      "passed": true,
+      "test": "toggle cannot take unit authority or cancel LLM"
+    },
+    {
+      "passed": true,
+      "test": "ordered future path reads actual unit route"
+    },
+    {
+      "passed": true,
+      "test": "stair navigation preserves real three-dimensional height"
+    },
+    {
+      "passed": true,
+      "test": "history samples actual positions"
+    },
+    {
+      "passed": true,
+      "test": "history is bounded"
+    },
+    {
+      "passed": true,
+      "test": "accepted command links exact receipt ID and reason"
+    },
+    {
+      "passed": true,
+      "test": "rejected reasoning never masquerades as executing order"
+    },
+    {
+      "passed": true,
+      "test": "local safety fallback is distinguished from model"
+    },
+    {
+      "passed": true,
+      "test": "unknown debug unit rejected"
+    },
+    {
+      "passed": true,
+      "test": "non-boolean toggle rejected"
+    },
+    {
+      "passed": true,
+      "test": "reset clears a focus unit absent from the new scene"
+    },
+    {
+      "passed": true,
+      "test": "off removes overlay, trace and route payload"
+    }
+  ],
+  "passed": true
+}

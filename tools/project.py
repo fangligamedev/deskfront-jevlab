@@ -17,6 +17,11 @@ def run(args):
     if result.returncode or 'SCRIPT ERROR:' in result.stdout:raise SystemExit(result.returncode or 1)
     return result.stdout
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def stamp_build():
+    files=[p for folder in ['scripts','assets','data','addons','scenes'] for p in (ROOT/folder).rglob('*') if p.is_file() and p.suffix not in ['.import','.uid'] and p.name!='build-info.json']
+    fingerprint=lambda paths:hashlib.sha256('\n'.join(str(p.relative_to(ROOT))+':'+digest(p) for p in sorted(paths)).encode()).hexdigest()
+    runtime=fingerprint(files+[ROOT/'project.godot',ROOT/'export_presets.cfg'])
+    (ROOT/'data/build-info.json').write_text(json.dumps({'id':'main-'+runtime[:12],'runtime_sha256':runtime,'assets_sha256':fingerprint([p for p in files if 'assets'==p.relative_to(ROOT).parts[0]])},indent=2)+'\n')
 def record_assets():
     # Refresh provenance only. Never copy legacy generated models over integrated assets.
     p=ROOT/'.forge/assets.json';data=json.loads(p.read_text())
@@ -39,7 +44,7 @@ def record_assets():
             item['author']=row['author'];item['license']=row['license']
             parents=sources.get(file.stem,[])
             if item['license']=='CC-BY-SA-3.0':parents=['tools/build_audio.py']+[str(f.relative_to(ROOT/'source/latest')) for f in (ROOT/'source/latest/q009').rglob('*.ogg')]
-            if parents:item['source_files']=['source/latest/'+x for x in parents]
+            if parents:item['source_files']=list(dict.fromkeys(item.get('source_files',[])+['source/latest/'+x for x in parents]))
             elif 'vfx' in item['path']:item['source_files']=['source/latest/fx-license.txt']
         item['source_hashes']={n:digest(ROOT/n) for n in item.get('source_files',[]) if (ROOT/n).is_file()}
         if item['path'] in by_path:
@@ -48,23 +53,32 @@ def record_assets():
     p.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
     (ROOT/'docs/asset-integration/asset-provenance.json').write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n')
 def main():
-    p=argparse.ArgumentParser();p.add_argument('command',choices=['models','record-assets','import','test','web','macos','bundle']);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('command',choices=['models','record-assets','import','test','web','macos','bundle','stamp']);a=p.parse_args()
     (ROOT/'output').mkdir(exist_ok=True)
+    if a.command in ['stamp','web','macos']:stamp_build()
     if a.command=='models':run([binary('blender'),'-b','--python',str(ROOT/'source/blender/build_assets.py')]);print('Legacy sources rebuilt in source/blender/generated; current runtime assets preserved.')
     if a.command=='record-assets':record_assets()
     if a.command=='import':run([binary('godot'),'--headless','--editor','--path',str(ROOT),'--quit'])
     if a.command=='test':
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/office_battlefield.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/motion_continuity.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/semantic_probe.tscn'])
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/integration_probe.tscn'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/asset_probe.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/combat_contract.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/flag_tank_contract.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/flag_warning_contract.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/studio_contract.gd'])
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/demo_contract.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/lm_contract.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/equipment_contract.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/equipment_squad.gd'])
+        for probe in ['charge_probe','ground_probe','anatomy_probe','ragdoll_anatomy']:run([binary('godot'),'--headless','--path',str(ROOT),'tests/'+probe+'.tscn'])
         run([os.sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py','-v'])
     if a.command in ['web','macos']:
         out=ROOT/'build'/a.command;out.mkdir(parents=True,exist_ok=True)
         run([binary('godot'),'--headless','--path',str(ROOT),'--export-release','Web' if a.command=='web' else 'macOS',str(out/('index.html' if a.command=='web' else 'Deskfront.zip'))])
+        shutil.copy2(ROOT/'data/build-info.json',out/'build-info.json')
     if a.command=='bundle':
         version=json.loads((ROOT/'package.json').read_text())['version']
         out=ROOT/'dist';out.mkdir(exist_ok=True)

@@ -10,7 +10,7 @@ const base=process.env.DESKFRONT_URL||'http://127.0.0.1:8768',out=path.resolve(_
  const check=(ok,test)=>{checks.push({test,passed:!!ok});assert(ok,test);console.log('PASS '+test)};
  async function command(c,agent=false){const session=await(await page.request.get(base+'/api/state')).json();c={instance_id:session.instance_id,run_id:session.state.run_id,...c};const r=await page.request.post(base+(agent?'/api/agent/command':'/api/command'),{data:c});const q=await r.json();assert(r.ok(),JSON.stringify(q));for(let i=0;i<100;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){assert(a.accepted,JSON.stringify(a));return a}await page.waitForTimeout(100)}throw Error('Missing engine receipt')}
  try{
-  const prev=(await snapshot()).state.run_id;await page.goto(base);let d=await until(d=>d.engine_live&&d.state.version==='0.6.0'&&d.state.run_id!==prev);
+  const prev=(await snapshot()).state.run_id;await page.goto(base);let d=await until(d=>d.engine_live&&d.state.version===require('../package.json').version&&d.state.run_id!==prev);
   await page.getByRole('button',{name:'暂停',exact:true}).click();await until(d=>d.state.paused);
   check(d.lm.configured&&d.lm.model==='deepseek-v4-flash-260425','Actual Ark model configured without exposing credentials');
   check(await page.getByLabel('全局控制方式').locator('option').count()===5,'Top-level selector exposes four control modes plus mixed status');

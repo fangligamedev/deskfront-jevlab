@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix,depth_draw_never,cull_disabled,unshaded;
+render_mode blend_mix,depth_draw_never,cull_disabled;
 uniform sampler2D atlas:source_color,filter_linear_mipmap,repeat_disable;
 uniform sampler2D flow:filter_linear_mipmap,repeat_disable;
 uniform sampler2D depth_texture:hint_depth_texture,repeat_disable,filter_nearest;
@@ -28,5 +28,5 @@ void fragment(){
  float fade=clamp((sd+VERTEX.z)/soft_distance,0.0,1.0);
  float lum=dot(tex.rgb,vec3(.299,.587,.114));
  vec3 c=smoke_only?vec3(lum*.4+.13):tex.rgb;
- ALBEDO=c*tint;ALPHA=tex.a*opacity*fade*(1.0-smoothstep(.8,1.0,progress));
+ ALBEDO=c*tint;ROUGHNESS=1.0;EMISSION=smoke_only?vec3(0.0):c*tint*.8;ALPHA=tex.a*opacity*fade*(1.0-smoothstep(.8,1.0,progress));
 }

@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deskfront tactical scenario v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "name",
+    "briefing",
+    "tactical_plan",
+    "base_map",
+    "objective",
+    "hold_seconds",
+    "spawns",
+    "loadouts",
+    "covers"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "briefing": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1200
+    },
+    "tactical_plan": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 400
+      }
+    },
+    "base_map": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "objective": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "hold_seconds": {
+      "type": "number",
+      "minimum": 20,
+      "maximum": 90
+    },
+    "spawns": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "loadouts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "green",
+        "blue",
+        "red"
+      ],
+      "properties": {
+        "green": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "enum": [
+              "rifle",
+              "smg",
+              "rocket",
+              "pistol"
+            ]
+          },
+          "contains": {
+            "const": "rocket"
+          }
+        },
+        "blue": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "enum": [
+              "rifle",
+              "smg",
+              "rocket",
+              "pistol"
+            ]
+          },
+          "contains": {
+            "const": "rocket"
+          }
+        },
+        "red": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "enum": [
+              "rifle",
+              "smg",
+              "rocket",
+              "pistol"
+            ]
+          },
+          "contains": {
+            "const": "rocket"
+          }
+        }
+      }
+    },
+    "covers": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 14,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "position",
+          "size",
+          "yaw"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "sandbag",
+              "crate"
+            ]
+          },
+          "position": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "size": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number",
+                "minimum": 0.08,
+                "maximum": 0.4
+              },
+              {
+                "type": "number",
+                "minimum": 0.035,
+                "maximum": 0.09
+              },
+              {
+                "type": "number",
+                "minimum": 0.035,
+                "maximum": 0.16
+              }
+            ],
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "yaw": {
+            "enum": [
+              0,
+              90
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "url": "http://127.0.0.1:8768/",
+  "engine_live": true,
+  "version": "0.6.4-integrated.1",
+  "build_id": "main-23f14c742448",
+  "resource_hash": "05d3f4e3bcfacd7828cc61271f565bd91562c3a4c75c45d66ddfc84e2dd7262a",
+  "expected": {
+    "id": "main-23f14c742448",
+    "runtime_sha256": "23f14c742448db8c4284b9218c9df00b38eb7c451df82ec694ea77aa84d7c109",
+    "assets_sha256": "05d3f4e3bcfacd7828cc61271f565bd91562c3a4c75c45d66ddfc84e2dd7262a"
+  },
+  "matches": true
+}

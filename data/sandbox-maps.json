@@ -1023,6 +1023,348 @@
           ]
         }
       ]
+    },
+    {
+      "id": "office-front",
+      "name": "办公桌 · 文件争夺",
+      "surface": "desk",
+      "bounds": [
+        -0.3,
+        0.8,
+        3.28,
+        3.46
+      ],
+      "floor_color": "#b6baa6",
+      "spawns": [
+        [
+          0.01,
+          3.2
+        ],
+        [
+          2.98,
+          2.67
+        ],
+        [
+          2.86,
+          0.98
+        ]
+      ],
+      "tank_spawn": [
+        2.86,
+        1.02
+      ],
+      "target": [
+        1.49,
+        2.15
+      ],
+      "objective": [
+        1.49,
+        2.15
+      ],
+      "objects": [
+        {
+          "id": "west-book-cover",
+          "kind": "books",
+          "position": [
+            0.23,
+            2.77
+          ],
+          "size": [
+            0.4,
+            0.067,
+            0.24
+          ],
+          "color": "#707f66",
+          "yaw": -8,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-books"
+        },
+        {
+          "id": "west-binder",
+          "kind": "binder",
+          "position": [
+            0.13,
+            2.1
+          ],
+          "size": [
+            0.28,
+            0.06,
+            0.36
+          ],
+          "color": "#617b78",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-binder"
+        },
+        {
+          "id": "west-inbox",
+          "kind": "filebox",
+          "position": [
+            0.18,
+            1.27
+          ],
+          "size": [
+            0.33,
+            0.18,
+            0.28
+          ],
+          "color": "#a39876",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-filebox"
+        },
+        {
+          "id": "near-keyboard",
+          "kind": "keyboard",
+          "position": [
+            1.01,
+            3.13
+          ],
+          "size": [
+            0.53,
+            0.048,
+            0.21
+          ],
+          "color": "#c4c5af",
+          "yaw": -8,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-keyboard"
+        },
+        {
+          "id": "green-stapler",
+          "kind": "stapler",
+          "position": [
+            0.63,
+            3.36
+          ],
+          "size": [
+            0.2,
+            0.055,
+            0.075
+          ],
+          "color": "#6f7e77",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-stapler"
+        },
+        {
+          "id": "center-ledgers",
+          "kind": "books",
+          "position": [
+            1.03,
+            2.43
+          ],
+          "size": [
+            0.34,
+            0.072,
+            0.23
+          ],
+          "color": "#6a8490",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-books"
+        },
+        {
+          "id": "north-binder",
+          "kind": "binder",
+          "position": [
+            1.06,
+            1.68
+          ],
+          "size": [
+            0.39,
+            0.06,
+            0.27
+          ],
+          "color": "#a77560",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-binder"
+        },
+        {
+          "id": "north-keyboard",
+          "kind": "keyboard",
+          "position": [
+            1.38,
+            1.05
+          ],
+          "size": [
+            0.48,
+            0.04,
+            0.18
+          ],
+          "color": "#c4c5af",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-keyboard"
+        },
+        {
+          "id": "north-mug",
+          "kind": "mug",
+          "position": [
+            0.8,
+            1.12
+          ],
+          "size": [
+            0.14,
+            0.16,
+            0.12
+          ],
+          "color": "#c6c1a5",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false,
+          "asset": "office-mug"
+        },
+        {
+          "id": "east-printer",
+          "kind": "printer",
+          "position": [
+            2.63,
+            1.48
+          ],
+          "size": [
+            0.53,
+            0.29,
+            0.43
+          ],
+          "color": "#b4bbab",
+          "yaw": 0,
+          "collision": true,
+          "destructible": false,
+          "asset": "office-printer"
+        },
+        {
+          "id": "printer-paper",
+          "kind": "books",
+          "position": [
+            2.17,
+            1.66
+          ],
+          "size": [
+            0.34,
+            0.065,
+            0.25
+          ],
+          "color": "#7e8372",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-books"
+        },
+        {
+          "id": "east-archive",
+          "kind": "filebox",
+          "position": [
+            2.59,
+            2.18
+          ],
+          "size": [
+            0.33,
+            0.18,
+            0.26
+          ],
+          "color": "#ae9471",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-filebox"
+        },
+        {
+          "id": "east-ledgers",
+          "kind": "books",
+          "position": [
+            2.26,
+            2.78
+          ],
+          "size": [
+            0.4,
+            0.07,
+            0.25
+          ],
+          "color": "#8e6756",
+          "yaw": 8,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-books"
+        },
+        {
+          "id": "blue-binder",
+          "kind": "binder",
+          "position": [
+            2.93,
+            3.18
+          ],
+          "size": [
+            0.32,
+            0.055,
+            0.25
+          ],
+          "color": "#667f85",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-binder"
+        },
+        {
+          "id": "south-archive",
+          "kind": "filebox",
+          "position": [
+            1.58,
+            3.18
+          ],
+          "size": [
+            0.3,
+            0.16,
+            0.26
+          ],
+          "color": "#ae9471",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-filebox"
+        },
+        {
+          "id": "center-stapler",
+          "kind": "stapler",
+          "position": [
+            1.87,
+            2.44
+          ],
+          "size": [
+            0.23,
+            0.06,
+            0.09
+          ],
+          "color": "#586b64",
+          "yaw": 0,
+          "collision": true,
+          "destructible": true,
+          "asset": "office-stapler"
+        }
+      ],
+      "at_guns": [],
+      "design": {
+        "table_width_before": 1.91,
+        "table_width_after": 3.82,
+        "table_left": -0.415,
+        "table_right": 3.405,
+        "lanes": [
+          "文件夹之间的西侧绕行",
+          "中央便签夺旗区",
+          "打印机后侧到档案盒的东侧通道"
+        ],
+        "briefing": "真实办公用品构成战场；书堆低掩体、打印机高遮挡、纸盒可破坏；白色桌面直接通行。"
+      }
     }
-  ]
+  ],
+  "default_level": 3
 }

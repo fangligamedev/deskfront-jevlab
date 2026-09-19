@@ -5,12 +5,13 @@ func check(ok:bool,label:String):
  checks.append({"test":label,"passed":ok})
  if not ok:push_error(label)
 func run():
+ set_meta("deskfront_map",0)
  var g=load("res://scenes/main.tscn").instantiate();root.add_child(g);g.set_physics_process(false);g.fx.set_muted(true)
  for team in g.control:g.control[team]="player"
  await physics_frame
  check(g.building!=null and g.building.spec.center==[1.0,1.13],"Existing two-storey building is on the northeast of the table")
  check(g.at_guns.size()==3,"Each faction has an actual field gun")
- g.spawn_tank();var tank=g.units[-1];var u=g.units[0];var blue=g.units[3]
+ g.spawn_tank();var tank=g.units[-1];tank.deployment_phase="active";var u=g.units[0];var blue=g.units[3]
  check(not u.can_engage(tank),"Rifle cannot engage armor")
  check(g.command({"action":"attack","faction":"green","unit_ids":[u.id],"target_id":tank.id}).message=="anti_armor_required","Explicit light-weapon tank attack rejected")
  check(not g.command({"action":"garrison","faction":"green","unit_ids":[u.id]}).accepted,"Blue building rejects other factions")

@@ -1,0 +1,99 @@
+{
+  "run_id": "1789787592.707-4084912204",
+  "warnings": 24,
+  "records": [
+    {
+      "call_id": 1210,
+      "unit_id": "green-3",
+      "provider": "volcengine_ark",
+      "model": "deepseek-v4-flash-260425",
+      "warning": {
+        "accept_casualties": true,
+        "active": true,
+        "capture_epoch": 10,
+        "contested": false,
+        "countdown_seconds": 30,
+        "message": "紧急夺旗预警：red 已占领中央旗点！剩余 30 秒，守满即判你方战败。立即不惜伤亡反攻，先进入旗圈阻断倒计时，再清除守军夺回旗帜；不得继续消极守楼、守炮或等待。",
+        "must_retake": true,
+        "owner": "red",
+        "priority": "critical",
+        "remaining_seconds": 29.35,
+        "type": "flag_defeat_warning"
+      },
+      "response": {
+        "action": "move",
+        "intent": "capture",
+        "position": [
+          0.55,
+          2.275
+        ],
+        "reason": "紧急夺旗预警：红方坦克在旗圈内，必须立即进入旗圈阻断倒计时；火箭筒手向低暴露短路点推进，压制坦克并夺旗"
+      },
+      "receipt": null,
+      "phase": "discarded"
+    },
+    {
+      "call_id": 1205,
+      "unit_id": "red-tank",
+      "provider": "volcengine_ark",
+      "model": "deepseek-v4-flash-260425",
+      "warning": {
+        "accept_casualties": true,
+        "active": true,
+        "capture_epoch": 8,
+        "contested": false,
+        "countdown_seconds": 25,
+        "message": "紧急夺旗预警：green 已占领中央旗点！剩余 25 秒，守满即判你方战败。立即不惜伤亡反攻，先进入旗圈阻断倒计时，再清除守军夺回旗帜；不得继续消极守楼、守炮或等待。",
+        "must_retake": true,
+        "owner": "green",
+        "priority": "critical",
+        "remaining_seconds": 24.2166666666667,
+        "type": "flag_defeat_warning"
+      },
+      "response": {
+        "action": "attack",
+        "target_id": "green-3",
+        "intent": "engage",
+        "reason": "紧急夺旗预警，必须清除旗圈内火箭兵以夺回旗帜"
+      },
+      "receipt": null,
+      "phase": "discarded"
+    },
+    {
+      "call_id": 1204,
+      "unit_id": "red-tank",
+      "provider": "volcengine_ark",
+      "model": "deepseek-v4-flash-260425",
+      "warning": {
+        "accept_casualties": true,
+        "active": true,
+        "capture_epoch": 8,
+        "contested": false,
+        "countdown_seconds": 27,
+        "message": "紧急夺旗预警：green 已占领中央旗点！剩余 27 秒，守满即判你方战败。立即不惜伤亡反攻，先进入旗圈阻断倒计时，再清除守军夺回旗帜；不得继续消极守楼、守炮或等待。",
+        "must_retake": true,
+        "owner": "green",
+        "priority": "critical",
+        "remaining_seconds": 26.9,
+        "type": "flag_defeat_warning"
+      },
+      "response": {
+        "action": "move",
+        "intent": "capture",
+        "position": [
+          0.55,
+          2.17
+        ],
+        "reason": "紧急夺旗预警，必须立即进入旗圈阻断倒计时，坦克满血可推进"
+      },
+      "receipt": {
+        "accepted": true,
+        "action": "move",
+        "id": "36ee0f19-7b1a-457e-984b-84e44ff487d9",
+        "message": "applied",
+        "tick": 3859
+      },
+      "phase": "executed"
+    }
+  ]
+}

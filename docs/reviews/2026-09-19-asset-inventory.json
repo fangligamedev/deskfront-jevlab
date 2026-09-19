@@ -1,0 +1,391 @@
+{
+  "captured_at": "2026-09-18T16:12:30.438076+00:00",
+  "released_commit": "87f718b40568a29eb87f002f25bcd1025e84f482",
+  "note": "Read-only audit snapshot. Working tree is being concurrently developed; counts are observations, not release acceptance.",
+  "working_changes": " M assets/models/toy-soldier.glb\n M data/battle.json\n M data/gait.json\n M scripts/battlefield.gd\n M scripts/combat_fx.gd\n M scripts/game.gd\n M scripts/toy_actor.gd\n M source/latest/tools/build_soldier.py\n M source/latest/toy-soldier-retarget.blend\n?? .forge/plans/plan-c1e5038ca106.json\n?? docs/animation-catalog.json\n",
+  "assets": [
+    {
+      "path": "assets/audio/bayonet.wav",
+      "bytes": 11510,
+      "sha256": "b11f52ac2cf57ccbeae4bcfb2585c2ffab98db89e0946b899535448ffc35f70c",
+      "duration": 0.26,
+      "channels": 1,
+      "sample_rate": 22050
+    },
+    {
+      "path": "assets/audio/cannon.wav",
+      "bytes": 35324,
+      "sha256": "494e95a5709e4141988480cac66e5e2a4bd27d49d4ada7689f9ed7c1a674a0da",
+      "duration": 0.8,
+      "channels": 1,
+      "sample_rate": 22050
+    },
+    {
+      "path": "assets/audio/explosion.wav",
+      "bytes": 46348,
+      "sha256": "fe0d8781297738472e0b7617d8fe1e522cbc2c961d651b9bef3967578d482c3f",
+      "duration": 1.0499773242630386,
+      "channels": 1,
+      "sample_rate": 22050
+    },
+    {
+      "path": "assets/audio/grenade_blast.wav",
+      "bytes": 88370,
+      "sha256": "1b9f179e095e53a3407b706941383146c62d09e0dbd08476eb485ecf4171f5ff",
+      "duration": 1.0010430839002267,
+      "channels": 1,
+      "sample_rate": 44100
+    },
+    {
+      "path": "assets/audio/impact.wav",
+      "bytes": 7100,
+      "sha256": "6b8c1dc04cc464bfab13f41115e9a2a7693f5e98f34bc86a72d7e3bdbe8929d5",
+      "duration": 0.16,
+      "channels": 1,
+      "sample_rate": 22050
+    },
+    {
+      "path": "assets/audio/order.wav",
+      "bytes": 5336,
+      "sha256": "ba973a88f9908da4bc6f1461319c4dd68f357753e0d5664f3f4b7cceb6c0b5c8",
+      "duration": 0.12,
+      "channels": 1,
+      "sample_rate": 22050
+    },
+    {
+      "path": "assets/audio/pistol.wav",
+      "bytes": 49642,
+      "sha256": "b45676275cf7855a132d54a01ce10d673f37397f7c84fe4269d730caa33f93d8",
+      "duration": 0.5619501133786848,
+      "channels": 1,
+      "sample_rate": 44100
+    },
+    {
+      "path": "assets/audio/reload.wav",
+      "bytes": 29906,
+      "sha256": "9cde45128149ec59f611b0ee7ed535117da673a55ccb7d70e2ab20e6fb3a1ce3",
+      "duration": 0.3381859410430839,
+      "channels": 1,
+      "sample_rate": 44100
+    },
+    {
+      "path": "assets/audio/rifle.wav",
+      "bytes": 239114,
+      "sha256": "33895a130eae3d161c6d3eff2a085fa2d07c57bb73591e03f15d526ffe282417",
+      "duration": 2.71015873015873,
+      "channels": 1,
+      "sample_rate": 44100
+    },
+    {
+      "path": "assets/audio/rocket.wav",
+      "bytes": 28708,
+      "sha256": "cafa14a9da9e02405b86d10bc42d0f7395b84f918bf8a0115903a324329129c9",
+      "duration": 0.6499773242630386,
+      "channels": 1,
+      "sample_rate": 22050
+    },
+    {
+      "path": "assets/audio/rocket_blast.wav",
+      "bytes": 123116,
+      "sha256": "5ad43d52bd399f856abf948e9504a6763dd3d14467f86f15fb3c5830ad96474e",
+      "duration": 1.3949886621315193,
+      "channels": 1,
+      "sample_rate": 44100
+    },
+    {
+      "path": "assets/audio/rocket_launch.wav",
+      "bytes": 123378,
+      "sha256": "329a225e5d7843a2e3f8a7ae595109916b201ec6afda6866cf3df361df85da27",
+      "duration": 1.3979591836734695,
+      "channels": 1,
+      "sample_rate": 44100
+    },
+    {
+      "path": "assets/audio/smg.wav",
+      "bytes": 5776,
+      "sha256": "c5183b6fc8bef8aabcbd5b231dde93d58679e994600a0dfdccf1f127b8de952e",
+      "duration": 0.12997732426303854,
+      "channels": 1,
+      "sample_rate": 22050
+    },
+    {
+      "path": "assets/audio/tank_cannon.wav",
+      "bytes": 77274,
+      "sha256": "926a0cd12dd8324324632b5f73193968878ac673c12910c5c5d597fe22a9cce4",
+      "duration": 0.8752380952380953,
+      "channels": 1,
+      "sample_rate": 44100
+    },
+    {
+      "path": "assets/audio/tank_impact.wav",
+      "bytes": 89338,
+      "sha256": "859698a2a953c869bcc50adf6988d5e7fbccb886406e16529a0f4a2ff5c6e812",
+      "duration": 1.0120181405895692,
+      "channels": 1,
+      "sample_rate": 44100
+    },
+    {
+      "path": "assets/fonts/DeskfrontUI.otf",
+      "bytes": 85032,
+      "sha256": "a1913100a763a8a9678f8d8f505eaf062840ca63eacb723145ea677f20d2914c"
+    },
+    {
+      "path": "assets/models/grenade.glb",
+      "bytes": 39596,
+      "sha256": "7f9c128142dfb386793c3929e18bac791f0fc1ae9bafa4fbf62f79929334f345",
+      "triangles": 536,
+      "meshes": 1,
+      "surfaces": 4,
+      "materials": 4,
+      "skins": [],
+      "animations": []
+    },
+    {
+      "path": "assets/models/infantry-blue.glb",
+      "bytes": 331408,
+      "sha256": "713d6873c5b13bbb28e40eed0dc8e3302aa710894e34290d93edaf7a18d59296",
+      "triangles": 2960,
+      "meshes": 1,
+      "surfaces": 2,
+      "materials": 2,
+      "skins": [
+        17
+      ],
+      "animations": [
+        "idle",
+        "run",
+        "aim",
+        "fire",
+        "crouch",
+        "prone",
+        "reload",
+        "death"
+      ]
+    },
+    {
+      "path": "assets/models/infantry-green.glb",
+      "bytes": 331400,
+      "sha256": "acb25c0e407d114df3965fa0de938b6dbd2982e41f2065341a402ba45420fbc1",
+      "triangles": 2960,
+      "meshes": 1,
+      "surfaces": 2,
+      "materials": 2,
+      "skins": [
+        17
+      ],
+      "animations": [
+        "idle",
+        "run",
+        "aim",
+        "fire",
+        "crouch",
+        "prone",
+        "reload",
+        "death"
+      ]
+    },
+    {
+      "path": "assets/models/infantry-red.glb",
+      "bytes": 331412,
+      "sha256": "7cdfed64e0da9382ff4b58f275c5192e1ae93ceaab8ff328ed8269bfe9129292",
+      "triangles": 2960,
+      "meshes": 1,
+      "surfaces": 2,
+      "materials": 2,
+      "skins": [
+        17
+      ],
+      "animations": [
+        "idle",
+        "run",
+        "aim",
+        "fire",
+        "crouch",
+        "prone",
+        "reload",
+        "death"
+      ]
+    },
+    {
+      "path": "assets/models/office-sandbox.glb",
+      "bytes": 1785868,
+      "sha256": "330805fd5343b287ec7acaf1826a5250517a3a6863f098fe0e3f7d918014a72c",
+      "triangles": 28164,
+      "meshes": 14,
+      "surfaces": 14,
+      "materials": 14,
+      "skins": [],
+      "animations": []
+    },
+    {
+      "path": "assets/models/office-worker.glb",
+      "bytes": 824864,
+      "sha256": "0f76ae2221945baf0c7f20c9e407b78d768622e9722720e1f9485741d8aace51",
+      "triangles": 5776,
+      "meshes": 4,
+      "surfaces": 10,
+      "materials": 9,
+      "skins": [
+        62
+      ],
+      "animations": [
+        "office_typing"
+      ]
+    },
+    {
+      "path": "assets/models/office.glb",
+      "bytes": 1763196,
+      "sha256": "68189f11647ababa51c62ac40b62030e8710162035b67944b55b3e89154d5d69",
+      "triangles": 27840,
+      "meshes": 14,
+      "surfaces": 14,
+      "materials": 14,
+      "skins": [],
+      "animations": []
+    },
+    {
+      "path": "assets/models/pistol.glb",
+      "bytes": 158212,
+      "sha256": "d8a284503309a7fcb215326034db5b0b2151a9b6920c39d018f975ff4b6fd84b",
+      "triangles": 1434,
+      "meshes": 1,
+      "surfaces": 6,
+      "materials": 6,
+      "skins": [
+        10
+      ],
+      "animations": []
+    },
+    {
+      "path": "assets/models/rifle.glb",
+      "bytes": 457644,
+      "sha256": "0d80dd2118c884172a856455968be14eadc97f041d27d52bfa75fedb708fa486",
+      "triangles": 4353,
+      "meshes": 1,
+      "surfaces": 7,
+      "materials": 7,
+      "skins": [
+        19
+      ],
+      "animations": []
+    },
+    {
+      "path": "assets/models/rocket.glb",
+      "bytes": 78780,
+      "sha256": "6274d778346a7c41d52627b6c76085729194dd1ac61c447c06e0f0ab2e9fd2a6",
+      "triangles": 2084,
+      "meshes": 7,
+      "surfaces": 7,
+      "materials": 1,
+      "skins": [],
+      "animations": []
+    },
+    {
+      "path": "assets/models/sandbag.glb",
+      "bytes": 40072,
+      "sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
+      "triangles": 540,
+      "meshes": 2,
+      "surfaces": 2,
+      "materials": 2,
+      "skins": [],
+      "animations": []
+    },
+    {
+      "path": "assets/models/tank.glb",
+      "bytes": 912836,
+      "sha256": "d46acaeb563f401bfb389bd7708342f97d0cd62f9b2c6dc88f8537be8c85ed80",
+      "triangles": 7222,
+      "meshes": 5,
+      "surfaces": 10,
+      "materials": 8,
+      "skins": [
+        45,
+        45,
+        45
+      ],
+      "animations": [
+        "TankArmature|Tank_Backwards",
+        "TankArmature|Tank_Forward",
+        "TankArmature|Tank_TurningLeft",
+        "TankArmature|Tank_TurningRight"
+      ]
+    },
+    {
+      "path": "assets/models/toy-soldier.glb",
+      "bytes": 1580976,
+      "sha256": "e3f0f33cfa58b0451efa0c73146ed205fb6528c6c7e26cc42b48b5676d4d2b15",
+      "triangles": 5073,
+      "meshes": 2,
+      "surfaces": 2,
+      "materials": 1,
+      "skins": [
+        50
+      ],
+      "animations": [
+        "rifle_idle",
+        "rifle_walk_rm",
+        "rifle_jog_rm",
+        "cover_enter",
+        "cover_idle",
+        "cover_exit",
+        "cover_shuffle_left",
+        "cover_shuffle_right",
+        "rifle_crouch_rm",
+        "turn_left",
+        "turn_right",
+        "dodge_left_rm",
+        "roll_rm",
+        "crawl",
+        "hit",
+        "death",
+        "pistol_fire",
+        "reload",
+        "cover_peek_left",
+        "cover_peek_right",
+        "grenade_throw",
+        "rocket_aim",
+        "prone_idle",
+        "prone_fire",
+        "prone_reload",
+        "crouch_reload",
+        "bayonet",
+        "rifle_fire"
+      ]
+    },
+    {
+      "path": "assets/models/worker.glb",
+      "bytes": 195612,
+      "sha256": "1dc36a161593b7d79b2bb028c06c493276376c448eb9a85b362f6c0448f08d91",
+      "triangles": 2268,
+      "meshes": 1,
+      "surfaces": 4,
+      "materials": 4,
+      "skins": [
+        17
+      ],
+      "animations": [
+        "typing"
+      ]
+    },
+    {
+      "path": "assets/vfx/flow.png",
+      "bytes": 116897,
+      "sha256": "f9138166331aa2854f7d755f438044053291ffd5303de8b11daf2a142e4bcf41",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "path": "assets/vfx/fx.png",
+      "bytes": 1852561,
+      "sha256": "b926336696561bbac6801ded500ff2b070756d58246bfab648154b6e940398d7",
+      "width": 2048,
+      "height": 2048
+    },
+    {
+      "path": "assets/vfx/soft_flipbook.gdshader",
+      "bytes": 1545,
+      "sha256": "b2d5ac8992b19ab33e15efa701253444d162c4af851660a17dcfb964a0693ceb"
+    }
+  ]
+}

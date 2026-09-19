@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "lm_provider": "deterministic test client, no cloud calls",
+  "checks": [
+    {
+      "test": "Real movement into flag displays countdown banner",
+      "passed": true
+    },
+    {
+      "test": "Displayed countdown equals authoritative engine value",
+      "passed": true
+    },
+    {
+      "test": "Both opposing factions receive explicit defeat warning",
+      "passed": true
+    },
+    {
+      "test": "Pausing the game freezes the countdown",
+      "passed": true
+    },
+    {
+      "test": "Test LM received the warning and issued real counterattack commands",
+      "passed": true
+    },
+    {
+      "test": "Retaking starts a new capture epoch and reverses the threatened factions",
+      "passed": true
+    },
+    {
+      "test": "Countdown reaching zero produces an actual red victory",
+      "passed": true
+    },
+    {
+      "test": "No browser or shader errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "build_id": "main-f52f89516030",
+  "version": "0.6.5-flag.1",
+  "final_flag": {
+    "alerts": {
+      "blue": {
+        "active": false
+      },
+      "green": {
+        "active": false
+      },
+      "red": {
+        "active": false
+      }
+    },
+    "capture_epoch": 2,
+    "contested": false,
+    "countdown_seconds": 0,
+    "held_seconds": 30,
+    "mode": "center_flag",
+    "owner": "red",
+    "remaining_seconds": 0,
+    "required_seconds": 30
+  }
+}

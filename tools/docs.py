@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build the document inventory and a portable full-text reading package."""
 import argparse
+import json
 from pathlib import Path
 import re
 import zipfile
@@ -22,7 +23,7 @@ def main():
     args = parser.parse_args()
     files = documents()
     if args.write_index:
-        rows = ['# 全部说明文档', '', '发布标记 **v9.19**，运行时 **0.6.0**。以下为已发布 Markdown 文档完整清单；历史报告记录当时实现，当前使用以 README、API 和开发指南为准。', '', '先读 [项目介绍](../README.md)，开发者读 [开发指南](DEVELOPMENT.md)，Agent 作者读 [动作全集](AGENT_ACTION_STATES.md)。', '', '| 文件 | 说明 / 内容 | 类别 |', '| --- | --- | --- |']
+        rows = ['# 全部说明文档', '', '当前 main 运行时 **'+json.loads((ROOT/'package.json').read_text())['version']+'**；历史发布标记 **v9.19** 保持不变。以下为源码 Markdown 文档完整清单；历史报告记录当时实现，当前使用以 README、API 和开发指南为准。', '', '先读 [项目介绍](../README.md)，体验 [AI 沙盒](studio/README.md) 与 [JEV](JEV_CONTROL.md)；开发者读 [开发指南](DEVELOPMENT.md)，Agent 作者读 [动作全集](AGENT_ACTION_STATES.md)。', '', '| 文件 | 说明 / 内容 | 类别 |', '| --- | --- | --- |']
         for name in files:
             title = '全部说明文档' if name == 'docs/README.md' else next((s.lstrip('# ').strip() for s in (ROOT / name).read_text().splitlines() if s.startswith('# ')), Path(name).stem)
             category = '本次交付' if name=='docs/DELIVERY-v9.19.md' else '历史交付' if '/DELIVERY-' in name else '资源集成' if '/asset-integration/' in name else '协作模板' if name.startswith('.github/') else '工作说明' if 'BRIEF-' in name else '当前指南'

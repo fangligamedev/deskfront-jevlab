@@ -1,0 +1,103 @@
+{
+  "date": "2026-09-19",
+  "kind": "real_godot_typesafe_integration",
+  "tests": {
+    "python_passed": 52,
+    "semantic_passed": 113,
+    "forge_baseline_report": "report-a01a027402a8"
+  },
+  "trials": [
+    {
+      "trial": "jev-first",
+      "run_id": "1789788809.69155-801321402",
+      "model": "jev-1.13.0",
+      "provider": "typesafe_jev",
+      "forced_tank_reinforcement": true,
+      "metrics": {
+        "duration": 74.6,
+        "infantry_alive": 3,
+        "infantry_hp": 186.0,
+        "shots": 88,
+        "destroyed": 3,
+        "cover_sample_ratio": 0.031,
+        "scores": {
+          "blue": 0.0,
+          "green": 0.0,
+          "red": 30.0
+        },
+        "winner": "red"
+      },
+      "request_count": 94,
+      "phases": {
+        "discarded": 15,
+        "executed": 75,
+        "rejected": 4
+      },
+      "decision_units": [
+        "blue-1",
+        "blue-2",
+        "blue-3",
+        "green-1",
+        "green-2",
+        "green-3",
+        "red-1",
+        "red-2",
+        "red-3",
+        "red-tank"
+      ],
+      "controller_errors": {
+        "invalid_target": 2
+      }
+    },
+    {
+      "trial": "jev-final",
+      "run_id": "1789789565.97219-2502999476",
+      "model": "jev-1.13.0",
+      "provider": "typesafe_jev",
+      "forced_tank_reinforcement": true,
+      "metrics": {
+        "duration": 40.6,
+        "infantry_alive": 7,
+        "infantry_hp": 467.5,
+        "shots": 27,
+        "destroyed": 2,
+        "cover_sample_ratio": 0.033,
+        "scores": {
+          "blue": 0.0,
+          "green": 1.43333333333333,
+          "red": 0.0
+        },
+        "winner": ""
+      },
+      "request_count": 61,
+      "phases": {
+        "discarded": 11,
+        "waiting": 1,
+        "rejected": 7,
+        "error": 2,
+        "executed": 40
+      },
+      "decision_units": [
+        "blue-1",
+        "blue-2",
+        "blue-3",
+        "green-1",
+        "green-2",
+        "green-3",
+        "red-1",
+        "red-2",
+        "red-3",
+        "red-tank"
+      ],
+      "controller_errors": {
+        "typesafe_network_or_timeout": 2
+      }
+    }
+  ],
+  "limitations": [
+    "Not a win-rate comparison; all factions use JEV and red has tank reinforcement.",
+    "Model instructions are mapped to candidates; Godot can reject stale or unsafe actions.",
+    "Post-fix live trial had two network/timeout errors and used visible local fallback.",
+    "Narrative generation/reporting remains on separately configured DeepSeek."
+  ]
+}

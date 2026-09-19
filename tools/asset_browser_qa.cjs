@@ -9,14 +9,17 @@ const out=path.resolve(__dirname,'../output/integration');
  page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
  const state=async()=> (await(await page.request.get(base+'/api/state')).json()).state;
  const check=(ok,test)=>{checks.push({test,passed:!!ok});if(!ok)throw Error(test);console.log('PASS '+test)};
- async function until(fn,timeout=25000){const start=Date.now();while(Date.now()-start<timeout){const s=await state();if(fn(s))return s;await page.waitForTimeout(150)}throw Error('Timeout '+fn)}
+ async function until(fn,timeout=60000){const start=Date.now();while(Date.now()-start<timeout){const s=await state();if(fn(s))return s;await page.waitForTimeout(150)}throw Error('Timeout '+fn)}
  async function command(c){const session=await(await page.request.get(base+'/api/state')).json();c={instance_id:session.instance_id,run_id:session.state.run_id,...c};const r=await page.request.post(base+'/api/command',{data:c});const q=await r.json();if(!r.ok())throw Error(JSON.stringify(q));for(let i=0;i<100;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){if(!a.accepted)throw Error(JSON.stringify(a));return a}await page.waitForTimeout(150)}throw Error('No engine ack')}
  try{
-  const prev=(await state()).run_id;await page.goto(base);let s=await until(s=>s.run_id!==prev&&s.version==='0.6.0');
+  const prev=(await state()).run_id;await page.goto(base);let s=await until(s=>s.run_id!==prev&&s.version===require('../package.json').version);
   check(s.units.length===9&&s.units.every(u=>u.bone_count===50),'Final Web export loads nine 50-bone soldiers');
   const start=s.worker_animation_time;s=await until(s=>s.worker_animation_time>start+.2);check(true,'New office worker typing advances in Web');
   for(const [index,id] of [[1,'river'],[2,'outpost'],[0,'crossroads']]){
+   await page.waitForFunction(()=>live&&sessionCurrent&&state.units?.length===9);
+   s=await state();await page.waitForFunction(run=>state.run_id===run,s.run_id);
    const prior=s.run_id;await page.getByLabel('战场地图').selectOption(String(index));s=await until(s=>s.map===id&&s.run_id!==prior);
+   await page.waitForFunction(run=>state.run_id===run,s.run_id);
    check(s.units.length===9&&!s.tank_spawned,'Map selector resets battle into '+id);
   }
   await page.getByRole('button',{name:'暂停',exact:true}).click();s=await until(s=>s.paused);

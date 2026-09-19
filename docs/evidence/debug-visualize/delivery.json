@@ -1,0 +1,52 @@
+{
+  "tested_at": "2026-09-19T11:22:41.036162",
+  "build": {
+    "id": "main-a2739fd192d1",
+    "runtime_sha256": "a2739fd192d1e5044b71892327b791bbfc9c003136b6c67c83bb709591ec2f0f",
+    "assets_sha256": "05d3f4e3bcfacd7828cc61271f565bd91562c3a4c75c45d66ddfc84e2dd7262a"
+  },
+  "web": {
+    "passed": true,
+    "checks": 16,
+    "actual_provider": "volcengine_ark",
+    "real_model_responses": 6,
+    "engine_accepts": 6,
+    "correlated_call": {
+      "id": 1234,
+      "run_id": "1789788002.241-2522019426",
+      "provider": "volcengine_ark",
+      "phase": "executed",
+      "decision": {
+        "action": "move",
+        "intent": "advance",
+        "posture": "auto",
+        "position": [
+          -0.0750000029802322,
+          3.02500009536743
+        ],
+        "reason": "无威胁，向旗圈低暴露短路推进，配合友军建立火力"
+      },
+      "receipt": {
+        "accepted": true,
+        "action": "move",
+        "id": "4f51f9f6-f67a-4076-93f0-2567707885af",
+        "message": "applied",
+        "tick": 143
+      }
+    }
+  },
+  "engine_checks": 15,
+  "python_checks": 44,
+  "llm_engine_contract_checks": 23,
+  "release_status": "passed",
+  "release_source_sha256": "08ca922f85bc37eb3c8dc9c2452247edebde316e009e8df40ffb3a4c5faccfb8",
+  "limitations": [
+    "早期真实请求曾返回账户欠费；最终复测 HTTP 200，已确认模型决策与引擎接受回执。",
+    "reason 是模型显式输出的简短依据，并非内部思维过程。"
+  ],
+  "changes": [
+    "本局 LLM 输入、输出、回执常驻左下角，可筛选和固定调用",
+    "Godot 真实路线、下一路点、历史轨迹、目标与执行约束开关",
+    "主游戏默认三方 LLM，失败时明确标识本地自保"
+  ]
+}

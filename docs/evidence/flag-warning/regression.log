@@ -1,0 +1,162 @@
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab tests/semantic_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+FORGE_SEMANTIC_PASS deskfront checks=113
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab tests/integration_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ASSET_INTEGRATION true checks=92
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/asset_probe.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ASSET_PROBE true
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/combat_contract.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+COMBAT_CONTRACT true checks=31
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/flag_tank_contract.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+FLAG_TANK_CONTRACT {"checks":22,"failures":[],"gun_size":"(0.011656, 0.009215, 0.126661)","hull_size":"(0.171266, 0.062433, 0.24152)","passed":true,"turret_size":"(0.127564, 0.027385, 0.153987)"}
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/flag_warning_contract.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+FLAG_WARNING_CONTRACT {"checks":[{"passed":true,"test":"claim starts a 30 second countdown"},{"passed":true,"test":"both enemy factions warned, holder not threatened"},{"passed":true,"test":"explicit loss and casualty priority"},{"passed":true,"test":"contesting pauses countdown rather than running down"},{"passed":true,"test":"contested warning explains paused clock"},{"passed":true,"test":"never displays zero before victory"},{"passed":true,"test":"zero coincides with actual victory"},{"passed":true,"test":"new holder starts fresh epoch and 30 seconds"},{"passed":true,"test":"empty flag clears countdown and warnings"},{"passed":true,"test":"normal safety policy remains without flag emergency"},{"passed":true,"test":"low health LM counterattack is accepted during flag emergency"},{"passed":true,"test":"automatic retreat does not overwrite emergency LM order"},{"passed":true,"test":"queued orders from pre-capture observation are rejected"},{"passed":true,"test":"emergency does not bypass unit authority"},{"passed":true,"test":"game pause stops flag countdown"},{"passed":true,"test":"native HUD visibly renders 30 second warning"},{"passed":true,"test":"retaking cancels own emergency"}],"passed":true}
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/studio_contract.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+STUDIO_CONTRACT {"checks":11,"failures":[],"passed":true}
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/lm_contract.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+LM_CONTRACT true checks=23
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/equipment_contract.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+BUILDING 0 (0.956, 0.838, 1.78) approaching 
+BUILDING 60 (0.992995, 0.838, 1.775088) approaching 
+BUILDING 120 (1.0358, 0.838, 1.775003) approaching 
+BUILDING 180 (1.072795, 0.838, 1.751917) approaching 
+BUILDING 240 (1.10381, 0.839906, 1.738753) approaching 
+BUILDING 300 (1.155729, 0.852745, 1.661127) approaching 
+BUILDING 360 (1.208544, 0.865806, 1.582163) approaching 
+BUILDING 420 (1.26136, 0.878868, 1.503199) approaching 
+BUILDING 480 (1.283483, 0.894904, 1.446214) approaching 
+BUILDING 540 (1.283817, 0.925393, 1.376901) approaching 
+BUILDING 600 (1.284274, 0.967182, 1.2819) approaching 
+BUILDING 660 (1.284728, 1.00897, 1.1869) approaching 
+BUILDING 720 (1.26465, 1.032714, 1.124976) approaching 
+BUILDING 780 (1.211446, 1.032879, 1.103809) approaching 
+BUILDING 840 (1.123177, 1.03315, 1.068689) approaching 
+BUILDING 900 (1.034907, 1.033423, 1.03357) approaching 
+BUILDING 960 (0.946638, 1.033699, 0.998451) approaching 
+BUILDING 1020 (0.858368, 1.033974, 0.963329) approaching 
+GUN 0 (-0.114, 3.25) approaching 
+GUN 120 (-0.012631, 3.25) approaching 
+GUN 240 (0.110239, 3.25) approaching 
+GUN 360 (0.237688, 3.25) approaching 
+GUN 480 (0.349733, 3.270343) approaching 
+GUN 600 (0.472553, 3.330593) approaching 
+GUN 720 (0.503877, 3.282839) towing 
+GUN 840 (0.488681, 3.194119) towing 
+GUN 960 (0.473483, 3.105399) towing 
+GUN 1080 (0.462717, 3.042555) deploying 
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab --script tests/equipment_squad.gd
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+0 [["blue-1", (0.956, 0.838, 1.78), "approaching", ""], ["blue-2", (1.02, 0.838, 1.78), "approaching", ""], ["blue-3", (1.084, 0.838, 1.78), "approaching", ""]]
+120 [["blue-1", (1.0358, 0.838, 1.775003), "approaching", ""], ["blue-2", (1.0984, 0.838268, 1.748587), "approaching", ""], ["blue-3", (1.132347, 0.846486, 1.700321), "approaching", ""]]
+240 [["blue-1", (1.10381, 0.839906, 1.738753), "approaching", ""], ["blue-2", (1.175315, 0.857413, 1.632871), "approaching", ""], ["blue-3", (1.236637, 0.872603, 1.541505), "approaching", ""]]
+360 [["blue-1", (1.208544, 0.865806, 1.582163), "approaching", ""], ["blue-2", (1.28049, 0.883592, 1.474642), "approaching", ""], ["blue-3", (1.283768, 0.905259, 1.42254), "approaching", ""]]
+480 [["blue-1", (1.283483, 0.894904, 1.446214), "approaching", ""], ["blue-2", (1.283825, 0.94061, 1.342456), "approaching", ""], ["blue-3", (1.284569, 0.988865, 1.232558), "approaching", ""]]
+600 [["blue-1", (1.284274, 0.967182, 1.2819), "approaching", ""], ["blue-2", (1.284876, 1.024128, 1.152458), "approaching", ""], ["blue-3", (1.251675, 1.032859, 1.145612), "approaching", ""]]
+720 [["blue-1", (1.26465, 1.032714, 1.124976), "approaching", ""], ["blue-2", (1.171005, 1.032876, 1.13255), "approaching", ""], ["blue-3", (1.076617, 1.033353, 1.212894), "approaching", ""]]
+840 [["blue-1", (1.123177, 1.03315, 1.068689), "approaching", ""], ["blue-2", (0.981012, 1.033541, 1.131041), "approaching", ""], ["blue-3", (0.899267, 1.033859, 1.281062), "approaching", ""]]
+960 [["blue-1", (0.946638, 1.033699, 0.998451), "approaching", ""], ["blue-2", (0.852766, 1.03399, 1.130022), "stationed", ""], ["blue-3", (0.853453, 1.03399, 1.298673), "stationed", ""]]
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab tests/charge_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+CHARGE_CONTRACTS true
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab tests/ground_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+GROUND_CONTRACTS {"failures":[],"passed":true,"rows":[{"clip":"bayonet","flight_allowed":false,"max_m":-0.0000438069619121961,"min_m":-0.000076265016105026},{"clip":"cover_enter","flight_allowed":false,"max_m":-0.0000127507082652301,"min_m":-0.000331213610479608},{"clip":"cover_exit","flight_allowed":false,"max_m":0.0,"min_m":-0.000331214803736657},{"clip":"cover_idle","flight_allowed":false,"max_m":-0.000331567978719249,"min_m":-0.000362852326361462},{"clip":"cover_peek_left","flight_allowed":false,"max_m":-0.000332033872837201,"min_m":-0.000371182279195637},{"clip":"cover_peek_right","flight_allowed":false,"max_m":-0.000331698218360543,"min_m":-0.000358094199327752},{"clip":"cover_shuffle_left","flight_allowed":false,"max_m":0.0,"min_m":-0.00039962527807802},{"clip":"cover_shuffle_right","flight_allowed":false,"max_m":0.0,"min_m":-0.000396896910388023},{"clip":"crawl","flight_allowed":false,"max_m":0.000888038193807006,"min_m":-0.00082857912639156},{"clip":"crouch_reload","flight_allowed":false,"max_m":-0.000331567978719249,"min_m":-0.000362852326361462},{"clip":"death","flight_allowed":false,"max_m":0.000823815877083689,"min_m":-0.000387818989111111},{"clip":"dodge_left_rm","flight_allowed":false,"max_m":0.0,"min_m":-0.000100047574960627},{"clip":"grenade_throw","flight_allowed":false,"max_m":-0.0000438069619121961,"min_m":-0.0000743223936296999},{"clip":"hit","flight_allowed":false,"max_m":-0.0000438492788816802,"min_m":-0.0000753976419218816},{"clip":"pistol_fire","flight_allowed":false,"max_m":-0.0000447145866928622,"min_m":-0.0000447145866928622},{"clip":"prone_fire","flight_allowed":false,"max_m":0.000105790175439324,"min_m":-0.000979398377239704},{"clip":"prone_idle","flight_allowed":false,"max_m":-0.00000000764339347369969,"min_m":-0.00108519662171602},{"clip":"prone_reload","flight_allowed":false,"max_m":-0.00000000764339347369969,"min_m":-0.00108519662171602},{"clip":"reload","flight_allowed":false,"max_m":-0.0000437295675510541,"min_m":-0.0000458149770565797},{"clip":"rifle_crouch_rm","flight_allowed":false,"max_m":0.0,"min_m":-0.000305951543850824},{"clip":"rifle_fire","flight_allowed":false,"max_m":-0.0000438069619121961,"min_m":-0.000076265016105026},{"clip":"rifle_idle","flight_allowed":false,"max_m":-0.0000438069619121961,"min_m":-0.000076265016105026},{"clip":"rifle_jog_rm","flight_allowed":true,"max_m":0.0197071563452482,"min_m":-0.000000493921106681228},{"clip":"rifle_sprint_rm","flight_allowed":true,"max_m":0.0196002814918756,"min_m":0.0},{"clip":"rifle_walk_rm","flight_allowed":false,"max_m":0.0,"min_m":-0.0000619268830632791},{"clip":"rocket_aim","flight_allowed":false,"max_m":-0.0000438069619121961,"min_m":-0.000076265016105026},{"clip":"roll_rm","flight_allowed":false,"max_m":0.00194539478980005,"min_m":-0.00151443015784025},{"clip":"turn_left","flight_allowed":false,"max_m":0.0,"min_m":-0.0000634802781860344},{"clip":"turn_right","flight_allowed":false,"max_m":0.0,"min_m":-0.000105366489151493},{"max_m":0.0,"min_m":-0.0000427364284405485,"mode":"walk","support_max_m":0.0},{"max_m":0.0202763434499502,"min_m":-0.0000589828123338521,"mode":"run","support_max_m":0.0},{"max_m":0.0204154700040817,"min_m":-0.000151582644321024,"mode":"sprint","support_max_m":0.0},{"max_m":0.0,"min_m":-0.000306128174997866,"mode":"crouch_run","support_max_m":0.0}],"vertex_count":5228}
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab tests/anatomy_probe.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ANATOMY_CONTRACTS true samples=2349 failures=0
+
+/Applications/Godot.app/Contents/MacOS/Godot --headless --path /Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab tests/ragdoll_anatomy.tscn
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+RAGDOLL_ANATOMY {"actors":9,"all_settled":true,"frames":360,"hinges_per_actor":4,"limited_joints_per_actor":13,"max_segment_stretch":0.00000117424250301035,"max_span_m":0.0807685777544975,"max_speed_m_s":0.962511253356934,"passed":true}
+
+/Library/Developer/CommandLineTools/usr/bin/python3 -m unittest discover -s tests -p test_*.py -v
+test_agent_cannot_run_admin (test_control.ControlContract) ... ok
+test_freshness_required (test_control.ControlContract) ... ok
+test_new_run_does_not_invent_reset_success (test_control.ControlContract) ... ok
+test_new_run_expires_old_moves (test_control.ControlContract) ... ok
+test_old_instance_cannot_replace_state_consume_commands_or_forge_ack (test_control.ControlContract) ... ok
+test_posture_contract (test_control.ControlContract) ... FAIL
+test_queue_is_not_ack (test_control.ControlContract) ... ok
+test_replaced_session_expires_queue_and_stale_console_observation (test_control.ControlContract) ... ok
+test_scene_reload_keeps_real_reset_and_map_ack (test_control.ControlContract) ... ok
+test_types_and_nan (test_control.ControlContract) ... ok
+test_both_opponents_get_explicit_warning_but_owner_does_not (test_flag_warning.FlagWarningContract) ... ok
+test_budget_fallback_counterattacks_and_never_claims_model_success (test_flag_warning.FlagWarningContract) ... ok
+test_claim_interrupts_normal_think_interval_without_per_tick_spam (test_flag_warning.FlagWarningContract) ... ok
+test_contested_warning_preserves_engine_countdown (test_flag_warning.FlagWarningContract) ... ok
+test_equipment_fallback_exits_before_capture (test_flag_warning.FlagWarningContract) ... ok
+test_inflight_pre_capture_hold_is_discarded_then_warning_sent (test_flag_warning.FlagWarningContract) ... ok
+test_budget_and_wait_are_not_fake_engine_acks (test_lm.LMContract) ... ok
+test_decision_rejects_cross_unit_fields_admin_and_bad_values (test_lm.LMContract) ... ok
+test_equipment_actions_and_light_weapon_safety (test_lm.LMContract) ... ok
+test_errors_fall_back_without_freezing_engine (test_lm.LMContract) ... ok
+test_fallback_preserves_active_equipment_job (test_lm.LMContract) ... ok
+test_four_modes_and_public_source_cannot_spoof_lm (test_lm.LMContract) ... ok
+test_lm_queue_rejects_multi_unit_or_changed_epoch (test_lm.LMContract) ... ok
+test_mission_excludes_wounded_equipment_crew_and_tanks (test_lm.LMContract) ... ok
+test_observation_contains_only_game_state (test_lm.LMContract) ... ok
+test_per_unit_requests_commands_and_secret_redaction (test_lm.LMContract) ... ok
+test_provider_host_is_exact_and_never_redirects_keys (test_lm.LMContract) ... ok
+test_reset_and_death_discard_inflight (test_lm.LMContract) ... ok
+test_status_and_model_action_counts_distinguish_budget_fallback (test_lm.LMContract) ... ok
+test_switch_away_and_back_invalidates_inflight_result (test_lm.LMContract) ... ok
+test_unconfigured_and_paused_never_calls_provider (test_lm.LMContract) ... ok
+test_discarded_reply_survives_reset_and_is_not_executed (test_lm_call_log.LogContract) ... ok
+test_exact_wire_payload_raw_response_and_receipt (test_lm_call_log.LogContract) ... ok
+test_invalid_provider_json_retains_raw_reply (test_lm_call_log.LogContract) ... ok
+test_persistent_pagination_and_redaction (test_lm_call_log.LogContract) ... ok
+test_provider_billing_error_has_safe_actionable_code (test_lm_call_log.LogContract) ... ok
+test_battle_evidence_stays_with_its_run_and_auto_report_deduplicates (test_studio.StudioContract) ... ok
+test_data_contract_rejects_code_and_invalid_deployments (test_studio.StudioContract) ... ok
+test_generate_repair_archive_and_logged_roles (test_studio.StudioContract) ... ok
+test_godot_rejects_blocked_flag_and_accepts_valid_design (test_studio.StudioContract) ... ok
+test_report_rejects_invented_ticks_and_requires_all_sides (test_studio.StudioContract) ... ok
+
+======================================================================
+FAIL: test_posture_contract (test_control.ControlContract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/tests/test_control.py", line 22, in test_posture_contract
+    self.assertEqual(set(catalog['commands']),{'move','capture','cover','flank','retreat','hold','attack','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'})
+AssertionError: Items in the first set but not the second:
+'debug_visualize'
+
+----------------------------------------------------------------------
+Ran 41 tests in 0.721s
+
+FAILED (failures=1)
+

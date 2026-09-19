@@ -40,7 +40,10 @@ def check():
     package = json.loads((ROOT / 'package.json').read_text())
     catalog = json.loads((ROOT / 'data/action-catalog.json').read_text())
     tactics = assigned_set(ROOT / 'tools/server.py', 'TACTICS')
-    require(set(catalog['commands']) == tactics, 'Action catalog differs from HTTP tactical actions')
+    console_only = {name for name, spec in catalog['commands'].items() if spec.get('authority', '').startswith('console only')}
+    allowed = assigned_set(ROOT / 'tools/server.py', 'ALLOWED')
+    require(console_only <= allowed - tactics, 'Console-only catalog command has invalid HTTP authority')
+    require(set(catalog['commands']) - console_only == tactics, 'Action catalog differs from HTTP tactical actions')
     require(catalog['game_version'] == package['version'], 'Runtime and catalog versions differ')
     for name in tactics:
         require('`' + name + '`' in (ROOT / 'docs/AGENT_ACTION_STATES.md').read_text(), 'Undocumented action: ' + name)

@@ -1,0 +1,424 @@
+{
+  "id": "studio-contract",
+  "name": "交叉火力与侧路夺旗",
+  "bounds": [
+    -0.3,
+    0.8,
+    1.38,
+    3.46
+  ],
+  "floor_color": "#a9ac8b",
+  "spawns": [
+    [
+      -0.05,
+      3.25
+    ],
+    [
+      1.02,
+      1.78
+    ],
+    [
+      0.1,
+      1.35
+    ]
+  ],
+  "tank_spawn": [
+    -0.03,
+    1.01
+  ],
+  "target": [
+    0.56,
+    2.12
+  ],
+  "objects": [
+    {
+      "id": "central-route",
+      "kind": "road",
+      "position": [
+        0.54,
+        2.14
+      ],
+      "size": [
+        0.32,
+        0.004,
+        2.48
+      ],
+      "color": "#bcb594",
+      "yaw": 0,
+      "collision": false,
+      "destructible": false
+    },
+    {
+      "id": "flank-route-0",
+      "kind": "road",
+      "position": [
+        -0.19,
+        2.17
+      ],
+      "size": [
+        0.12,
+        0.004,
+        2.4
+      ],
+      "color": "#b7b395",
+      "yaw": 0,
+      "collision": false,
+      "destructible": false
+    },
+    {
+      "id": "flank-route-1",
+      "kind": "road",
+      "position": [
+        1.25,
+        2.17
+      ],
+      "size": [
+        0.12,
+        0.004,
+        2.4
+      ],
+      "color": "#b7b395",
+      "yaw": 0,
+      "collision": false,
+      "destructible": false
+    },
+    {
+      "id": "crossing",
+      "kind": "road",
+      "position": [
+        0.54,
+        2.14
+      ],
+      "size": [
+        1.58,
+        0.005,
+        0.17
+      ],
+      "color": "#bcb594",
+      "yaw": 0,
+      "collision": false,
+      "destructible": false
+    },
+    {
+      "id": "objective-apron",
+      "kind": "road",
+      "position": [
+        0.54,
+        2.17
+      ],
+      "size": [
+        0.43,
+        0.007,
+        0.38
+      ],
+      "color": "#969e82",
+      "yaw": 0,
+      "collision": false,
+      "destructible": false
+    },
+    {
+      "id": "rubble-0",
+      "kind": "rock",
+      "position": [
+        0.3,
+        1.49
+      ],
+      "size": [
+        0.11,
+        0.026,
+        0.065
+      ],
+      "color": "#9b9e88",
+      "yaw": 0,
+      "collision": true,
+      "destructible": false
+    },
+    {
+      "id": "rubble-2",
+      "kind": "rock",
+      "position": [
+        0.24,
+        2.7
+      ],
+      "size": [
+        0.11,
+        0.026,
+        0.065
+      ],
+      "color": "#9b9e88",
+      "yaw": 36,
+      "collision": true,
+      "destructible": false
+    },
+    {
+      "id": "rubble-3",
+      "kind": "rock",
+      "position": [
+        0.76,
+        3.07
+      ],
+      "size": [
+        0.11,
+        0.026,
+        0.065
+      ],
+      "color": "#9b9e88",
+      "yaw": 54,
+      "collision": true,
+      "destructible": false
+    },
+    {
+      "kind": "sandbag",
+      "position": [
+        0.13,
+        1.68
+      ],
+      "size": [
+        0.34,
+        0.06,
+        0.043
+      ],
+      "yaw": 0,
+      "id": "studio-cover-0",
+      "color": "#b1aa83",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "sandbag",
+      "position": [
+        0.55,
+        1.91
+      ],
+      "size": [
+        0.25,
+        0.06,
+        0.043
+      ],
+      "yaw": 0,
+      "id": "studio-cover-1",
+      "color": "#b1aa83",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "sandbag",
+      "position": [
+        0.06,
+        2.3
+      ],
+      "size": [
+        0.3,
+        0.06,
+        0.043
+      ],
+      "yaw": 90,
+      "id": "studio-cover-2",
+      "color": "#b1aa83",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "sandbag",
+      "position": [
+        1.01,
+        2.31
+      ],
+      "size": [
+        0.3,
+        0.06,
+        0.043
+      ],
+      "yaw": 90,
+      "id": "studio-cover-3",
+      "color": "#b1aa83",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "sandbag",
+      "position": [
+        0.59,
+        2.57
+      ],
+      "size": [
+        0.27,
+        0.06,
+        0.043
+      ],
+      "yaw": 0,
+      "id": "studio-cover-4",
+      "color": "#b1aa83",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "sandbag",
+      "position": [
+        0.12,
+        2.91
+      ],
+      "size": [
+        0.3,
+        0.06,
+        0.043
+      ],
+      "yaw": 0,
+      "id": "studio-cover-5",
+      "color": "#b1aa83",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "sandbag",
+      "position": [
+        0.99,
+        2.88
+      ],
+      "size": [
+        0.28,
+        0.06,
+        0.043
+      ],
+      "yaw": 0,
+      "id": "studio-cover-6",
+      "color": "#b1aa83",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "crate",
+      "position": [
+        0.32,
+        2.35
+      ],
+      "size": [
+        0.09,
+        0.042,
+        0.06
+      ],
+      "yaw": 0,
+      "id": "studio-cover-7",
+      "color": "#898775",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "crate",
+      "position": [
+        0.78,
+        1.99
+      ],
+      "size": [
+        0.08,
+        0.04,
+        0.065
+      ],
+      "yaw": 0,
+      "id": "studio-cover-8",
+      "color": "#898775",
+      "collision": true,
+      "destructible": true
+    },
+    {
+      "kind": "crate",
+      "position": [
+        0.9,
+        2.72
+      ],
+      "size": [
+        0.085,
+        0.045,
+        0.07
+      ],
+      "yaw": 0,
+      "id": "studio-cover-9",
+      "color": "#898775",
+      "collision": true,
+      "destructible": true
+    }
+  ],
+  "design": {
+    "cover_height_limit": 0.065,
+    "lanes": [
+      "west flank",
+      "central contested approach",
+      "east flank"
+    ],
+    "tank_team": 2,
+    "tank_role": "rear reserve"
+  },
+  "objective": [
+    0.54,
+    2.17
+  ],
+  "building": {
+    "id": "blue-house",
+    "faction": "blue",
+    "center": [
+      1.0,
+      1.13
+    ],
+    "size": [
+      0.42,
+      0.56
+    ],
+    "floor_height": 0.19,
+    "stair_x": 1.285,
+    "stair_front": 1.56,
+    "stair_back": 1.13,
+    "health": 600
+  },
+  "at_guns": [
+    {
+      "id": "green-at",
+      "faction": "green",
+      "position": [
+        0.5,
+        3.23
+      ]
+    },
+    {
+      "id": "blue-at",
+      "faction": "blue",
+      "position": [
+        1.16,
+        1.93
+      ]
+    },
+    {
+      "id": "red-at",
+      "faction": "red",
+      "position": [
+        0.44,
+        1.15
+      ]
+    }
+  ],
+  "briefing": "绿色沿沙包交替推进，蓝方利用侧路，红方守住旗点入口。",
+  "tactical_plan": [
+    "中央旗区留出多向接近通道",
+    "两翼掩体支撑交替推进，避免全员冲锋",
+    "每队保留火箭兵应对红方装甲"
+  ],
+  "loadouts": {
+    "green": [
+      "rifle",
+      "smg",
+      "rocket"
+    ],
+    "blue": [
+      "rifle",
+      "smg",
+      "rocket"
+    ],
+    "red": [
+      "rifle",
+      "smg",
+      "rocket"
+    ]
+  },
+  "hold_seconds": 30,
+  "scenario_id": "contract",
+  "base_map": 0
+}

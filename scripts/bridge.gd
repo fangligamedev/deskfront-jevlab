@@ -15,7 +15,7 @@ func setup(owner_game) -> void:
 	if OS.has_feature("web"):base_url=str(JavaScriptBridge.eval("window.location.origin"))
 	elif OS.get_environment("DESKFRONT_URL")!="":base_url=OS.get_environment("DESKFRONT_URL")
 	if not get_tree().has_meta("bridge_instance"):
-		var web_id: String=str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('instance_id') || ''")) if OS.has_feature("web") else ""
+		var web_id: String=str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('instance_id') || ''")) if OS.has_feature("web") else OS.get_environment("DESKFRONT_INSTANCE_ID")
 		get_tree().set_meta("bridge_instance",web_id if web_id!="" else str(Time.get_unix_time_from_system())+"-"+str(randi()))
 	instance_id=get_tree().get_meta("bridge_instance")
 	acknowledgements=get_tree().get_meta("bridge_acks",[])

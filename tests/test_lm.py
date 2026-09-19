@@ -114,5 +114,28 @@ class LMContract(unittest.TestCase):
         s=state().state;o=observation(s,s['units'][0],[])
         self.assertEqual(o['self']['id'],'green-1');self.assertEqual(len(o['allies']),1);self.assertEqual(len(o['enemies']),1)
         self.assertNotIn('key',o);self.assertNotIn('screen_position',o['self'])
+    def test_mission_excludes_wounded_equipment_crew_and_tanks(self):
+        s=state().state
+        s['units'][1]['tactical_role']='assault'
+        s['units'][0]['combat']={'engageable_targets':['red-1'],'incoming_threats':[],'path_active':False}
+        o=observation(s,s['units'][0],[])
+        self.assertEqual(o['mission']['advance_unit_id'],'green-2')
+        self.assertEqual(o['self']['combat']['engageable_targets'],['red-1'])
+        for change in [{'hp':10},{'gun_id':'green-at'},{'kind':'tank'},{'building_phase':'stationed'}]:
+            variant=copy.deepcopy(s);variant['units'][1].update(change)
+            self.assertEqual(observation(variant,variant['units'][0],[])['mission']['advance_unit_id'],'green-1')
+    def test_status_and_model_action_counts_distinguish_budget_fallback(self):
+        seen=[]
+        def client(o):seen.append(o);return {'action':'capture','intent':'capture'},{}
+        s=state();c=controller(s,client,max_requests=1)
+        try:
+            c.tick();settle(c)
+            self.assertEqual(c.snapshot()['status'],'budget_exhausted')
+            self.assertEqual(c.metrics['model_actions'],{'capture':1})
+            self.assertIn('idle_seconds',seen[0]['progress'])
+            self.assertTrue(any(u['origin']=='local_fallback' for u in c.units.values()))
+            s.state['paused']=True;c.tick();self.assertEqual(c.snapshot()['status'],'paused')
+            s.state['control']['green']='player';c.tick();self.assertEqual(c.snapshot()['status'],'idle')
+        finally:c.close()
 
 if __name__=='__main__':unittest.main()

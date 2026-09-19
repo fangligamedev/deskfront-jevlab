@@ -38,7 +38,9 @@ def main():
         wait(lambda d:True)
         for map_index in map(int,a.maps.split(',')):
             for mode in a.modes.split(','):
-                prior=request('/api/state')['state'].get('run_id');env=dict(os.environ,DESKFRONT_URL=base,DESKFRONT_HEADLESS_BRIDGE='1')
+                prior=request('/api/state')['state'].get('run_id')
+                session=request('/api/session',{})
+                env=dict(os.environ,DESKFRONT_URL=base,DESKFRONT_HEADLESS_BRIDGE='1',DESKFRONT_INSTANCE_ID=session['instance_id'])
                 log=(out/f'{a.prefix}-{mode}-map{map_index}.log').open('w')
                 from project import binary
                 game=subprocess.Popen([binary('godot'),'--headless','--path',str(ROOT),'--max-fps','60','--','--paused',f'--map={map_index}'],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT)

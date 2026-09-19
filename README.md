@@ -1,10 +1,10 @@
 # Deskfront · 桌面前线
 
-**Godot + Blender 开源桌面战术原型。** 三支玩具兵小队在办公室桌面交战，人类继续操作电脑。支持玩家 RTS 操作、游戏 AI、逐单位 DeepSeek LM 和外部 Agent。
+**Godot + Blender 开源桌面战术原型。** 三支玩具兵小队在办公室桌面交战，人类继续操作电脑。支持玩家 RTS 操作、游戏 AI、逐单位 DeepSeek LLM 和外部 Agent。
 
 [完整文档目录](docs/README.md) · [动作接口](docs/AGENT_ACTION_STATES.md) · [贡献指南](CONTRIBUTING.md) · [更新日志](CHANGELOG.md)
 
-当前发布标记 **v9.19**（2026-09-19）；游戏运行时版本 **0.6.0**。本次整理工程、文档和开发流程，不改动上一版战斗规则；历史 V0.1 标签保留。
+当前发布标记 **v9.19**（2026-09-19）；游戏运行时版本 **0.6.4-integrated.1**。本次整理工程、文档和开发流程，不改动上一版战斗规则；历史 V0.1 标签保留。
 
 ![蓝军进驻桌面右上角小楼](docs/evidence/v06/web-building-garrison.png)
 
@@ -15,7 +15,7 @@
 - 先寻找保护，再掩护推进；跑动、低姿移动、匍匐、探头、换弹与撤退。
 - 反坦克炮接管、推行、部署、开炮和弃炮；轻武器不会攻击坦克。
 - 蓝军沿楼梯进入两层小楼、守窗和撤离；楼板失效会坍塌。
-- 本地策划台展示真实状态、参数、控制权、逐单位 LM 决策和引擎回执。
+- 本地策划台展示真实状态、参数、控制权、逐单位 LLM 决策和引擎回执。
 
 Godot 是唯一战斗状态来源。Blender 原稿、骨骼、动画、素材来源和许可随源码提供。
 
@@ -40,11 +40,11 @@ python3 tools/run.py
 
 Godot 打开 project.godot，按 **F5**。另运行 `python3 tools/server.py`，控制台打开 **http://127.0.0.1:8768/?native=1**。同一端口只连接一个游戏实例，避免网页游戏和原生窗口争用状态。多实例和平台设置见 [开发指南](docs/DEVELOPMENT.md)。
 
-### 可选 LM
+### 可选 LLM
 
-不配 Key 也可完整游玩。复制 .env.example 为 .env，设置自己的 ARK_API_KEY 和已开通的 DESKFRONT_LM_MODEL，重启服务，顶部选择「DeepSeek LM」。
+不配 Key 也可完整游玩。复制 .env.example 为 .env，设置自己的 ARK_API_KEY 和已开通的 DESKFRONT_LM_MODEL，重启服务，点击顶部「开始 DeepSeek LLM 对战」。按钮会让三个阵营的步兵和坦克由模型独立决策，并恢复战斗；对局已结束时会先重开。单纯切换控制下拉框仍尊重暂停状态。
 
-步兵与坦克独立决策；默认每局最多 120 次请求、并发 3。真实调用产生供应商费用，重开会重置本局预算。Key 仅在本地服务端读取，不提交 .env。[完整 LM 配置](docs/LM_CONTROL.md)。
+步兵与坦克独立决策；默认每局最多 600 次请求、并发 3。真实调用产生供应商费用，重开会重置本局预算。Key 仅在本地服务端读取，不提交 .env。[完整 LLM 配置](docs/LM_CONTROL.md)。
 
 ## 操作
 
@@ -60,7 +60,7 @@ Godot 打开 project.godot，按 **F5**。另运行 `python3 tools/server.py`，
 | 视角 / 静音 / 暂停 | V / M / 空格 |
 | 坦克增援 / 隐藏 HUD | T / F1 |
 
-全局或按阵营切换「游戏 AI / DeepSeek LM / 外部 Agent / 玩家」。控制台可调整姿态、装备、上楼、撤楼、接管炮和弃炮。设施按钮会接管对应阵营；交回 AI 后继续自主作战。占点累计 90 分或消灭其他阵营获胜，规则以 [battle.json](data/battle.json) 为准。
+全局或按阵营切换「游戏 AI / DeepSeek LLM / 外部 Agent / 玩家」。控制台可调整姿态、装备、上楼、撤楼、接管炮和弃炮。设施按钮会接管对应阵营；交回 AI 后继续自主作战。占点累计 90 分或消灭其他阵营获胜，规则以 [battle.json](data/battle.json) 为准。
 
 ## 工程结构
 
@@ -71,7 +71,7 @@ Godot 打开 project.godot，按 **F5**。另运行 `python3 tools/server.py`，
 | scenes/ / scripts/ | Godot 场景、战斗、战术、设施、角色与同步 |
 | data/ | 规则、地图、步态和机器可读动作目录 |
 | dashboard/ | 本地策划网页 |
-| tools/ / tests/ | 服务、Agent、LM、构建、检查和行为测试 |
+| tools/ / tests/ | 服务、Agent、LLM、构建、检查和行为测试 |
 | docs/ | 设计、工程、资源、API、研究、交付和证据 |
 | .github/ | CI、Issue 和 PR 模板 |
 | build/ / output/ / dist/ | 本机导出、日志和交付包，不入 Git |
@@ -95,9 +95,9 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-CI 运行项目合同检查、离线 Python 测试及真实 Godot 导入/测试，不自动调用收费 LM。完整演练、构建和排错见 [开发指南](docs/DEVELOPMENT.md)。
+CI 运行项目合同检查、离线 Python 测试及真实 Godot 导入/测试，不自动调用收费 LLM。完整演练、构建和排错见 [开发指南](docs/DEVELOPMENT.md)。
 
-0.6 已有验证：100/100 场战术演练、25 项 RTS Web、6 项设施 Web、11 项真实 LM 接入检查。它们是对应构建的证据，不代表每台机器的性能或模型胜率。[验证记录](docs/evidence/v06/verification.json)。
+0.6 已有验证：100/100 场战术演练、25 项 RTS Web、6 项设施 Web、11 项真实 LLM 接入检查。它们是对应构建的证据，不代表每台机器的性能或模型胜率。[验证记录](docs/evidence/v06/verification.json)。
 
 ## 说明文档
 
@@ -110,7 +110,7 @@ CI 运行项目合同检查、离线 Python 测试及真实 Godot 导入/测试�
 | [开发](docs/DEVELOPMENT.md) | 安装、运行、测试、导出和排错 |
 | [资源配置](docs/ASSETS.md) / [设施](docs/ASSET_EQUIPMENT.md) | 原稿、尺度、规则、火炮和小楼 |
 | [Agent API](docs/AGENT_API.md) / [动作状态全集](docs/AGENT_ACTION_STATES.md) | HTTP 协议、权限、人物/坦克/武器动作 |
-| [LM 接入](docs/LM_CONTROL.md) | 配置、调度、预算与失败处理 |
+| [LLM 接入](docs/LM_CONTROL.md) | 配置、调度、预算与失败处理 |
 | [战术](docs/TACTICS.md) / [研究](docs/REFERENCES.md) | GDC 参考与实现映射 |
 | [交付报告](docs/DELIVERY.md) | 当前整理发布与玩法验证 |
 | [发布流程](docs/RELEASING.md) | 版本、提交、标签与验收 |

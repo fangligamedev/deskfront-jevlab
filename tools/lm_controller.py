@@ -14,15 +14,18 @@ import urllib.parse
 ACTIONS = {'move', 'capture', 'cover', 'flank', 'retreat', 'hold', 'attack', 'grenade', 'posture', 'wait', 'man_at_gun', 'leave_gun', 'garrison', 'leave_building'}
 INTENTS = {'survive', 'support', 'advance', 'flank', 'engage', 'withdraw', 'capture', 'observe'}
 SYSTEM = '''你指挥桌面 RTS 中唯一一名玩具兵或坦克。观察是真实游戏状态，坐标为米 [x,z]。
-目标：先保命，再掩护友军、争夺目标。三个阵营互为敌人。独立决策，只能控制 self。
-重伤/高压制时 cover 或 retreat；已有有效掩体时 hold 或 wait。不要反复 cover 打断正在到达的路线。
+目标：活着赢得战斗，争夺中央目标并消灭有威胁的敌人。三个阵营互为敌人。独立决策，只能控制 self。
+保命不是一直留在出生点。重伤/高压制/实际暴露时 cover 或 retreat；健康、无直接威胁且未占点时必须寻找安全的推进机会，已有掩体不是永久 hold 的理由。
+mission.advance_unit_id 是本队优先推进者的分工参考，不是已经执行的命令。该单位健康且未暴露时优先 capture 或 move；其他单位跟进到能提供实际火力的位置，不要所有人都等待他人先开枪。
+掩体内若 self.combat.engageable_targets 非空，可 attack 有效目标或 hold 持续自动开火；若没有有效射位、没有占点且 progress.idle_seconds 超过 6 秒，应 move/capture/flank 调整位置，不能连续以“观察”为由原地停滞。高风险时允许继续隐蔽。
+保持正在执行且有进展的路线或设备任务用 wait，不要用 hold 清空路线。路径失败后应换目标。只有正在产生火力、占点、防守必要通道或面对明确危险时，原地防守才有实际战术价值。
 开阔交火可 prone，移动转移通常 auto 跑动，高压制才 prone 爬行；低掩体隐蔽和探头由执行器处理。
-友军最近真正开火且仍能射击才算掩护，不能凭队友站着就单人冲锋。已有安全移动任务可以 wait。
+友军最近真正开火且仍能射击才算掩护，不能凭队友站着就单人冲锋。但无敌方有效火力覆盖的接敌前移动不需要等队友开枪。根据射程和 self.combat.incoming_threats 判断当前位置风险，不可把当前位置安全误当整条路线安全。转移途中执行器仍会紧急自保。
 轻武器对坦克无效，禁止用步枪/冲锋枪/手枪 attack 坦克。敌方有坦克时，若 man_at_gun 可用，应先接管己方反坦克炮，执行接近、牵引、部署、自动开火；火箭兵保持反装甲射位。
-炮组已 approaching/towing/deploying/ready 时 wait 保持任务，受威胁则 leave_gun/retreat。蓝方可 garrison 进入右上角小楼（floor:1 或 2，默认 2），沿楼梯到窗口；进驻中 wait，危险时 leave_building，禁止穿墙指定移动。
+炮组已 approaching/towing/deploying/ready 时 wait 保持任务，受威胁则 leave_gun/retreat。蓝方可让一名支援兵 garrison 进入小楼窗口；其余队员争夺目标，不要全队躲楼。进驻中 wait，危险时 leave_building，禁止穿墙指定移动。
 步枪单发，冲锋枪持续射击，火箭筒反坦克，近身自动刺刀。射击/装填自动执行，无 fire/reload 命令。
 实体掩体阻挡弹道；火箭/坦克炮可破坏掩体。grenade 必须 available_actions 可用且目标在 0.65 米内。
-坦克保持距离支援，低血或近处反坦克威胁时 cover/retreat，不可姿态或手雷；炮塔自行瞄准。
+坦克保持距离支援，敌人在射程内时 attack；无有效射位时向可射击的位置 move，不能永远留在后方。低血或近处反坦克威胁时 cover/retreat，不可姿态或手雷；炮塔自行瞄准。
 只能输出一个 JSON 对象，不输出代码或思维过程：
 {"action":"cover","intent":"survive","posture":"auto","reason":"附近交叉火力，先寻找保护"}
 intent 只能是 survive/support/advance/flank/engage/withdraw/capture/observe。禁止自造意图名。字段只允许 action,intent,posture,position,target_id,reason,gun_id,floor。只有 garrison 才能带整数 floor:1 或 floor:2；其他动作不输出 floor，不输出 null 的可选字段。
@@ -63,7 +66,7 @@ def load_config(env_file=None):
         'base_url': values.get('DESKFRONT_LM_BASE_URL', 'https://ark.cn-beijing.volces.com/api/v3').rstrip('/'),
         'interval': number('DESKFRONT_LM_INTERVAL', 3, 1, 30),
         'timeout': number('DESKFRONT_LM_TIMEOUT', 6, 1, 20),
-        'max_requests': int(number('DESKFRONT_LM_MAX_REQUESTS', 120, 1, 1000)),
+        'max_requests': int(number('DESKFRONT_LM_MAX_REQUESTS', 600, 1, 1000)),
         'concurrency': int(number('DESKFRONT_LM_CONCURRENCY', 3, 1, 9)),
     }
 
@@ -110,9 +113,18 @@ class ArkClient:
 
 
 def observation(state, unit, memory):
-    fields = ['id', 'faction', 'kind', 'weapon', 'hp', 'max_hp', 'position', 'goal', 'posture', 'suppression', 'ammo', 'reload_remaining', 'order_mode', 'locomotion', 'weapon_state', 'weapon_range', 'turret_yaw', 'reversing', 'in_cover', 'cover_id', 'cqb_stance', 'available_actions', 'last_shot_at', 'last_shot_target', 'survival_reason', 'path_failure', 'gun_id', 'building_floor', 'building_phase', 'elevation']
+    fields = ['id', 'faction', 'kind', 'weapon', 'hp', 'max_hp', 'position', 'goal', 'posture', 'suppression', 'ammo', 'reload_remaining', 'order_mode', 'locomotion', 'weapon_state', 'weapon_range', 'turret_yaw', 'reversing', 'in_cover', 'cover_id', 'cqb_stance', 'available_actions', 'last_shot_at', 'last_shot_target', 'survival_reason', 'path_failure', 'gun_id', 'building_floor', 'building_phase', 'elevation', 'combat', 'tactical_role']
     small = lambda u: {k: u[k] for k in fields if k in u}
-    return {'run_id': state['run_id'], 'tick': state['tick'], 'time': state['time'], 'bounds': state['bounds'], 'self': small(unit), 'allies': [small(u) for u in state['units'] if u['hp'] > 0 and u['faction'] == unit['faction'] and u['id'] != unit['id']], 'enemies': [small(u) for u in state['units'] if u['hp'] > 0 and u['faction'] != unit['faction']], 'covers': [{k: c[k] for k in ['id', 'position', 'size', 'height', 'hp', 'alive'] if k in c} for c in state.get('covers', [])], 'objective': {k: state['objective'][k] for k in ['position', 'radius']}, 'weapon_rules': state.get('weapons', {}).get(unit.get('weapon'), {}), 'at_guns': state.get('at_guns',[]), 'building': state.get('building',{}), 'previous': memory[-2:]}
+    obs = {'run_id': state['run_id'], 'tick': state['tick'], 'time': state['time'], 'bounds': state['bounds'], 'self': small(unit), 'allies': [small(u) for u in state['units'] if u['hp'] > 0 and u['faction'] == unit['faction'] and u['id'] != unit['id']], 'enemies': [small(u) for u in state['units'] if u['hp'] > 0 and u['faction'] != unit['faction']], 'covers': [{k: c[k] for k in ['id', 'position', 'size', 'height', 'hp', 'alive'] if k in c} for c in state.get('covers', [])], 'objective': {k: state['objective'][k] for k in ['position', 'radius']}, 'weapon_rules': state.get('weapons', {}).get(unit.get('weapon'), {}), 'at_guns': state.get('at_guns',[]), 'building': state.get('building',{}), 'previous': memory[-2:]}
+
+    members=[u for u in state['units'] if u['faction']==unit['faction'] and u['hp']>0]
+    movers=[u for u in members if u['kind']!='tank' and u['hp']/max(1,u['max_hp'])>.45 and u.get('suppression',0)<.6 and not u.get('gun_id') and not u.get('building_phase')]
+    movers.sort(key=lambda u:(u.get('tactical_role')!='assault',math.dist(u['position'],state['objective']['position']),u['id']))
+    distance=math.dist(unit['position'],state['objective']['position'])
+    obs['mission']={'advance_unit_id':movers[0]['id'] if movers else '', 'objective_distance':round(distance,3),'in_capture_zone':distance<=state['objective']['radius'],'goal':'安全接敌、建立实际火力、争夺目标；不能全队永久观察'}
+    obs['scores']=state.get('scores',{})
+    obs['covers']=[c for c in obs['covers'] if c.get('alive',True)]
+    return obs
 
 
 def validate_decision(value, state, unit):
@@ -163,6 +175,7 @@ class LMController:
         self.lock = threading.Lock();self.stop_event = threading.Event()
         self.run_id = '';self.pending = {};self.units = {};self.next_due = {};self.memory = {};self.fallback_due = {}
         self.used = 0;self.metrics = {};self.history = [];self.backoff_until = 0
+        self.status='idle';self.progress={}
         self.thread = None
 
     def start(self):
@@ -182,7 +195,7 @@ class LMController:
 
     def snapshot(self):
         with self.lock:
-            return copy.deepcopy({'configured': self.ready, 'provider': 'volcengine_ark', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
+            return copy.deepcopy({'status':self.status,'configured': self.ready, 'provider': 'volcengine_ark', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
 
     def _record(self, entry):
         self.history.append(entry)
@@ -200,6 +213,7 @@ class LMController:
         self.units[u['id']] = entry
         if origin=='deepseek_lm':
             counts=self.metrics.setdefault('unit_decisions', {});counts[u['id']]=counts.get(u['id'], 0)+1
+            actions=self.metrics.setdefault('model_actions',{});actions[decision['action']]=actions.get(decision['action'],0)+1
         self.memory.setdefault(u['id'], []).append({k: entry[k] for k in ['action', 'intent', 'reason']})
         self.memory[u['id']] = self.memory[u['id']][-2:]
         self._record(entry)
@@ -221,9 +235,10 @@ class LMController:
         with self.lock:
             if not s or 'run_id' not in s:return
             if self.run_id != s['run_id']:
-                self.run_id = s['run_id'];self.units = {};self.memory = {};self.next_due = {};self.fallback_due = {};self.used = 0;self.metrics = {};self.history = [];self.backoff_until = 0
+                self.run_id = s['run_id'];self.units = {};self.memory = {};self.next_due = {};self.fallback_due = {};self.used = 0;self.metrics = {};self.history = [];self.backoff_until = 0;self.progress={}
             live = {u['id']: u for u in s['units'] if u['hp'] > 0}
             active = {k: u for k, u in live.items() if s.get('control', {}).get(u['faction']) == 'lm'}
+            self.status=('unconfigured' if not self.ready else 'offline' if age>3 else 'finished' if s.get('winner') else 'idle' if not active else 'paused' if s.get('paused') else 'budget_exhausted' if self.used>=self.config['max_requests'] else 'backoff' if now<self.backoff_until else 'running')
             for uid, row in self.units.items():
                 if uid not in live:row['phase'] = 'dead'
                 elif uid not in active:row['phase'] = 'inactive'
@@ -261,9 +276,14 @@ class LMController:
                 row=self.units.get(uid, {})
                 if row.get('phase')=='submitted' and row.get('command_id') not in acks:continue
                 if not self.ready or self.used >= self.config['max_requests'] or now < self.backoff_until:
-                    self._fallback(s, u, 'LM 未配置/调用预算用完/请求退避，保持自保', now);continue
+                    self._fallback(s, u, {'unconfigured':'LLM 未配置，使用本地自保','budget_exhausted':'LLM 本局预算已耗尽，模型已停止请求，使用本地自保','backoff':'LLM 请求暂时失败，退避期间使用本地自保'}.get(self.status,'LLM 暂不可用，使用本地自保'), now);continue
                 if len(self.pending) >= self.config['concurrency']:break
                 obs = observation(s, u, self.memory.get(uid, []))
+                previous=self.progress.get(uid)
+                if previous is None or math.dist(u['position'],previous['position'])>.04 or u.get('last_shot_at',-1)!=previous['shot']:
+                    previous={'position':list(u['position']),'shot':u.get('last_shot_at',-1),'time':s['time']};self.progress[uid]=previous
+                obs['progress']={'idle_seconds':round(max(0,s['time']-previous['time']),1),'last_action':row.get('action',''),'last_receipt':row.get('receipt',{}).get('message','')}
+
                 future = self.pool.submit(self.client, obs)
                 self.pending[uid] = {'future': future, 'run_id': s['run_id'], 'tick': s['tick'], 'epoch': s.get('control_epochs', {}).get(u['faction'], 0), 'started': now}
                 self.units[uid] = {**self.units.get(uid, {}), 'unit_id': uid, 'phase': 'thinking', 'started_tick': s['tick']}

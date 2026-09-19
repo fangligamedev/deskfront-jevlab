@@ -1,0 +1,143 @@
+{
+  "date": "2026-09-19",
+  "provider": "volcengine_ark",
+  "model": "deepseek-v4-flash-260425",
+  "real_provider": true,
+  "python_tests": 25,
+  "headless": {
+    "metrics": {
+      "duration": 40.8,
+      "infantry_alive": 3,
+      "infantry_hp": 230.7,
+      "shots": 102,
+      "destroyed": 3,
+      "cover_sample_ratio": 0.039,
+      "scores": {
+        "blue": 0.0,
+        "green": 11.8833333333335,
+        "red": 11.0500000000001
+      },
+      "winner": "red"
+    },
+    "llm_metrics": {
+      "unit_calls": {
+        "green-1": 6,
+        "green-2": 5,
+        "green-3": 6,
+        "blue-1": 9,
+        "blue-2": 4,
+        "blue-3": 7,
+        "red-1": 8,
+        "red-2": 8,
+        "red-3": 8,
+        "red-tank": 8
+      },
+      "responses": 67,
+      "tokens": 521895,
+      "latency_ms_total": 103908,
+      "unit_decisions": {
+        "green-2": 5,
+        "green-3": 5,
+        "blue-1": 8,
+        "blue-2": 4,
+        "red-3": 8,
+        "red-1": 7,
+        "red-2": 7,
+        "red-tank": 7,
+        "green-1": 5,
+        "blue-3": 5
+      },
+      "model_actions": {
+        "capture": 11,
+        "move": 21,
+        "cover": 3,
+        "attack": 15,
+        "wait": 5,
+        "hold": 6
+      },
+      "last_error": "invalid_target",
+      "error_codes": {
+        "invalid_target": 5,
+        "action_unavailable": 1
+      },
+      "errors": 6,
+      "fallbacks": 6,
+      "accepted": 51,
+      "rejected": 4,
+      "discarded": 2
+    },
+    "all_nine_soldiers_and_tank_received_decisions": true
+  },
+  "web": {
+    "start_button_used": true,
+    "all_factions_llm": true,
+    "time": 101.1,
+    "shots": 89,
+    "scores": {
+      "blue": 0.0,
+      "green": 50.3666666666651,
+      "red": 0.0
+    },
+    "llm_metrics": {
+      "unit_calls": {
+        "green-1": 14,
+        "green-2": 14,
+        "green-3": 13,
+        "blue-1": 6,
+        "blue-2": 8,
+        "blue-3": 8,
+        "red-1": 4,
+        "red-2": 5,
+        "red-3": 13,
+        "red-tank": 11
+      },
+      "responses": 95,
+      "tokens": 429379,
+      "latency_ms_total": 142209,
+      "unit_decisions": {
+        "green-2": 14,
+        "green-1": 13,
+        "green-3": 13,
+        "blue-3": 7,
+        "blue-1": 6,
+        "blue-2": 8,
+        "red-1": 4,
+        "red-2": 5,
+        "red-3": 13,
+        "red-tank": 8
+      },
+      "model_actions": {
+        "move": 37,
+        "hold": 25,
+        "attack": 16,
+        "wait": 4,
+        "cover": 6,
+        "capture": 2,
+        "retreat": 1
+      },
+      "accepted": 74,
+      "rejected": 12,
+      "last_error": "invalid_target",
+      "error_codes": {
+        "invalid_target": 3,
+        "action_unavailable": 1
+      },
+      "errors": 4,
+      "fallbacks": 4,
+      "discarded": 1
+    },
+    "finished_status_verified": true,
+    "paused_status_verified": true,
+    "one_click_restart_verified": true
+  },
+  "limitations": [
+    "Short functional trials, not win-rate or survival-quality benchmarks.",
+    "Concurrent local asset and animation work was present; these runs are not a controlled before/after performance comparison.",
+    "Engine self-preservation, dead targets and stale state may correctly reject individual model actions."
+  ],
+  "local_detail_files": [
+    "output/v06/llm-after-trials.json",
+    "output/llm-web-live.json",
+    "output/llm-full-tests.log"
+  ]
+}

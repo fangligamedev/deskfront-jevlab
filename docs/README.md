@@ -49,7 +49,7 @@
 | `docs/asset-integration/SANDBOX.md` | [大沙盘场景交付](asset-integration/SANDBOX.md) | 资源集成 |
 | `docs/demo/API.md` | [演示导演接口](demo/API.md) | 当前指南 |
 | `docs/demo/BRIEF.md` | [AI 桌面对抗演示](demo/BRIEF.md) | 当前指南 |
-| `docs/demo/DELIVERY.md` | [演示模式当前验证记录](demo/DELIVERY.md) | 当前指南 |
+| `docs/demo/DELIVERY.md` | [双人桌面演示交付报告](demo/DELIVERY.md) | 当前指南 |
 | `docs/demo/README.md` | [双人桌面 AI 演示](demo/README.md) | 当前指南 |
 | `docs/evidence/flag-warning/report.md` | [夺旗倒计时与 LM 败北预警](evidence/flag-warning/report.md) | 当前指南 |
 | `docs/evidence/latest-integration/integration-report.md` | [最新资产与动作合入主游戏报告](evidence/latest-integration/integration-report.md) | 当前指南 |

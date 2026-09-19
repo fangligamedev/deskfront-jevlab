@@ -89,3 +89,10 @@ class StudioContract(unittest.TestCase):
                 studio.last_request=0
                 with self.assertRaisesRegex(ValueError,'stale_run'):studio.launch('analyze',{'run_id':'r'})
             finally:studio.close()
+
+    def test_nonparticipating_demo_faction_need_not_invent_strengths(self):
+        evidence={'allowed_ticks':[10,20],'samples':[{'demo':{'enabled':True,'participants':['green','red']}}]}
+        r=report(evidence);r['factions'][1]['strengths']=[]
+        Studio.validate_report(r,evidence)
+        r['factions'][0]['strengths']=[]
+        with self.assertRaises(ValueError):Studio.validate_report(r,evidence)

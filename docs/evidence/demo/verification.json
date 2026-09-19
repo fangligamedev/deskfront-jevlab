@@ -1,0 +1,236 @@
+{
+  "date": "2026-09-19",
+  "game_ai_duel": {
+    "winner": "green",
+    "time": 55.05,
+    "shots": 116,
+    "held_seconds": 30.0
+  },
+  "live_jev_duel": {
+    "run_id": "1789815030.826-2083262817",
+    "winner": "red",
+    "time": 53.2,
+    "shots": 164,
+    "director_calls": 17,
+    "director_model": "jev-1.13.0",
+    "timeline": [
+      {
+        "at": 0.0,
+        "message": "演示就绪：两位玩家、两侧待命兵力；已校验方案等待逐步搭建",
+        "phase": "building",
+        "tick": 0
+      },
+      {
+        "at": 190.67,
+        "message": "编辑器放置 sandbag · studio-cover-0",
+        "phase": "building",
+        "tick": 11440
+      },
+      {
+        "at": 389.58,
+        "message": "编辑器放置 sandbag · studio-cover-1",
+        "phase": "building",
+        "tick": 23375
+      },
+      {
+        "at": 390.83,
+        "message": "编辑器放置 sandbag · studio-cover-2",
+        "phase": "building",
+        "tick": 23450
+      },
+      {
+        "at": 393.55,
+        "message": "编辑器放置 sandbag · studio-cover-3",
+        "phase": "building",
+        "tick": 23613
+      },
+      {
+        "at": 398.33,
+        "message": "编辑器放置 sandbag · studio-cover-4",
+        "phase": "building",
+        "tick": 23900
+      },
+      {
+        "at": 400.63,
+        "message": "编辑器放置 sandbag · studio-cover-5",
+        "phase": "building",
+        "tick": 24038
+      },
+      {
+        "at": 402.72,
+        "message": "编辑器放置 sandbag · studio-cover-6",
+        "phase": "building",
+        "tick": 24163
+      },
+      {
+        "at": 403.97,
+        "message": "编辑器放置 crate · studio-cover-7",
+        "phase": "building",
+        "tick": 24238
+      },
+      {
+        "at": 405.83,
+        "message": "编辑器放置 crate · studio-cover-8",
+        "phase": "building",
+        "tick": 24350
+      },
+      {
+        "at": 407.72,
+        "message": "编辑器放置 crate · studio-cover-9",
+        "phase": "building",
+        "tick": 24463
+      },
+      {
+        "at": 407.72,
+        "message": "关卡搭建完成；开始从桌边派兵",
+        "phase": "deploying",
+        "tick": 24463
+      },
+      {
+        "at": 410.22,
+        "message": "green-1 从桌边入场",
+        "phase": "deploying",
+        "tick": 24613
+      },
+      {
+        "at": 412.3,
+        "message": "green-2 从桌边入场",
+        "phase": "deploying",
+        "tick": 24738
+      },
+      {
+        "at": 413.55,
+        "message": "green-3 从桌边入场",
+        "phase": "deploying",
+        "tick": 24813
+      },
+      {
+        "at": 414.8,
+        "message": "red-1 从桌边入场",
+        "phase": "deploying",
+        "tick": 24888
+      },
+      {
+        "at": 416.05,
+        "message": "red-2 从桌边入场",
+        "phase": "deploying",
+        "tick": 24963
+      },
+      {
+        "at": 418.33,
+        "message": "red-3 从桌边入场",
+        "phase": "deploying",
+        "tick": 25100
+      },
+      {
+        "at": 418.58,
+        "message": "green-1 到达部署位",
+        "phase": "deploying",
+        "tick": 25115
+      },
+      {
+        "at": 420.02,
+        "message": "green-2 到达部署位",
+        "phase": "deploying",
+        "tick": 25201
+      },
+      {
+        "at": 420.6,
+        "message": "green-3 到达部署位",
+        "phase": "deploying",
+        "tick": 25236
+      },
+      {
+        "at": 424.98,
+        "message": "red-1 到达部署位",
+        "phase": "deploying",
+        "tick": 25499
+      },
+      {
+        "at": 426.08,
+        "message": "red-2 到达部署位",
+        "phase": "deploying",
+        "tick": 25565
+      },
+      {
+        "at": 428.33,
+        "message": "red-3 到达部署位",
+        "phase": "deploying",
+        "tick": 25700
+      },
+      {
+        "at": 428.33,
+        "message": "双方各三名士兵已入场，等待开战",
+        "phase": "ready",
+        "tick": 25700
+      },
+      {
+        "at": 500.62,
+        "message": "双方兵力已就位；开始夺旗博弈",
+        "phase": "battle",
+        "tick": 30037
+      },
+      {
+        "at": 553.8,
+        "message": "夺旗结束 · red；等待战后报告",
+        "phase": "finished",
+        "tick": 33228
+      }
+    ],
+    "flag": {
+      "alerts": {
+        "blue": {
+          "active": false
+        },
+        "green": {
+          "active": false
+        },
+        "red": {
+          "active": false
+        }
+      },
+      "capture_epoch": 1,
+      "contested": false,
+      "countdown_seconds": 0,
+      "held_seconds": 30.0,
+      "mode": "center_flag",
+      "owner": "red",
+      "remaining_seconds": 0.0,
+      "required_seconds": 30.0
+    }
+  },
+  "next_level": {
+    "id": "40edf3ee-1ebe-4eb6-aafd-a7a88dd8aee3",
+    "name": "三线夺旗·反制变奏",
+    "parent_report_id": "7743e8b4-7f8b-44ab-92af-167eaec87821",
+    "report_run_id": "1789815030.826-2083262817",
+    "model": "deepseek-v4-flash-260425",
+    "validation": {
+      "errors": [],
+      "note": "导航可达性与入口指标，不代表已证明战术平衡",
+      "open_approaches": 4,
+      "passed": true,
+      "spawn_routes": [
+        1.35459415614605,
+        1.32352821901441,
+        1.29246213287115,
+        0.56568530574441,
+        0.640685379505157,
+        0.690685335546732,
+        1.04246191307902,
+        1.01139592006803,
+        0.980329889804125
+      ]
+    }
+  },
+  "gates": {
+    "python_tests": 58,
+    "semantic_checks": 113,
+    "demo_contract_checks": 25,
+    "forge_report": "report-0f7ae53fd2f9"
+  },
+  "recording": {
+    "captured": false,
+    "reason": "内置浏览器拒绝窗口录屏权限，已提供 Chrome/Edge 或系统录屏提示"
+  }
+}

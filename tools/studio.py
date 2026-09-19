@@ -132,10 +132,12 @@ class Studio:
     def validate_report(report,evidence):
         keys={'summary','factions','winning_keys','evidence','uncertainties'}
         if not isinstance(report,dict) or set(report)!=keys:raise ValueError('invalid_report_fields')
-        def strings(v):return isinstance(v,list) and 1<=len(v)<=8 and all(isinstance(x,str) and 0<len(x)<=1500 for x in v)
+        def strings(v,minimum=1):return isinstance(v,list) and minimum<=len(v)<=8 and all(isinstance(x,str) and 0<len(x)<=1500 for x in v)
         if not isinstance(report['summary'],str) or not 1<=len(report['summary'])<=3000 or not strings(report['winning_keys']) or not strings(report['uncertainties']):raise ValueError('invalid_report_content')
         factions=report['factions']
-        if not isinstance(factions,list) or len(factions)!=3 or any(not isinstance(f,dict) or set(f)!= {'faction','strengths','weaknesses'} or not strings(f.get('strengths')) or not strings(f.get('weaknesses')) for f in factions):raise ValueError('invalid_report_factions')
+        demo=(evidence.get('samples') or [{}])[-1].get('demo',{})
+        inactive=set(TEAMS)-set(demo.get('participants',TEAMS)) if demo.get('enabled') else set()
+        if not isinstance(factions,list) or len(factions)!=3 or any(not isinstance(f,dict) or set(f)!= {'faction','strengths','weaknesses'} or not strings(f.get('strengths'),0 if f.get('faction') in inactive else 1) or not strings(f.get('weaknesses'),0 if f.get('faction') in inactive else 1) for f in factions):raise ValueError('invalid_report_factions')
         if sorted(f['faction'] for f in factions)!=sorted(TEAMS):raise ValueError('invalid_report_factions')
         refs=report['evidence']
         if not isinstance(refs,list) or not 1<=len(refs)<=12 or any(not isinstance(r,dict) or set(r)!= {'tick','fact'} or type(r['tick']) is not int or r['tick'] not in evidence['allowed_ticks'] or not isinstance(r['fact'],str) or not 1<=len(r['fact'])<=1200 for r in refs):raise ValueError('invalid_evidence_reference')

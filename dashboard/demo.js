@@ -1,11 +1,17 @@
 /* The director chooses only engine-provided legal steps. No staged fake model output. */
 (()=>{
  const phaseNames={building:'01 / 编辑器搭建关卡',deploying:'02 / 桌边兵力入场',ready:'03 / 双方就位',battle:'04 / 夺旗博弈',finished:'05 / 战后复盘'};
- let busy=false,auto=false,modelInfo={},recorder=null,chunks=[],recordStream=null,recordStart=0,lastError='',events=[];
+ let busy=false,auto=false,modelInfo={},recorder=null,chunks=[],recordStream=null,recordStart=0,lastError='',events=[],reportScenario='';
  const status=t=>$('#demoStatus').textContent=t;
  async function api(path,data){const r=await fetch(path,data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{});const d=await r.json();if(!r.ok)throw Error(messageText(d.error||'请求失败'));return d}
  async function job(kind,payload){let d=await api('/api/studio/'+kind,payload);const until=Date.now()+150000;while(d.phase==='running'&&Date.now()<until){await new Promise(r=>setTimeout(r,900));d=await api('/api/studio/jobs/'+d.id)}if(d.phase!=='complete')throw Error(d.error||'任务仍在后台运行');return d.artifact_id}
  function save(name,data,mime='application/json'){const url=URL.createObjectURL(data instanceof Blob?data:new Blob([JSON.stringify(data,null,2)],{type:mime}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),10000)}
+ async function showReport(id){
+  const r=await api('/api/studio/reports/'+encodeURIComponent(id)),a=r.analysis;
+  $('#demoReport').hidden=false;$('#demoReportTitle').textContent='上一局模型复盘 · '+r.model+' · '+(names[r.winner]||r.winner);
+  const lines=[a.summary,...a.factions.map(f=>(names[f.faction]||f.faction)+'：优势 '+f.strengths.join('；')+'。不足 '+f.weaknesses.join('；')),'取胜关键：'+a.winning_keys.join('；'),'不确定性：'+a.uncertainties.join('；')];
+  $('#demoReportBody').replaceChildren(...lines.map(t=>{const p=document.createElement('p');p.textContent=t;return p}));$('#demoReportLink').href='/api/studio/reports/'+encodeURIComponent(id);
+ }
  async function load(id,rehearsal=false){
   const previous=state.run_id,q=await api('/api/studio/play',{scenario_id:id,player_faction:'none',opponent_mode:$('#demoCombat').value,demo:true,demo_driver:rehearsal?'local':$('#demoDriver').value,instance_id:instanceId,run_id:state.run_id});
   await awaitReceipt(q);const until=Date.now()+20000;while((state.run_id===previous||!state.demo?.enabled)&&Date.now()<until)await new Promise(r=>setTimeout(r,200));
@@ -31,7 +37,7 @@
  $('#demoNext').onclick=()=>guard(async()=>{
   if(!state.winner)throw Error('请先完成当前夺旗对局');
   auto=false;status('生成本局复盘，并用战术优缺点设计下一关…');
-  const report=await job('report',{run_id:state.run_id});
+  const report=await job('report',{run_id:state.run_id});await showReport(report);
   const id=await job('generate',{brief:$('#demoIntent').value+' 下一关应针对上一局的不足增加反制机会，改变掩体或部署，并解释变化。',previous_report_id:report});await load(id);
  });
  $('#demoExport').onclick=()=>save('deskfront-demo-timeline.json',{recording_started_at:recordStart,run_id:state.run_id,scenario:state.scenario,director:state.demo,operations:events,model_sources:modelInfo});
@@ -50,6 +56,7 @@
  setInterval(async()=>{
   if(document.body.dataset.view!=='demo')return;
   $('#demoModels').textContent=`关卡与报告：${modelInfo.configured?modelInfo.model+'（已配置）':'未配置'} · 导演与战斗：${lm.configured?lm.model+'（已配置）':'未配置'}。当前建场：${$('#demoDriver').value==='local'?'本地步骤排练':'模型选择'}；${state.demo?.enabled?'当前战斗：'+['green','red'].map(f=>(f==='green'?'绿方':'红方')+' '+(modes[state.control?.[f]]||state.control?.[f]||'待连接')).join(' / '):'待开局战斗：'+$('#demoCombat').selectedOptions[0].textContent}。`;
+  if(state.demo?.enabled&&state.scenario?.id&&reportScenario!==state.scenario.id){reportScenario=state.scenario.id;api('/api/studio/scenarios/'+encodeURIComponent(reportScenario)).then(a=>{if(a.parent_report_id)return showReport(a.parent_report_id)}).catch(()=>{});}
   const d=state.demo||{};$('#demoPhase').textContent=phaseNames[d.phase]||'等待准备';$('#demoProgress').textContent=d.enabled?`已放置 ${d.completed.length} 项 · 已入场 ${d.deployed}/6 · ${d.clock}s`:'尚未载入双人演示';$('#demoAuto').textContent=auto?'停止连续执行':'连续执行步骤';
   $('#demoTimeline').replaceChildren(...(d.timeline||[]).slice(-30).map(e=>{const p=document.createElement('p');p.textContent=e.at+'s · '+e.message;return p}));
   if(auto&&!busy&&d.running&&d.steps?.length)await guard(step);

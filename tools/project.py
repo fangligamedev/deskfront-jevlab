@@ -28,7 +28,7 @@ def record_assets():
         'rifle':['guns-original.blend'],'pistol':['guns-original.blend'],
         'grenade':['grenades-original.blend'],'rocket':['rocket-launcher.blend','tools/build_extras.py'],
         'office-sandbox':['sandbox-generated/office-sandbox-editable.blend','tools/build_sandbox_office.py'],
-        'office-worker':['office-worker/casual-original.glb','office-worker/office-worker.blend','tools/build_office_worker.py'],
+        'office-worker':['office-worker/business-original.glb','office-worker/office-worker.blend','tools/build_office_worker.py'],
         'DeskfrontUI':['fonts/NotoSansCJKsc-Regular.otf','fonts/OFL.txt','tools/build_ui_font.py']}
     by_path={r['path']:r for r in catalog}
     for item in data['assets']:

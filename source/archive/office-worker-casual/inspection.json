@@ -286,12 +286,12 @@
       "materials": []
     },
     {
-      "name": "Suit_Legs",
+      "name": "Casual2_Feet",
       "type": "MESH",
       "dimensions": [
-        0.3858187198638916,
-        0.8813347816467285,
-        0.4519537687301636
+        0.4524447023868561,
+        0.24670015275478363,
+        0.6381986141204834
       ],
       "location": [
         0.0,
@@ -299,53 +299,35 @@
         0.0
       ],
       "materials": [
-        "Suit"
-      ]
-    },
-    {
-      "name": "Suit_Feet",
-      "type": "MESH",
-      "dimensions": [
-        0.4524344205856323,
-        0.17559973895549774,
-        0.6384318470954895
-      ],
-      "location": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "materials": [
-        "Black"
-      ]
-    },
-    {
-      "name": "Suit_Body",
-      "type": "MESH",
-      "dimensions": [
-        0.5722954869270325,
-        0.7815684676170349,
-        0.3756512403488159
-      ],
-      "location": [
-        0.0,
-        0.0,
-        0.0
-      ],
-      "materials": [
-        "Suit.001",
         "White",
-        "Tie",
+        "Red_Dark"
+      ]
+    },
+    {
+      "name": "Casual2_Body",
+      "type": "MESH",
+      "dimensions": [
+        0.5707795023918152,
+        0.7808719873428345,
+        0.37540799379348755
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "LightBrown",
         "Skin"
       ]
     },
     {
-      "name": "Suit_Head",
+      "name": "Casual2_Head",
       "type": "MESH",
       "dimensions": [
-        0.22633206844329834,
-        0.35864755511283875,
-        0.2585427165031433
+        0.22475285828113556,
+        0.35306528210639954,
+        0.34653300046920776
       ],
       "location": [
         0.0,
@@ -354,9 +336,27 @@
       ],
       "materials": [
         "Skin",
-        "Hair",
+        "Skin_Darker",
         "Eyebrows",
-        "Eye"
+        "Eye",
+        "Hair"
+      ]
+    },
+    {
+      "name": "Casual2_Legs",
+      "type": "MESH",
+      "dimensions": [
+        0.3858187198638916,
+        0.8876270055770874,
+        0.4576083719730377
+      ],
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materials": [
+        "LightBlue"
       ]
     },
     {

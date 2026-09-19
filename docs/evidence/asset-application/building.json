@@ -1,0 +1,73 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "Approved Business Man is instantiated in the main game"
+    },
+    {
+      "passed": true,
+      "test": "Existing soldier upgrade retains at least 28 animation clips"
+    },
+    {
+      "passed": true,
+      "test": "Stair threshold remains physical and destructible"
+    },
+    {
+      "passed": true,
+      "test": "Ground-floor window 0"
+    },
+    {
+      "passed": true,
+      "test": "Ground-floor window 1"
+    },
+    {
+      "passed": true,
+      "test": "Ground-floor window 2"
+    },
+    {
+      "passed": true,
+      "test": "Upper-floor order at 90"
+    },
+    {
+      "passed": true,
+      "test": "Mid-ascent evacuation completes at 90"
+    },
+    {
+      "passed": true,
+      "test": "Re-entry reaches the window at 90"
+    },
+    {
+      "passed": true,
+      "test": "Upper-floor order at 320"
+    },
+    {
+      "passed": true,
+      "test": "Mid-ascent evacuation completes at 320"
+    },
+    {
+      "passed": true,
+      "test": "Re-entry reaches the window at 320"
+    },
+    {
+      "passed": true,
+      "test": "Upper-floor order at 570"
+    },
+    {
+      "passed": true,
+      "test": "Mid-ascent evacuation completes at 570"
+    },
+    {
+      "passed": true,
+      "test": "Re-entry reaches the window at 570"
+    },
+    {
+      "passed": true,
+      "test": "Wall-cut path repairs into a valid root-motion route"
+    },
+    {
+      "passed": true,
+      "test": "Building navigation retains authoritative root motion"
+    }
+  ],
+  "passed": true
+}

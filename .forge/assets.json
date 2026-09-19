@@ -981,32 +981,32 @@
       "source_url": null
     },
     {
-      "additional_sources": [
-        "https://quaternius.com/packs/ultimatemodularcharacters.html"
-      ],
-      "author": "Quaternius / Deskfront seated adaptation",
-      "created_at": "2026-09-18T15:05:11.642597+00:00",
-      "kind": "character",
+      "created_at": "2026-09-19T00:06:28.263385+00:00",
+      "kind": "model",
       "license": "CC0-1.0",
       "model": null,
       "origin": "derived",
       "path": "assets/models/office-worker.glb",
       "prompt": null,
-      "provider": "Quaternius / Deskfront seated adaptation",
+      "provider": "Quaternius Business Man / Deskfront seated adaptation",
       "release_status": "allowed",
-      "sha256": "0f76ae2221945baf0c7f20c9e407b78d768622e9722720e1f9485741d8aace51",
-      "size_bytes": 824864,
+      "sha256": "3d7eaffe84177071ea5aedc1e2c71562a9afae6faef938f706cd3cd628ccb023",
+      "size_bytes": 928420,
       "source_files": [
-        "source/latest/office-worker/casual-original.glb",
+        "source/latest/office-worker/business-original.glb",
         "source/latest/office-worker/office-worker.blend",
         "source/latest/tools/build_office_worker.py"
       ],
+      "source_url": "https://poly.pizza/m/JFrLIKqvCH",
+      "additional_sources": [
+        "https://quaternius.com/packs/ultimatemodularcharacters.html"
+      ],
+      "author": "Quaternius Business Man / Deskfront seated adaptation",
       "source_hashes": {
-        "source/latest/office-worker/casual-original.glb": "fea7e71271203e7073f1a073fa1208de7402df276f87f80e149bf7589b5d46b4",
-        "source/latest/office-worker/office-worker.blend": "989f6b0b92b89d810f79df4555a9c84350ef26a64a170cd13552ea7bef24abb7",
-        "source/latest/tools/build_office_worker.py": "b0a7d68d8e227cf1ac545ea79f40c6e2f4f3a96afb699dac2e587ce1c9a87f62"
-      },
-      "source_url": "https://poly.pizza/m/kZ3DmIoGip"
+        "source/latest/office-worker/business-original.glb": "82b81257c1e94cd9ee48cb1dcbe5ff506e81c9ce67cd0c5af542d8712dca546e",
+        "source/latest/office-worker/office-worker.blend": "834ba2f81c957f1228f85b772b76f18de84229e22c7243dcb7f6ea2efc87a2dd",
+        "source/latest/tools/build_office_worker.py": "4a941cbb56da639512063f3fd4fa5286bfd02856c099a913144402238cf55961"
+      }
     },
     {
       "created_at": "2026-09-18T12:28:48.806532+00:00",

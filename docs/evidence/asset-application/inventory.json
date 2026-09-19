@@ -1,0 +1,244 @@
+{
+  "passed": true,
+  "assets": [
+    {
+      "path": "assets/models/toy-soldier.glb",
+      "loader": "scripts/toy_actor.gd",
+      "sha256": "26789bad02f2618088b0558ce1a7584192f49dd1ad31a9c53a74ff1142f83f26",
+      "preview_sha256": "634bc2951e768834b12fd44165f500e1840a84401baaae422ac6d115da458a62",
+      "variant": "main_game_revision",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/office-worker.glb",
+      "loader": "scripts/game.gd",
+      "sha256": "3d7eaffe84177071ea5aedc1e2c71562a9afae6faef938f706cd3cd628ccb023",
+      "preview_sha256": "3d7eaffe84177071ea5aedc1e2c71562a9afae6faef938f706cd3cd628ccb023",
+      "variant": "approved_preview",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/office-sandbox.glb",
+      "loader": "scripts/game.gd",
+      "sha256": "330805fd5343b287ec7acaf1826a5250517a3a6863f098fe0e3f7d918014a72c",
+      "preview_sha256": "330805fd5343b287ec7acaf1826a5250517a3a6863f098fe0e3f7d918014a72c",
+      "variant": "approved_preview",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/tank.glb",
+      "loader": "scripts/unit.gd",
+      "sha256": "6eb64422fc5fcd002bd69a003da26a2a9fdc6867960a78da177a725d72895bc9",
+      "preview_sha256": "d46acaeb563f401bfb389bd7708342f97d0cd62f9b2c6dc88f8537be8c85ed80",
+      "variant": "main_game_revision",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/antitank-gun.glb",
+      "loader": "scripts/field_gun.gd",
+      "sha256": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+      "preview_sha256": "679c87f56277242928daf513f08a08c3c079b6b79932e5c9eeb3e16611c356e2",
+      "variant": "approved_preview",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/sandbag.glb",
+      "loader": "scripts/sandbox_map.gd",
+      "sha256": "5b48ff6be93f72b9b234719f348c29e13b27a5cb1d4128f975294ed42c143724",
+      "preview_sha256": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
+      "variant": "main_game_revision",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/rifle.glb",
+      "loader": "scripts/toy_actor.gd",
+      "sha256": "044b814197c051d217f0bcba96c9c6854d8a3164d5c7aeefa814eb685f782a76",
+      "preview_sha256": "0d80dd2118c884172a856455968be14eadc97f041d27d52bfa75fedb708fa486",
+      "variant": "main_game_revision",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/pistol.glb",
+      "loader": "scripts/toy_actor.gd",
+      "sha256": "1217dd0d291f5904d2bf24583f8567f0d0e85d85435dc5e80795a2fe258f85f9",
+      "preview_sha256": "d8a284503309a7fcb215326034db5b0b2151a9b6920c39d018f975ff4b6fd84b",
+      "variant": "main_game_revision",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/rocket.glb",
+      "loader": "scripts/toy_actor.gd",
+      "sha256": "2d958a1a968e83201fe1348bb266b3f0f6880f9bda7c75fa833bc33cae388c24",
+      "preview_sha256": "6274d778346a7c41d52627b6c76085729194dd1ac61c447c06e0f0ab2e9fd2a6",
+      "variant": "main_game_revision",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/models/grenade.glb",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "5fae624fef5e60a746291ed4ec9f42418395c6a9e50aafb4349365a2bff518fb",
+      "preview_sha256": "7f9c128142dfb386793c3929e18bac791f0fc1ae9bafa4fbf62f79929334f345",
+      "variant": "main_game_revision",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/audio/rifle.wav",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "33895a130eae3d161c6d3eff2a085fa2d07c57bb73591e03f15d526ffe282417",
+      "preview_sha256": "33895a130eae3d161c6d3eff2a085fa2d07c57bb73591e03f15d526ffe282417",
+      "variant": "approved_preview",
+      "license": "CC-BY-SA-3.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/audio/pistol.wav",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "b45676275cf7855a132d54a01ce10d673f37397f7c84fe4269d730caa33f93d8",
+      "preview_sha256": "b45676275cf7855a132d54a01ce10d673f37397f7c84fe4269d730caa33f93d8",
+      "variant": "approved_preview",
+      "license": "CC-BY-SA-3.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/audio/reload.wav",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "9cde45128149ec59f611b0ee7ed535117da673a55ccb7d70e2ab20e6fb3a1ce3",
+      "preview_sha256": "9cde45128149ec59f611b0ee7ed535117da673a55ccb7d70e2ab20e6fb3a1ce3",
+      "variant": "approved_preview",
+      "license": "CC-BY-SA-3.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/audio/grenade_blast.wav",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "1b9f179e095e53a3407b706941383146c62d09e0dbd08476eb485ecf4171f5ff",
+      "preview_sha256": "1b9f179e095e53a3407b706941383146c62d09e0dbd08476eb485ecf4171f5ff",
+      "variant": "approved_preview",
+      "license": "CC-BY-SA-3.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/audio/rocket_launch.wav",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "329a225e5d7843a2e3f8a7ae595109916b201ec6afda6866cf3df361df85da27",
+      "preview_sha256": "329a225e5d7843a2e3f8a7ae595109916b201ec6afda6866cf3df361df85da27",
+      "variant": "approved_preview",
+      "license": "CC-BY-SA-3.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/audio/rocket_blast.wav",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "5ad43d52bd399f856abf948e9504a6763dd3d14467f86f15fb3c5830ad96474e",
+      "preview_sha256": "5ad43d52bd399f856abf948e9504a6763dd3d14467f86f15fb3c5830ad96474e",
+      "variant": "approved_preview",
+      "license": "CC-BY-SA-3.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/audio/tank_cannon.wav",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "926a0cd12dd8324324632b5f73193968878ac673c12910c5c5d597fe22a9cce4",
+      "preview_sha256": "926a0cd12dd8324324632b5f73193968878ac673c12910c5c5d597fe22a9cce4",
+      "variant": "approved_preview",
+      "license": "CC-BY-SA-3.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/audio/tank_impact.wav",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "859698a2a953c869bcc50adf6988d5e7fbccb886406e16529a0f4a2ff5c6e812",
+      "preview_sha256": "859698a2a953c869bcc50adf6988d5e7fbccb886406e16529a0f4a2ff5c6e812",
+      "variant": "approved_preview",
+      "license": "CC-BY-SA-3.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/vfx/flow.png",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "f9138166331aa2854f7d755f438044053291ffd5303de8b11daf2a142e4bcf41",
+      "preview_sha256": "f9138166331aa2854f7d755f438044053291ffd5303de8b11daf2a142e4bcf41",
+      "variant": "approved_preview",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/vfx/fx.png",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "b926336696561bbac6801ded500ff2b070756d58246bfab648154b6e940398d7",
+      "preview_sha256": "b926336696561bbac6801ded500ff2b070756d58246bfab648154b6e940398d7",
+      "variant": "approved_preview",
+      "license": "CC0-1.0",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/vfx/soft_flipbook.gdshader",
+      "loader": "scripts/combat_fx.gd",
+      "sha256": "d48d921cece65d6d4dad0bd477e66a9c6046c53d4364270fb5ede2a480908070",
+      "preview_sha256": "b2d5ac8992b19ab33e15efa701253444d162c4af851660a17dcfb964a0693ceb",
+      "variant": "main_game_revision",
+      "license": "MIT",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "assets/fonts/DeskfrontUI.otf",
+      "loader": "scripts/game.gd",
+      "sha256": "a1913100a763a8a9678f8d8f505eaf062840ca63eacb723145ea677f20d2914c",
+      "preview_sha256": "20bb1865213da5dbdfa186378df62b5566c2d7d615ab30de50474a46e7f9bb80",
+      "variant": "main_game_revision",
+      "license": "OFL-1.1",
+      "registered_hash_matches": true
+    }
+  ],
+  "soldier_clips": [
+    "rifle_idle",
+    "rifle_walk_rm",
+    "rifle_jog_rm",
+    "rifle_sprint_rm",
+    "cover_enter",
+    "cover_idle",
+    "cover_exit",
+    "cover_shuffle_left",
+    "cover_shuffle_right",
+    "rifle_crouch_rm",
+    "turn_left",
+    "turn_right",
+    "dodge_left_rm",
+    "roll_rm",
+    "crawl",
+    "hit",
+    "death",
+    "pistol_fire",
+    "reload",
+    "cover_peek_left",
+    "cover_peek_right",
+    "grenade_throw",
+    "rocket_aim",
+    "prone_idle",
+    "prone_fire",
+    "prone_reload",
+    "crouch_reload",
+    "bayonet",
+    "rifle_fire"
+  ],
+  "worker_meshes": [
+    "Suit_Body",
+    "Suit_Feet",
+    "Suit_Head",
+    "Suit_Legs"
+  ],
+  "worker_animation": [
+    "office_typing"
+  ],
+  "note": "Runtime loading and interactions verified separately by Godot and browser tests; differing main-game variants are preserved, not downgraded."
+}

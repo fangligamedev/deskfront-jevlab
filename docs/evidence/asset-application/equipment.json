@@ -1,0 +1,171 @@
+{
+  "blue_final": {
+    "action_counts": {
+      "stand/idle/cooldown": 2,
+      "stand/run/cooldown": 6,
+      "stand/stairs/cooldown": 4
+    },
+    "ammo": 8,
+    "animation": "",
+    "animation_rate": 0,
+    "asset_animation": "rifle_idle",
+    "available_actions": [
+      "move",
+      "capture",
+      "cover",
+      "retreat",
+      "hold",
+      "attack",
+      "flank",
+      "man_at_gun",
+      "posture"
+    ],
+    "bone_count": 50,
+    "building_floor": 0,
+    "building_phase": "",
+    "combat": {
+      "engageable_targets": [],
+      "incoming_threats": [],
+      "path_active": false
+    },
+    "contact_slip_max": 0.000000429815202096506,
+    "cover_id": "",
+    "cover_risk": 0,
+    "cover_slot": "",
+    "cover_step": false,
+    "cqb_stance": "open",
+    "elevation": 0.0000000591278076500501,
+    "faction": "blue",
+    "focus_id": "",
+    "formation_speed": 1.0,
+    "goal": [
+      0.954373717308044,
+      1.77674210071564
+    ],
+    "grenades": 2,
+    "ground_correction": 0.00320684957504269,
+    "gun_id": "",
+    "hp": 100.0,
+    "id": "blue-1",
+    "in_cover": false,
+    "kind": "infantry",
+    "last_shot_at": -10.0,
+    "last_shot_target": "",
+    "lm_intent": "",
+    "lm_reason": "",
+    "locomotion": "idle",
+    "max_hp": 100.0,
+    "melee_ready": false,
+    "movement_speed": 0,
+    "order_mode": "hold",
+    "path_failure": "",
+    "path_repairs": 0,
+    "position": [
+      0.954373717308044,
+      1.77674210071564
+    ],
+    "posture": "stand",
+    "posture_order": "auto",
+    "reload_remaining": 0.0,
+    "reversing": false,
+    "root_distance": 2.65710691510239,
+    "selected": false,
+    "state": "garrison_move",
+    "suppression": 0.0,
+    "survival_reason": "",
+    "tactical_role": "overwatch",
+    "turret_yaw": 0.0,
+    "weapon": "rifle",
+    "weapon_name": "步枪",
+    "weapon_range": 0.7,
+    "weapon_state": "cooldown"
+  },
+  "checks": [
+    {
+      "passed": true,
+      "test": "Existing two-storey building is on the northeast of the table"
+    },
+    {
+      "passed": true,
+      "test": "Each faction has an actual field gun"
+    },
+    {
+      "passed": true,
+      "test": "Rifle cannot engage armor"
+    },
+    {
+      "passed": true,
+      "test": "Explicit light-weapon tank attack rejected"
+    },
+    {
+      "passed": true,
+      "test": "Blue building rejects other factions"
+    },
+    {
+      "passed": true,
+      "test": "Blue infantry receives upstairs path"
+    },
+    {
+      "passed": true,
+      "test": "Blue walks up the actual external staircase to second-floor window"
+    },
+    {
+      "passed": true,
+      "test": "Garrison uses actual root motion"
+    },
+    {
+      "passed": true,
+      "test": "Garrison can evacuate"
+    },
+    {
+      "passed": true,
+      "test": "Evacuation returns down the staircase without teleporting"
+    },
+    {
+      "passed": true,
+      "test": "Green rifleman can take over friendly AT gun"
+    },
+    {
+      "passed": true,
+      "test": "Crew physically pushes and deploys the AT gun"
+    },
+    {
+      "passed": true,
+      "test": "Cannot fire while forming or towing"
+    },
+    {
+      "passed": true,
+      "test": "Deployed gun launches a real swept AT shell"
+    },
+    {
+      "passed": true,
+      "test": "Suppressed crew abandons gun before continued attack"
+    },
+    {
+      "passed": true,
+      "test": "Destroyed floor closes upstairs route and removes stair collider"
+    }
+  ],
+  "gun": {
+    "cooldown": 3.78,
+    "crew_id": "",
+    "destination": [
+      0.425691902637482,
+      2.91874718666077
+    ],
+    "distance_pushed": 0.322203623189125,
+    "faction": "green",
+    "hp": 180.0,
+    "id": "green-at",
+    "phase": "abandoned",
+    "position": [
+      0.428233623504639,
+      2.93180155754089
+    ],
+    "range": 2.05,
+    "reason": "炮组受威胁，放弃火炮保命",
+    "shots": 1,
+    "target_id": "red-tank"
+  },
+  "passed": true
+}

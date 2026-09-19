@@ -1,5 +1,7 @@
 extends Node3D
 # Open-roof inspection building, metre-scale components with separate collision.
+const BuildingNavigation=preload("res://scripts/building_navigation.gd")
+var navigation
 var game
 var stations:Dictionary={}
 var exit_queue:Array=[]
@@ -67,25 +69,34 @@ func connect_game(g):
  game.field.rebuild()
 
 func approach()->Vector2:return Vector2(spec.center[0]+.10,spec.center[1]+.61)
+func navigation_for(u):
+ if not navigation:navigation=BuildingNavigation.new()
+ navigation.setup(self,u.actor)
+ return navigation
 func floor_route(member:int,floor_number:int)->Array[Vector3]:
- var x:float=spec.center[0];var z:float=spec.center[1];var high:float=floor_y+.004
- var result:Array[Vector3]=[Vector3(x+.10,.856,z+.61)]
- if floor_number==1:
-  result.append(Vector3(x+.10,.856,z+.21));result.append(Vector3(x-.13,.856,z-.17+member*.17))
- else:
-  result.append(Vector3(spec.stair_x,.852,z+.51));result.append(Vector3(spec.stair_x,.852,spec.stair_front))
-  result.append(Vector3(spec.stair_x,high,spec.stair_back));result.append(Vector3(spec.stair_x,high,spec.stair_back-.06))
-  result.append(Vector3(x+.11,high,spec.stair_back-.06));result.append(Vector3(x+.02,high,z))
-  result.append(Vector3(x-.15,high,z-.17+member*.17))
+ var result:Array[Vector3]=[]
+ var start=Vector3(approach().x,.857,approach().y)
+ result.assign(navigation.route(start,floor_number,member))
  return result
+func repair_route(u)->bool:
+ var nav=navigation_for(u)
+ var result:Array
+ if u.garrison_phase=="exiting":result=nav.route_to(u.global_position,Vector3(approach().x,.857,approach().y))
+ else:result=nav.route(u.global_position,u.garrison_floor,int(u.id.get_slice("-",1))-1)
+ if result.is_empty():return false
+ u.garrison_path.assign(result);u.garrison_stall=0;u.path_repairs+=1;u.path_failure=""
+ return true
 func enter(u,floor_number:int)->bool:
  if collapsed or u.tank or u.faction!="blue" or u.gun_id!="" or u.hp/u.max_hp<.45 or u.suppression>.65:return false
  if u.garrison_phase!="":return u.garrison_floor==floor_number
  var path:PackedVector2Array=game.field.path(u.pos(),approach())
  if path.is_empty() or path[-1].distance_to(approach())>.04:return false
+ navigation_for(u)
+ var interior=floor_route(int(u.id.get_slice("-",1))-1,floor_number)
+ if interior.is_empty():return false
  u.garrison_floor=floor_number;u.garrison_phase="approaching";u.garrison_path.clear();u.garrison_history.clear()
  for p in path:u.garrison_path.append(Vector3(p.x,game.field.ground_height(p),p.y))
- for p in floor_route(int(u.id.get_slice("-",1))-1,floor_number):u.garrison_path.append(p)
+ for p in interior:u.garrison_path.append(p)
  u.garrison_history.append(u.global_position)
  u.route.clear();u.cover_id="";u.cover_slot={};game.field.release(u.id);u.target_id="";u.order_mode="garrison"
  stations[u.id]={"floor":floor_number,"phase":"approaching"}
@@ -122,8 +133,14 @@ func drive(u,dt:float)->bool:
   else:
    u.garrison_phase="stationed";u.order_mode="guard_window";stations[u.id].phase="stationed"
   u.locomotion="idle";u.goal=u.pos();return true
+ if u.garrison_stall>=.35:
+  u.state="waiting_on_stairs";u.locomotion="idle";u.animate("idle")
+  if game.elapsed>=float(u.get_meta("building_retry_at",0)):
+   u.set_meta("building_retry_at",game.elapsed+.75)
+   if not repair_route(u):u.path_failure="building_path_blocked"
+  if u.garrison_stall>=.35:return true
  var target:Vector3=u.garrison_path[0]
- if u.global_position.distance_to(target)<.015:
+ if u.global_position.distance_to(target)<.004:
   if u.garrison_phase!="exiting":u.garrison_history.append(target)
   u.garrison_path.remove_at(0);return true
  # Keep people separated on the one-person staircase; never skip a corner through a wall.
@@ -132,12 +149,12 @@ func drive(u,dt:float)->bool:
  var delta:Vector3=target-u.global_position
  u.rotation.y=atan2(-delta.x,-delta.z);u.actor.rotation.y=u.rotation.y+PI
  u.actor.surface_target=target
+ var before:Vector3=u.actor.global_position
  u.actor.advance_drive(target,.095,dt,false,"run")
  u.actor.surface_target=Vector3.INF
  u.global_position=u.actor.global_position;u.actor_advanced=true;u.posture="stand";u.locomotion="stairs" if absf(delta.y)>.012 else "run";u.state="garrison_move"
- if u.actor.last_blocker!="":
-  u.garrison_stall+=dt
-  if u.garrison_stall>3:leave(u);u.garrison_stall=0;u.path_failure="building_path_blocked"
+ var progress:float=before.distance_to(target)-u.global_position.distance_to(target)
+ if progress<.00002:u.garrison_stall+=dt
  else:u.garrison_stall=0
  return true
 func snapshot()->Dictionary:

@@ -1,0 +1,145 @@
+{
+  "godot": {
+    "collision_nodes": 0,
+    "material_slots": 10,
+    "mesh_instances": 4,
+    "meshes": [
+      {
+        "aabb_position": [
+          -0.775959849357605,
+          0.946174621582031,
+          -0.179292500019073
+        ],
+        "aabb_size": [
+          1.55191946029663,
+          0.498802661895752,
+          0.234584748744965
+        ],
+        "name": "Suit_Body",
+        "surfaces": 4
+      },
+      {
+        "aabb_position": [
+          -0.177431166172028,
+          0.0,
+          -0.265548288822174
+        ],
+        "aabb_size": [
+          0.354862362146378,
+          0.157653078436852,
+          0.266467034816742
+        ],
+        "name": "Suit_Feet",
+        "surfaces": 1
+      },
+      {
+        "aabb_position": [
+          -0.102168515324593,
+          1.39174556732178,
+          -0.162142291665077
+        ],
+        "aabb_size": [
+          0.209195137023926,
+          0.328254580497742,
+          0.240770488977432
+        ],
+        "name": "Suit_Head",
+        "surfaces": 4
+      },
+      {
+        "aabb_position": [
+          -0.167704224586487,
+          0.131805971264839,
+          -0.144685447216034
+        ],
+        "aabb_size": [
+          0.335408478975296,
+          0.83132266998291,
+          0.205256894230843
+        ],
+        "name": "Suit_Legs",
+        "surfaces": 1
+      }
+    ],
+    "skeletons": [
+      {
+        "bone_count": 62,
+        "bone_names": [
+          "Root",
+          "Body",
+          "Hips",
+          "Abdomen",
+          "Torso",
+          "Chest",
+          "Neck",
+          "Head",
+          "Shoulder.L",
+          "UpperArm.L",
+          "LowerArm.L",
+          "Wrist.L",
+          "Index1.L",
+          "Index2.L",
+          "Index3.L",
+          "Index4.L",
+          "Middle1.L",
+          "Middle2.L",
+          "Middle3.L",
+          "Middle4.L",
+          "Pinky1.L",
+          "Pinky2.L",
+          "Pinky3.L",
+          "Pinky4.L",
+          "Ring1.L",
+          "Ring2.L",
+          "Ring3.L",
+          "Ring4.L",
+          "Thumb1.L",
+          "Thumb2.L",
+          "Thumb3.L",
+          "Shoulder.R",
+          "UpperArm.R",
+          "LowerArm.R",
+          "Wrist.R",
+          "Index1.R",
+          "Index2.R",
+          "Index3.R",
+          "Index4.R",
+          "Middle1.R",
+          "Middle2.R",
+          "Middle3.R",
+          "Middle4.R",
+          "Pinky1.R",
+          "Pinky2.R",
+          "Pinky3.R",
+          "Pinky4.R",
+          "Ring1.R",
+          "Ring2.R",
+          "Ring3.R",
+          "Ring4.R",
+          "Thumb1.R",
+          "Thumb2.R",
+          "Thumb3.R",
+          "UpperLeg.L",
+          "LowerLeg.L",
+          "UpperLeg.R",
+          "LowerLeg.R",
+          "Foot.L",
+          "Foot.R",
+          "PT.L",
+          "PT.R"
+        ],
+        "name": "Skeleton3D",
+        "roots": [
+          "Root"
+        ]
+      }
+    ]
+  },
+  "import_exit_code": 0,
+  "passed": true,
+  "runtime_exit_code": 0,
+  "runtime_output": null,
+  "source_path": "/Users/brucef/Documents/LocDev/Game/Tesana-Like/deskfront-jevlab/assets/models/office-worker.glb",
+  "source_sha256": "3d7eaffe84177071ea5aedc1e2c71562a9afae6faef938f706cd3cd628ccb023",
+  "stage": "complete"
+}

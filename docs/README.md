@@ -49,3 +49,5 @@
 - 根目录 [MIT](../LICENSE)；第三方许可全文位于 docs/licenses，逐素材适用范围见 [第三方声明](../THIRD_PARTY.md)。
 
 本目录由 `python3 tools/docs.py --write-index` 根据 Git 索引生成；新文档先 stage 再更新索引。`python3 tools/docs.py --bundle` 生成完整正文 Markdown 与文档 ZIP，存放于 dist，不提交重复副本。
+
+- [已确认资产应用到主游戏](ASSET-APPLICATION.md)：男性人物补齐、预览资源对照、楼梯寻路适配与实际运行验证。

@@ -17,7 +17,7 @@
 | 玩具兵 | nisu，[Rigged lowpoly WW2 soldier](https://opengameart.org/content/rigged-lowpoly-ww2-soldier) | CC0；纯色材质、重定向、新增接触约束侧步 |
 | 动作库 | [Quaternius Universal Animation Library](https://quaternius.com/packs/universalanimationlibrary.html) | CC0；作者公开预览 GLB，新增根轨迹与手雷动作 |
 | T2 坦克 | [Quaternius](https://poly.pizza/m/FA5daiyZQq) | CC0；归一化及独立炮塔适配 |
-| 办公人物 | [Quaternius Casual Character](https://poly.pizza/m/kZ3DmIoGip) | CC0；坐姿、服装颜色及原创 office_typing |
+| 办公人物 | [Quaternius Business Man](https://poly.pizza/m/JFrLIKqvCH) | CC0；坐姿、服装颜色及原创 office_typing |
 | 步枪/手枪 | [Pichuliru Flat Guns West](https://opengameart.org/content/cc0-flat-guns-west) | CC0；缩放、阵营纯色 |
 | 手雷 | [Pichuliru Flat Grenades](https://opengameart.org/content/cc0-flat-grenades) | CC0；阵营纯色 |
 | 爆炸图集/流向图 | [Unity VFX / Arnklit](https://github.com/Arnklit/godot_particle_flipbook_smoothing) | CC0；渲染器为本项目 MIT 改编实现 |

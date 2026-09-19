@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-19",
+  "main_url": "http://127.0.0.1:8768/",
+  "current_build": {
+    "id": "main-23f14c742448",
+    "runtime_sha256": "23f14c742448db8c4284b9218c9df00b38eb7c451df82ec694ea77aa84d7c109",
+    "assets_sha256": "05d3f4e3bcfacd7828cc61271f565bd91562c3a4c75c45d66ddfc84e2dd7262a"
+  },
+  "asset_web_build": "main-e0cd0f4a714c",
+  "equipment_web_build": "main-e0cd0f4a714c",
+  "same_asset_bundle_verified": true,
+  "checks": {
+    "main_building": 17,
+    "existing_integration": 89,
+    "equipment_contract": 16,
+    "python": 23,
+    "web_assets": 13,
+    "web_equipment": 6,
+    "web_audio": true
+  },
+  "files": {
+    "assets/models/office-worker.glb": "3d7eaffe84177071ea5aedc1e2c71562a9afae6faef938f706cd3cd628ccb023",
+    "scripts/building_navigation.gd": "aa0e98ec1d4714aecc98c953adee972c0f16c275e0a507009b468b2616370c77",
+    "scripts/tactical_building.gd": "1bebc612b7011651e701325698ac1604904ac8b381e7131561a0fd40c9b785a7",
+    "build/web/index.pck": "27f8cb3131457aff30c74601bda8c6198d72d4d2154a3c47f5be4d8396e63aa0",
+    "build/web/index.wasm": "6498359ba889796a0d95a2f71113ac184badc0f2d84cf28f4103c7e399d2d547",
+    "build/web/index.html": "b3fc0c2d46945a77927a12b21b602f41215ea6bffab499e83db86bf3ff4ed9ee"
+  }
+}

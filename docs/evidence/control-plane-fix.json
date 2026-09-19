@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-19",
+  "scope": "control-session-and-scene-reload",
+  "python_tests_passed": 23,
+  "godot_semantic_checks_passed": 113,
+  "web_export_passed": true,
+  "real_web_ui_checks": {
+    "equip_smg": true,
+    "infantry_prone": true,
+    "map_1_2_0": true,
+    "two_consecutive_resets_with_engine_acks": true,
+    "all_three_lm_control_receipts": true,
+    "two_pages_no_cross_run_state_or_commands": true,
+    "red_infantry_posture_with_tank": true,
+    "updated_user_service_8768_reset": true
+  },
+  "model_calls_during_paused_lm_switch_test": 0,
+  "notes": "LM provider behavior was not retested; this verifies control switching only. Full local snapshots: output/controls-ui-evidence.json."
+}

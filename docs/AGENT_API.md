@@ -39,6 +39,10 @@ HTTP 202 仅表示排队，返回 `id`。轮询 `GET /api/result/<id>`，只有 
 
 `POST /api/command` 除上述战术动作，还允许 `control`（mode）、`pause`（value）、`speed`（0.25–3）、`camera`（office/battle/top）、`reinforce`、`reset`、`map`（index）、`equip`（weapon）和 `config`。`config` 允许 damage、speed、accuracy、cooldown 四项，并钳制合理范围。生产环境应将管理员与 Agent 端点分别认证；本版只面向本机。
 
+策划客户端从 `GET /api/state` 读取顶层 `instance_id` 及 `state.run_id`，提交 `/api/command` 时携带这两个字段。Web 页面通过 `POST /api/session`（JSON `{}`）创建并接管一个新实例，Agent 不应调用此端点；Agent 继续使用 `/api/agent/command`，按 run_id、seen_tick 和控制权校验。旧页面不能通过省略实例号接管当前游戏。
+
+错误 `session_replaced` 表示页面所属实例已被另一页面替换；`stale_run` 表示观察对应的对局已更换；`command_timeout` 表示 10 秒未收到引擎回执。它们都不是模型拒绝生成回答。`reset`、`map` 的成功依据是跨场景保留的真实引擎回执。
+
 运行示例：
 
 ```sh

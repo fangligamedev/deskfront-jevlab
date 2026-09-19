@@ -22,7 +22,8 @@ def main():
             time.sleep(.15)
         raise RuntimeError('Timed out waiting for real engine state')
     def command(c):
-        q=request('/api/command',c);start=time.monotonic()
+        session=request('/api/state')
+        q=request('/api/command',dict(instance_id=session['instance_id'],run_id=session['state']['run_id'],**c));start=time.monotonic()
         while time.monotonic()-start<10:
             ack=request('/api/result/'+q['id'])
             if 'accepted' in ack:

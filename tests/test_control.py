@@ -34,9 +34,39 @@ class ControlContract(unittest.TestCase):
         _,c=s.submit({'action':'hold'})
         s.sync({'state':{'schema_version':1,'units':[],'run_id':'b'}})
         self.assertFalse(s.results[c['id']]['accepted']);self.assertEqual(len(s.pending),0)
-    def test_reset_ack_on_new_run(self):
+    def test_new_run_does_not_invent_reset_success(self):
         s=State();s.record=lambda *a:None;s.updated=time.monotonic();s.state={'run_id':'a'}
         _,c=s.submit({'action':'reset'})
         s.sync({'state':{'schema_version':1,'units':[],'run_id':'b'}})
-        self.assertTrue(s.results[c['id']]['accepted'])
+        self.assertFalse(s.results[c['id']]['accepted'])
+        self.assertEqual(s.results[c['id']]['message'],'stale_run')
+    def test_scene_reload_keeps_real_reset_and_map_ack(self):
+        for action in [{'action':'reset'},{'action':'map','index':1}]:
+            s=State();s.record=lambda *a:None
+            token=s.open_session()[1]['instance_id']
+            s.sync({'instance_id':token,'state':{'schema_version':1,'units':[],'run_id':'a'}})
+            _,c=s.submit(dict(action,instance_id=token,run_id='a'))
+            s.sync({'instance_id':token,'state':{'schema_version':1,'units':[],'run_id':'b'},'acks':[{'id':c['id'],'accepted':True,'message':'applied'}]})
+            self.assertTrue(s.results[c['id']]['accepted']);self.assertFalse(s.pending)
+    def test_old_instance_cannot_replace_state_consume_commands_or_forge_ack(self):
+        s=State();s.record=lambda *a:None
+        old=s.open_session()[1]['instance_id'];new=s.open_session()[1]['instance_id']
+        state={'schema_version':1,'units':[],'run_id':'new'}
+        s.sync({'instance_id':new,'state':state})
+        _,c=s.submit({'action':'equip','weapon':'smg','instance_id':new,'run_id':'new'})
+        for payload in [{'instance_id':old,'state':dict(state,run_id='old')},{'state':dict(state,run_id='legacy')}]:
+            payload['acks']=[{'id':c['id'],'accepted':True}]
+            self.assertEqual(s.sync(payload)[0],409)
+            self.assertEqual(s.state['run_id'],'new');self.assertIn(c['id'],s.pending)
+            self.assertNotIn(c['id'],s.results)
+        self.assertEqual(s.submit({'action':'reset','instance_id':old})[1]['error'],'session_replaced')
+        self.assertEqual(s.submit({'action':'reset'})[1]['error'],'session_replaced')
+    def test_replaced_session_expires_queue_and_stale_console_observation(self):
+        s=State();s.record=lambda *a:None;old=s.open_session()[1]['instance_id']
+        s.sync({'instance_id':old,'state':{'schema_version':1,'units':[],'run_id':'a'}})
+        self.assertEqual(s.submit({'action':'reset','instance_id':old,'run_id':'old'})[1]['error'],'stale_run')
+        _,c=s.submit({'action':'reset','instance_id':old,'run_id':'a'})
+        s.open_session()
+        self.assertFalse(s.results[c['id']]['accepted']);self.assertEqual(s.results[c['id']]['message'],'session_replaced')
+        self.assertEqual(s.state,{});self.assertFalse(s.pending)
 if __name__=='__main__':unittest.main()

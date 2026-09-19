@@ -7,12 +7,19 @@ var acknowledgements: Array=[]
 var seen_ids: Array=[]
 var base_url: String="http://127.0.0.1:8768"
 var enabled: bool=true
+var instance_id: String=""
 
 func setup(owner_game) -> void:
 	game=owner_game
 	if DisplayServer.get_name()=="headless" and OS.get_environment("DESKFRONT_HEADLESS_BRIDGE")!="1":enabled=false;return
 	if OS.has_feature("web"):base_url=str(JavaScriptBridge.eval("window.location.origin"))
 	elif OS.get_environment("DESKFRONT_URL")!="":base_url=OS.get_environment("DESKFRONT_URL")
+	if not get_tree().has_meta("bridge_instance"):
+		var web_id: String=str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('instance_id') || ''")) if OS.has_feature("web") else ""
+		get_tree().set_meta("bridge_instance",web_id if web_id!="" else str(Time.get_unix_time_from_system())+"-"+str(randi()))
+	instance_id=get_tree().get_meta("bridge_instance")
+	acknowledgements=get_tree().get_meta("bridge_acks",[])
+	get_tree().set_meta("bridge_acks",acknowledgements)
 	http=HTTPRequest.new();add_child(http);http.timeout=2;http.request_completed.connect(_completed)
 
 func _process(delta: float) -> void:
@@ -22,7 +29,7 @@ func _process(delta: float) -> void:
 	elapsed=0;busy=true
 	var state: Dictionary=game.snapshot()
 	if OS.has_feature("web"):JavaScriptBridge.eval("window.__deskfrontState="+JSON.stringify(state)+";window.render_game_to_text=()=>JSON.stringify(window.__deskfrontState)")
-	var err=http.request(base_url+"/api/sync",["Content-Type: application/json"],HTTPClient.METHOD_POST,JSON.stringify({"state":state,"acks":acknowledgements}))
+	var err=http.request(base_url+"/api/sync",["Content-Type: application/json"],HTTPClient.METHOD_POST,JSON.stringify({"instance_id":instance_id,"state":state,"acks":acknowledgements}))
 	if err!=OK:busy=false
 
 func _completed(result: int, code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:

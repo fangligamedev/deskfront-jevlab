@@ -6,7 +6,7 @@ page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()
 const snapshot=async()=>await(await page.request.get(base+'/api/state')).json();
 async function until(fn,timeout=75000){const start=Date.now();while(Date.now()-start<timeout){const d=await snapshot();if(fn(d))return d;await page.waitForTimeout(180)}throw Error('Timeout '+fn)}
 const check=(ok,test)=>{checks.push({test,passed:!!ok});assert(ok,test);console.log('PASS '+test)};
-async function command(c){const r=await page.request.post(base+'/api/command',{data:c});const q=await r.json();assert(r.ok(),JSON.stringify(q));for(let i=0;i<300;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){assert(a.accepted,JSON.stringify(a));return a}await page.waitForTimeout(100)}throw Error('Missing receipt')}
+async function command(c){const session=await(await page.request.get(base+'/api/state')).json();c={instance_id:session.instance_id,run_id:session.state.run_id,...c};const r=await page.request.post(base+'/api/command',{data:c});const q=await r.json();assert(r.ok(),JSON.stringify(q));for(let i=0;i<300;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){assert(a.accepted,JSON.stringify(a));return a}await page.waitForTimeout(100)}throw Error('Missing receipt')}
 try{const before=(await snapshot()).state.run_id;await page.goto(base);let d=await until(d=>d.engine_live&&d.state.run_id!==before&&d.state.time>1.0);await command({action:'pause',value:true});
 await page.getByLabel('全局控制方式').selectOption('player');await until(d=>Object.values(d.state.control).every(v=>v==='player'));
 // Authorized design controls provide a safe route-inspection fixture. No state injection.

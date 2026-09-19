@@ -8,7 +8,7 @@ const base=process.env.DESKFRONT_URL||'http://127.0.0.1:8774',out=path.resolve(_
  const state=async()=> (await(await page.request.get(base+'/api/state')).json()).state;
  const check=(ok,name)=>{checks.push({name,passed:!!ok});assert(ok,name);console.log('PASS',name)};
  async function until(fn,timeout=30000){const start=Date.now();while(Date.now()-start<timeout){const s=await state();if(fn(s))return s;await page.waitForTimeout(150)}throw Error('Timeout '+fn)}
- async function command(c){const r=await page.request.post(base+'/api/command',{data:{faction:'green',...c}}),q=await r.json();assert(r.ok(),JSON.stringify(q));for(let i=0;i<100;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){assert(a.accepted,JSON.stringify(a));return a}await page.waitForTimeout(100)}throw Error('Missing receipt')}
+ async function command(c){const session=await(await page.request.get(base+'/api/state')).json();c={instance_id:session.instance_id,run_id:session.state.run_id,...c};const r=await page.request.post(base+'/api/command',{data:{faction:'green',...c}}),q=await r.json();assert(r.ok(),JSON.stringify(q));for(let i=0;i<100;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){assert(a.accepted,JSON.stringify(a));return a}await page.waitForTimeout(100)}throw Error('Missing receipt')}
  try{
   const prior=(await state()).run_id;await page.goto(base);let s=await until(s=>s.version==='0.5.0'&&s.run_id!==prior);
   await page.getByRole('button',{name:'暂停',exact:true}).click();await until(s=>s.paused);

@@ -10,7 +10,7 @@ const out=path.resolve(__dirname,'../output/integration');
  const state=async()=> (await(await page.request.get(base+'/api/state')).json()).state;
  const check=(ok,test)=>{checks.push({test,passed:!!ok});if(!ok)throw Error(test);console.log('PASS '+test)};
  async function until(fn,timeout=25000){const start=Date.now();while(Date.now()-start<timeout){const s=await state();if(fn(s))return s;await page.waitForTimeout(150)}throw Error('Timeout '+fn)}
- async function command(c){const r=await page.request.post(base+'/api/command',{data:c});const q=await r.json();if(!r.ok())throw Error(JSON.stringify(q));for(let i=0;i<100;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){if(!a.accepted)throw Error(JSON.stringify(a));return a}await page.waitForTimeout(150)}throw Error('No engine ack')}
+ async function command(c){const session=await(await page.request.get(base+'/api/state')).json();c={instance_id:session.instance_id,run_id:session.state.run_id,...c};const r=await page.request.post(base+'/api/command',{data:c});const q=await r.json();if(!r.ok())throw Error(JSON.stringify(q));for(let i=0;i<100;i++){const a=await(await page.request.get(base+'/api/result/'+q.id)).json();if('accepted'in a){if(!a.accepted)throw Error(JSON.stringify(a));return a}await page.waitForTimeout(150)}throw Error('No engine ack')}
  try{
   const prev=(await state()).run_id;await page.goto(base);let s=await until(s=>s.run_id!==prev&&s.version==='0.6.0');
   check(s.units.length===9&&s.units.every(u=>u.bone_count===50),'Final Web export loads nine 50-bone soldiers');

@@ -14,6 +14,7 @@ func run():
  for i in range(50):g._physics_process(.05)
  check(g.units.all(func(u):return not u.route.is_empty() or u.pos().x>start+.25),"safe approach moves all soldiers without one-at-a-time waits")
  check(f.propose(f.sequence,"trench_zigzag","test")=="applied","trench scenario validates")
+ g.tactics_ai.begin_move("green",Vector2(.4,0),[])
  var ch:Dictionary=f.chunks[-1];var states:Array=[]
  ch.construction.policy="dig_first"
  for i in range(260):
@@ -22,6 +23,7 @@ func run():
   for w in ch.construction.workers:if w.state not in states:states.append(w.state)
  check(states.has("dig") and states.has("carry_sandbag") and states.has("stack_sandbag"),"visible dig carry stack stages")
  check(ch.phase=="combat" and g.field.covers.size()==3,"construction completes before physics commit")
+ check(g.tactics_ai.formations.is_empty(),"sector activation drops old checkpoint formation")
  check(is_equal_approx(g.objective.y,.20),"layout changes capture route")
  check(f.apply_directive(f.active_sector,"flank_north","north_first","test")=="applied","typed fast directive accepted")
  check(f.apply_directive(999,"advance","balanced","test")=="stale_frontier_directive","stale tactical policy rejected")

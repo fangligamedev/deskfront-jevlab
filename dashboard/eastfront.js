@@ -5,9 +5,16 @@
  let last='',starting=false;
  const status=t=>$e('eastStatus').textContent=t;
  const modelModes=['typesafe_jev','deepseek_logprobs','laya'];
- async function selectCombat(){
+ const dual=backend=>['dual_brain','dual_brain_laya'].includes(backend);
+ async function selectCombat(backend=state.eastfront?.backend){
   const value=$e('eastControl').value;
   if(!modelModes.includes(value))return value;
+  if(dual(backend)){
+   const director=backend==='dual_brain_laya'?'laya':'typesafe_jev';
+   if(value!==director)throw Error('快慢脑模式请选对应的 '+(director==='laya'?'Laya 本地':'JEV')+' 战术指挥，或玩家 / 游戏 AI / Agent。');
+   if(!lm.providers?.[director]?.configured)throw Error('本局战术模型尚未配置。');
+   return 'lm'; // The frontier director owns the squad; no competing per-unit request loop.
+  }
   if(!lm.providers?.[value]?.configured)throw Error('该模型未配置，请在服务端配置对应 Key 与模型 ID。');
   if(lm.provider!==value){
    const previous=Object.entries(state.control||{}).filter(([,m])=>m==='lm').map(([f])=>f);
@@ -27,7 +34,7 @@
    if(['dual_brain','dual_brain_laya'].includes(builder)&&(!lm.providers?.[builder==='dual_brain_laya'?'laya':'typesafe_jev']?.configured||!lm.providers?.volcengine_ark?.configured))throw Error('快慢脑需要 DeepSeek 和对应的快脑配置。');
    if(!['local','dual_brain','dual_brain_laya'].includes(builder)&&!lm.providers?.[builder]?.configured)throw Error('防线构筑模型尚未配置。');
    const seed=Number($e('eastSeed').value);if(!Number.isInteger(seed)||seed<0||seed>2147483647)throw Error('种子须为 0–2147483647 的整数。');
-   const mode=await selectCombat();
+   const mode=await selectCombat(builder);
    const result=await command({action:'eastfront_start',backend:$e('eastBuilder').value,mode,seed});
    if(result){team='green';status('东线任务已排队，等待引擎载入。');}
   }catch(e){status(e.message)}finally{starting=false;$e('eastStart').disabled=false}
@@ -46,7 +53,12 @@
  };
  setInterval(()=>{
   const f=state.eastfront||{};
-  $e('eastModel').textContent=['dual_brain','dual_brain_laya'].includes(f.backend)?'慢脑 DeepSeek：每次规划三段；快脑 '+(f.backend==='dual_brain_laya'?'Laya 本地':'JEV')+'：约每 2 秒调度；游戏 AI 连续执行。规划 '+(lm.frontier?.used?.slow||0)+' 次 / 调度 '+(lm.frontier?.used?.fast||0)+' 次。'+(lm.frontier?.latest?.slow?.strategy||'')+((lm.frontier?.latest?.fast?.error||lm.frontier?.latest?.slow?.error)?' · 模型暂不可用，游戏执行器继续运行：'+(lm.frontier?.latest?.fast?.error||lm.frontier?.latest?.slow?.error):''): '战斗模型：'+(lm.display_name||'未连接')+' / '+(lm.model||'—')+'；模型指挥选择为全局模型配置，影响所有模型控制阵营。构筑可独立选择，失败明确使用本地防线。';
+  const squad=state.tactical?.squads?.green;
+  const execution={game_ai:'小队协同执行器',lm:dual(f.backend)?(f.backend==='dual_brain_laya'?'Laya 本地指挥':'JEV 指挥')+' → 小队协同执行':'独立逐兵模型',player:'玩家接管',agent:'外部 Agent'}[state.control?.green]||'等待战场';
+  const stages={take_cover:'分配并进入掩体',suppress:'建立掩护火力',bound:'交替跃进',advance:'安全接近',defend:'守住旗点',retreat:'撤退重整'};
+  const members=(state.units||[]).filter(u=>u.faction==='green'&&u.hp>0);
+  $e('eastTactical').textContent='实际控制：'+execution+' · '+(stages[squad?.phase]||'连续行军')+' · 掩体内 '+members.filter(u=>u.in_cover).length+'/'+members.length+' · 推进者 '+(squad?.mover||'无')+' · 有效掩护 '+(squad?.support_ids?.length||0)+' 人。'+(squad?.reason||'模型下达小队意图，引擎连续执行靠掩体与交替掩护。');
+  $e('eastModel').textContent=['dual_brain','dual_brain_laya'].includes(f.backend)?'慢脑 DeepSeek：每次规划三段；快脑 '+(f.backend==='dual_brain_laya'?'Laya 本地':'JEV')+'：约每 2 秒调度；引擎协同执行。规划 '+(lm.frontier?.used?.slow||0)+' 次 / 调度 '+(lm.frontier?.used?.fast||0)+' 次。'+(lm.frontier?.latest?.slow?.strategy||'')+((lm.frontier?.latest?.fast?.error||lm.frontier?.latest?.slow?.error)?' · 模型暂不可用，游戏执行器继续运行：'+(lm.frontier?.latest?.fast?.error||lm.frontier?.latest?.slow?.error):''): '战斗模型：'+(lm.display_name||'未连接')+' / '+(lm.model||'—')+'；模型指挥选择为全局模型配置，影响所有模型控制阵营。构筑可独立选择，失败明确使用本地防线。';
   if(!f.enabled){$e('eastProgress').textContent='选择控制方式，开启向东推进';return}
   $e('eastProgress').textContent='第 '+(f.wave||1)+' 波 · 已突破 '+f.cleared+' 段 · 当前 E'+String(f.active_sector).padStart(3,'0')+' · 守点 '+Number(f.hold_seconds).toFixed(1)+' / 5 秒';
   $e('eastFollow').textContent=f.follow?'镜头跟随中 · 点击自由观察':'自由观察中 · 点击跟随';

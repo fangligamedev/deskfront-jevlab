@@ -84,7 +84,11 @@ func _ready() -> void:
 	if not get_tree().has_meta("eastfront_enabled"):
 		var requested=OS.get_cmdline_user_args().has("--eastfront")
 		if OS.has_feature("web"):requested=requested or str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('campaign') || ''"))=="eastfront"
-		if requested:get_tree().set_meta("eastfront_enabled",true)
+		if requested:
+			get_tree().set_meta("eastfront_enabled",true)
+			if OS.has_feature("web"):
+				get_tree().set_meta("eastfront_backend","dual_brain_laya")
+				get_tree().set_meta("eastfront_control","lm")
 	config=JSON.parse_string(FileAccess.get_file_as_string("res://data/battle.json"))
 	if use_legacy_fixture:
 		for team in control:control[team]="game_ai"
@@ -363,6 +367,7 @@ func command(c: Dictionary) -> Dictionary:
 	elif source in ["agent","lm"] and str(c.get("run_id",""))!=run_id:rejected="stale_run"
 	elif source in ["agent","lm"] and (not c.has("seen_tick") or abs(tick_id-int(c.seen_tick))>300):rejected="stale_observation"
 	if rejected!="":return ack(c,false,rejected)
+	if source=="lm" and tactics_ai.model_squad(team):return ack(c,false,"squad_director_owns_orders")
 	if source=="lm" and int(c.get("control_epoch",-1))!=control_epochs[team]:return ack(c,false,"stale_control_epoch")
 	if action=="eastfront_start":
 		if c.get("backend","local") not in ["local","model","typesafe_jev","volcengine_ark","dual_brain","dual_brain_laya","laya"] or c.get("mode","game_ai") not in ["game_ai","player","lm","agent"]:return ack(c,false,"invalid_eastfront_mode")

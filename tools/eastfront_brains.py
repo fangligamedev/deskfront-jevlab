@@ -78,6 +78,7 @@ class DualBrain:
                 code=str(e) if isinstance(e,ProviderError) else 'invalid_brain_response';self.latest[kind]={'error':code};self.lm.call_log.update(call,phase='discarded' if code=='stale_fast_directive' else 'error',error=code)
                 if code in ('provider_http_401','provider_http_402','provider_http_403','provider_account_overdue'):self.disabled.add(kind)
                 if kind=='slow':self.next_slow=now+5
+                elif code in ('laya_http_429','laya_local_busy','laya_network_or_timeout','provider_http_429','provider_network_or_timeout'):self.next_fast=now+4
         if enabled:
             if r and r['index'] in self.plan and r['sequence'] not in self.submitted:
                 self.submitted.add(r['sequence'])

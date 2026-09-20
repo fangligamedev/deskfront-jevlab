@@ -126,7 +126,7 @@ func activate():
   for u in game.units:
    if ch.units.has(u.id):u.deployment_phase="active";u.order_mode="hold"
   game.flag_objective.holder="";game.flag_objective.held_seconds=0;game.flag_objective.capture_epoch+=1
-  game.tactics_ai.squads.clear();game.tactics_ai.flag_hints.clear();game.tactics_ai.flag_distance.clear();game.tactics_ai.flag_progress.clear();held=0
+  game.tactics_ai.squads.clear();game.tactics_ai.formations.clear();game.tactics_ai.flag_hints.clear();game.tactics_ai.flag_distance.clear();game.tactics_ai.flag_progress.clear();held=0
   game.flag_banner.position.x=game.objective.x+.055;game.flag_pole.position.x=game.objective.x;game.flag_banner.position.z=game.objective.y;game.flag_pole.position.z=game.objective.y
   emit("sector_activated",{"index":ch.index,"objective":[game.objective.x,game.objective.y]})
 func update_capture(dt:float):
@@ -199,7 +199,7 @@ func tick(dt:float):
     emit("generation_rejected",{"template":choice,"reason":result})
    if not request.is_empty():request.age=-1.0
 func update_aid(dt:float):
- if game.control.green!="game_ai":recovering.clear();return
+ if game.control.green!="game_ai" and not game.tactics_ai.model_squad("green"):recovering.clear();return
  var rear:float=maxf(game.config.bounds[0]+.18,(active_sector-1)*float(rules.width)+.18)
  aid_marker.position=Vector3(rear,game.field.height+.004,0)
  aid_clock-=dt

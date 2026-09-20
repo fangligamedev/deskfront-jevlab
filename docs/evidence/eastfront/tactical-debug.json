@@ -1,0 +1,110 @@
+{
+  "headless": {
+    "checks": [
+      {
+        "passed": true,
+        "test": "two members actually occupy protected stations"
+      },
+      {
+        "passed": true,
+        "test": "contact uses original cover and suppression coordinator"
+      },
+      {
+        "passed": true,
+        "test": "contact includes a bounded reposition or leapfrog phase"
+      },
+      {
+        "passed": true,
+        "test": "safe transfers use run locomotion"
+      },
+      {
+        "passed": true,
+        "test": "real AI captures first sector without forced kills"
+      },
+      {
+        "passed": true,
+        "test": "Laya retains expedition model authority"
+      },
+      {
+        "passed": true,
+        "test": "model squad control accepted: dual_brain"
+      },
+      {
+        "passed": true,
+        "test": "model squad coordinator enabled: dual_brain"
+      },
+      {
+        "passed": true,
+        "test": "duplicate per-unit orders blocked: dual_brain"
+      },
+      {
+        "passed": true,
+        "test": "model squad control accepted: dual_brain_laya"
+      },
+      {
+        "passed": true,
+        "test": "model squad coordinator enabled: dual_brain_laya"
+      },
+      {
+        "passed": true,
+        "test": "duplicate per-unit orders blocked: dual_brain_laya"
+      },
+      {
+        "passed": true,
+        "test": "player takeover releases model squad"
+      }
+    ],
+    "cover_frames": 1240,
+    "cover_units": [
+      "green-1",
+      "green-3",
+      "green-2"
+    ],
+    "phases": [
+      "take_cover",
+      "suppress",
+      "advance",
+      "bound",
+      "defend"
+    ],
+    "run_frames": 1188,
+    "seconds": 66.3999999999984,
+    "shots": 39
+  },
+  "live": {
+    "backend": "dual_brain_laya",
+    "control": {
+      "blue": "game_ai",
+      "green": "lm",
+      "red": "game_ai"
+    },
+    "seconds": 197.8,
+    "cleared": 3,
+    "squad": {
+      "anchor": [
+        6.15447950363159,
+        -0.295344561338425
+      ],
+      "director": "laya",
+      "intent": "advance",
+      "intent_source": "local_executor",
+      "leader": "green-1",
+      "mover": "",
+      "phase": "suppress",
+      "reason": "推进者到位，重新建立交叉火力",
+      "since": 196.866666666715,
+      "support_ids": [],
+      "threat": "red-e4-0",
+      "turn": 2
+    },
+    "model_usage": {
+      "slow": 2,
+      "fast": 98
+    },
+    "last_provider_error": "laya_http_429",
+    "note": "真实模型与网页输入；服务忙碌期间由引擎续行。"
+  },
+  "semantic_checks": 113,
+  "construction_contract_checks": 17,
+  "python_tests": 90
+}

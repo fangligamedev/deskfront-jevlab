@@ -191,7 +191,10 @@ class Handler(SimpleHTTPRequestHandler):
                 else:raise ValueError('unknown_studio_action')
             except ValueError as e:status,result=400,{'error':str(e)}
         elif self.path in {'/api/command','/api/agent/command'}:
-            if isinstance(payload,dict) and payload.get('action')=='control' and payload.get('mode')=='lm' and (not LM or not LM.ready):status,result=409,{'error':'lm_not_configured'}
+            with STATE.lock:backend=STATE.state.get('eastfront',{}).get('backend')
+            squad_model=isinstance(payload,dict) and payload.get('faction','green')=='green' and backend in ('dual_brain','dual_brain_laya')
+            model_ready=bool(LM and (configured(LM.profiles.get('laya' if backend=='dual_brain_laya' else 'typesafe_jev',{})) if squad_model else LM.ready))
+            if isinstance(payload,dict) and payload.get('action')=='control' and payload.get('mode')=='lm' and not model_ready:status,result=409,{'error':'lm_not_configured'}
             elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend') in ('dual_brain','dual_brain_laya') and not all(LM and configured(LM.profiles.get(p,{})) for p in (('laya' if payload['backend']=='dual_brain_laya' else 'typesafe_jev'),'volcengine_ark')):status,result=409,{'error':'dual_brain_not_configured'}
             elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend') in ('typesafe_jev','volcengine_ark','laya') and not (LM and configured(LM.profiles.get(payload['backend'],{}))):status,result=409,{'error':'provider_not_configured'}
             else:status,result=STATE.submit(payload,self.path=='/api/agent/command')

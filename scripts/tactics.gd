@@ -30,6 +30,9 @@ func squad_center(squad: Array) -> Vector2:
 	for u in squad:p+=u.pos()
 	return p/maxi(1,squad.size())
 
+func model_squad(team:String) -> bool:
+	return game.eastfront!=null and team=="green" and game.eastfront.backend in ["dual_brain","dual_brain_laya"] and game.control.get(team)=="lm"
+
 func tick(dt: float) -> void:
 	refresh_flag_hint(dt)
 	clock-=dt
@@ -37,7 +40,7 @@ func tick(dt: float) -> void:
 	clock=game.config.tactics.update_interval
 	update_formations()
 	for team in game.control:
-		if game.control[team]=="game_ai":plan(team)
+		if game.control[team]=="game_ai" or model_squad(team):plan(team)
 
 func cancel(team: String) -> void:
 	formations.erase(team);squads.erase(team)
@@ -66,6 +69,9 @@ func acquire(u, goal: Vector2, max_travel: float=.6, allow_same: bool=true) -> b
 
 func publish(team: String, action: String) -> void:
 	var s: Dictionary=squads[team]
+	s.director=("laya" if game.eastfront.backend=="dual_brain_laya" else "typesafe_jev") if model_squad(team) else "game_ai"
+	s.intent=game.eastfront.directive if model_squad(team) and game.eastfront.logical<game.eastfront.directive_until else "advance"
+	s.intent_source=game.eastfront.directive_source if model_squad(team) and game.eastfront.logical<game.eastfront.directive_until else "local_executor"
 	s.support_ids=game.living(team).filter(func(u):return not u.tank and u.id!=s.mover and can_support(u)).map(func(u):return u.id)
 	game.decisions[team]={"action":action,"phase":s.phase,"reason":s.reason,"candidates":[],"tick":game.tick_id,"source":"squad_coordinator","confidence":0.0}
 
@@ -103,7 +109,7 @@ func plan(team: String) -> void:
 	for armor in game.living(team).filter(func(u):return u.tank):plan_tank(armor)
 	if squad.is_empty():return
 	if game.eastfront and team=="green" and plan_eastfront(squad):return
-	if game.config.rules.get("mode","")=="center_flag":plan_flag(team,squad);return
+	if game.config.rules.get("mode","")=="center_flag" and not (game.eastfront and team=="green"):plan_flag(team,squad);return
 	if not squads.has(team):
 		squads[team]={"phase":"take_cover","since":game.elapsed,"reason":"先预约掩体，再分工交火","mover":"","turn":0,"leader":squad[0].id,"anchor":squad_center(squad),"threat":""}
 		for u in squad:
@@ -183,6 +189,9 @@ func plan(team: String) -> void:
 		var protected_by: Array=holders.filter(func(u):return u!=mover)
 		if contact and protected_by.is_empty():continue
 		var destination: Vector2=game.objective
+		if game.eastfront and game.eastfront.logical<game.eastfront.directive_until:
+			if game.eastfront.directive=="flank_north":destination.y=-.35
+			elif game.eastfront.directive=="flank_south":destination.y=.35
 		if threat!=null and threat.tank and mover.weapon=="rocket":destination=threat.pos().move_toward(mover.pos(),.55)
 		var slot: Dictionary=game.field.choose_cover(mover.id,mover.pos(),threat.pos() if threat!=null else game.objective,destination,{"threats":threat_points(team),"range":game.config.weapons[mover.weapon].range,"max_travel":game.config.tactics.bound_distance,"allow_same":false,"reserve":false})
 		if not slot.is_empty() and slot.position.distance_to(destination)+.045<mover.pos().distance_to(destination):
@@ -336,7 +345,13 @@ func snapshot() -> Dictionary:
 func plan_eastfront(squad:Array)->bool:
 	# Execute a continuous safe corridor; never make a network round trip per footstep.
 	var threats:Array=enemies("green")
+	# Preserve checkpoint holding and formation spacing once the active defense is gone.
+	if threats.is_empty() and game.eastfront.chunks.any(func(c):return c.index==game.eastfront.active_sector and c.phase=="combat"):
+		plan_flag("green",squad);return true
 	var advanced:bool=false
+	# A prior formation must not rewrite the continuous route back to the old checkpoint.
+	if not squad.any(func(u):return threats.any(func(e):return e.pos().distance_to(u.pos())<float(e.weapon_config().range)+.18)):
+		formations.erase("green")
 	if game.eastfront.directive=="regroup" and game.eastfront.logical<game.eastfront.directive_until:
 		for u in squad:
 			if not u.get("direct_controlled") == true and u.hp/u.max_hp<.65 and u.route.is_empty():
@@ -346,7 +361,9 @@ func plan_eastfront(squad:Array)->bool:
 		if u.pos().distance_to(game.objective)<.17:continue
 		if threats.any(func(e):return e.pos().distance_to(u.pos())<float(e.weapon_config().range)+.18):continue
 		if not u.route.is_empty():advanced=true;continue
-		var path:PackedVector2Array=game.field.path(u.pos(),game.objective)
+		var lane:float=(squad.find(u)-(squad.size()-1)*.5)*.10
+		var approach_goal:Vector2=game.objective+Vector2(0,lane)
+		var path:PackedVector2Array=game.field.path(u.pos(),approach_goal)
 		var goal:Vector2=u.pos();var length:float=0
 		for i in range(1,path.size()):
 			if threats.any(func(e):return e.pos().distance_to(path[i])<float(e.weapon_config().range)+.15):break
@@ -356,7 +373,7 @@ func plan_eastfront(squad:Array)->bool:
 			u.move_to(goal);u.order_mode="approach_column";u.tactical_role="advance";advanced=true
 	if advanced:
 		game.decisions.green={"action":"move","phase":"approach","reason":"无威胁通路连续推进，接敌后转交替掩护","source":"continuous_executor","tick":game.tick_id}
-	return advanced and not squad.any(func(u):return threats.any(func(e):return e.pos().distance_to(u.pos())<float(e.weapon_config().range)+.18))
+	return (advanced or threats.is_empty()) and not squad.any(func(u):return threats.any(func(e):return e.pos().distance_to(u.pos())<float(e.weapon_config().range)+.18))
 
 func flag_options(u) -> Array:
 	var output: Array=[]
@@ -392,7 +409,7 @@ func flag_options(u) -> Array:
 		if path.is_empty() or game.field.route_length(path)>stride+.32:continue
 		var exposure: float=game.field.route_exposure(path,threats)
 		if not urgent and exposure>(.28 if supporting or stalled else .12):continue
-		if game.living(u.faction).any(func(v):return v!=u and v.pos().distance_to(goal)<.065):continue
+		if game.living(u.faction).any(func(v):return v!=u and (v.pos().distance_to(goal)<.065 or (not v.route.is_empty() and v.goal.distance_to(goal)<.065))):continue
 		var remaining: float=game.field.route_length(game.field.path(goal,game.objective))
 		if remaining>=current_remaining-.025:continue # No oscillating side steps presented as progress.
 		var preference:float=0

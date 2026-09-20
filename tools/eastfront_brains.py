@@ -22,7 +22,14 @@ def validate_plan(value,allowed):
 class DualBrain:
     def __init__(self,state,lm):
         self.state=state;self.lm=lm;self.pool=concurrent.futures.ThreadPoolExecutor(max_workers=2,thread_name_prefix='eastfront-brain')
-        self.pending={};self.receipts={};self.plan_receipts={};self.plan_call=None;self.run='';self.plan={};self.submitted=set();self.next_fast=0;self.used={'slow':0,'fast':0};self.disabled=set();self.latest={};self.next_slow=0
+        self.pending={};self.receipts={};self.plan_receipts={};self.plan_call=None;self.plan_calls={};self.run='';self.plan={};self.submitted=set();self.next_fast=0;self.used={'slow':0,'fast':0};self.disabled=set();self.latest={};self.next_slow=0
+    def planning_request(self,front,request):
+        """Prepare the next batch while at least one fully planned battle remains."""
+        if request and request['index'] not in self.plan:return request
+        future=[i for i in self.plan if i>=front['active_sector']]
+        catalog=front.get('template_catalog',request.get('candidates',[]))
+        if not future or len(future)>2 or not catalog:return None
+        return {'index':max(future)+1,'candidates':catalog,'prefetch':True,'seed':front.get('seed',19)}
     def close(self):self.pool.shutdown(wait=False,cancel_futures=True)
     def invoke(self,kind,payload,cfg,call):
         log=self.lm.call_log;trace=lambda **d:log.update(call,**d);started=time.monotonic()
@@ -53,7 +60,7 @@ class DualBrain:
     def tick(self,s,instance,acks):
         now=time.monotonic();f=s.get('eastfront',{});r=f.get('request',{})
         if self.run!=s['run_id']:
-            self.run=s['run_id'];self.plan={};self.plan_receipts={};self.plan_call=None;self.submitted=set();self.next_fast=0;self.used={'slow':0,'fast':0};self.disabled=set();self.latest={};self.next_slow=0
+            self.run=s['run_id'];self.plan={};self.plan_receipts={};self.plan_call=None;self.plan_calls={};self.submitted=set();self.next_fast=0;self.used={'slow':0,'fast':0};self.disabled=set();self.latest={};self.next_slow=0
         for cid,call in list(self.receipts.items()):
             if cid in acks:
                 self.lm.call_log.update(call,phase='executed' if acks[cid]['accepted'] else 'rejected',receipt=acks[cid]);del self.receipts[cid]
@@ -76,7 +83,7 @@ class DualBrain:
                 value=task['future'].result()
                 if kind=='slow':
                     plan=validate_plan(value,task['key']['allowed']);start=task['key']['index']
-                    self.plan_call=call;self.plan={start+i:t for i,t in enumerate(plan['sectors'])};self.latest[kind]=dict(plan,start_index=start)
+                    self.plan_call=call;self.plan.update({start+i:t for i,t in enumerate(plan['sectors'])});self.plan_calls.update({start+i:call for i in range(3)});self.latest[kind]=dict(plan,start_index=start)
                     self.lm.call_log.update(call,phase='planned',decision=self.latest[kind])
                 else:
                     if task['key']!=f['active_sector'] or now-task['started']>6:raise ProviderError('stale_fast_directive')
@@ -92,17 +99,22 @@ class DualBrain:
                 if kind=='slow':self.next_slow=now+5
                 elif code in ('laya_http_429','laya_local_busy','laya_network_or_timeout','provider_http_429','provider_network_or_timeout'):self.next_fast=now+4
         if enabled:
+            self.plan={i:p for i,p in self.plan.items() if i>=f['active_sector']-1}
+            self.plan_calls={i:c for i,c in self.plan_calls.items() if i in self.plan}
             if r and r['index'] in self.plan and r['sequence'] not in self.submitted:
                 code,receipt=self.state.submit({'action':'eastfront_propose','sequence':r['sequence'],'template':self.plan[r['index']]['template'],'battle_plan':self.plan[r['index']],'provider':'deepseek_slow_plan','instance_id':instance,'run_id':s['run_id']})
                 if code==202:
-                    self.submitted.add(r['sequence']);self.plan_receipts[receipt['id']]={'call':self.plan_call,'sequence':r['sequence'],'index':r['index']}
+                    self.submitted.add(r['sequence']);self.plan_receipts[receipt['id']]={'call':self.plan_calls.get(r['index'],self.plan_call),'sequence':r['sequence'],'index':r['index']}
                 else:self.latest['slow_error']={'error':receipt.get('error','plan_queue_rejected')}
-            if r and r['index'] not in self.plan and now>=getattr(self,'next_slow',0):
-                cfg=self.lm.profiles.get('volcengine_ark',{});allowed=[x['id'] for x in r['candidates']]
-                context={'frontier':r,'recent':[{k:c.get(k) for k in ('index','template','phase')} for c in f['chunks']],'wave':f.get('wave',1),'squad':[{'hp':u['hp'],'weapon':u['weapon']} for u in s['units'] if u['faction']=='green' and u['hp']>0]}
+            planning=self.planning_request(f,r)
+            if planning and now>=getattr(self,'next_slow',0):
+                cfg=self.lm.profiles.get('volcengine_ark',{});allowed=[x['id'] for x in planning['candidates']]
+                recent={c['index']:{k:c.get(k) for k in ('index','template','phase')} for c in f['chunks']}
+                recent.update({i:{'index':i,'template':p['template'],'phase':'planned'} for i,p in self.plan.items() if i<planning['index'] and i not in recent})
+                context={'frontier':planning,'recent':[recent[i] for i in sorted(recent)][-3:],'wave':f.get('wave',1),'squad':[{'hp':u['hp'],'weapon':u['weapon']} for u in s['units'] if u['faction']=='green' and u['hp']>0]}
                 prompt='你是玩具兵无尽东线的慢脑战役规划师。输出未来三段可执行方案，不只是模板名字。每段选模板、2至3名守军武器与不同的掩体station(0/1/2)、defense(entrench/crossfire/fallback)、construction(balanced/north_first/south_first/dig_first/sandbag_first)、双方坦克是否出场/开战后延迟0至20游戏秒/战术role(support/push)。第一段必须安排双方坦克，绿色已有火箭手，红方需至少一名rocket反制。红军应据壕防守，不要在开阔地待机。三段模板不得重复，第一段不可重复recent末段。Godot拥有塑料骨骼士兵、现有坦克、可破坏沙包与浅壕工位；没有真实地下地形或任意生成的资产。严格返回JSON：{"strategy":"简短总体战术","sectors":[{"template":"候选ID","defenders":[{"weapon":"rifle","station":0},{"weapon":"rocket","station":2}],"defense":"entrench","construction":"dig_first","armor":{"green":{"enabled":true,"delay":2,"role":"support"},"red":{"enabled":true,"delay":4,"role":"support"}},"reason":"该段战术目的"},另外两段同结构]}。'
                 payload={'model':cfg.get('model',''),'messages':[{'role':'system','content':prompt},{'role':'user','content':json.dumps(context,ensure_ascii=False)}],'max_tokens':1600,'thinking':{'type':'disabled'},'response_format':{'type':'json_object'}}
-                self.launch('slow',s,payload,cfg,{'index':r['index'],'allowed':allowed})
+                self.launch('slow',s,payload,cfg,{'index':planning['index'],'allowed':allowed})
             if now>=self.next_fast:
                 self.next_fast=now+2
                 cfg=self.lm.profiles.get('laya' if f.get('backend')=='dual_brain_laya' else 'typesafe_jev',{})
@@ -114,4 +126,4 @@ class DualBrain:
                     from laya_client import frontier_payload
                     payload=frontier_payload(context,payload['questions'])
                 self.launch('fast',s,payload,cfg,f['active_sector'])
-        self.lm.frontier_status={'mode':f.get('backend','dual_brain'),'fast_provider':'laya' if f.get('backend')=='dual_brain_laya' else 'typesafe_jev','used':dict(self.used),'in_flight':list(self.pending),'latest':copy.deepcopy(self.latest),'disabled':sorted(self.disabled),'budgets':{'slow':64,'fast':300},'fast_interval_seconds':2}
+        self.lm.frontier_status={'mode':f.get('backend','dual_brain'),'fast_provider':'laya' if f.get('backend')=='dual_brain_laya' else 'typesafe_jev','used':dict(self.used),'in_flight':list(self.pending),'latest':copy.deepcopy(self.latest),'disabled':sorted(self.disabled),'budgets':{'slow':64,'fast':300},'fast_interval_seconds':2,'planned_sectors':sorted(self.plan),'planning_ahead':bool(self.pending.get('slow') and self.pending['slow']['key']['index']>f.get('active_sector',0))}

@@ -1,0 +1,988 @@
+{
+  "overlap": {
+    "run_id": "1789928474.962-3371970245",
+    "tick": 2943,
+    "paused": false,
+    "shots": 23,
+    "active_sector": 2,
+    "chunks": [
+      {
+        "battle_plan": {},
+        "construction": {},
+        "elapsed": 0.0,
+        "index": 0,
+        "phase": "cleared",
+        "source": "initial_camp",
+        "template": "camp",
+        "theme": "camp"
+      },
+      {
+        "battle_plan": {
+          "armor": {
+            "green": {
+              "delay": 0.0,
+              "enabled": true,
+              "role": "support"
+            },
+            "red": {
+              "delay": 3.0,
+              "enabled": true,
+              "role": "support"
+            }
+          },
+          "construction": "sandbag_first",
+          "defenders": [
+            {
+              "station": 0.0,
+              "weapon": "rifle"
+            },
+            {
+              "station": 1.0,
+              "weapon": "rocket"
+            }
+          ],
+          "defense": "entrench",
+          "reason": "绿军利用沙包工位保护步兵，火箭手在侧面反制红军坦克；红军坦克延迟出场以支援防线，避免过早暴露",
+          "template": "staggered"
+        },
+        "construction": {
+          "elapsed": 12.0,
+          "policy": "balanced",
+          "progress": 1.0,
+          "workers": [
+            {
+              "action": "stack_sandbag",
+              "bones": 50,
+              "job": -1,
+              "model": "toy-soldier.glb",
+              "position": [
+                2.57500004768372,
+                -0.319999992847443
+              ]
+            },
+            {
+              "action": "secure",
+              "bones": 50,
+              "job": -1,
+              "model": "toy-soldier.glb",
+              "position": [
+                2.3050000667572,
+                0.319999992847443
+              ]
+            }
+          ]
+        },
+        "elapsed": 12.0333333333335,
+        "index": 1,
+        "phase": "cleared",
+        "source": "deepseek_slow_plan",
+        "template": "staggered",
+        "theme": "meadow"
+      },
+      {
+        "battle_plan": {
+          "armor": {
+            "green": {
+              "delay": 5.0,
+              "enabled": true,
+              "role": "push"
+            },
+            "red": {
+              "delay": 8.0,
+              "enabled": true,
+              "role": "support"
+            }
+          },
+          "construction": "balanced",
+          "defenders": [
+            {
+              "station": 0.0,
+              "weapon": "smg"
+            },
+            {
+              "station": 2.0,
+              "weapon": "rocket"
+            }
+          ],
+          "defense": "crossfire",
+          "reason": "双翼交叉火力覆盖开阔区域，绿军坦克延迟推进至侧翼压制；红军坦克配合火箭手形成反装甲防线",
+          "template": "crossfire"
+        },
+        "construction": {
+          "elapsed": 12.1,
+          "policy": "dig_first",
+          "progress": 1.0,
+          "workers": [
+            {
+              "action": "stack_sandbag",
+              "bones": 50,
+              "job": -1,
+              "model": "toy-soldier.glb",
+              "position": [
+                3.75500011444092,
+                0.379999995231628
+              ]
+            },
+            {
+              "action": "secure",
+              "bones": 50,
+              "job": -1,
+              "model": "toy-soldier.glb",
+              "position": [
+                3.42499995231628,
+                -0.379999995231628
+              ]
+            }
+          ]
+        },
+        "elapsed": 12.0500000000002,
+        "index": 2,
+        "phase": "combat",
+        "source": "deepseek_slow_plan",
+        "template": "crossfire",
+        "theme": "dust"
+      },
+      {
+        "battle_plan": {
+          "armor": {
+            "green": {
+              "delay": 10.0,
+              "enabled": true,
+              "role": "push"
+            },
+            "red": {
+              "delay": 12.0,
+              "enabled": true,
+              "role": "support"
+            }
+          },
+          "construction": "north_first",
+          "defenders": [
+            {
+              "station": 1.0,
+              "weapon": "rifle"
+            },
+            {
+              "station": 0.0,
+              "weapon": "rocket"
+            }
+          ],
+          "defense": "fallback",
+          "reason": "绿军集中火力突破红军北翼，坦克延迟推进支援；红军利用火箭手和退守战术延缓突破，坦克在后支援",
+          "template": "breach"
+        },
+        "construction": {
+          "elapsed": 0.1,
+          "policy": "north_first",
+          "progress": 0.00925925925925926,
+          "workers": [
+            {
+              "action": "survey",
+              "bones": 50,
+              "job": 1,
+              "model": "toy-soldier.glb",
+              "position": [
+                5.17500019073486,
+                -0.310000002384186
+              ]
+            },
+            {
+              "action": "survey",
+              "bones": 50,
+              "job": 0,
+              "model": "toy-soldier.glb",
+              "position": [
+                4.84499979019165,
+                0.310000002384186
+              ]
+            }
+          ]
+        },
+        "elapsed": 0.0833333333333333,
+        "index": 3,
+        "phase": "building",
+        "source": "deepseek_slow_plan",
+        "template": "breach",
+        "theme": "ruins"
+      }
+    ],
+    "events": [
+      {
+        "data": {
+          "backend": "dual_brain_laya",
+          "seed": 19
+        },
+        "kind": "campaign_start",
+        "tick": 0,
+        "time": 0.0
+      },
+      {
+        "data": {
+          "backend": "dual_brain_laya",
+          "index": 1,
+          "sequence": 1
+        },
+        "kind": "generation_requested",
+        "tick": 0,
+        "time": 0.0
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 43,
+        "time": 0.7
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 168,
+        "time": 2.8
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 293,
+        "time": 4.9
+      },
+      {
+        "data": {
+          "index": 1,
+          "source": "deepseek_slow_plan",
+          "template": "staggered"
+        },
+        "kind": "construction_started",
+        "tick": 293,
+        "time": 4.9
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "balanced",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 416,
+        "time": 6.9
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "balanced",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 529,
+        "time": 8.8
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "balanced",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 658,
+        "time": 11.0
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "balanced",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 780,
+        "time": 13.0
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "balanced",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 905,
+        "time": 15.1
+      },
+      {
+        "data": {
+          "index": 1,
+          "navigation_revision": 2,
+          "source": "deepseek_slow_plan"
+        },
+        "kind": "chunk_committed",
+        "tick": 1015,
+        "time": 16.9
+      },
+      {
+        "data": {
+          "sector": 1,
+          "source": "deepseek_slow_plan",
+          "team": "green",
+          "unit": "green-tank-e1"
+        },
+        "kind": "armor_reserved",
+        "tick": 1015,
+        "time": 16.9
+      },
+      {
+        "data": {
+          "sector": 1,
+          "source": "deepseek_slow_plan",
+          "team": "red",
+          "unit": "red-tank-e1"
+        },
+        "kind": "armor_reserved",
+        "tick": 1015,
+        "time": 16.9
+      },
+      {
+        "data": {
+          "index": 1,
+          "objective": [
+            2.6800000667572,
+            0.0
+          ]
+        },
+        "kind": "sector_activated",
+        "tick": 1015,
+        "time": 16.9
+      },
+      {
+        "data": {
+          "backend": "dual_brain_laya",
+          "index": 2,
+          "sequence": 2
+        },
+        "kind": "generation_requested",
+        "tick": 1015,
+        "time": 16.9
+      },
+      {
+        "data": {
+          "role": "support",
+          "source": "laya_fast",
+          "unit": "green-tank-e1"
+        },
+        "kind": "armor_released",
+        "tick": 1042,
+        "time": 17.4
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "balanced",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 1042,
+        "time": 17.4
+      },
+      {
+        "data": {
+          "index": 2,
+          "source": "deepseek_slow_plan",
+          "template": "crossfire"
+        },
+        "kind": "construction_started",
+        "tick": 1042,
+        "time": 17.4
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "fallback",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 1168,
+        "time": 19.5
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "fallback",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 1281,
+        "time": 21.4
+      },
+      {
+        "data": {
+          "team": "green",
+          "unit": "green-tank-e1"
+        },
+        "kind": "armor_entered",
+        "tick": 1287,
+        "time": 21.4
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 1405,
+        "time": 23.4
+      },
+      {
+        "data": {
+          "index": 2,
+          "navigation_revision": 3,
+          "source": "deepseek_slow_plan"
+        },
+        "kind": "chunk_committed",
+        "tick": 1765,
+        "time": 29.4
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 1777,
+        "time": 29.6
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 1924,
+        "time": 32.1
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 2089,
+        "time": 34.8
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 2235,
+        "time": 37.2
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 2326,
+        "time": 38.8
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 2465,
+        "time": 41.1
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 2577,
+        "time": 42.9
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 2729,
+        "time": 45.5
+      },
+      {
+        "data": {
+          "armor": "deploy_green",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "intent": "advance",
+          "source": "laya_fast"
+        },
+        "kind": "fast_directive",
+        "tick": 2839,
+        "time": 47.3
+      },
+      {
+        "data": {
+          "index": 1,
+          "supply_hp": 30.0,
+          "survivors": 4
+        },
+        "kind": "sector_captured",
+        "tick": 2908,
+        "time": 48.5
+      },
+      {
+        "data": {
+          "index": 2,
+          "objective": [
+            4.13000011444092,
+            0.159999996423721
+          ]
+        },
+        "kind": "sector_activated",
+        "tick": 2908,
+        "time": 48.5
+      },
+      {
+        "data": {
+          "backend": "dual_brain_laya",
+          "index": 3,
+          "sequence": 3
+        },
+        "kind": "generation_requested",
+        "tick": 2908,
+        "time": 48.5
+      },
+      {
+        "data": {
+          "index": 3,
+          "source": "deepseek_slow_plan",
+          "template": "breach"
+        },
+        "kind": "construction_started",
+        "tick": 2938,
+        "time": 49.0
+      }
+    ],
+    "model": {
+      "mode": "dual_brain_laya",
+      "fast_provider": "laya",
+      "used": {
+        "slow": 1,
+        "fast": 23
+      },
+      "in_flight": [
+        "fast"
+      ],
+      "latest": {
+        "fast": {
+          "action": "eastfront_directive",
+          "sector": 1,
+          "intent": "advance",
+          "construction": "dig_first",
+          "defense": "entrench",
+          "armor": "deploy_green",
+          "provider": "laya_fast",
+          "accepted_for_queue": true
+        },
+        "slow": {
+          "sectors": [
+            {
+              "template": "staggered",
+              "defenders": [
+                {
+                  "weapon": "rifle",
+                  "station": 0
+                },
+                {
+                  "weapon": "rocket",
+                  "station": 1
+                }
+              ],
+              "defense": "entrench",
+              "construction": "sandbag_first",
+              "armor": {
+                "green": {
+                  "enabled": true,
+                  "delay": 0,
+                  "role": "support"
+                },
+                "red": {
+                  "enabled": true,
+                  "delay": 3,
+                  "role": "support"
+                }
+              },
+              "reason": "绿军利用沙包工位保护步兵，火箭手在侧面反制红军坦克；红军坦克延迟出场以支援防线，避免过早暴露"
+            },
+            {
+              "template": "crossfire",
+              "defenders": [
+                {
+                  "weapon": "smg",
+                  "station": 0
+                },
+                {
+                  "weapon": "rocket",
+                  "station": 2
+                }
+              ],
+              "defense": "crossfire",
+              "construction": "balanced",
+              "armor": {
+                "green": {
+                  "enabled": true,
+                  "delay": 5,
+                  "role": "push"
+                },
+                "red": {
+                  "enabled": true,
+                  "delay": 8,
+                  "role": "support"
+                }
+              },
+              "reason": "双翼交叉火力覆盖开阔区域，绿军坦克延迟推进至侧翼压制；红军坦克配合火箭手形成反装甲防线"
+            },
+            {
+              "template": "breach",
+              "defenders": [
+                {
+                  "weapon": "rifle",
+                  "station": 1
+                },
+                {
+                  "weapon": "rocket",
+                  "station": 0
+                }
+              ],
+              "defense": "fallback",
+              "construction": "north_first",
+              "armor": {
+                "green": {
+                  "enabled": true,
+                  "delay": 10,
+                  "role": "push"
+                },
+                "red": {
+                  "enabled": true,
+                  "delay": 12,
+                  "role": "support"
+                }
+              },
+              "reason": "绿军集中火力突破红军北翼，坦克延迟推进支援；红军利用火箭手和退守战术延缓突破，坦克在后支援"
+            }
+          ],
+          "strategy": "利用错列沙包防线消耗红军，坦克协同支援逐步推进",
+          "start_index": 1
+        }
+      },
+      "disabled": [],
+      "budgets": {
+        "slow": 64,
+        "fast": 300
+      },
+      "fast_interval_seconds": 2,
+      "planned_sectors": [
+        1,
+        2,
+        3
+      ],
+      "planning_ahead": false
+    }
+  },
+  "later": {
+    "run_id": "1789928474.962-3371970245",
+    "tick": 6909,
+    "paused": false,
+    "active_sector": 3,
+    "chunks": [
+      {
+        "index": 1,
+        "phase": "cleared",
+        "source": "deepseek_slow_plan",
+        "template": "staggered"
+      },
+      {
+        "index": 2,
+        "phase": "cleared",
+        "source": "deepseek_slow_plan",
+        "template": "crossfire"
+      },
+      {
+        "index": 3,
+        "phase": "combat",
+        "source": "deepseek_slow_plan",
+        "template": "breach"
+      },
+      {
+        "index": 4,
+        "phase": "ready",
+        "source": "deepseek_slow_plan",
+        "template": "trench_zigzag"
+      }
+    ],
+    "model": {
+      "mode": "dual_brain_laya",
+      "fast_provider": "laya",
+      "used": {
+        "slow": 2,
+        "fast": 44
+      },
+      "in_flight": [],
+      "latest": {
+        "fast": {
+          "error": "laya_http_429"
+        },
+        "slow": {
+          "sectors": [
+            {
+              "template": "trench_zigzag",
+              "defenders": [
+                {
+                  "weapon": "rifle",
+                  "station": 1
+                },
+                {
+                  "weapon": "rocket",
+                  "station": 2
+                }
+              ],
+              "defense": "entrench",
+              "construction": "dig_first",
+              "armor": {
+                "green": {
+                  "enabled": true,
+                  "delay": 0,
+                  "role": "push"
+                },
+                "red": {
+                  "enabled": true,
+                  "delay": 3,
+                  "role": "support"
+                }
+              },
+              "reason": "开局深挖战壕使绿方坦克无法直射，火箭手在station2（高地/后侧）获得俯角，利用牺牲步枪兵吸引火力，红方坦克延迟3秒后支援，形成错位杀伤"
+            },
+            {
+              "template": "supply_yard",
+              "defenders": [
+                {
+                  "weapon": "smg",
+                  "station": 0
+                },
+                {
+                  "weapon": "rocket",
+                  "station": 1
+                }
+              ],
+              "defense": "crossfire",
+              "construction": "sandbag_first",
+              "armor": {
+                "green": {
+                  "enabled": false,
+                  "delay": 0,
+                  "role": "push"
+                },
+                "red": {
+                  "enabled": false,
+                  "delay": 0,
+                  "role": "support"
+                }
+              },
+              "reason": "放弃坦克减轻指挥负担，利用整形沙包形成交叉射界，SMG在station0（前沿驻点）诱敌，火箭手在station1（侧翼沙包后）侧面伏击绿方步兵，延缓其夺取补给"
+            },
+            {
+              "template": "ridge_pass",
+              "defenders": [
+                {
+                  "weapon": "rifle",
+                  "station": 2
+                },
+                {
+                  "weapon": "rocket",
+                  "station": 0
+                }
+              ],
+              "defense": "fallback",
+              "construction": "south_first",
+              "armor": {
+                "green": {
+                  "enabled": true,
+                  "delay": 10,
+                  "role": "push"
+                },
+                "red": {
+                  "enabled": true,
+                  "delay": 15,
+                  "role": "support"
+                }
+              },
+              "reason": "窄口封锁采用逐步后撤战术，步枪兵在station2（高地掩体）监控，火箭手station0（路障后）隐蔽，待绿方坦克10秒后入场再后撤拉长战线，红方坦克15秒后从侧翼冲出包夹"
+            }
+          ],
+          "strategy": "利用曲折战壕迟滞绿方推进，以火箭手在隐蔽位反制坦克，再用补给站包围战扩大优势",
+          "start_index": 4
+        }
+      },
+      "disabled": [],
+      "budgets": {
+        "slow": 64,
+        "fast": 300
+      },
+      "fast_interval_seconds": 2,
+      "planned_sectors": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "planning_ahead": false
+    }
+  },
+  "contracts": [
+    {
+      "passed": true,
+      "test": "first sector construction starts"
+    },
+    {
+      "passed": true,
+      "test": "first sector still contested"
+    },
+    {
+      "passed": true,
+      "test": "requests eastern neighbor before expedition approaches edge"
+    },
+    {
+      "passed": true,
+      "test": "expedition remains far west during preconstruction request"
+    },
+    {
+      "passed": true,
+      "test": "next segment begins while current defenders alive"
+    },
+    {
+      "passed": true,
+      "test": "visible right-side construction and workers"
+    },
+    {
+      "passed": true,
+      "test": "unfinished next segment has no collision cover"
+    },
+    {
+      "passed": true,
+      "test": "construction progresses concurrently"
+    },
+    {
+      "passed": true,
+      "test": "construction does not reload pause or change combat goal"
+    },
+    {
+      "passed": true,
+      "test": "construction preserves current route and camera"
+    },
+    {
+      "passed": true,
+      "test": "future defenders do not join current combat"
+    },
+    {
+      "passed": true,
+      "test": "neighbor fully ready before current capture"
+    },
+    {
+      "passed": true,
+      "test": "next defenders remain visible reserves"
+    },
+    {
+      "passed": true,
+      "test": "neighbor commit leaves ongoing battle intact"
+    },
+    {
+      "passed": true,
+      "test": "one-sector preview prevents unbounded generation"
+    },
+    {
+      "passed": true,
+      "test": "capture immediately activates prepared neighbor"
+    },
+    {
+      "passed": true,
+      "test": "handoff has no reset or loading pause"
+    },
+    {
+      "passed": true,
+      "test": "handoff begins preparation of following neighbor"
+    }
+  ],
+  "stream": {
+    "checks": 312,
+    "cleared": 100,
+    "failures": [],
+    "kind": "streaming_contract_not_autonomous_combat",
+    "maximum_covers": 9,
+    "maximum_units": 9,
+    "passed": true,
+    "retired": 99
+  },
+  "same_run_and_advancing": true
+}

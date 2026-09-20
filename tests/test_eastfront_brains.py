@@ -74,3 +74,32 @@ class BrainsContract(unittest.TestCase):
    b.launch('fast',s.state,{}, {},1)
    self.assertEqual(b.used['fast'],1)
   finally:b.close();c.close()
+ def test_slow_brain_prefetches_before_current_batch_exhausted(self):
+  s=state();c=controller(s,lambda o:({},{}));b=DualBrain(s,c)
+  try:
+   f={'active_sector':1,'template_catalog':[{'id':'a'},{'id':'b'},{'id':'c'}]}
+   b.plan={i:{'template':t} for i,t in enumerate(['a','b','c'],1)}
+   self.assertIsNone(b.planning_request(f,{}))
+   f['active_sector']=2
+   self.assertEqual(b.planning_request(f,{})['index'],4)
+   self.assertTrue(b.planning_request(f,{})['prefetch'])
+   required={'index':2,'candidates':f['template_catalog'],'sequence':8}
+   b.plan.pop(2)
+   self.assertIs(b.planning_request(f,required),required)
+  finally:b.close();c.close()
+ def test_prefetched_batch_keeps_unconsumed_plans_and_call_origins(self):
+  from frontier_plan import campaign_plan
+  s=state();c=controller(s,lambda o:({},{}));b=DualBrain(s,c)
+  try:
+   s.state['eastfront']={'backend':'dual_brain_laya','active_sector':2,'chunks':[]}
+   b.run=s.state['run_id'];b.next_fast=time.monotonic()+60
+   b.plan={i:{'template':'old'} for i in range(1,4)};b.plan_calls={i:42 for i in range(1,4)}
+   call=c.call_log.start(unit_id='slow',run_id=b.run,model='test',request={})
+   def p(t):return {'template':t,'defenders':[{'weapon':'rifle','station':0},{'weapon':'rocket','station':2}],'defense':'entrench','construction':'dig_first','armor':{team:{'enabled':True,'delay':2,'role':'support'} for team in ('green','red')},'reason':'据壕'}
+   future=concurrent.futures.Future();future.set_result({'sectors':[p(t) for t in ['a','b','c']]})
+   b.pending['slow']={'future':future,'run':b.run,'call':call,'key':{'index':4,'allowed':['a','b','c']}}
+   b.tick(copy.deepcopy(s.state),None,{})
+   self.assertEqual(sorted(b.plan),[1,2,3,4,5,6]);self.assertEqual(b.plan[3]['template'],'old');self.assertEqual(b.plan_calls[4],call);self.assertEqual(b.plan_calls[3],42)
+   s.state['eastfront']['active_sector']=5;b.tick(copy.deepcopy(s.state),None,{})
+   self.assertEqual(sorted(b.plan),[4,5,6]);self.assertEqual(sorted(b.plan_calls),[4,5,6])
+  finally:b.close();c.close()

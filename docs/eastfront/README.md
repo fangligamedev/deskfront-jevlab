@@ -77,3 +77,5 @@ JEV 使用服务端 `TYPESAFE_API_KEY` 与 `TYPESAFE_MODEL`。页面可以直接
 [接口与状态](API.md) · [DeepSeek 优化说明](DEEPSEEK.md) · [交付与验收](DELIVERY.md)
 
 - [慢脑规划、双方装甲与塑料工兵交付](CAMPAIGN_PLANNING.md)
+
+- [边打边建与无加载衔接](CONTINUOUS_CONSTRUCTION.md)

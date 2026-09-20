@@ -234,8 +234,9 @@ func tick(dt:float):
    ch.construction.tick(dt)
    if ch.construction.completed:commit(ch)
  update_capture(dt);retire_old()
- var front:float=game.living("green").map(func(u):return u.pos().x).max()
- if request.is_empty() and not chunks.any(func(c):return c.phase=="building") and front>=game.config.bounds[2]-float(rules.lookahead):need_next()
+ # Keep one visible construction buffer east of the current fight. Soldier progress
+ # must not gate planning: a pinned squad still needs its next battlefield prepared.
+ if request.is_empty() and not chunks.any(func(c):return c.phase=="building"):need_next()
  if not request.is_empty():
   request.age+=dt/maxf(.1,game.speed)
   if backend in ["dual_brain","dual_brain_laya"]:return # Wait for a real executable slow plan; never relabel a seeded fallback.
@@ -287,4 +288,4 @@ func apply_directive(sector:int,intent:String,construction_policy:String,source:
  emit("fast_directive",{"intent":intent,"construction":construction_policy,"defense":defense,"armor":armor_order,"source":source});return "applied"
 func snapshot()->Dictionary:
  var r=request.duplicate(true)
- return {"armor":armor.snapshot(),"defense":defense,"defense_source":defense_source,"planning_wait":not request.is_empty() and backend in ["dual_brain","dual_brain_laya"],"recovering":recovering,"wave":wave,"reinforcement_in":maxf(0,reinforcement_due-logical) if reinforcement_due>=0 else 0,"directive":directive if logical<directive_until else "advance","directive_source":directive_source if logical<directive_until else "local_executor","enabled":true,"direction":"east","axis":"+x","seed":seed,"backend":backend,"cleared":cleared,"active_sector":active_sector,"hold_seconds":held,"follow":follow,"request":r,"recruits":recruits,"built":total_built,"retired":retired,"peak_chunks":peak_chunks,"max_chunks":rules.max_chunks,"chunks":chunks.map(func(c):return {"battle_plan":c.get("battle_plan",{}),"index":c.index,"phase":c.phase,"source":c.source,"template":c.template,"elapsed":c.elapsed,"theme":c.get("theme","camp"),"construction":c.construction.snapshot() if c.has("construction") else {}}),"events":history,"stopped":stopped}
+ return {"template_catalog":rules.templates.map(func(t):return {"id":t.id,"name":t.name}),"armor":armor.snapshot(),"defense":defense,"defense_source":defense_source,"planning_wait":not request.is_empty() and backend in ["dual_brain","dual_brain_laya"],"recovering":recovering,"wave":wave,"reinforcement_in":maxf(0,reinforcement_due-logical) if reinforcement_due>=0 else 0,"directive":directive if logical<directive_until else "advance","directive_source":directive_source if logical<directive_until else "local_executor","enabled":true,"direction":"east","axis":"+x","seed":seed,"backend":backend,"cleared":cleared,"active_sector":active_sector,"hold_seconds":held,"follow":follow,"request":r,"recruits":recruits,"built":total_built,"retired":retired,"peak_chunks":peak_chunks,"max_chunks":rules.max_chunks,"chunks":chunks.map(func(c):return {"battle_plan":c.get("battle_plan",{}),"index":c.index,"phase":c.phase,"source":c.source,"template":c.template,"elapsed":c.elapsed,"theme":c.get("theme","camp"),"construction":c.construction.snapshot() if c.has("construction") else {}}),"events":history,"stopped":stopped}

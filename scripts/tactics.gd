@@ -85,6 +85,7 @@ func stop_formation(team: String) -> void:
 	formations.erase(team)
 
 func plan(team: String) -> void:
+	if game.eastfront and team=="red" and game.eastfront.plan_defenders():return
 	if game.config.rules.get("mode","")=="center_flag":
 		for gun in game.at_guns:
 			if gun.faction==team and gun.crew_id!="" and gun.enemy_tank()==null and game.elapsed>30:gun.release("装甲威胁解除，返回旗点任务")
@@ -312,7 +313,7 @@ func plan_tank(tank) -> void:
 	for gun in game.at_guns:
 		if gun.faction!=tank.faction and gun.phase=="ready" and game.field.line_of_sight(gun.pos(),tank.pos()):rocket_distance=minf(rocket_distance,tank.pos().distance_to(gun.pos())*.5)
 	var retreat: bool=rocket_distance<game.config.tactics.tank_danger_range or tank.hp/tank.max_hp<.35
-	var desired: float=.78 if retreat else game.config.tactics.tank_preferred_range
+	var desired: float=.78 if retreat else (.50 if tank.armor_role=="push" else game.config.tactics.tank_preferred_range)
 	tank.safety_reason="anti_armor_threat" if retreat else ""
 	var distance: float=tank.pos().distance_to(target.pos())
 	if not retreat and distance>.36 and distance<.82 and game.field.line_of_sight(tank.pos(),target.pos()):

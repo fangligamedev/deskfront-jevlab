@@ -22,6 +22,13 @@ def validate_command(c, agent=False):
         if not isinstance(p,list) or len(p)!=2 or not all(type(x) in (int,float) and math.isfinite(x) for x in p):return 'invalid_position'
     if c['action']=='eastfront_start' and (c.get('backend','local') not in ('local','model','typesafe_jev','volcengine_ark','dual_brain','dual_brain_laya','laya') or c.get('mode','game_ai') not in ('game_ai','player','lm','agent') or type(c.get('seed',19)) is not int or not 0<=c.get('seed',19)<=2147483647):return 'invalid_eastfront_mode'
     if c['action']=='eastfront_propose' and (type(c.get('sequence')) is not int or not isinstance(c.get('template'),str) or len(c['template'])>40 or not isinstance(c.get('provider','external'),str) or len(c.get('provider','external'))>80):return 'invalid_eastfront_proposal'
+    if c['action']=='eastfront_propose' and 'battle_plan' in c:
+        from frontier_plan import sector_plan
+        try:
+            sector_plan(c['battle_plan'])
+            if c['battle_plan']['template']!=c.get('template'):return 'plan_template_mismatch'
+        except (ValueError,TypeError):return 'invalid_battle_plan'
+    if c['action']=='eastfront_directive' and (c.get('defense','entrench') not in ('entrench','crossfire','fallback') or c.get('armor','hold') not in ('hold','deploy_green','deploy_red','deploy_both')):return 'invalid_frontier_directive'
     if c['action']=='eastfront_directive' and (type(c.get('sector')) is not int or c.get('intent') not in ('advance','flank_north','flank_south','regroup') or c.get('construction') not in ('balanced','north_first','south_first','dig_first','sandbag_first') or not isinstance(c.get('provider','external'),str)):return 'invalid_frontier_directive'
     if c['action']=='eastfront_follow' and type(c.get('value')) is not bool:return 'invalid_follow'
     if c['action']=='demo_step' and (not isinstance(c.get('step_id'),str) or len(c['step_id'])>100):return 'invalid_demo_step'

@@ -29,10 +29,13 @@ var construction_policy:String="balanced"
 var recovering:Array=[]
 var aid_clock:float=0
 var aid_marker:Node3D
+var armor=preload("res://scripts/frontier_armor.gd").new()
+var defense:String="entrench"
+var defense_source:String="slow_plan"
 static func initial_level()->Dictionary:
  return {"id":"eastfront","name":"无尽东线 · 向东推进","bounds":[0,-.7,1.45,.7],"floor_color":"#b4b49a","spawns":[[.22,0],[.22,-.5],[1.15,0]],"objective":[1.1,0],"tank_spawn":[1.3,-.55],"objects":[],"at_guns":[]}
 func setup(g):
- game=g;backend=str(get_tree().get_meta("eastfront_backend","local"));seed=int(get_tree().get_meta("eastfront_seed",19))
+ game=g;armor.setup(self);backend=str(get_tree().get_meta("eastfront_backend","local"));seed=int(get_tree().get_meta("eastfront_seed",19))
  game.paused=false;game.config.rules.match_seconds=1e12;game.config.rules.hold_seconds=rules.hold_seconds;game.flag_objective.required_seconds=rules.hold_seconds
  game.office_root.hide();game.worker.hide()
  for root in [game.office_root,game.worker]:
@@ -75,7 +78,10 @@ func need_next():
  if next>cleared+2:return
  sequence+=1;request={"sequence":sequence,"index":next,"age":0.0,"candidates":rules.templates.map(func(t):return {"id":t.id,"name":t.name}),"seed":seed}
  emit("generation_requested",{"index":next,"sequence":sequence,"backend":backend})
-func propose(seq:int,template_id:String,source:String)->String:
+func propose(seq:int,template_id:String,source:String,battle_plan:Dictionary={})->String:
+ if not battle_plan.is_empty():
+  var error=preload("res://scripts/frontier_plan.gd").validate(battle_plan,template_id)
+  if error!="":return error
  if request.is_empty() or seq!=int(request.sequence):return "stale_frontier_request"
  var index:int=request.index
  var candidates=rules.templates.filter(func(t):return t.id==template_id)
@@ -83,12 +89,14 @@ func propose(seq:int,template_id:String,source:String)->String:
  if chunks.size()>1 and chunks[-1].template==template_id:return "repeated_frontier_template"
  var t:Dictionary=candidates[0];var specs:Array=[]
  for i in range(t.covers.size()):
-  var a=t.covers[i]
+  var a=t.covers[i].duplicate()
   if not a is Array or a.size()!=4 or not a.all(func(v):return (v is float or v is int) and is_finite(v)):return "invalid_component_bounds"
   if a[2]<=0 or a[3]<=0 or a[0]-a[2]/2<.12 or a[0]+a[2]/2>rules.width-.1:return "invalid_component_bounds"
+  # A firing bay must shield the whole miniature body, including at trench ends.
+  if not battle_plan.is_empty() and a[2]>a[3]:a[3]=maxf(a[3],.12)
   var x:float=index*float(rules.width)+float(a[0])
   if a[0]<.25 or a[0]>float(rules.width)-.2 or absf(a[1])+a[3]/2>rules.half_depth-.08:return "invalid_component_bounds"
-  var c={"id":"east-%d-cover-%d"%[index,i],"position":[x,a[1]],"size":[a[2],a[3]],"height":.06,"hp":100.0,"max_hp":100.0,"kind":"sandbag","alive":true,"normal":([-1,0] if a[2]<=a[3] else [0,-1]),"node":null,"damage_stage":"intact"}
+  var c={"id":"east-%d-cover-%d"%[index,i],"position":[x,a[1]],"size":[a[2],a[3]],"end_slots":true,"height":.06,"hp":100.0,"max_hp":100.0,"kind":"sandbag","alive":true,"normal":([-1,0] if a[2]<=a[3] else [0,-1]),"node":null,"damage_stage":"intact"}
   if game.living().any(func(u):return u.pos().distance_to(Vector2(x,a[1]))<.30):return "occupied_frontier"
   specs.append(c)
  var probe=SETTINGS.new();probe.config=game.config.duplicate(true);probe.config.bounds=[game.config.bounds[0],-rules.half_depth,(index+1)*float(rules.width),rules.half_depth];probe.base=Vector2(probe.config.bounds[0],-rules.half_depth);probe.cell=game.field.cell;probe.covers=game.field.covers+specs;probe.rebuild()
@@ -103,8 +111,8 @@ func propose(seq:int,template_id:String,source:String)->String:
  var root=tile(index,str(t.get("theme","meadow")))
  for c in specs:
   c.node=game.field.make_cover(c);c.node.reparent(root)
- var ch={"index":index,"phase":"building","node":root,"covers":specs,"units":[],"source":source,"elapsed":0.0,"template":template_id,"enemies":t.enemies,"theme":t.get("theme","meadow"),"objective_z":float(t.get("objective_z",0))}
- var construction=preload("res://scripts/frontier_construction.gd").new();root.add_child(construction);construction.setup(game,ch);construction.policy=construction_policy;ch["construction"]=construction
+ var ch={"battle_plan":battle_plan.duplicate(true),"index":index,"phase":"building","node":root,"covers":specs,"units":[],"source":source,"elapsed":0.0,"template":template_id,"enemies":t.enemies,"theme":t.get("theme","meadow"),"objective_z":float(t.get("objective_z",0))}
+ var construction=preload("res://scripts/frontier_construction.gd").new();root.add_child(construction);construction.setup(game,ch);construction.policy=battle_plan.get("construction",construction_policy);ch["construction"]=construction
  chunks.append(ch);peak_chunks=maxi(peak_chunks,chunks.size());request.clear();emit("construction_started",{"index":index,"source":source,"template":template_id});return "applied"
 func commit(ch:Dictionary):
  # Physics and navigation are activated only when construction visibly completes.
@@ -114,8 +122,12 @@ func commit(ch:Dictionary):
  for w in ch.construction.workers:w.node.hide()
  ch.phase="ready";total_built+=1
  game.config.bounds[2]=(ch.index+1)*float(rules.width);game.field.config=game.config;game.field.rebuild()
- for i in range(ch.enemies.size()):
-  var a:Array=ch.enemies[i];var u=game.spawn_unit("red-e%d-%d"%[ch.index,i],"red",Vector2(ch.index*float(rules.width)+a[0],a[1]));u.equip(a[2]);u.hp=minf(u.max_hp,float(rules.defender_hp)+minf(ch.index/3.0,20));u.deployment_phase="parked";u.order_mode="reserve";ch.units.append(u.id)
+ var defenders:Array=ch.enemies if ch.battle_plan.is_empty() else ch.battle_plan.defenders
+ for i in range(defenders.size()):
+  var a:Array=ch.enemies[i%ch.enemies.size()].duplicate()
+  if not ch.battle_plan.is_empty():
+   a[2]=defenders[i].weapon;a[0]=float(rules.width)-.15;a[1]=(int(defenders[i].station)-1)*.20
+  var u=game.spawn_unit("red-e%d-%d"%[ch.index,i],"red",Vector2(ch.index*float(rules.width)+a[0],a[1]));u.equip(a[2]);u.hp=minf(u.max_hp,float(rules.defender_hp)+minf(ch.index/3.0,20));u.deployment_phase="parked";u.order_mode="reserve";ch.units.append(u.id)
  emit("chunk_committed",{"index":ch.index,"source":ch.source,"navigation_revision":game.field.revision});activate()
 func activate():
  for ch in chunks:
@@ -128,7 +140,43 @@ func activate():
   game.flag_objective.holder="";game.flag_objective.held_seconds=0;game.flag_objective.capture_epoch+=1
   game.tactics_ai.squads.clear();game.tactics_ai.formations.clear();game.tactics_ai.flag_hints.clear();game.tactics_ai.flag_distance.clear();game.tactics_ai.flag_progress.clear();held=0
   game.flag_banner.position.x=game.objective.x+.055;game.flag_pole.position.x=game.objective.x;game.flag_banner.position.z=game.objective.y;game.flag_pole.position.z=game.objective.y
+  if not ch.battle_plan.is_empty():defense=ch.battle_plan.defense;defense_source="slow_plan"
+  armor.prepare(ch)
+  assign_defenders(ch)
   emit("sector_activated",{"index":ch.index,"objective":[game.objective.x,game.objective.y]})
+func assign_defenders(ch:Dictionary):
+ if ch.get("battle_plan",{}).is_empty():return
+ var threat:=Vector2(ch.index*float(rules.width)-.2,0)
+ for i in range(ch.units.size()):
+  var found=game.units.filter(func(u):return u.id==ch.units[i] and u.hp>0 and not u.tank)
+  if found.is_empty():continue
+  var u=found[0];var row=ch.battle_plan.defenders[i];var c=ch.covers[int(row.station)]
+  var goal=Vector2(c.position[0]+.10,c.position[1])
+  if u.seek_cover(threat,goal,{"cover_id":c.id,"max_travel":1.8,"range":u.weapon_config().range}):
+   u.order_mode="take_cover";u.tactical_role="overwatch"
+func plan_defenders()->bool:
+ var current=chunks.filter(func(ch):return ch.index==active_sector and not ch.get("battle_plan",{}).is_empty() and ch.phase=="combat")
+ if current.is_empty():return false
+ var ch:Dictionary=current[0]
+ for i in range(ch.units.size()):
+  var found=game.living("red").filter(func(u):return u.id==ch.units[i] and not u.tank)
+  if found.is_empty():continue
+  var u=found[0]
+  if u.direct_controlled or game.elapsed<u.safety_until or u.suppression>.72:continue
+  if not u.route.is_empty():continue
+  var chosen=ch.covers[int(ch.battle_plan.defenders[i].station)]
+  if defense=="fallback":chosen=ch.covers[-1]
+  if u.in_cover() and u.cover_id==chosen.id: u.order_mode="overwatch";continue
+  var threat=game.closest_enemy(u)
+  var danger:Vector2=threat.pos() if threat else Vector2(ch.index*float(rules.width)-.2,0)
+  var goal=Vector2(chosen.position[0]+.1,chosen.position[1])
+  var options={"cover_id":chosen.id,"max_travel":1.8,"range":u.weapon_config().range}
+  if not u.seek_cover(danger,goal,options):
+   options.erase("cover_id");u.seek_cover(danger,u.pos(),options)
+  u.order_mode="take_cover" if not u.route.is_empty() else "overwatch";u.tactical_role="overwatch"
+ for tank in game.living("red").filter(func(u):return u.tank):game.tactics_ai.plan_tank(tank)
+ game.decisions.red={"action":"cover","source":defense_source,"reason":"守军按慢脑站位分工据壕，快脑选择 "+defense,"tick":game.tick_id}
+ return true
 func update_capture(dt:float):
  var ready:bool=chunks.any(func(c):return c.index==active_sector and c.phase=="combat")
  if not ready:return
@@ -143,7 +191,7 @@ func update_capture(dt:float):
  for u in game.living("green"):
   u.hp=minf(u.max_hp,u.hp+float(rules.heal_per_sector));u.ammo=int(u.weapon_config().magazine);u.grenade_count=2
  # Casualties stay dead. A newly identified recruit walks in from the secured rear.
- if game.living("green").size()<3:
+ if game.living("green").filter(func(u):return not u.tank).size()<3:
   var rear=Vector2(cleared*float(rules.width)+.18,0)
   if game.field.walkable(rear):
    recruits+=1
@@ -154,7 +202,7 @@ func update_capture(dt:float):
 func retire_old():
  while chunks.size()>2:
   var ch:Dictionary=chunks[0];var edge:float=(ch.index+1)*float(rules.width)
-  if ch.index>=cleared-1 or game.units.any(func(u):return u.hp>0 and u.deployment_phase=="active" and u.faction=="green" and u.pos().x<edge+.12):break
+  if ch.index>=cleared-1 or game.units.any(func(u):return u.hp>0 and u.faction=="green" and u.pos().x<edge+.12):break
   # Rear enemies outside the expedition window disengage; do not count them as kills.
   if game.living("red").any(func(u):return u.pos().x<edge and game.living("green").any(func(v):return v.pos().distance_to(u.pos())<float(u.weapon_config().range)+.12)):break
   var disengaged=game.living("red").filter(func(u):return u.pos().x<edge).map(func(u):return u.id)
@@ -170,8 +218,9 @@ func retire_old():
 func tick(dt:float):
  if stopped:return
  logical+=dt
+ armor.prune()
  update_aid(dt)
- if game.living("green").is_empty():
+ if game.living("green").filter(func(u):return not u.tank).is_empty():
   if reinforcement_due<0:reinforcement_due=logical+float(rules.get("reinforcement_seconds",5));emit("wave_requested",{"wave":wave+1})
   if logical>=reinforcement_due:deploy_wave()
  else:reinforcement_due=-1
@@ -189,6 +238,7 @@ func tick(dt:float):
  if request.is_empty() and not chunks.any(func(c):return c.phase=="building") and front>=game.config.bounds[2]-float(rules.lookahead):need_next()
  if not request.is_empty():
   request.age+=dt/maxf(.1,game.speed)
+  if backend in ["dual_brain","dual_brain_laya"]:return # Wait for a real executable slow plan; never relabel a seeded fallback.
   if (backend=="local" and request.age>=0) or request.age>=float(rules.model_deadline_seconds):
    var reason="local_seeded" if backend=="local" else "local_timeout_fallback"
    var offset=posmod(seed+int(request.index),rules.templates.size())
@@ -204,7 +254,7 @@ func update_aid(dt:float):
  aid_marker.position=Vector3(rear,game.field.height+.004,0)
  aid_clock-=dt
  for u in game.living("green"):
-  if u.get("direct_controlled") == true:continue
+  if u.get("direct_controlled") == true or u.tank:continue
   if u.hp/u.max_hp<.40 and not recovering.has(u.id):recovering.append(u.id);emit("aid_withdraw",{"unit":u.id})
   if not recovering.has(u.id):continue
   var station=Vector2(rear,clampf(u.pos().y,-.25,.25))
@@ -226,13 +276,15 @@ func deploy_wave():
   var u=game.spawn_unit("green-wave-%d-%d"%[wave,i],"green",spawn);u.equip(["rifle","smg","rocket"][i]);u.order_mode="reinforce"
  game.tactics_ai.squads.erase("green");game.tactics_ai.flag_next.erase("green")
  emit("wave_deployed",{"wave":wave,"from_x":rear,"units":game.living("green").map(func(u):return u.id)})
-func apply_directive(sector:int,intent:String,construction_policy:String,source:String)->String:
+func apply_directive(sector:int,intent:String,construction_policy:String,source:String,defense_order:String="entrench",armor_order:String="hold")->String:
  if sector!=active_sector:return "stale_frontier_directive"
  if intent not in ["advance","flank_north","flank_south","regroup"] or construction_policy not in ["balanced","north_first","south_first","dig_first","sandbag_first"]:return "invalid_frontier_directive"
- directive=intent;directive_until=logical+5;directive_source=source;self.construction_policy=construction_policy
+ if defense_order not in ["entrench","crossfire","fallback"] or armor_order not in ["hold","deploy_green","deploy_red","deploy_both"]:return "invalid_frontier_directive"
+ defense=defense_order;defense_source=source;armor.release(armor_order,source)
+ directive=intent;directive_until=logical+maxf(5,game.speed*4);directive_source=source;self.construction_policy=construction_policy
  for ch in chunks:
   if ch.phase=="building":ch.construction.policy=construction_policy
- emit("fast_directive",{"intent":intent,"construction":construction_policy,"source":source});return "applied"
+ emit("fast_directive",{"intent":intent,"construction":construction_policy,"defense":defense,"armor":armor_order,"source":source});return "applied"
 func snapshot()->Dictionary:
  var r=request.duplicate(true)
- return {"recovering":recovering,"wave":wave,"reinforcement_in":maxf(0,reinforcement_due-logical) if reinforcement_due>=0 else 0,"directive":directive if logical<directive_until else "advance","directive_source":directive_source if logical<directive_until else "local_executor","enabled":true,"direction":"east","axis":"+x","seed":seed,"backend":backend,"cleared":cleared,"active_sector":active_sector,"hold_seconds":held,"follow":follow,"request":r,"recruits":recruits,"built":total_built,"retired":retired,"peak_chunks":peak_chunks,"max_chunks":rules.max_chunks,"chunks":chunks.map(func(c):return {"index":c.index,"phase":c.phase,"source":c.source,"template":c.template,"elapsed":c.elapsed,"theme":c.get("theme","camp"),"construction":c.construction.snapshot() if c.has("construction") else {}}),"events":history,"stopped":stopped}
+ return {"armor":armor.snapshot(),"defense":defense,"defense_source":defense_source,"planning_wait":not request.is_empty() and backend in ["dual_brain","dual_brain_laya"],"recovering":recovering,"wave":wave,"reinforcement_in":maxf(0,reinforcement_due-logical) if reinforcement_due>=0 else 0,"directive":directive if logical<directive_until else "advance","directive_source":directive_source if logical<directive_until else "local_executor","enabled":true,"direction":"east","axis":"+x","seed":seed,"backend":backend,"cleared":cleared,"active_sector":active_sector,"hold_seconds":held,"follow":follow,"request":r,"recruits":recruits,"built":total_built,"retired":retired,"peak_chunks":peak_chunks,"max_chunks":rules.max_chunks,"chunks":chunks.map(func(c):return {"battle_plan":c.get("battle_plan",{}),"index":c.index,"phase":c.phase,"source":c.source,"template":c.template,"elapsed":c.elapsed,"theme":c.get("theme","camp"),"construction":c.construction.snapshot() if c.has("construction") else {}}),"events":history,"stopped":stopped}

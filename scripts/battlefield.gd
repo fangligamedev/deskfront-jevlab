@@ -233,6 +233,14 @@ func slots(c: Dictionary) -> Array:
 	for side in [-1,1]:
 		for i in range(3):
 			result.append({"key":c.id+"_"+str(side)+"_"+str(i),"position":center+normal*(depth/2+.035)*side+tangent*(i-1)*.054,"normal":-normal*side,"cover_id":c.id,"peek":center+normal*(depth/2+.035)*side+tangent*(i-1)*.054,"hard":false})
+	# Eastern-front trench ends can also shelter a defender from west/east fire.
+	# Candidates still pass the same four-corner occlusion and swept-route tests.
+	if c.get("end_slots",false):
+		var end_normal=Vector2(-normal.y,normal.x)
+		var end_depth:float=c.size[0] if end_normal.x!=0 else c.size[1]
+		for side in [-1,1]:
+			var rest=center+end_normal*(end_depth/2+.035)*side
+			result.append({"key":c.id+"_end_"+str(side),"position":rest,"normal":-end_normal*side,"cover_id":c.id,"peek":rest,"hard":false})
 	slot_cache[c.id]=result
 	return result
 
@@ -244,7 +252,7 @@ func choose_cover(id: String, from: Vector2, threat: Vector2, goal: Vector2, opt
 	var threats: Array=options.get("threats",[threat])
 	var max_travel: float=options.get("max_travel",.70)
 	for c in covers:
-		if not c.alive:continue
+		if not c.alive or (options.has("cover_id") and c.id!=options.cover_id):continue
 		for s in slots(c):
 			if reservations.has(s.key) and reservations[s.key]!=id:continue
 			if float(unavailable_until.get(id+":"+s.key,0))>simulation_time:continue

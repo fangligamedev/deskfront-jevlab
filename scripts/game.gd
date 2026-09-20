@@ -379,10 +379,10 @@ func command(c: Dictionary) -> Dictionary:
 		var result=ack(c,true,"eastfront_loading");get_tree().call_deferred("reload_current_scene");return result
 	if action=="eastfront_propose":
 		if not eastfront:return ack(c,false,"eastfront_not_active")
-		var result=eastfront.propose(int(c.get("sequence",-1)),str(c.get("template","")),str(c.get("provider","external")));return ack(c,result=="applied",result)
+		var result=eastfront.propose(int(c.get("sequence",-1)),str(c.get("template","")),str(c.get("provider","external")),c.get("battle_plan",{}));return ack(c,result=="applied",result)
 	if action=="eastfront_directive":
 		if not eastfront:return ack(c,false,"eastfront_not_active")
-		var result=eastfront.apply_directive(int(c.get("sector",-1)),str(c.get("intent","")),str(c.get("construction","")),str(c.get("provider","external")));return ack(c,result=="applied",result)
+		var result=eastfront.apply_directive(int(c.get("sector",-1)),str(c.get("intent","")),str(c.get("construction","")),str(c.get("provider","external")),str(c.get("defense","entrench")),str(c.get("armor","hold")));return ack(c,result=="applied",result)
 	if action=="eastfront_follow":
 		if not eastfront:return ack(c,false,"eastfront_not_active")
 		eastfront.follow=bool(c.get("value",true));return ack(c,true,"applied")

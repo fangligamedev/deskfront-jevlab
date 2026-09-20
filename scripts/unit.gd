@@ -82,6 +82,8 @@ var no_progress_seconds: float=0
 var path_repairs: int=0
 var path_failure: String=""
 var previous_hull_yaw: float=0
+var armor_role:String="support"
+var deployment_route:PackedVector2Array=[]
 var deployment_phase: String="active"
 var deployment_goal:=Vector2.ZERO
 var track_clip: String="TankArmature|Tank_Forward"
@@ -345,6 +347,18 @@ func hit(amount: float, pressure: float, origin:Vector3=Vector3.INF, impulse:flo
 
 func deployment_tick(dt: float) -> void:
 	if deployment_phase!="entering":return
+	if game.eastfront:
+		if deployment_route.is_empty():deployment_route=game.field.path(pos(),deployment_goal,true)
+		while not deployment_route.is_empty() and pos().distance_to(deployment_route[0])<.006:deployment_route.remove_at(0)
+		if not deployment_route.is_empty():
+			var waypoint:Vector2=deployment_route[0]
+			if not game.field.segment_walkable(pos(),waypoint,true):deployment_route.clear();return
+			rotation.y=rotate_toward(rotation.y,atan2(-(waypoint-pos()).x,-(waypoint-pos()).y),1.2*dt)
+			var next:Vector2=pos().move_toward(waypoint,float(game.config.tank.get("deployment_speed",.06))*dt)
+			position=Vector3(next.x,game.field.ground_height(next),next.y);state="move";locomotion="tracks";return
+		if pos().distance_to(deployment_goal)>.015:return
+		deployment_phase="active";goal=pos();state="idle";cooldown=1.0
+		game.eastfront.emit("armor_entered",{"unit":id,"team":faction});return
 	var direction: Vector2=deployment_goal-pos()
 	rotation.y=rotate_toward(rotation.y,atan2(-direction.x,-direction.y),1.2*dt)
 	var next: Vector2=pos().move_toward(deployment_goal,float(game.config.tank.get("deployment_speed",.06))*dt)
@@ -501,7 +515,7 @@ func snapshot() -> Dictionary:
 			var distance: float=pos().distance_to(enemy.pos())
 			if distance<weapon_config().range and can_engage(enemy):combat.engageable_targets.append(enemy.id)
 			if distance<enemy.weapon_config().range and enemy.can_engage(self):combat.incoming_threats.append(enemy.id)
-	return {"direct_controlled":direct_controlled,"deployment_phase":deployment_phase,"combat_ready":deployment_phase=="active","combat":combat,"gun_id":gun_id,"building_phase":garrison_phase,"building_floor":garrison_floor,"elevation":position.y-game.field.height,"lm_intent":lm_intent,"lm_reason":lm_reason,"path_repairs":path_repairs,"path_failure":path_failure,"posture":posture,"locomotion":locomotion,"weapon_state":weapon_state,"posture_order":posture_order,"survival_reason":safety_reason if game.elapsed<safety_until else "","last_shot_at":last_shot_at,"last_shot_target":last_shot_target,"action_counts":action_counts,"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed,"grenades":grenade_count,"available_actions":available_actions(),"asset_animation":actor.clip if actor else track_clip,"root_distance":actor.roots_travelled if actor else 0,"movement_speed":actor.actual_speed if actor else 0,"animation_rate":actor.root_speed if actor else 0,"ground_correction":actor.ground_correction if actor else 0,"cover_step":actor.stepping if actor else false,"contact_slip_max":actor.contact_slip_max if actor else 0}
+	return {"direct_controlled":direct_controlled,"deployment_phase":deployment_phase,"combat_ready":deployment_phase=="active","armor_role":armor_role if tank else "","combat":combat,"gun_id":gun_id,"building_phase":garrison_phase,"building_floor":garrison_floor,"elevation":position.y-game.field.height,"lm_intent":lm_intent,"lm_reason":lm_reason,"path_repairs":path_repairs,"path_failure":path_failure,"posture":posture,"locomotion":locomotion,"weapon_state":weapon_state,"posture_order":posture_order,"survival_reason":safety_reason if game.elapsed<safety_until else "","last_shot_at":last_shot_at,"last_shot_target":last_shot_target,"action_counts":action_counts,"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed,"grenades":grenade_count,"available_actions":available_actions(),"asset_animation":actor.clip if actor else track_clip,"root_distance":actor.roots_travelled if actor else 0,"movement_speed":actor.actual_speed if actor else 0,"animation_rate":actor.root_speed if actor else 0,"ground_correction":actor.ground_correction if actor else 0,"cover_step":actor.stepping if actor else false,"contact_slip_max":actor.contact_slip_max if actor else 0}
 
 func presentation_tick(dt:float) -> void:
 	if actor and not actor.stepping and posture=="prone" and actor.clip=="cover_idle":animate("reload" if reload_timer>0 else "aim")

@@ -65,6 +65,8 @@ def main():
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/motion_continuity.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/semantic_probe.tscn'])
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/eastfront_probe.tscn'])
+        for layout in ['staggered','crossfire','breach','trench_zigzag','supply_yard','ridge_pass']:
+            run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/frontier_campaign_contract.gd','--',layout])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/eastfront_stream_contract.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/integration_probe.tscn'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/asset_probe.gd'])

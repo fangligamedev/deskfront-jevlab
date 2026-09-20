@@ -62,8 +62,8 @@ def frontier_payload(context,questions):
     state={'game':'Toy RTS. East is +x. Survive and advance. Workers build upcoming cover.',
            'sector':context.get('sector',context.get('frontier',{}).get('index')),'units':rows,
            'recent':[c.get('template') for c in context.get('recent_sectors',[])][-3:],
-           'construction':[{'index':c['index'],'progress':c.get('construction',{}).get('progress',0)} for c in context.get('construction',[])],
-           'strategy':context.get('strategy',{}).get('sectors',[])}
+           'construction':[{'index':c['index'],'progress':c.get('construction',{}).get('progress',0),'planned_policy':c.get('plan',{}).get('construction','balanced')} for c in context.get('construction',[])],
+           'plan':{k:v for k,v in context.get('active_plan',{}).items() if k in ('template','defenders','defense','construction')},'armor':[{k:a[k] for k in ('team','phase','ready','role') if k in a} for a in context.get('armor',[])],'defense':context.get('defense','entrench')}
     return {'allow_truncation':False,'state':rounded(state),'questions':questions}
 
 

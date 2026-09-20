@@ -1,5 +1,5 @@
 extends Node3D
-## Original articulated toy engineers. Visual work follows authoritative construction jobs.
+## Existing skinned plastic soldiers working as engineers. Visual work follows authoritative construction jobs.
 var game
 var chunk:Dictionary
 var jobs:Array=[]
@@ -14,30 +14,20 @@ func setup(g,ch:Dictionary):
  game=g;chunk=ch
  for c in ch.covers:
   for child in c.node.get_children():if child is Node3D:child.visible=false
-  var site=Node3D.new();add_child(site);site.position=Vector3(c.position[0]-.085,game.field.height+.002,c.position[1])
+  var site=Node3D.new();add_child(site);site.position=Vector3(c.position[0]+.085,game.field.height+.002,c.position[1])
   var bed=box(site,Vector3.ZERO,Vector3(.10,.002,c.size[1]+.08),"#544a38");bed.scale.z=.02
   var dirt=box(site,Vector3(-.06,.009,0),Vector3(.035,.018,c.size[1]+.1),"#88724d");dirt.scale.y=.05
   jobs.append({"cover":c,"progress":0.0,"worker":-1,"bed":bed,"dirt":dirt})
  work_seconds=maxf(2.0,float(game.eastfront.rules.build_seconds)/ceilf(jobs.size()/2.0))
  for i in range(2):
   var w=Node3D.new();add_child(w)
-  var torso=Node3D.new();w.add_child(torso);torso.position.y=.063
-  box(torso,Vector3.ZERO,Vector3(.035,.043,.025),"#975b43")
-  box(torso,Vector3(0,.036,0),Vector3(.036,.022,.031),"#b97c55")
-  box(torso,Vector3(0,.049,0),Vector3(.045,.012,.037),"#684b37")
-  var limbs:Array=[]
-  for side in [-1,1]:
-   var arm=Node3D.new();torso.add_child(arm);arm.position=Vector3(side*.024,.012,0)
-   box(arm,Vector3(0,-.02,0),Vector3(.014,.045,.014),"#975b43");limbs.append(arm)
-  var shovel=Node3D.new();limbs[1].add_child(shovel);shovel.position=Vector3(0,-.034,0)
-  box(shovel,Vector3(0,-.025,0),Vector3(.006,.06,.006),"#b49a64")
+  var actor=preload("res://scripts/toy_actor.gd").new();w.add_child(actor);actor.setup(game.colors.red,"rifle")
+  actor.collision_layer=0;actor.collision_mask=0;actor.weapon.hide()
+  var shovel=Node3D.new();w.add_child(shovel);shovel.position=Vector3(.015,.065,-.035)
+  box(shovel,Vector3(0,-.025,0),Vector3(.004,.075,.004),"#b49a64")
   box(shovel,Vector3(0,-.064,0),Vector3(.025,.025,.005),"#525c56")
-  var bag=box(w,Vector3(0,.072,-.025),Vector3(.05,.025,.028),"#b5a47b")
-  var legs:Array=[]
-  for side in [-1,1]:
-   var leg=Node3D.new();w.add_child(leg);leg.position=Vector3(side*.011,.044,0)
-   box(leg,Vector3(0,-.019,0),Vector3(.016,.041,.017),"#6a5b41");legs.append(leg)
-  workers.append({"node":w,"torso":torso,"arms":limbs,"legs":legs,"shovel":shovel,"bag":bag,"job":-1,"state":"survey"})
+  var bag=box(w,Vector3(0,.072,-.03),Vector3(.05,.025,.028),"#b5a47b")
+  workers.append({"node":w,"actor":actor,"shovel":shovel,"bag":bag,"job":-1,"state":"survey"})
  var stock=Node3D.new();add_child(stock);stock.position=Vector3((ch.index+1)*float(game.eastfront.rules.width)-.14,game.field.height,.48)
  for i in range(8):box(stock,Vector3((i%2)*.036,(i/4)*.02,(i%4)*.025),Vector3(.036,.019,.025),"#b5a47b")
 func choose_job()->int:
@@ -59,7 +49,7 @@ func tick(dt:float):
    w.job=selected;jobs[selected].worker=wi
   var job:Dictionary=jobs[w.job];var before:float=job.progress;job.progress=minf(1,job.progress+dt/work_seconds)
   var p:float=job.progress;var c:Dictionary=job.cover
-  var site=Vector3(c.position[0]-.095,game.field.height,c.position[1])
+  var site=Vector3(c.position[0]+.095,game.field.height,c.position[1])
   var stock=Vector3((chunk.index+1)*float(game.eastfront.rules.width)-.14,game.field.height,.48)
   w.state="survey" if p<.12 else "dig" if p<.40 else "carry_sandbag" if p<.75 else "stack_sandbag"
   w.node.visible=true;w.node.position=site
@@ -71,10 +61,18 @@ func tick(dt:float):
    if direction.length()>.001:w.node.rotation.y=atan2(-direction.x,-direction.z)
   else:w.node.rotation.y=-PI/2
   w.bag.visible=p>=.575 and p<1;w.shovel.visible=w.state=="dig"
-  var gait:float=sin(elapsed*15+wi)*.55 if w.state=="carry_sandbag" else 0.0
-  w.legs[0].rotation.x=gait;w.legs[1].rotation.x=-gait
-  w.torso.rotation.x=.30+sin(elapsed*8)*.2 if w.state=="dig" else .32 if w.state=="stack_sandbag" else 0.0
-  for arm in w.arms:arm.rotation.x=-.8+sin(elapsed*8)*.5 if w.state=="dig" else -1.1 if w.bag.visible else 0.0
+  # Reuse the production skinned plastic soldier. Tools are gripped through its arm IK.
+  var actor=w.actor
+  actor.play("rifle_jog_rm" if w.state=="carry_sandbag" else "cover_idle" if w.state in ["dig","stack_sandbag"] else "rifle_idle")
+  actor.drive_speed=.25 if w.state=="carry_sandbag" else 0.0
+  actor.contact_blend=1.0;actor._physics_process(dt);actor.weapon.hide()
+  if w.state=="dig":
+   w.shovel.rotation.x=sin(elapsed*8)*.45
+   actor.grip_handle("Right",w.shovel.to_global(Vector3(0,.005,0)))
+   actor.grip_handle("Left",w.shovel.to_global(Vector3(0,-.020,0)))
+  elif w.bag.visible:
+   actor.grip_handle("Right",w.bag.to_global(Vector3(.021,0,0)))
+   actor.grip_handle("Left",w.bag.to_global(Vector3(-.021,0,0)))
   job.bed.scale.z=clampf((p-.12)/.28,.02,1);job.dirt.scale.y=clampf((p-.12)/.28,.05,1)
   var visible_count:int=int(clampf((p-.75)/.25,0,1)*11)
   var children=c.node.get_children()
@@ -84,4 +82,4 @@ func tick(dt:float):
   elif p>=1:w.job=-1;job.worker=-1
  completed=jobs.all(func(j):return j.progress>=1)
 func snapshot()->Dictionary:
- return {"policy":policy,"elapsed":snappedf(elapsed,.1),"progress":jobs.reduce(func(sum,j):return sum+j.progress,0.0)/maxi(1,jobs.size()),"workers":workers.map(func(w):return {"action":w.state,"job":w.job,"position":[w.node.position.x,w.node.position.z]})}
+ return {"policy":policy,"elapsed":snappedf(elapsed,.1),"progress":jobs.reduce(func(sum,j):return sum+j.progress,0.0)/maxi(1,jobs.size()),"workers":workers.map(func(w):return {"model":"toy-soldier.glb","bones":w.actor.skeleton.get_bone_count(),"action":w.state,"job":w.job,"position":[w.node.position.x,w.node.position.z]})}

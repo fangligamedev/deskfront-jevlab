@@ -1,0 +1,1235 @@
+{
+  "run_id": "1789926949.6-3280572033",
+  "cleared": 6,
+  "chunks": [
+    {
+      "battle_plan": {
+        "armor": {
+          "green": {
+            "delay": 10.0,
+            "enabled": true,
+            "role": "support"
+          },
+          "red": {
+            "delay": 0.0,
+            "enabled": false,
+            "role": "support"
+          }
+        },
+        "construction": "north_first",
+        "defenders": [
+          {
+            "station": 1.0,
+            "weapon": "smg"
+          },
+          {
+            "station": 2.0,
+            "weapon": "rocket"
+          }
+        ],
+        "defense": "crossfire",
+        "reason": "中段在北侧优先构筑交叉火力，火箭兵在station2封锁侧翼，冲锋枪兵在station1近距扫射，绿方坦克晚入场且只作支援，红军靠步兵和工事消耗绿方",
+        "template": "supply_yard"
+      },
+      "construction": {
+        "elapsed": 12.1,
+        "policy": "dig_first",
+        "progress": 1.0,
+        "workers": [
+          {
+            "action": "stack_sandbag",
+            "bones": 50,
+            "job": -1,
+            "model": "toy-soldier.glb",
+            "position": [
+              8.20499992370605,
+              0.319999992847443
+            ]
+          },
+          {
+            "action": "secure",
+            "bones": 50,
+            "job": -1,
+            "model": "toy-soldier.glb",
+            "position": [
+              7.875,
+              -0.319999992847443
+            ]
+          }
+        ]
+      },
+      "elapsed": 12.0500000000002,
+      "index": 5,
+      "phase": "cleared",
+      "source": "deepseek_slow_plan",
+      "template": "supply_yard",
+      "theme": "supply"
+    },
+    {
+      "battle_plan": {
+        "armor": {
+          "green": {
+            "delay": 18.0,
+            "enabled": true,
+            "role": "push"
+          },
+          "red": {
+            "delay": 0.0,
+            "enabled": true,
+            "role": "support"
+          }
+        },
+        "construction": "dig_first",
+        "defenders": [
+          {
+            "station": 0.0,
+            "weapon": "rifle"
+          },
+          {
+            "station": 2.0,
+            "weapon": "rocket"
+          }
+        ],
+        "defense": "fallback",
+        "reason": "末段优先挖浅壕成曲折防线，红军坦克开局即支援，火箭兵在station2纵深反甲，步枪兵利用station0靠壕逐次后撤，绿方坦克延时18秒进场冲击时已被地形和纵深火力削弱",
+        "template": "trench_zigzag"
+      },
+      "construction": {
+        "elapsed": 12.1,
+        "policy": "dig_first",
+        "progress": 1.0,
+        "workers": [
+          {
+            "action": "stack_sandbag",
+            "bones": 50,
+            "job": -1,
+            "model": "toy-soldier.glb",
+            "position": [
+              9.36499977111816,
+              0.280000001192093
+            ]
+          },
+          {
+            "action": "secure",
+            "bones": 50,
+            "job": -1,
+            "model": "toy-soldier.glb",
+            "position": [
+              8.98499965667725,
+              -0.300000011920929
+            ]
+          }
+        ]
+      },
+      "elapsed": 12.0500000000002,
+      "index": 6,
+      "phase": "cleared",
+      "source": "deepseek_slow_plan",
+      "template": "trench_zigzag",
+      "theme": "trench"
+    },
+    {
+      "battle_plan": {
+        "armor": {
+          "green": {
+            "delay": 5.0,
+            "enabled": true,
+            "role": "push"
+          },
+          "red": {
+            "delay": 0.0,
+            "enabled": true,
+            "role": "support"
+          }
+        },
+        "construction": "balanced",
+        "defenders": [
+          {
+            "station": 0.0,
+            "weapon": "rifle"
+          },
+          {
+            "station": 2.0,
+            "weapon": "rocket"
+          }
+        ],
+        "defense": "entrench",
+        "reason": "首段用窄口封锁线模板，红军火箭兵站高位station2早期反甲，步枪兵据station0浅壕固守正面，红军坦克开局即支援填补防线，绿方坦克延迟5秒进场时已被火箭兵拦截在窄口外。",
+        "template": "ridge_pass"
+      },
+      "construction": {
+        "elapsed": 12.1,
+        "policy": "dig_first",
+        "progress": 1.0,
+        "workers": [
+          {
+            "action": "stack_sandbag",
+            "bones": 50,
+            "job": -1,
+            "model": "toy-soldier.glb",
+            "position": [
+              10.7550001144409,
+              0.400000005960464
+            ]
+          },
+          {
+            "action": "secure",
+            "bones": 50,
+            "job": -1,
+            "model": "toy-soldier.glb",
+            "position": [
+              10.4750003814697,
+              -0.400000005960464
+            ]
+          }
+        ]
+      },
+      "elapsed": 12.0500000000002,
+      "index": 7,
+      "phase": "combat",
+      "source": "deepseek_slow_plan",
+      "template": "ridge_pass",
+      "theme": "ridge"
+    },
+    {
+      "battle_plan": {
+        "armor": {
+          "green": {
+            "delay": 15.0,
+            "enabled": true,
+            "role": "support"
+          },
+          "red": {
+            "delay": 0.0,
+            "enabled": true,
+            "role": "push"
+          }
+        },
+        "construction": "dig_first",
+        "defenders": [
+          {
+            "station": 1.0,
+            "weapon": "smg"
+          },
+          {
+            "station": 2.0,
+            "weapon": "rocket"
+          }
+        ],
+        "defense": "crossfire",
+        "reason": "中段采用双翼交叉火力，先挖浅壕增强侧翼掩体，冲锋枪兵在station1近距扫射，火箭兵在station2交叉射界内反甲，红军坦克提前入场主动前推，绿方坦克延时15秒进场时已陷入两侧火力网。",
+        "template": "crossfire"
+      },
+      "construction": {
+        "elapsed": 12.1,
+        "policy": "dig_first",
+        "progress": 1.0,
+        "workers": [
+          {
+            "action": "stack_sandbag",
+            "bones": 50,
+            "job": -1,
+            "model": "toy-soldier.glb",
+            "position": [
+              12.2650003433228,
+              0.379999995231628
+            ]
+          },
+          {
+            "action": "secure",
+            "bones": 50,
+            "job": -1,
+            "model": "toy-soldier.glb",
+            "position": [
+              11.9350004196167,
+              -0.379999995231628
+            ]
+          }
+        ]
+      },
+      "elapsed": 12.0500000000002,
+      "index": 8,
+      "phase": "ready",
+      "source": "deepseek_slow_plan",
+      "template": "crossfire",
+      "theme": "dust"
+    }
+  ],
+  "armor": [
+    {
+      "delay_remaining": 0.0,
+      "phase": "destroyed",
+      "ready": false,
+      "role": "support",
+      "sector": 1,
+      "source": "deepseek_slow_plan",
+      "team": "green",
+      "unit": "green-tank-e1"
+    },
+    {
+      "delay_remaining": 0.0,
+      "phase": "active",
+      "ready": false,
+      "role": "support",
+      "sector": 7,
+      "source": "deepseek_slow_plan",
+      "team": "red",
+      "unit": "red-tank-e7"
+    }
+  ],
+  "calls": [
+    {
+      "id": 5440,
+      "unit_id": "eastfront-slow-brain",
+      "model": "deepseek-v4-flash-260425",
+      "provider": "volcengine_ark",
+      "phase": "executed",
+      "latency_ms": 6869,
+      "decision": {
+        "sectors": [
+          {
+            "template": "ridge_pass",
+            "defenders": [
+              {
+                "weapon": "rifle",
+                "station": 0
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "entrench",
+            "construction": "balanced",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 5,
+                "role": "push"
+              },
+              "red": {
+                "enabled": true,
+                "delay": 0,
+                "role": "support"
+              }
+            },
+            "reason": "首段用窄口封锁线模板，红军火箭兵站高位station2早期反甲，步枪兵据station0浅壕固守正面，红军坦克开局即支援填补防线，绿方坦克延迟5秒进场时已被火箭兵拦截在窄口外。"
+          },
+          {
+            "template": "crossfire",
+            "defenders": [
+              {
+                "weapon": "smg",
+                "station": 1
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "crossfire",
+            "construction": "dig_first",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 15,
+                "role": "support"
+              },
+              "red": {
+                "enabled": true,
+                "delay": 0,
+                "role": "push"
+              }
+            },
+            "reason": "中段采用双翼交叉火力，先挖浅壕增强侧翼掩体，冲锋枪兵在station1近距扫射，火箭兵在station2交叉射界内反甲，红军坦克提前入场主动前推，绿方坦克延时15秒进场时已陷入两侧火力网。"
+          },
+          {
+            "template": "supply_yard",
+            "defenders": [
+              {
+                "weapon": "rifle",
+                "station": 0
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "fallback",
+            "construction": "sandbag_first",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 12,
+                "role": "push"
+              },
+              "red": {
+                "enabled": true,
+                "delay": 6,
+                "role": "support"
+              }
+            },
+            "reason": "末段在补给站据点用沙包搭设多层工事，火箭兵在station2纵深反甲，步枪兵用station0浅壕交替后撤，红军坦克延迟6秒入场协防消耗，绿方坦克延时12秒进场冲击时已被沙包分割与火力点持续削血。"
+          }
+        ],
+        "strategy": "依壕口压制，用火箭兵和沙包浅壕分层消耗绿方坦克与步兵，红军坦克根据战况提前或延后入场切断绿方攻势。",
+        "start_index": 7
+      },
+      "receipt": {
+        "accepted": true,
+        "action": "eastfront_propose",
+        "id": "ea48ef66-0e4f-433c-9229-1295f80e3c09",
+        "message": "applied",
+        "tick": 19959
+      }
+    },
+    {
+      "id": 5385,
+      "unit_id": "eastfront-slow-brain",
+      "model": "deepseek-v4-flash-260425",
+      "provider": "volcengine_ark",
+      "phase": "executed",
+      "latency_ms": 5815,
+      "decision": {
+        "sectors": [
+          {
+            "template": "breach",
+            "defenders": [
+              {
+                "weapon": "rifle",
+                "station": 0
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "entrench",
+            "construction": "sandbag_first",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 3,
+                "role": "push"
+              },
+              "red": {
+                "enabled": true,
+                "delay": 5,
+                "role": "support"
+              }
+            },
+            "reason": "首段用沙包构建反装甲突破口，火箭兵在station2居高临下打击绿方坦克，步枪兵利用station0正面据守，红军坦克延迟5秒进场协防，防止绿方坦克快速突破"
+          },
+          {
+            "template": "supply_yard",
+            "defenders": [
+              {
+                "weapon": "smg",
+                "station": 1
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "crossfire",
+            "construction": "north_first",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 10,
+                "role": "support"
+              },
+              "red": {
+                "enabled": false,
+                "delay": 0,
+                "role": "support"
+              }
+            },
+            "reason": "中段在北侧优先构筑交叉火力，火箭兵在station2封锁侧翼，冲锋枪兵在station1近距扫射，绿方坦克晚入场且只作支援，红军靠步兵和工事消耗绿方"
+          },
+          {
+            "template": "trench_zigzag",
+            "defenders": [
+              {
+                "weapon": "rifle",
+                "station": 0
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "fallback",
+            "construction": "dig_first",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 18,
+                "role": "push"
+              },
+              "red": {
+                "enabled": true,
+                "delay": 0,
+                "role": "support"
+              }
+            },
+            "reason": "末段优先挖浅壕成曲折防线，红军坦克开局即支援，火箭兵在station2纵深反甲，步枪兵利用station0靠壕逐次后撤，绿方坦克延时18秒进场冲击时已被地形和纵深火力削弱"
+          }
+        ],
+        "strategy": "红军依托错列工事与火箭反甲，逐段消耗绿方装甲与步兵，最终在窄口防线决胜",
+        "start_index": 4
+      },
+      "receipt": {
+        "accepted": true,
+        "action": "eastfront_propose",
+        "id": "8659df0c-7f96-43f8-b12e-6fba72674fbc",
+        "message": "applied",
+        "tick": 13673
+      }
+    },
+    {
+      "id": 5333,
+      "unit_id": "eastfront-slow-brain",
+      "model": "deepseek-v4-flash-260425",
+      "provider": "volcengine_ark",
+      "phase": "executed",
+      "latency_ms": 5130,
+      "decision": {
+        "sectors": [
+          {
+            "template": "staggered",
+            "defenders": [
+              {
+                "weapon": "rifle",
+                "station": 1
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "entrench",
+            "construction": "sandbag_first",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 0,
+                "role": "support"
+              },
+              "red": {
+                "enabled": true,
+                "delay": 0,
+                "role": "support"
+              }
+            },
+            "reason": "首段建立稳固防线，红军坦克与火箭兵协同压制绿方早期推进，沙包提供有效掩护"
+          },
+          {
+            "template": "crossfire",
+            "defenders": [
+              {
+                "weapon": "smg",
+                "station": 0
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "crossfire",
+            "construction": "dig_first",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 8,
+                "role": "push"
+              },
+              "red": {
+                "enabled": false,
+                "delay": 0,
+                "role": "support"
+              }
+            },
+            "reason": "红军转入交叉火力配置，提前挖掘浅壕提供射手位，绿方坦克延迟进场以平衡压制节奏"
+          },
+          {
+            "template": "ridge_pass",
+            "defenders": [
+              {
+                "weapon": "rifle",
+                "station": 1
+              },
+              {
+                "weapon": "rocket",
+                "station": 2
+              }
+            ],
+            "defense": "fallback",
+            "construction": "balanced",
+            "armor": {
+              "green": {
+                "enabled": true,
+                "delay": 15,
+                "role": "push"
+              },
+              "red": {
+                "enabled": true,
+                "delay": 0,
+                "role": "support"
+              }
+            },
+            "reason": "末段利用窄口地形实施逐次后撤，红军坦克与火箭兵依靠纵深掩护消耗绿方装甲优势"
+          }
+        ],
+        "strategy": "利用错列沙包与浅壕构建纵深防御，红军火箭兵工事后排反装甲，初期坦克支援步兵巩固阵地，中后期逐步前压迫使绿方在开阔地暴露",
+        "start_index": 1
+      },
+      "receipt": {
+        "accepted": true,
+        "action": "eastfront_propose",
+        "id": "0e52daef-140f-4f2b-b68d-e2508dfedaaa",
+        "message": "applied",
+        "tick": 8059
+      }
+    },
+    {
+      "id": 5480,
+      "unit_id": "eastfront-fast-brain",
+      "model": "laya-multilingual",
+      "provider": "laya",
+      "phase": "discarded",
+      "latency_ms": 2375,
+      "decision": null,
+      "receipt": null
+    },
+    {
+      "id": 5479,
+      "unit_id": "eastfront-fast-brain",
+      "model": "laya-multilingual",
+      "provider": "laya",
+      "phase": "error",
+      "latency_ms": null,
+      "decision": null,
+      "receipt": null
+    },
+    {
+      "id": 5478,
+      "unit_id": "eastfront-fast-brain",
+      "model": "laya-multilingual",
+      "provider": "laya",
+      "phase": "error",
+      "latency_ms": null,
+      "decision": null,
+      "receipt": null
+    },
+    {
+      "id": 5477,
+      "unit_id": "eastfront-fast-brain",
+      "model": "laya-multilingual",
+      "provider": "laya",
+      "phase": "executed",
+      "latency_ms": 1093,
+      "decision": {
+        "action": "eastfront_directive",
+        "sector": 7,
+        "intent": "advance",
+        "construction": "dig_first",
+        "defense": "entrench",
+        "armor": "deploy_red",
+        "provider": "laya_fast"
+      },
+      "receipt": {
+        "accepted": true,
+        "action": "eastfront_directive",
+        "id": "86e2492b-19e2-4d99-8b59-ba422a0a4639",
+        "message": "applied",
+        "tick": 21565
+      }
+    },
+    {
+      "id": 5476,
+      "unit_id": "eastfront-fast-brain",
+      "model": "laya-multilingual",
+      "provider": "laya",
+      "phase": "executed",
+      "latency_ms": 1867,
+      "decision": {
+        "action": "eastfront_directive",
+        "sector": 7,
+        "intent": "advance",
+        "construction": "dig_first",
+        "defense": "entrench",
+        "armor": "deploy_red",
+        "provider": "laya_fast"
+      },
+      "receipt": {
+        "accepted": true,
+        "action": "eastfront_directive",
+        "id": "de78946e-7c1c-4cd7-bdcd-e394a0c17d26",
+        "message": "applied",
+        "tick": 21405
+      }
+    },
+    {
+      "id": 5475,
+      "unit_id": "eastfront-fast-brain",
+      "model": "laya-multilingual",
+      "provider": "laya",
+      "phase": "executed",
+      "latency_ms": 343,
+      "decision": {
+        "action": "eastfront_directive",
+        "sector": 7,
+        "intent": "advance",
+        "construction": "dig_first",
+        "defense": "entrench",
+        "armor": "deploy_red",
+        "provider": "laya_fast"
+      },
+      "receipt": {
+        "accepted": true,
+        "action": "eastfront_directive",
+        "id": "eb122075-2328-400e-a8ce-5341389efa8e",
+        "message": "applied",
+        "tick": 21124
+      }
+    }
+  ],
+  "units": [
+    {
+      "id": "green-1",
+      "kind": "infantry",
+      "faction": "green",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "green-2",
+      "kind": "infantry",
+      "faction": "green",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "green-tank-e1",
+      "kind": "tank",
+      "faction": "green",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 0
+    },
+    {
+      "id": "green-recruit-1",
+      "kind": "infantry",
+      "faction": "green",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "red-e5-0",
+      "kind": "infantry",
+      "faction": "red",
+      "in_cover": true,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "red-e5-1",
+      "kind": "infantry",
+      "faction": "red",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "red-e6-0",
+      "kind": "infantry",
+      "faction": "red",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "red-e6-1",
+      "kind": "infantry",
+      "faction": "red",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "red-e7-0",
+      "kind": "infantry",
+      "faction": "red",
+      "in_cover": true,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "red-e7-1",
+      "kind": "infantry",
+      "faction": "red",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 50
+    },
+    {
+      "id": "red-tank-e7",
+      "kind": "tank",
+      "faction": "red",
+      "in_cover": false,
+      "deployment_phase": "active",
+      "bone_count": 0
+    },
+    {
+      "id": "red-e8-0",
+      "kind": "infantry",
+      "faction": "red",
+      "in_cover": false,
+      "deployment_phase": "parked",
+      "bone_count": 50
+    },
+    {
+      "id": "red-e8-1",
+      "kind": "infantry",
+      "faction": "red",
+      "in_cover": false,
+      "deployment_phase": "parked",
+      "bone_count": 50
+    }
+  ],
+  "contracts": {
+    "staggered": [
+      {
+        "passed": true,
+        "test": "dual brain waits for actual slow plan beyond timeout"
+      },
+      {
+        "passed": true,
+        "test": "executable plan accepted"
+      },
+      {
+        "passed": true,
+        "test": "construction uses production plastic soldier skin and rig"
+      },
+      {
+        "passed": true,
+        "test": "construction commits collision before activation"
+      },
+      {
+        "passed": true,
+        "test": "slow plan defender loadout honored"
+      },
+      {
+        "passed": true,
+        "test": "defenders assigned separate reachable trench positions"
+      },
+      {
+        "passed": true,
+        "test": "both planned visible tanks created"
+      },
+      {
+        "passed": true,
+        "test": "tanks visible before deployment, not combat ready"
+      },
+      {
+        "passed": true,
+        "test": "fast brain cannot bypass planned delay"
+      },
+      {
+        "passed": true,
+        "test": "player control prevents automated green deployment"
+      },
+      {
+        "passed": true,
+        "test": "fast directive releases both tanks"
+      },
+      {
+        "passed": true,
+        "test": "entering tanks cannot ghost fire"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "both tanks reach battlefield through navigable entry"
+      },
+      {
+        "passed": true,
+        "test": "all assigned defenders physically arrive inside protective cover"
+      },
+      {
+        "passed": true,
+        "test": "infantry wipe requests reinforcements even with surviving tank"
+      }
+    ],
+    "crossfire": [
+      {
+        "passed": true,
+        "test": "dual brain waits for actual slow plan beyond timeout"
+      },
+      {
+        "passed": true,
+        "test": "executable plan accepted"
+      },
+      {
+        "passed": true,
+        "test": "construction uses production plastic soldier skin and rig"
+      },
+      {
+        "passed": true,
+        "test": "construction commits collision before activation"
+      },
+      {
+        "passed": true,
+        "test": "slow plan defender loadout honored"
+      },
+      {
+        "passed": true,
+        "test": "defenders assigned separate reachable trench positions"
+      },
+      {
+        "passed": true,
+        "test": "both planned visible tanks created"
+      },
+      {
+        "passed": true,
+        "test": "tanks visible before deployment, not combat ready"
+      },
+      {
+        "passed": true,
+        "test": "fast brain cannot bypass planned delay"
+      },
+      {
+        "passed": true,
+        "test": "player control prevents automated green deployment"
+      },
+      {
+        "passed": true,
+        "test": "fast directive releases both tanks"
+      },
+      {
+        "passed": true,
+        "test": "entering tanks cannot ghost fire"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "both tanks reach battlefield through navigable entry"
+      },
+      {
+        "passed": true,
+        "test": "all assigned defenders physically arrive inside protective cover"
+      },
+      {
+        "passed": true,
+        "test": "infantry wipe requests reinforcements even with surviving tank"
+      }
+    ],
+    "breach": [
+      {
+        "passed": true,
+        "test": "dual brain waits for actual slow plan beyond timeout"
+      },
+      {
+        "passed": true,
+        "test": "executable plan accepted"
+      },
+      {
+        "passed": true,
+        "test": "construction uses production plastic soldier skin and rig"
+      },
+      {
+        "passed": true,
+        "test": "construction commits collision before activation"
+      },
+      {
+        "passed": true,
+        "test": "slow plan defender loadout honored"
+      },
+      {
+        "passed": true,
+        "test": "defenders assigned separate reachable trench positions"
+      },
+      {
+        "passed": true,
+        "test": "both planned visible tanks created"
+      },
+      {
+        "passed": true,
+        "test": "tanks visible before deployment, not combat ready"
+      },
+      {
+        "passed": true,
+        "test": "fast brain cannot bypass planned delay"
+      },
+      {
+        "passed": true,
+        "test": "player control prevents automated green deployment"
+      },
+      {
+        "passed": true,
+        "test": "fast directive releases both tanks"
+      },
+      {
+        "passed": true,
+        "test": "entering tanks cannot ghost fire"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "both tanks reach battlefield through navigable entry"
+      },
+      {
+        "passed": true,
+        "test": "all assigned defenders physically arrive inside protective cover"
+      },
+      {
+        "passed": true,
+        "test": "infantry wipe requests reinforcements even with surviving tank"
+      }
+    ],
+    "trench_zigzag": [
+      {
+        "passed": true,
+        "test": "dual brain waits for actual slow plan beyond timeout"
+      },
+      {
+        "passed": true,
+        "test": "executable plan accepted"
+      },
+      {
+        "passed": true,
+        "test": "construction uses production plastic soldier skin and rig"
+      },
+      {
+        "passed": true,
+        "test": "construction commits collision before activation"
+      },
+      {
+        "passed": true,
+        "test": "slow plan defender loadout honored"
+      },
+      {
+        "passed": true,
+        "test": "defenders assigned separate reachable trench positions"
+      },
+      {
+        "passed": true,
+        "test": "both planned visible tanks created"
+      },
+      {
+        "passed": true,
+        "test": "tanks visible before deployment, not combat ready"
+      },
+      {
+        "passed": true,
+        "test": "fast brain cannot bypass planned delay"
+      },
+      {
+        "passed": true,
+        "test": "player control prevents automated green deployment"
+      },
+      {
+        "passed": true,
+        "test": "fast directive releases both tanks"
+      },
+      {
+        "passed": true,
+        "test": "entering tanks cannot ghost fire"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "both tanks reach battlefield through navigable entry"
+      },
+      {
+        "passed": true,
+        "test": "all assigned defenders physically arrive inside protective cover"
+      },
+      {
+        "passed": true,
+        "test": "infantry wipe requests reinforcements even with surviving tank"
+      }
+    ],
+    "supply_yard": [
+      {
+        "passed": true,
+        "test": "dual brain waits for actual slow plan beyond timeout"
+      },
+      {
+        "passed": true,
+        "test": "executable plan accepted"
+      },
+      {
+        "passed": true,
+        "test": "construction uses production plastic soldier skin and rig"
+      },
+      {
+        "passed": true,
+        "test": "construction commits collision before activation"
+      },
+      {
+        "passed": true,
+        "test": "slow plan defender loadout honored"
+      },
+      {
+        "passed": true,
+        "test": "defenders assigned separate reachable trench positions"
+      },
+      {
+        "passed": true,
+        "test": "both planned visible tanks created"
+      },
+      {
+        "passed": true,
+        "test": "tanks visible before deployment, not combat ready"
+      },
+      {
+        "passed": true,
+        "test": "fast brain cannot bypass planned delay"
+      },
+      {
+        "passed": true,
+        "test": "player control prevents automated green deployment"
+      },
+      {
+        "passed": true,
+        "test": "fast directive releases both tanks"
+      },
+      {
+        "passed": true,
+        "test": "entering tanks cannot ghost fire"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "both tanks reach battlefield through navigable entry"
+      },
+      {
+        "passed": true,
+        "test": "all assigned defenders physically arrive inside protective cover"
+      },
+      {
+        "passed": true,
+        "test": "infantry wipe requests reinforcements even with surviving tank"
+      }
+    ],
+    "ridge_pass": [
+      {
+        "passed": true,
+        "test": "dual brain waits for actual slow plan beyond timeout"
+      },
+      {
+        "passed": true,
+        "test": "executable plan accepted"
+      },
+      {
+        "passed": true,
+        "test": "construction uses production plastic soldier skin and rig"
+      },
+      {
+        "passed": true,
+        "test": "construction commits collision before activation"
+      },
+      {
+        "passed": true,
+        "test": "slow plan defender loadout honored"
+      },
+      {
+        "passed": true,
+        "test": "defenders assigned separate reachable trench positions"
+      },
+      {
+        "passed": true,
+        "test": "both planned visible tanks created"
+      },
+      {
+        "passed": true,
+        "test": "tanks visible before deployment, not combat ready"
+      },
+      {
+        "passed": true,
+        "test": "fast brain cannot bypass planned delay"
+      },
+      {
+        "passed": true,
+        "test": "player control prevents automated green deployment"
+      },
+      {
+        "passed": true,
+        "test": "fast directive releases both tanks"
+      },
+      {
+        "passed": true,
+        "test": "entering tanks cannot ghost fire"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "tank entry is incremental, never teleport"
+      },
+      {
+        "passed": true,
+        "test": "both tanks reach battlefield through navigable entry"
+      },
+      {
+        "passed": true,
+        "test": "all assigned defenders physically arrive inside protective cover"
+      },
+      {
+        "passed": true,
+        "test": "infantry wipe requests reinforcements even with surviving tank"
+      }
+    ]
+  },
+  "verification": {
+    "python_tests": 91,
+    "semantic_checks": 113,
+    "campaign_assertions": 102,
+    "forge_passed": true,
+    "real_models": true,
+    "note": "真实双脑对局与确定性无头断言分别记录；Laya 共享服务出现过429，退避后恢复。"
+  }
+}

@@ -4,6 +4,8 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 import argparse, json, time, threading, uuid, collections, urllib.parse, math
 
+from lm_controller import configured
+
 ROOT=Path(__file__).resolve().parents[1]
 SERVICE_VERSION=json.loads((ROOT/'package.json').read_text())['version']
 ALLOWED={'eastfront_directive','possess','release_unit','eastfront_start','eastfront_propose','eastfront_follow','demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
@@ -18,7 +20,7 @@ def validate_command(c, agent=False):
     if 'position' in c:
         p=c['position']
         if not isinstance(p,list) or len(p)!=2 or not all(type(x) in (int,float) and math.isfinite(x) for x in p):return 'invalid_position'
-    if c['action']=='eastfront_start' and (c.get('backend','local') not in ('local','model','typesafe_jev','volcengine_ark','dual_brain') or c.get('mode','game_ai') not in ('game_ai','player','lm','agent') or type(c.get('seed',19)) is not int or not 0<=c.get('seed',19)<=2147483647):return 'invalid_eastfront_mode'
+    if c['action']=='eastfront_start' and (c.get('backend','local') not in ('local','model','typesafe_jev','volcengine_ark','dual_brain','dual_brain_laya','laya') or c.get('mode','game_ai') not in ('game_ai','player','lm','agent') or type(c.get('seed',19)) is not int or not 0<=c.get('seed',19)<=2147483647):return 'invalid_eastfront_mode'
     if c['action']=='eastfront_propose' and (type(c.get('sequence')) is not int or not isinstance(c.get('template'),str) or len(c['template'])>40 or not isinstance(c.get('provider','external'),str) or len(c.get('provider','external'))>80):return 'invalid_eastfront_proposal'
     if c['action']=='eastfront_directive' and (type(c.get('sector')) is not int or c.get('intent') not in ('advance','flank_north','flank_south','regroup') or c.get('construction') not in ('balanced','north_first','south_first','dig_first','sandbag_first') or not isinstance(c.get('provider','external'),str)):return 'invalid_frontier_directive'
     if c['action']=='eastfront_follow' and type(c.get('value')) is not bool:return 'invalid_follow'
@@ -190,8 +192,8 @@ class Handler(SimpleHTTPRequestHandler):
             except ValueError as e:status,result=400,{'error':str(e)}
         elif self.path in {'/api/command','/api/agent/command'}:
             if isinstance(payload,dict) and payload.get('action')=='control' and payload.get('mode')=='lm' and (not LM or not LM.ready):status,result=409,{'error':'lm_not_configured'}
-            elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend')=='dual_brain' and not all(LM and LM.profiles.get(p,{}).get('key') and LM.profiles.get(p,{}).get('model') for p in ('typesafe_jev','volcengine_ark')):status,result=409,{'error':'dual_brain_not_configured'}
-            elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend') in ('typesafe_jev','volcengine_ark') and not (LM and LM.profiles.get(payload['backend'],{}).get('key')):status,result=409,{'error':'provider_not_configured'}
+            elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend') in ('dual_brain','dual_brain_laya') and not all(LM and configured(LM.profiles.get(p,{})) for p in (('laya' if payload['backend']=='dual_brain_laya' else 'typesafe_jev'),'volcengine_ark')):status,result=409,{'error':'dual_brain_not_configured'}
+            elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend') in ('typesafe_jev','volcengine_ark','laya') and not (LM and configured(LM.profiles.get(payload['backend'],{}))):status,result=409,{'error':'provider_not_configured'}
             else:status,result=STATE.submit(payload,self.path=='/api/agent/command')
         else:status,result=404,{'error':'not_found'}
         self.json(status,result)
@@ -200,7 +202,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--port',type=int,default=8768);parser.add_argument('--lm-env',help='External dotenv path; secrets remain server-side');args=parser.parse_args()
     global LM,STUDIO
     from lm_controller import LMController,load_config
-    LM=LMController(STATE,load_config(args.lm_env),profiles={p:load_config(args.lm_env,p) for p in ('volcengine_ark','deepseek_logprobs','typesafe_jev')});LM.start()
+    LM=LMController(STATE,load_config(args.lm_env),profiles={p:load_config(args.lm_env,p) for p in ('volcengine_ark','deepseek_logprobs','typesafe_jev','laya')});LM.start()
     from studio import Studio
     STUDIO=Studio(STATE,LM)
     from eastfront_director import EastfrontDirector

@@ -161,7 +161,9 @@
           "model",
           "typesafe_jev",
           "volcengine_ark",
-          "dual_brain"
+          "dual_brain",
+          "dual_brain_laya",
+          "laya"
         ],
         "mode": [
           "game_ai",

@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-20",
+  "python_tests": 87,
+  "godot_semantic_checks": 113,
+  "web_export": "passed",
+  "local_service": "http://127.0.0.1:9400",
+  "device": "mps",
+  "runs": {
+    "local": {
+      "run_id": "1789917423.738-2730926511",
+      "phases": {
+        "green-1/executed": 6,
+        "eastfront-director/executed": 3,
+        "green-2/executed": 18,
+        "green-3/executed": 17,
+        "green-1/rejected": 1,
+        "green-recruit-1/executed": 6,
+        "green-recruit-1/rejected": 1
+      },
+      "errors": [],
+      "measured_latency_ms": {
+        "samples": 47,
+        "median": 102
+      },
+      "backend": "laya"
+    },
+    "dual": {
+      "run_id": "1789917481.91-1019150226",
+      "phases": {
+        "eastfront-slow-brain/planned": 1,
+        "eastfront-fast-brain/executed": 22,
+        "eastfront-fast-brain/rejected": 1
+      },
+      "errors": [],
+      "measured_latency_ms": {
+        "samples": 22,
+        "median": 119.0
+      },
+      "backend": "dual_brain_laya"
+    }
+  },
+  "notes": [
+    "Real model requests and Godot acknowledgements, not mocked gameplay.",
+    "Latency is a local sample, not a guarantee or a tactical-quality comparison.",
+    "Single-worker 429 observed before serialization fix; final run errors are listed separately.",
+    "Laya does not replace DeepSeek text planning or battle reports."
+  ]
+}

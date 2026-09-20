@@ -159,3 +159,5 @@ CI 运行项目合同检查、离线 Python 测试及真实 Godot 导入/测试�
 ### 无尽东线快慢脑
 
 前沿构筑选择「快慢脑 · DeepSeek 规划 + JEV 执行」，远征队选择「游戏 AI · 小队协同」：DeepSeek 规划未来三段，JEV 调度施工与战术，Godot 连续执行。支持可见挖掘、搬沙包、六种防线及全灭后新小队从左侧入场。[玩法与边界](docs/eastfront/DUAL_BRAIN.md) · [交付验收](docs/eastfront/DELIVERY.md)。
+
+本地模型替代：在东线选择 **DeepSeek 规划 + Laya 本地执行**，或 **Laya 本地构筑 / 逐兵指挥**。参见 [Laya 接入说明](docs/eastfront/LAYA.md)。

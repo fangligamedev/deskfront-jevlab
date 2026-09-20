@@ -77,9 +77,16 @@ def load_config(env_file=None, provider_override=None):
     if provider=='typesafe_jev':
         config['text_config']=dict(config)
         config.update(provider=provider,key=values.get('TYPESAFE_API_KEY',''),model=values.get('TYPESAFE_MODEL','jev-1.13.0'),base_url='https://api.typesafe.ai/v1')
+    elif provider=='laya':
+        config['text_config']=dict(config)
+        config.update(provider='laya',key='',model='laya-multilingual',base_url=values.get('LAYA_BASE_URL','http://127.0.0.1:9400').rstrip('/'),concurrency=1,timeout=3)
     elif provider=='deepseek_logprobs':config['provider']=provider
     elif provider!='volcengine_ark':raise ValueError('unsupported_model_provider')
     return config
+
+
+def configured(config):
+    return bool(config.get('model') and (config.get('provider')=='laya' or config.get('key')))
 
 
 class ProviderError(Exception):
@@ -214,13 +221,16 @@ class LMController:
         if config.get('provider')=='typesafe_jev':
             from jev_client import JevClient
             self.client=client if client is not None else JevClient(config)
+        elif config.get('provider')=='laya':
+            from laya_client import LayaClient
+            self.client=client if client is not None else LayaClient(config)
         elif config.get('provider')=='deepseek_logprobs':
             from deepseek_logprobs import DeepSeekLogprobsClient
             self.client=client if client is not None else DeepSeekLogprobsClient(config)
         else:self.client = client if client is not None else ArkClient(config)
         self.provider=config.get('provider','volcengine_ark')
-        self.origin='typesafe_jev' if self.provider=='typesafe_jev' else 'deepseek_lm'
-        self.ready = bool(config['key'] and config['model'])
+        self.origin=self.provider if self.provider in ('typesafe_jev','laya') else 'deepseek_lm'
+        self.ready = configured(config)
         self.pool = concurrent.futures.ThreadPoolExecutor(max_workers=config['concurrency'], thread_name_prefix='deskfront-lm')
         self.lock = threading.Lock();self.stop_event = threading.Event()
         self.run_id = '';self.pending = {};self.units = {};self.next_due = {};self.memory = {};self.fallback_due = {}
@@ -236,7 +246,7 @@ class LMController:
             if not isinstance(provider,str):raise ValueError('unknown_model_provider')
             cfg = self.profiles.get(provider)
             if not cfg:raise ValueError('unknown_model_provider')
-            if not cfg.get('key') or not cfg.get('model'):raise ValueError('provider_not_configured')
+            if not configured(cfg):raise ValueError('provider_not_configured')
             with self.state.lock:
                 if instance_id != self.state.instance_id:raise ValueError('session_replaced')
                 if run_id != self.state.state.get('run_id'):raise ValueError('stale_run')
@@ -247,6 +257,9 @@ class LMController:
                 if provider=='typesafe_jev':
                     from jev_client import JevClient
                     client=JevClient(cfg)
+                elif provider=='laya':
+                    from laya_client import LayaClient
+                    client=LayaClient(cfg)
                 elif provider=='deepseek_logprobs':
                     from deepseek_logprobs import DeepSeekLogprobsClient
                     client=DeepSeekLogprobsClient(cfg)
@@ -256,7 +269,7 @@ class LMController:
                         del self.state.pending[cid]
                         self.state.results[cid]={'id':cid,'accepted':False,'message':'model_provider_changed'}
                 self.config=cfg;self.client=client;self.provider=provider;self.ready=True
-                self.origin='typesafe_jev' if provider=='typesafe_jev' else 'deepseek_lm'
+                self.origin=provider if provider in ('typesafe_jev','laya') else 'deepseek_lm'
                 self.provider_epoch+=1
                 self.units={};self.memory={};self.next_due={};self.backoff_until=0
                 self.metrics.pop('last_error',None)
@@ -278,7 +291,7 @@ class LMController:
 
     def snapshot(self):
         with self.lock:
-            return copy.deepcopy({'frontier':getattr(self,'frontier_status',{}),'providers':{k:{'configured':bool(v.get('key') and v.get('model')),'model':v.get('model','')} for k,v in self.profiles.items()},'status':self.status,'flag_alerts':self.flag_alerts,'configured': self.ready, 'provider': self.provider, 'display_name':'TypeSafe JEV' if self.provider=='typesafe_jev' else 'DeepSeek · logprobs 多题' if self.provider=='deepseek_logprobs' else 'DeepSeek LLM', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
+            return copy.deepcopy({'frontier':getattr(self,'frontier_status',{}),'providers':{k:{'configured':configured(v),'model':v.get('model','')} for k,v in self.profiles.items()},'status':self.status,'flag_alerts':self.flag_alerts,'configured': self.ready, 'provider': self.provider, 'display_name':'Laya · 本地决策' if self.provider=='laya' else 'TypeSafe JEV' if self.provider=='typesafe_jev' else 'DeepSeek · logprobs 多题' if self.provider=='deepseek_logprobs' else 'DeepSeek LLM', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
 
     def _invoke(self, obs, call_id, client):
         started=time.monotonic()

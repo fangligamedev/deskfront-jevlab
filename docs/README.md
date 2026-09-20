@@ -58,6 +58,7 @@
 | `docs/eastfront/DEEPSEEK.md` | [DeepSeek 多题并行与 logprobs](eastfront/DEEPSEEK.md) | 当前指南 |
 | `docs/eastfront/DELIVERY.md` | [无尽东线交付报告](eastfront/DELIVERY.md) | 当前指南 |
 | `docs/eastfront/DUAL_BRAIN.md` | [快慢脑东线：规划、施工与连续战斗](eastfront/DUAL_BRAIN.md) | 当前指南 |
+| `docs/eastfront/LAYA.md` | [Laya 本地决策接入](eastfront/LAYA.md) | 当前指南 |
 | `docs/eastfront/README.md` | [无尽东线：边推进、边构筑](eastfront/README.md) | 当前指南 |
 | `docs/evidence/flag-warning/report.md` | [夺旗倒计时与 LM 败北预警](evidence/flag-warning/report.md) | 当前指南 |
 | `docs/evidence/latest-integration/integration-report.md` | [最新资产与动作合入主游戏报告](evidence/latest-integration/integration-report.md) | 当前指南 |

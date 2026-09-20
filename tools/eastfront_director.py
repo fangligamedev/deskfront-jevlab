@@ -5,7 +5,7 @@ import threading
 import time
 import urllib.request
 import urllib.error
-from lm_controller import NoRedirect, ProviderError, ArkClient
+from lm_controller import NoRedirect, ProviderError, ArkClient, configured
 from jev_client import checked_choice
 from eastfront_brains import DualBrain
 
@@ -13,7 +13,7 @@ class EastfrontDirector:
     def __init__(self,state,lm):
         self.state=state;self.lm=lm;self.stop=threading.Event();self.thread=None
         self.brains=DualBrain(state,lm)
-        self.run='';self.seen=set();self.used=0;self.disabled=False;self.receipts={}
+        self.run='';self.seen=set();self.retry_at=0;self.used=0;self.disabled=False;self.receipts={}
     def start(self):
         self.thread=threading.Thread(target=self.loop,daemon=True,name='eastfront-director');self.thread.start()
     def close(self):
@@ -31,25 +31,32 @@ class EastfrontDirector:
                 self.lm.call_log.update(call,phase='executed' if acks[command]['accepted'] else 'rejected',receipt=acks[command]);del self.receipts[command]
         f=s.get('eastfront',{});r=f.get('request',{})
         if f.get('enabled') and age<=3:self.brains.tick(s,instance,acks)
-        if not f.get('enabled') or f.get('backend') not in ('model','typesafe_jev','volcengine_ark') or not r or age>3 or s.get('paused') or s.get('winner'):return
-        if self.run!=s['run_id']:self.run=s['run_id'];self.seen=set();self.used=0;self.disabled=False
+        if not f.get('enabled') or f.get('backend') not in ('model','typesafe_jev','volcengine_ark','laya') or not r or age>3 or s.get('paused') or s.get('winner'):return
+        if self.run!=s['run_id']:self.run=s['run_id'];self.seen=set();self.retry_at=0;self.used=0;self.disabled=False
         seq=r['sequence']
-        if seq in self.seen or self.used>=128 or self.disabled:return
+        if seq in self.seen or self.used>=128 or self.disabled or time.monotonic()<self.retry_at:return
         self.seen.add(seq);self.used+=1
         cfg=self.lm.config if f.get('backend')=='model' else self.lm.profiles.get(f.get('backend'),{});log=self.lm.call_log
-        if not cfg.get('key') or not cfg.get('model'):return
+        if not configured(cfg):return
         value={'mission':'Build the next eastward toy RTS defense. Vary cover and counterplay; never alter occupied terrain.',
                'frontier':r,'recent_sectors':f.get('chunks',[]),'squad':[u for u in s['units'] if u['faction']=='green' and u['hp']>0]}
-        criteria={x['id']:x['name'] for x in r['candidates']}
+        previous=f.get('chunks',[])[-1].get('template') if f.get('chunks') else None
+        criteria={x['id']:x['name'] for x in r['candidates'] if cfg.get('provider')!='laya' or x['id']!=previous}
         instruction='为玩具兵向东推进选择下一段合法防线。选择一个模板 ID，考虑本队剩余兵种与近几段避免重复；这些是游戏组件，实际位置和可达性由 Godot 验证。'
-        if cfg.get('provider')=='typesafe_jev':
+        if cfg.get('provider') in ('typesafe_jev','laya'):
             payload={'model':cfg['model'],'state':value,'questions':{'layout':{'type':'choice','instructions':instruction,'criteria':criteria}}}
         else:
             payload={'model':cfg['model'],'messages':[{'role':'system','content':instruction+'只输出 JSON {"template":"合法模板ID"}。'},{'role':'user','content':json.dumps(value,ensure_ascii=False)}],'max_tokens':64,'thinking':{'type':'disabled'},'response_format':{'type':'json_object'}}
+        if cfg.get('provider')=='laya':
+            from laya_client import frontier_payload
+            payload=frontier_payload(value,payload['questions'])
         call=log.start(unit_id='eastfront-director',faction='studio',run_id=s['run_id'],tick=s['tick'],model=cfg['model'],provider=cfg['provider'],request=payload)
         trace=lambda **fields:log.update(call,**fields)
         try:
-            if cfg.get('provider')=='typesafe_jev':
+            if cfg.get('provider')=='laya':
+                from laya_client import complete
+                result=complete(cfg,payload,trace);selected=checked_choice(result['answers']['layout'],criteria)
+            elif cfg.get('provider')=='typesafe_jev':
                 req=urllib.request.Request('https://api.typesafe.ai/v1/systemone',data=json.dumps(payload).encode(),headers={'Authorization':'Bearer '+cfg['key'],'Content-Type':'application/json'})
                 with urllib.request.build_opener(NoRedirect()).open(req,timeout=min(5,cfg['timeout'])) as response:raw=response.read(131073)
                 trace(http_status=response.status,response_text=raw[:131072].decode(errors='replace'))
@@ -70,4 +77,6 @@ class EastfrontDirector:
             if e.code in (401,402,403):self.disabled=True
         except (ProviderError,ValueError,KeyError,TypeError,OSError) as error:
             trace(phase='error',error=str(error) if isinstance(error,ProviderError) else 'frontier_provider_or_schema_error')
+            if cfg.get('provider')=='laya' and str(error) in ('laya_http_429','laya_local_busy','laya_network_or_timeout','laya_http_503'):
+                self.seen.discard(seq);self.retry_at=time.monotonic()+1
             if str(error) in ('provider_account_overdue','provider_http_401','provider_http_403'):self.disabled=True

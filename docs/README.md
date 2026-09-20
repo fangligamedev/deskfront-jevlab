@@ -17,6 +17,7 @@
 | `THIRD_PARTY.md` | [第三方组件与来源](../THIRD_PARTY.md) | 当前指南 |
 | `assets/LICENSE.md` | [资源许可](../assets/LICENSE.md) | 当前指南 |
 | `docs/AGENT_ACTION_STATES.md` | [角色、坦克、武器动作契约（0.6.0）](AGENT_ACTION_STATES.md) | 当前指南 |
+| `docs/eastfront/TERRAIN_AND_ARMOR.md` | [自由地形组合与坦克行为](eastfront/TERRAIN_AND_ARMOR.md) | 当前指南 |
 | `docs/AGENT_API.md` | [Agent 状态与动作接口 v1](AGENT_API.md) | 当前指南 |
 | `docs/ASSET-APPLICATION.md` | [已确认资产应用到主游戏](ASSET-APPLICATION.md) | 当前指南 |
 | `docs/ASSETS.md` | [资源与配置（运行时 0.6.0）](ASSETS.md) | 当前指南 |

@@ -346,7 +346,7 @@ func set_camera(mode: String, instant: bool=false) -> void:
 	if eastfront:
 		var members=living("green")
 		camera_target=Vector3((members.map(func(u):return u.pos().x).max()+.45) if not members.is_empty() else objective.x,field.height,0)
-		camera_size=3.3 if mode=="office" else (1.65 if mode=="top" else 1.9)
+		camera_size=4.8 if mode=="office" else (3.9 if mode=="top" else 3.7)
 	if instant and camera:
 		camera.position=camera_target+(Vector3(0,3.8,.001) if mode=="top" else Vector3(2.6,3.5,3.5));camera.look_at(camera_target,Vector3.FORWARD if camera_mode=="top" else Vector3.UP);camera.size=camera_size
 

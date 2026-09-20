@@ -26,9 +26,11 @@
 
 ## 无尽东线
 
-顶部 **无尽东线 →**：绿色远征队由玩家、游戏 AI、JEV 或 DeepSeek 指挥，从左向右推进；接近前沿时构筑下一段防线，夺点、补给并继续向东。在场世界采用有限窗口回收。可选本地种子生成或模型选择防线，失败后备与实际来源可见。
+顶部 **无尽东线 →**：默认 DeepSeek 慢脑规划 + Laya 本地快脑，支持切换 JEV、游戏 AI、玩家与外部 Agent。绿色远征队向东推进，交战时并行构建右侧下一段，夺点后连续接入，在场世界采用有限窗口回收。南北战场宽度为 2.8 米。
 
-新增可选 **DeepSeek 多题并行 + logprobs** 战斗适配器，实际概率与输入输出进入日志，不把 token 概率称为战术胜率。当前东线为步兵与可破坏沙包模板，可逐步扩展战壕和装备组件。
+新增可选 **DeepSeek 多题并行 + logprobs** 战斗适配器，实际概率与输入输出进入日志，不把 token 概率称为战术胜率。慢脑可自由组合 11 类组件：沙包、浅壕、砖墙、房屋、碉堡、废墟、岩石、燃料站、泥地、道路、积水，并分配守军和双方装甲。坦克碾压轻工事、绕开建筑，清场后继续护送；燃料站支持殉爆。建筑和地形仍通过有限组件及可达性校验，不执行模型生成的代码。
+
+[地形组合、坦克行为与验收](docs/eastfront/TERRAIN_AND_ARMOR.md) · [组件目录](data/frontier_components.json)
 
 [玩法与启动](docs/eastfront/README.md) · [编辑器 / Agent API](docs/eastfront/API.md) · [DeepSeek 优化说明](docs/eastfront/DEEPSEEK.md) · [本轮交付](docs/eastfront/DELIVERY.md)
 

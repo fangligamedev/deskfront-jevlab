@@ -17,6 +17,7 @@ var ray_queries: int=0
 var reserved_positions: Dictionary={}
 var unavailable_until: Dictionary={}
 var simulation_time: float=0
+var pending_blasts:Array=[]
 
 func setup(data: Dictionary, arena=null) -> void:
 	config = data
@@ -68,7 +69,8 @@ func make_cover(c: Dictionary) -> Node3D:
 			for i in range(count):
 				var bag: Node3D = load("res://assets/models/sandbag.glb").instantiate()
 				node.add_child(bag)
-				var offset: float = (i - 2) * .048 + (row * .008)
+				var offset: float = ((i - 2) * .048 + (row * .008))*((size.y if vertical else size.x)/.25)
+				bag.scale=Vector3((size.y if vertical else size.x)/.25,1,(size.x if vertical else size.y)/.055)
 				bag.position = Vector3(0 if vertical else offset, .011 + row * .019, offset if vertical else 0)
 				bag.rotation.y = (PI/2 if vertical else 0) + float((i+row)%3-1)*.045
 		# deterministic grains, individually merged by Godot MultiMesh
@@ -86,6 +88,8 @@ func make_cover(c: Dictionary) -> Node3D:
 		grains.multimesh = mm
 		grains.material_override = mat(Color(.46,.39,.26))
 		node.add_child(grains)
+	elif c.kind in ["house","bunker","wall","ruins","trench","fuel_depot","rock","mud","road","water"]:
+		preload("res://scripts/frontier_geometry.gd").build(self,node,c)
 	elif c.kind == "notebook":
 		cube(node,Vector3(0,.016,0),Vector3(size.x,.025,size.y),mat(Color(.68,.67,.54)))
 		cube(node,Vector3(0,.032,0),Vector3(size.x+.006,.006,size.y+.006),mat(Color(.12,.19,.17)))
@@ -120,13 +124,15 @@ func rebuild() -> void:
 		if not c.get("alive",true) or not c.get("nav_block",true): continue
 		var center := Vector2(c.position[0],c.position[1])
 		var half := Vector2(c.size[0],c.size[1])/2 + Vector2.ONE*.018
-		for x in range(grid.region.size.x):
-			for y in range(grid.region.size.y):
+		var low:Vector2i=to_cell(center-half-Vector2.ONE*.12)
+		var high:Vector2i=to_cell(center+half+Vector2.ONE*.12)
+		for x in range(maxi(0,low.x),mini(grid.region.size.x,high.x+1)):
+			for y in range(maxi(0,low.y),mini(grid.region.size.y,high.y+1)):
 				var pos := to_world(Vector2i(x,y))
-				if absf(pos.x-center.x)<half.x and absf(pos.y-center.y)<half.y:
-					grid.set_point_solid(Vector2i(x,y))
-				if absf(pos.x-center.x)<half.x+.075 and absf(pos.y-center.y)<half.y+.075:
-					tank_grid.set_point_solid(Vector2i(x,y))
+				if absf(pos.x-center.x)<half.x and absf(pos.y-center.y)<half.y:grid.set_point_solid(Vector2i(x,y))
+				if absf(pos.x-center.x)<half.x+.11 and absf(pos.y-center.y)<half.y+.11:
+					if c.get("crushable",false):tank_grid.set_point_weight_scale(Vector2i(x,y),2.5)
+					else:tank_grid.set_point_solid(Vector2i(x,y))
 	for x in range(grid.region.size.x):
 		for y in range(grid.region.size.y):
 			var p=to_world(Vector2i(x,y))
@@ -213,7 +219,7 @@ func release(unit_id: String) -> void:
 func slots(c: Dictionary) -> Array:
 	if c.get("no_slots",false):return []
 	if slot_cache.has(c.id):return slot_cache[c.id]
-	if c.kind=="hard":
+	if c.kind in ["hard","house","bunker","wall","ruins","rock"]:
 		var hard: Array=[]
 		var center := Vector2(c.position[0],c.position[1])
 		for normal in [Vector2.RIGHT,Vector2.LEFT,Vector2.UP,Vector2.DOWN]:
@@ -391,6 +397,7 @@ func damage_cover(id: String, amount: float) -> bool:
 					mesh.material_override.albedo_color=mesh.get_meta("base_color").darkened(.18 if c.damage_stage=="damaged" else .38)
 		if c.hp<=0:
 			c.alive=false;c.damage_stage="destroyed";destruction_count+=1
+			if c.has("blast_radius"):pending_blasts.append({"position":Vector3(c.position[0],height+.045,c.position[1]),"radius":c.blast_radius,"id":c.id})
 			if is_instance_valid(c.node):
 				c.node.visible=false
 				if c.node is CollisionObject3D:c.node.collision_layer=0
@@ -422,3 +429,17 @@ func ground_height(p: Vector2) -> float:
 	for b in config.get("bridges",[]):
 		if inside_object(p,b):return height+b.size[1]+b.get("elevation",0)
 	return height
+
+func terrain_speed(p:Vector2)->float:
+	for c in covers:
+		if c.alive and c.has("speed_scale") and absf(p.x-c.position[0])<c.size[0]/2 and absf(p.y-c.position[1])<c.size[1]/2:return float(c.speed_scale)
+	return 1.0
+
+func crush_swept(a:Vector2,b:Vector2)->Array:
+	var crushed:Array=[]
+	if a.distance_to(b)<.000001 or not segment_walkable(a,b,true):return crushed
+	for c in covers:
+		if not c.alive or not c.get("crushable",false):continue
+		var hit:Dictionary=ray_box(Vector3(a.x,height,a.y),Vector3(b.x,height,b.y),Vector3(c.position[0],height,c.position[1]),Vector3(c.size[0]+.20,1,c.size[1]+.20))
+		if not hit.is_empty() and damage_cover(c.id,float(c.hp)+1):crushed.append(c.id)
+	return crushed

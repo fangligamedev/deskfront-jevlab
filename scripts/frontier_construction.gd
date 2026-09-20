@@ -17,6 +17,8 @@ func setup(g,ch:Dictionary):
   var site=Node3D.new();add_child(site);site.position=Vector3(c.position[0]+.085,game.field.height+.002,c.position[1])
   var bed=box(site,Vector3.ZERO,Vector3(.10,.002,c.size[1]+.08),"#544a38");bed.scale.z=.02
   var dirt=box(site,Vector3(-.06,.009,0),Vector3(.035,.018,c.size[1]+.1),"#88724d");dirt.scale.y=.05
+  if c.kind not in ["sandbag","trench"]:
+   site.position.x=c.position[0];bed.mesh.size=Vector3(c.size[0]+.02,.002,c.size[1]+.02);dirt.hide()
   jobs.append({"cover":c,"progress":0.0,"worker":-1,"bed":bed,"dirt":dirt})
  work_seconds=maxf(2.0,float(game.eastfront.rules.build_seconds)/ceilf(jobs.size()/2.0))
  for i in range(2):
@@ -52,6 +54,7 @@ func tick(dt:float):
   var site=Vector3(c.position[0]+.095,game.field.height,c.position[1])
   var stock=Vector3((chunk.index+1)*float(game.eastfront.rules.width)-.14,game.field.height,.48)
   w.state="survey" if p<.12 else "dig" if p<.40 else "carry_sandbag" if p<.75 else "stack_sandbag"
+  if c.kind not in ["sandbag","trench"] and p>=.40:w.state="carry_material" if p<.75 else "assemble_structure"
   w.node.visible=true;w.node.position=site
   if p>=.40 and p<.75:
    var travel:float=(p-.40)/.35
@@ -63,8 +66,8 @@ func tick(dt:float):
   w.bag.visible=p>=.575 and p<1;w.shovel.visible=w.state=="dig"
   # Reuse the production skinned plastic soldier. Tools are gripped through its arm IK.
   var actor=w.actor
-  actor.play("rifle_jog_rm" if w.state=="carry_sandbag" else "cover_idle" if w.state in ["dig","stack_sandbag"] else "rifle_idle")
-  actor.drive_speed=.25 if w.state=="carry_sandbag" else 0.0
+  actor.play("rifle_jog_rm" if w.state in ["carry_sandbag","carry_material"] else "cover_idle" if w.state in ["dig","stack_sandbag","assemble_structure"] else "rifle_idle")
+  actor.drive_speed=.25 if w.state in ["carry_sandbag","carry_material"] else 0.0
   actor.contact_blend=1.0;actor._physics_process(dt);actor.weapon.hide()
   if w.state=="dig":
    w.shovel.rotation.x=sin(elapsed*8)*.45
@@ -74,12 +77,14 @@ func tick(dt:float):
    actor.grip_handle("Right",w.bag.to_global(Vector3(.021,0,0)))
    actor.grip_handle("Left",w.bag.to_global(Vector3(-.021,0,0)))
   job.bed.scale.z=clampf((p-.12)/.28,.02,1);job.dirt.scale.y=clampf((p-.12)/.28,.05,1)
-  var visible_count:int=int(clampf((p-.75)/.25,0,1)*11)
   var children=c.node.get_children()
+  var visible_count:int=int(clampf((p-.75)/.25,0,1)*children.size())
   for i in range(children.size()):if children[i] is Node3D:children[i].visible=i<visible_count
   if policy=="dig_first" and before<.4 and p>=.4 and jobs.any(func(j):return j.progress<.4):
    job.progress=.4;w.job=-1;job.worker=-1
-  elif p>=1:w.job=-1;job.worker=-1
+  elif p>=1:
+   if c.kind not in ["sandbag","trench"]:job.bed.hide();job.dirt.hide()
+   w.job=-1;job.worker=-1
  completed=jobs.all(func(j):return j.progress>=1)
 func snapshot()->Dictionary:
- return {"policy":policy,"elapsed":snappedf(elapsed,.1),"progress":jobs.reduce(func(sum,j):return sum+j.progress,0.0)/maxi(1,jobs.size()),"workers":workers.map(func(w):return {"model":"toy-soldier.glb","bones":w.actor.skeleton.get_bone_count(),"action":w.state,"job":w.job,"position":[w.node.position.x,w.node.position.z]})}
+ return {"jobs":jobs.map(func(j):return {"kind":j.cover.kind,"progress":j.progress}),"policy":policy,"elapsed":snappedf(elapsed,.1),"progress":jobs.reduce(func(sum,j):return sum+j.progress,0.0)/maxi(1,jobs.size()),"workers":workers.map(func(w):return {"model":"toy-soldier.glb","bones":w.actor.skeleton.get_bone_count(),"action":w.state,"job":w.job,"position":[w.node.position.x,w.node.position.z]})}

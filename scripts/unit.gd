@@ -345,6 +345,19 @@ func hit(amount: float, pressure: float, origin:Vector3=Vector3.INF, impulse:flo
 			for body in find_children("*","StaticBody3D",true,false):body.collision_layer=0
 		game.add_event(faction+" · "+id+" 失去战斗力")
 
+func tank_translate(next:Vector2)->bool:
+	if not game.field.segment_walkable(pos(),next,true):route.clear();return false
+	# Yield to infantry instead of running through a friendly formation.
+	for other in game.living():
+		if other==self or other.deployment_phase!="active":continue
+		if next.distance_to(other.pos())<.14 and next.distance_to(other.pos())<pos().distance_to(other.pos()):return false
+	var crushed:Array=game.field.crush_swept(pos(),next)
+	if not crushed.is_empty():
+		game.add_event(id+" 碾压工事 · "+", ".join(crushed))
+		game.fx.puff(Vector3(next.x,game.field.height+.025,next.y),.10,.5,true)
+	position=Vector3(next.x,game.field.ground_height(next),next.y)
+	return true
+
 func deployment_tick(dt: float) -> void:
 	if deployment_phase!="entering":return
 	if game.eastfront:
@@ -355,7 +368,7 @@ func deployment_tick(dt: float) -> void:
 			if not game.field.segment_walkable(pos(),waypoint,true):deployment_route.clear();return
 			rotation.y=rotate_toward(rotation.y,atan2(-(waypoint-pos()).x,-(waypoint-pos()).y),1.2*dt)
 			var next:Vector2=pos().move_toward(waypoint,float(game.config.tank.get("deployment_speed",.06))*dt)
-			position=Vector3(next.x,game.field.ground_height(next),next.y);state="move";locomotion="tracks";return
+			tank_translate(next);state="move";locomotion="tracks";return
 		if pos().distance_to(deployment_goal)>.015:return
 		deployment_phase="active";goal=pos();state="idle";cooldown=1.0
 		game.eastfront.emit("armor_entered",{"unit":id,"team":faction});return
@@ -434,6 +447,7 @@ func tick(dt: float) -> void:
 		var base_speed: float=game.config.tank.speed if tank else float(game.config.tactics.get(locomotion+"_speed",game.config.tactics.run_speed))
 		if locomotion=="crouch_run":base_speed=game.config.tactics.crouch_speed
 		var speed: float=base_speed*(game.config.soldier.speed/.12 if not tank else 1.0)*(1-suppression*.18)*formation_speed
+		speed*=game.field.terrain_speed(pos())
 		var direction: Vector2=target-pos()
 		var facing: float=atan2(-direction.x,-direction.y)
 		reversing=tank and order_mode=="reverse"
@@ -442,7 +456,7 @@ func tick(dt: float) -> void:
 			rotation.y=rotate_toward(rotation.y,facing,game.config.tactics.tank_turn_speed*dt)
 			# Pivot the hull before translating; a tank cannot strafe towards a waypoint.
 			var aligned_hull: bool=absf(angle_difference(rotation.y,facing))<.35
-			var step=pos().move_toward(target,speed*dt if aligned_hull else 0.0);position.x=step.x;position.z=step.y;position.y=game.field.ground_height(step)
+			var step=pos().move_toward(target,speed*dt if aligned_hull else 0.0);tank_translate(step)
 		else:
 			var lateral=false
 			if posture!="prone" and not cover_slot.is_empty() and pos().distance_to(cover_slot.position)<.07 and direction.length()<.055:
@@ -478,6 +492,16 @@ func tick(dt: float) -> void:
 		if reload_timer<=0:ammo=int(game.config.weapons[weapon].magazine)
 		return
 	enemy=game.find_target(self,target_id if target_id!="" else focus_id)
+	if tank and enemy==null and not moving and cooldown<=0 and str(get_meta("breach_cover",""))!="":
+		for c in game.field.covers:
+			if c.id!=get_meta("breach_cover") or not c.alive or c.hp<0:continue
+			var at:Vector3=Vector3(c.position[0],game.field.height+minf(.08,c.height/2),c.position[1])
+			if pos().distance_to(Vector2(at.x,at.z))>float(weapon_config().range):break
+			var desired:float=atan2(-(at.x-position.x),-(at.z-position.z))
+			if turret:turret.rotation.y=rotate_toward(turret.rotation.y,wrapf(desired-rotation.y,-PI,PI),game.config.tactics.turret_turn_speed*dt)
+			if absf(angle_difference(rotation.y+(turret.rotation.y if turret else 0.0),desired))>.16:break
+			if game.living(faction).any(func(u):return u!=self and u.pos().distance_to(Vector2(at.x,at.z))<.30):break
+			cooldown=weapon_config().cooldown;game.fx.launch_point(self,at,"cannon",weapon_config());game.shots+=1;state="fire";order_mode="breach_obstacle";last_shot_at=game.elapsed;last_shot_target=c.id;return
 	var aligned: bool=turn_weapon(enemy,moving,dt)
 	if enemy!=null:
 		if cooldown<=0 and aligned and (tank or (not moving and not actor.stepping and aim_time>=.16 and cqb_stance!="hide" and suppression<.95)):

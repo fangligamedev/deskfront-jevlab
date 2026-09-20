@@ -305,7 +305,12 @@ func plan_tank(tank) -> void:
 	tank_next[tank.id]=game.elapsed+game.config.tactics.tank_replan_seconds
 	var target=game.find_target(tank)
 	if target==null:target=game.closest_enemy(tank)
-	if target==null:return
+	tank.set_meta("breach_cover","")
+	if target==null:
+		if game.eastfront and tank.faction=="green" and tank.pos().distance_to(game.objective)>.25:
+			var advance:Vector2=game.objective-Vector2(.20,0)
+			if tank.route.is_empty() or tank.goal.distance_to(advance)>.08:tank.move_to(advance);tank.order_mode="escort_advance"
+		return
 	tank.focus_id=target.id
 	var rocket_distance: float=INF
 	for enemy in enemies(tank.faction):
@@ -331,6 +336,12 @@ func plan_tank(tank) -> void:
 		for enemy in enemies(tank.faction):
 			if enemy.weapon=="rocket" and game.field.line_of_sight(enemy.pos(),candidate):cost+=.20/maxf(.15,candidate.distance_to(enemy.pos()))
 		if cost<best_cost:best_cost=cost;best={"position":candidate}
+	if best.is_empty() and not retreat:
+		var obstruction:Dictionary=game.field.trace_cover(tank.aim_point(),target.aim_point())
+		for c in game.field.covers:
+			if c.id!=obstruction.get("cover_id","") or c.hp<=0 or not c.alive or c.get("crushable",false):continue
+			if tank.pos().distance_to(Vector2(c.position[0],c.position[1]))<float(tank.weapon_config().range):
+				tank.set_meta("breach_cover",c.id);tank.route.clear();tank.goal=tank.pos();tank.order_mode="breach_obstacle";return
 	if not best.is_empty() and tank.goal.distance_to(best.position)>.035:
 		tank.move_to(best.position);tank.order_mode="reverse" if retreat else "reposition";counters.tank_repositions+=1
 

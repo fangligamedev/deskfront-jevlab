@@ -19,10 +19,10 @@ func prepare(ch:Dictionary):
     if u.deployment_phase=="parked":row.release_at=front.logical+float(p.delay)
    continue
   var x:float=maxf(g.config.bounds[0]+.20,ch.index*float(front.rules.width)-.45) if team=="green" else (ch.index+1)*float(front.rules.width)-.18
-  var spawn:=Vector2(x,.51);var goal:=Vector2(x+(.24 if team=="green" else -.24),.51)
+  var spawn:=Vector2(x,float(front.rules.half_depth)-.24);var goal:=Vector2(x+(.24 if team=="green" else -.24),float(front.rules.half_depth)-.24)
   var path:PackedVector2Array=g.field.path(spawn,goal,true)
   if path.is_empty():
-   for lane in [-.51,0.0,.30,-.30]:
+   for lane in [-float(front.rules.half_depth)+.24,0.0,.60,-.60]:
     spawn.y=lane;goal.y=lane;path=g.field.path(spawn,goal,true)
     if not path.is_empty():break
   if path.is_empty():front.emit("armor_blocked",{"team":team,"sector":ch.index});continue
@@ -54,3 +54,10 @@ func snapshot()->Array:
  return result
 func prune():
  reserves=reserves.filter(func(row):return front.game.units.any(func(u):return u.id==row.unit))
+
+func enforce_schedule():
+ # Fast decisions may release a ready reserve earlier; never lose a scheduled
+ # deployment indefinitely because a model keeps selecting the other side.
+ for row in reserves:
+  if row.sector==front.active_sector and front.logical>=row.release_at+8:
+   release("deploy_"+str(row.team),"slow_plan_schedule")

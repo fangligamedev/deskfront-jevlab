@@ -163,6 +163,11 @@ func physics_tick(dt: float) -> void:
 		var substeps: int=ceili(dt/.03333333)
 		for i in range(substeps):physics_tick(dt/substeps)
 		return
+	# Fuel chain reactions are queued, not recursive; one wave per simulation step.
+	var blasts:Array=game.field.pending_blasts.duplicate();game.field.pending_blasts.clear()
+	for blast in blasts:
+		impact({"weapon":"grenade","team":"environment","from":blast.position,"to":blast.position,"cfg":{"splash":blast.radius,"damage":70,"pressure":.8,"armor_multiplier":.55,"cover_damage":110}})
+		game.add_event("燃料站殉爆 · "+str(blast.id))
 	for p in projectiles.duplicate():
 		p.age+=dt
 		var previous: Vector3=p.node.position

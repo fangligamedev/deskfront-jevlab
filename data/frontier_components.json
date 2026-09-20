@@ -1,0 +1,68 @@
+{
+  "sandbag": {
+    "name": "可碾压沙包",
+    "height": 0.06,
+    "hp": 100,
+    "crushable": true
+  },
+  "trench": {
+    "name": "浅壕胸墙",
+    "height": 0.06,
+    "hp": 140,
+    "crushable": true
+  },
+  "wall": {
+    "name": "可破坏砖墙",
+    "height": 0.16,
+    "hp": 190
+  },
+  "house": {
+    "name": "两层民房（外围掩体）",
+    "height": 0.3,
+    "hp": 320
+  },
+  "bunker": {
+    "name": "混凝土碉堡",
+    "height": 0.14,
+    "hp": 420
+  },
+  "ruins": {
+    "name": "残垣废墟",
+    "height": 0.12,
+    "hp": 140
+  },
+  "rock": {
+    "name": "岩石障碍",
+    "height": 0.14,
+    "hp": -1
+  },
+  "fuel_depot": {
+    "name": "可爆炸燃料站",
+    "height": 0.09,
+    "hp": 70,
+    "blast_radius": 0.32,
+    "no_slots": true
+  },
+  "mud": {
+    "name": "泥地（减速）",
+    "height": 0.003,
+    "hp": -1,
+    "nav_block": false,
+    "no_slots": true,
+    "speed_scale": 0.55
+  },
+  "road": {
+    "name": "道路（快速行军）",
+    "height": 0.003,
+    "hp": -1,
+    "nav_block": false,
+    "no_slots": true,
+    "speed_scale": 1.15
+  },
+  "water": {
+    "name": "不可涉渡积水",
+    "height": 0.004,
+    "hp": -1,
+    "no_slots": true
+  }
+}

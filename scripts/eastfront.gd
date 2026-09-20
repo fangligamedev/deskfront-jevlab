@@ -3,6 +3,7 @@ extends Node3D
 const SETTINGS = preload("res://scripts/battlefield.gd")
 var game
 var rules:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/eastfront.json"))
+var component_catalog:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/frontier_components.json"))
 var chunks:Array=[]
 var history:Array=[]
 var request:Dictionary={}
@@ -33,7 +34,8 @@ var armor=preload("res://scripts/frontier_armor.gd").new()
 var defense:String="entrench"
 var defense_source:String="slow_plan"
 static func initial_level()->Dictionary:
- return {"id":"eastfront","name":"无尽东线 · 向东推进","bounds":[0,-.7,1.45,.7],"floor_color":"#b4b49a","spawns":[[.22,0],[.22,-.5],[1.15,0]],"objective":[1.1,0],"tank_spawn":[1.3,-.55],"objects":[],"at_guns":[]}
+ var settings:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/eastfront.json"))
+ return {"id":"eastfront","name":"无尽东线 · 向东推进","bounds":[0,-settings.half_depth,settings.width,settings.half_depth],"floor_color":"#b4b49a","spawns":[[.22,0],[.22,-.5],[1.15,0]],"objective":[1.1,0],"tank_spawn":[1.3,-.55],"objects":[],"at_guns":[]}
 func setup(g):
  game=g;armor.setup(self);backend=str(get_tree().get_meta("eastfront_backend","local"));seed=int(get_tree().get_meta("eastfront_seed",19))
  game.paused=false;game.config.rules.match_seconds=1e12;game.config.rules.hold_seconds=rules.hold_seconds;game.flag_objective.required_seconds=rules.hold_seconds
@@ -53,7 +55,7 @@ func setup(g):
  for i in range(game.units.size()):game.units[i].equip(["rifle","smg","rocket"][i])
  var c={"index":0,"phase":"cleared","node":tile(0),"covers":[],"units":[],"source":"initial_camp","elapsed":0.0,"template":"camp"};chunks.append(c)
  label=Label3D.new();add_child(label);label.font_size=24;label.pixel_size=.0015;label.modulate=Color(.97,.87,.57);label.no_depth_test=true
- game.camera_mode="battle";game.camera_size=1.9;game.camera_target=Vector3(.8,.84,0)
+ game.camera_mode="battle";game.camera_size=3.7;game.camera_target=Vector3(.8,.84,0)
  aid_marker=Node3D.new();add_child(aid_marker)
  game.field.cube(aid_marker,Vector3.ZERO,Vector3(.18,.003,.18),game.field.mat(Color("#547b56")))
  game.field.cube(aid_marker,Vector3(0,.004,0),Vector3(.11,.003,.028),game.field.mat(Color("#e4e5ca")))
@@ -67,10 +69,10 @@ func tile(index:int,theme:String="meadow")->Node3D:
  var root=Node3D.new();add_child(root)
  var center=Vector3((index+.5)*float(rules.width),game.field.height-.02,0)
  var body=StaticBody3D.new();root.add_child(body);body.position=center;body.collision_layer=1
- game.field.cube(body,Vector3.ZERO,Vector3(rules.width,.04,rules.half_depth*2),game.field.mat(Color({"meadow":"#a7b18a","dust":"#b5a078","ruins":"#989b8c","trench":"#887c60","supply":"#a99e80","ridge":"#a0a389"}.get(theme,"#b9b797"))))
+ game.field.cube(body,Vector3.ZERO,Vector3(rules.width,.04,rules.half_depth*2),game.field.mat(Color({"meadow":"#a7b18a","dust":"#b5a078","ruins":"#989b8c","trench":"#887c60","supply":"#a99e80","ridge":"#a0a389","village":"#b9af91","industrial":"#919b92","forest":"#8c9b76"}.get(theme,"#b9b797"))))
  var cs=CollisionShape3D.new();var shape=BoxShape3D.new();shape.size=Vector3(rules.width,.04,rules.half_depth*2);cs.shape=shape;body.add_child(cs)
  for z in [-float(rules.half_depth),float(rules.half_depth)]:game.field.cube(root,Vector3(center.x,game.field.height+.006,z),Vector3(rules.width,.02,.018),game.field.mat(Color("#717a60")))
- var text=Label3D.new();root.add_child(text);text.text="EAST / %03d  →"%index;text.font_size=28;text.pixel_size=.0018;text.position=Vector3(center.x,game.field.height+.018,-.60);text.rotation_degrees.x=-90;text.modulate=Color("#454b3b")
+ var text=Label3D.new();root.add_child(text);text.text="EAST / %03d  →"%index;text.font_size=28;text.pixel_size=.0018;text.position=Vector3(center.x,game.field.height+.018,-float(rules.half_depth)+.10);text.rotation_degrees.x=-90;text.modulate=Color("#454b3b")
  return root
 func need_next():
  if not request.is_empty() or chunks.size()>=int(rules.max_chunks):return
@@ -87,23 +89,33 @@ func propose(seq:int,template_id:String,source:String,battle_plan:Dictionary={})
  var candidates=rules.templates.filter(func(t):return t.id==template_id)
  if candidates.is_empty():return "unknown_frontier_template"
  if chunks.size()>1 and chunks[-1].template==template_id:return "repeated_frontier_template"
- var t:Dictionary=candidates[0];var specs:Array=[]
+ var t:Dictionary=candidates[0].duplicate(true);var specs:Array=[]
+ var layout:Dictionary=battle_plan.get("layout",{})
+ if not layout.is_empty():
+  t.covers=layout.components.map(func(c):return [c.x,c.z,c.width,c.depth]);t.theme=layout.theme;t.objective_z=layout.objective_z
  for i in range(t.covers.size()):
   var a=t.covers[i].duplicate()
   if not a is Array or a.size()!=4 or not a.all(func(v):return (v is float or v is int) and is_finite(v)):return "invalid_component_bounds"
   if a[2]<=0 or a[3]<=0 or a[0]-a[2]/2<.12 or a[0]+a[2]/2>rules.width-.1:return "invalid_component_bounds"
   # A firing bay must shield the whole miniature body, including at trench ends.
-  if not battle_plan.is_empty() and a[2]>a[3]:a[3]=maxf(a[3],.12)
+  if layout.is_empty() and not battle_plan.is_empty() and a[2]>a[3]:a[3]=maxf(a[3],.12)
   var x:float=index*float(rules.width)+float(a[0])
   if a[0]<.25 or a[0]>float(rules.width)-.2 or absf(a[1])+a[3]/2>rules.half_depth-.08:return "invalid_component_bounds"
   var c={"id":"east-%d-cover-%d"%[index,i],"position":[x,a[1]],"size":[a[2],a[3]],"end_slots":true,"height":.06,"hp":100.0,"max_hp":100.0,"kind":"sandbag","alive":true,"normal":([-1,0] if a[2]<=a[3] else [0,-1]),"node":null,"damage_stage":"intact"}
-  if game.living().any(func(u):return u.pos().distance_to(Vector2(x,a[1]))<.30):return "occupied_frontier"
+  var kind:String=str(layout.components[i].kind) if not layout.is_empty() else "sandbag"
+  var material:Dictionary=component_catalog[kind]
+  c.kind=kind
+  for key in material:
+   if key!="name":c[key]=material[key]
+  c.max_hp=c.hp
+  if game.living().any(func(u):return absf(u.pos().x-x)<a[2]/2+.15 and absf(u.pos().y-a[1])<a[3]/2+.15):return "occupied_frontier"
   specs.append(c)
  var probe=SETTINGS.new();probe.config=game.config.duplicate(true);probe.config.bounds=[game.config.bounds[0],-rules.half_depth,(index+1)*float(rules.width),rules.half_depth];probe.base=Vector2(probe.config.bounds[0],-rules.half_depth);probe.cell=game.field.cell;probe.covers=game.field.covers+specs;probe.rebuild()
  var end=Vector2((index+1)*float(rules.width)-.22,float(t.get("objective_z",0)));var valid:bool=probe.walkable(end) and not probe.path(Vector2(index*float(rules.width)+.1,0),end).is_empty()
  for u in game.living("green"):
-  if probe.path(u.pos(),end).is_empty():valid=false
- for a in t.enemies:
+  if probe.path(u.pos(),end,u.tank).is_empty():valid=false
+ if not probe.walkable(end,true) or probe.path(Vector2(index*float(rules.width)+.1,0),end,true).is_empty():valid=false
+ for a in (t.enemies if layout.is_empty() else []):
   if a.size()!=3 or a[0]<.3 or a[0]>rules.width-.1 or absf(a[1])>.5 or a[2] not in ["rifle","smg","rocket","pistol"]:valid=false
   elif not probe.walkable(Vector2(index*float(rules.width)+a[0],a[1])):valid=false
  probe.free()
@@ -117,7 +129,7 @@ func propose(seq:int,template_id:String,source:String,battle_plan:Dictionary={})
 func commit(ch:Dictionary):
  # Physics and navigation are activated only when construction visibly completes.
  for c in ch.covers:
-  c.node.scale.y=1;var body=StaticBody3D.new();c.node.add_child(body);body.collision_layer=1
+  c.node.scale.y=1;var body=StaticBody3D.new();c.node.add_child(body);body.collision_layer=1 if c.get("nav_block",true) and c.kind!="water" else 0
   var cs=CollisionShape3D.new();var box=BoxShape3D.new();box.size=Vector3(c.size[0],c.height,c.size[1]);cs.shape=box;cs.position.y=c.height/2;body.add_child(cs);game.field.covers.append(c)
  for w in ch.construction.workers:w.node.hide()
  ch.phase="ready";total_built+=1
@@ -126,8 +138,9 @@ func commit(ch:Dictionary):
  for i in range(defenders.size()):
   var a:Array=ch.enemies[i%ch.enemies.size()].duplicate()
   if not ch.battle_plan.is_empty():
-   a[2]=defenders[i].weapon;a[0]=float(rules.width)-.15;a[1]=(int(defenders[i].station)-1)*.20
-  var u=game.spawn_unit("red-e%d-%d"%[ch.index,i],"red",Vector2(ch.index*float(rules.width)+a[0],a[1]));u.equip(a[2]);u.hp=minf(u.max_hp,float(rules.defender_hp)+minf(ch.index/3.0,20));u.deployment_phase="parked";u.order_mode="reserve";ch.units.append(u.id)
+   a[2]=defenders[i].weapon;a[0]=float(rules.width)-.15;a[1]=float(defender_covers(ch)[int(defenders[i].station)].position[1])
+  var spawn:Vector2=game.field.to_world(game.field.nearest(Vector2(ch.index*float(rules.width)+a[0],a[1])))
+  var u=game.spawn_unit("red-e%d-%d"%[ch.index,i],"red",spawn);u.equip(a[2]);u.hp=minf(u.max_hp,float(rules.defender_hp)+minf(ch.index/3.0,20));u.deployment_phase="parked";u.order_mode="reserve";ch.units.append(u.id)
  emit("chunk_committed",{"index":ch.index,"source":ch.source,"navigation_revision":game.field.revision});activate()
 func activate():
  for ch in chunks:
@@ -144,15 +157,18 @@ func activate():
   armor.prepare(ch)
   assign_defenders(ch)
   emit("sector_activated",{"index":ch.index,"objective":[game.objective.x,game.objective.y]})
+func defender_covers(ch:Dictionary)->Array:
+ # Station numbering is over eligible cover, never fuel or ground surfaces.
+ return ch.covers.filter(func(c):return not c.get("no_slots",false) and c.kind!="fuel_depot").slice(0,3)
 func assign_defenders(ch:Dictionary):
  if ch.get("battle_plan",{}).is_empty():return
  var threat:=Vector2(ch.index*float(rules.width)-.2,0)
  for i in range(ch.units.size()):
   var found=game.units.filter(func(u):return u.id==ch.units[i] and u.hp>0 and not u.tank)
   if found.is_empty():continue
-  var u=found[0];var row=ch.battle_plan.defenders[i];var c=ch.covers[int(row.station)]
+  var u=found[0];var row=ch.battle_plan.defenders[i];var c=defender_covers(ch)[int(row.station)]
   var goal=Vector2(c.position[0]+.10,c.position[1])
-  if u.seek_cover(threat,goal,{"cover_id":c.id,"max_travel":1.8,"range":u.weapon_config().range}):
+  if u.seek_cover(threat,goal,{"cover_id":c.id,"max_travel":3.0,"range":u.weapon_config().range}):
    u.order_mode="take_cover";u.tactical_role="overwatch"
 func plan_defenders()->bool:
  var current=chunks.filter(func(ch):return ch.index==active_sector and not ch.get("battle_plan",{}).is_empty() and ch.phase=="combat")
@@ -164,13 +180,16 @@ func plan_defenders()->bool:
   var u=found[0]
   if u.direct_controlled or game.elapsed<u.safety_until or u.suppression>.72:continue
   if not u.route.is_empty():continue
-  var chosen=ch.covers[int(ch.battle_plan.defenders[i].station)]
-  if defense=="fallback":chosen=ch.covers[-1]
+  var chosen=defender_covers(ch)[int(ch.battle_plan.defenders[i].station)]
+  if defense=="fallback":
+   var rear:Array=defender_covers(ch).filter(func(c):return c.alive)
+   rear.sort_custom(func(a,b):return a.position[0]>b.position[0])
+   if not rear.is_empty():chosen=rear[i%rear.size()]
   if u.in_cover() and u.cover_id==chosen.id: u.order_mode="overwatch";continue
   var threat=game.closest_enemy(u)
   var danger:Vector2=threat.pos() if threat else Vector2(ch.index*float(rules.width)-.2,0)
   var goal=Vector2(chosen.position[0]+.1,chosen.position[1])
-  var options={"cover_id":chosen.id,"max_travel":1.8,"range":u.weapon_config().range}
+  var options={"cover_id":chosen.id,"max_travel":3.0,"range":u.weapon_config().range}
   if not u.seek_cover(danger,goal,options):
    options.erase("cover_id");u.seek_cover(danger,u.pos(),options)
   u.order_mode="take_cover" if not u.route.is_empty() else "overwatch";u.tactical_role="overwatch"
@@ -218,7 +237,7 @@ func retire_old():
 func tick(dt:float):
  if stopped:return
  logical+=dt
- armor.prune()
+ armor.prune();armor.enforce_schedule()
  update_aid(dt)
  if game.living("green").filter(func(u):return not u.tank).is_empty():
   if reinforcement_due<0:reinforcement_due=logical+float(rules.get("reinforcement_seconds",5));emit("wave_requested",{"wave":wave+1})
@@ -227,7 +246,7 @@ func tick(dt:float):
  if game.living("green").is_empty():return
  if follow:game.camera_target=Vector3(game.living("green").map(func(u):return u.pos().x).max()+.45,game.field.height,0)
  game.ears.position=Vector3(game.camera_target.x,1.2,game.camera_target.z)
- label.position=Vector3(game.camera_target.x,game.field.height+.3,-.6);label.text="EAST %03d  /  WAVE %d"%[active_sector,wave]
+ label.position=Vector3(game.camera_target.x,game.field.height+.3,-float(rules.half_depth)+.10);label.text="EAST %03d  /  WAVE %d"%[active_sector,wave]
  for ch in chunks:
   if ch.phase=="building":
    ch.elapsed+=dt
@@ -288,4 +307,4 @@ func apply_directive(sector:int,intent:String,construction_policy:String,source:
  emit("fast_directive",{"intent":intent,"construction":construction_policy,"defense":defense,"armor":armor_order,"source":source});return "applied"
 func snapshot()->Dictionary:
  var r=request.duplicate(true)
- return {"template_catalog":rules.templates.map(func(t):return {"id":t.id,"name":t.name}),"armor":armor.snapshot(),"defense":defense,"defense_source":defense_source,"planning_wait":not request.is_empty() and backend in ["dual_brain","dual_brain_laya"],"recovering":recovering,"wave":wave,"reinforcement_in":maxf(0,reinforcement_due-logical) if reinforcement_due>=0 else 0,"directive":directive if logical<directive_until else "advance","directive_source":directive_source if logical<directive_until else "local_executor","enabled":true,"direction":"east","axis":"+x","seed":seed,"backend":backend,"cleared":cleared,"active_sector":active_sector,"hold_seconds":held,"follow":follow,"request":r,"recruits":recruits,"built":total_built,"retired":retired,"peak_chunks":peak_chunks,"max_chunks":rules.max_chunks,"chunks":chunks.map(func(c):return {"battle_plan":c.get("battle_plan",{}),"index":c.index,"phase":c.phase,"source":c.source,"template":c.template,"elapsed":c.elapsed,"theme":c.get("theme","camp"),"construction":c.construction.snapshot() if c.has("construction") else {}}),"events":history,"stopped":stopped}
+ return {"component_catalog":component_catalog,"dimensions":{"segment_length":rules.width,"battlefield_width":rules.half_depth*2},"template_catalog":rules.templates.map(func(t):return {"id":t.id,"name":t.name}),"armor":armor.snapshot(),"defense":defense,"defense_source":defense_source,"planning_wait":not request.is_empty() and backend in ["dual_brain","dual_brain_laya"],"recovering":recovering,"wave":wave,"reinforcement_in":maxf(0,reinforcement_due-logical) if reinforcement_due>=0 else 0,"directive":directive if logical<directive_until else "advance","directive_source":directive_source if logical<directive_until else "local_executor","enabled":true,"direction":"east","axis":"+x","seed":seed,"backend":backend,"cleared":cleared,"active_sector":active_sector,"hold_seconds":held,"follow":follow,"request":r,"recruits":recruits,"built":total_built,"retired":retired,"peak_chunks":peak_chunks,"max_chunks":rules.max_chunks,"chunks":chunks.map(func(c):return {"battle_plan":c.get("battle_plan",{}),"index":c.index,"phase":c.phase,"source":c.source,"template":c.template,"elapsed":c.elapsed,"theme":c.get("theme","camp"),"components":c.covers.map(func(o):return {"id":o.id,"kind":o.kind,"position":o.position,"size":o.size,"alive":o.alive}),"construction":c.construction.snapshot() if c.has("construction") else {}}),"events":history,"stopped":stopped}

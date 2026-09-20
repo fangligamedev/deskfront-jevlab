@@ -1,7 +1,7 @@
 extends RefCounted
 ## Mirror of the public typed plan contract. Validate before allocating game nodes.
 static func validate(p,template:String)->String:
- if not p is Dictionary or p.size()!=6:return "invalid_battle_plan"
+ if not p is Dictionary or p.size()!=(7 if p.has("layout") else 6):return "invalid_battle_plan"
  for key in ["template","defenders","defense","construction","armor","reason"]:
   if not p.has(key):return "invalid_battle_plan"
  if p.template!=template or not p.reason is String or p.reason.length()<1 or p.reason.length()>160:return "invalid_plan_template"
@@ -20,4 +20,24 @@ static func validate(p,template:String)->String:
   if not (a.get("delay") is int or a.get("delay") is float):return "invalid_armor_plan"
   if not is_finite(float(a.delay)) or a.delay<0 or a.delay>20:return "invalid_armor_plan"
  if p.armor.green.enabled and not anti:return "defenders_need_anti_armor"
+ if p.has("layout"):return validate_layout(p.layout)
  return ""
+
+static func validate_layout(layout)->String:
+ var catalog:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/frontier_components.json"))
+ if not layout is Dictionary or layout.size()!=3 or layout.get("theme") not in ["meadow","dust","ruins","trench","supply","ridge","village","industrial","forest"]:return "invalid_layout"
+ if not number(layout.get("objective_z")) or absf(layout.objective_z)>.9:return "invalid_objective_z"
+ var rows=layout.get("components")
+ if not rows is Array or rows.size()<3 or rows.size()>8:return "invalid_component_count"
+ for i in range(rows.size()):
+  var c=rows[i]
+  if not c is Dictionary or c.size()!=5 or not catalog.has(c.get("kind","")):return "invalid_component"
+  for key in ["x","z","width","depth"]:
+   if not number(c.get(key)):return "invalid_component_bounds"
+  if c.width<.04 or c.width>.6 or c.depth<.04 or c.depth>.8 or c.x<.25 or c.x>1.25 or c.x-c.width/2<.12 or c.x+c.width/2>1.35 or absf(c.z)+c.depth/2>1.32:return "invalid_component_bounds"
+  if absf(c.x-1.23)<c.width/2+.13 and absf(c.z-layout.objective_z)<c.depth/2+.13:return "blocked_objective"
+  for b in rows.slice(0,i):
+   if absf(c.x-b.x)<(c.width+b.width)/2+.04 and absf(c.z-b.z)<(c.depth+b.depth)/2+.04:return "overlapping_components"
+ if rows.filter(func(c):return not catalog[c.kind].get("no_slots",false) and c.kind!="fuel_depot").size()<3:return "unsafe_defender_station"
+ return ""
+static func number(v)->bool:return (v is int or v is float) and is_finite(float(v))

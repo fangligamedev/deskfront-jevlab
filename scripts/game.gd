@@ -343,6 +343,10 @@ func set_camera(mode: String, instant: bool=false) -> void:
 	if map_data.get("surface","")=="desk":
 		camera_target=Vector3(.75,.82,1.05) if mode=="office" else Vector3(1.49,.84,2.08)
 		camera_size=8.0 if mode=="office" else (4.7 if mode=="top" else 4.9)
+	if eastfront:
+		var members=living("green")
+		camera_target=Vector3((members.map(func(u):return u.pos().x).max()+.45) if not members.is_empty() else objective.x,field.height,0)
+		camera_size=3.3 if mode=="office" else (1.65 if mode=="top" else 1.9)
 	if instant and camera:
 		camera.position=camera_target+(Vector3(0,3.8,.001) if mode=="top" else Vector3(2.6,3.5,3.5));camera.look_at(camera_target,Vector3.FORWARD if camera_mode=="top" else Vector3.UP);camera.size=camera_size
 

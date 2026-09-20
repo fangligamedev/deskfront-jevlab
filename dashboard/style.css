@@ -35,3 +35,38 @@ body[data-view=demo]>header{display:none}body[data-view=demo] #demoPanel{padding
 #demoReportBody{max-height:210px;overflow:auto;color:var(--muted);font-size:12px;line-height:1.7}#demoReportLink{color:var(--gold)}
 /* Eastward streaming campaign, same engine and controls in every view. */
 #eastPanel{display:none}body[data-view=eastfront] main{display:grid;grid-template-columns:minmax(0,1fr) 340px;align-items:start}body[data-view=eastfront] .lab,body[data-view=eastfront]>.control-top,body[data-view=eastfront]>header{display:none}body[data-view=eastfront] .game-panel{grid-column:1;grid-row:1;position:static;height:auto;min-width:0;padding:0 18px}body[data-view=eastfront] .game-panel iframe{height:calc(100vh - 180px);min-height:400px}body[data-view=eastfront] #eastPanel{display:block;grid-column:2;grid-row:1;padding:20px;border-left:1px solid var(--line);height:calc(100vh - 70px);overflow:auto}#eastPanel h2{font-size:30px;margin:8px 0}#eastPanel h3{line-height:1.7}#eastPanel label{display:grid;gap:8px;margin:16px 0;font-size:12px}#eastPanel select,#eastPanel input{background:#172016;color:var(--text);border:1px solid #46553c;padding:9px;border-radius:5px;min-width:0}#eastStatus{color:#d4c28b;font-size:12px;line-height:1.7;margin:14px 0}.east-sector{display:grid;gap:8px;border-left:3px solid #aa9f66;padding:12px;background:#20281b;margin:8px 0;font-size:12px}.east-sector small{color:var(--muted);overflow-wrap:anywhere}body[data-view=eastfront] .scenario,body[data-view=eastfront] .instructions,body[data-view=eastfront] .footer-line,body[data-view=eastfront] .debug-controls{display:none}@media(max-width:900px){body[data-view=eastfront] main{display:flex;flex-direction:column}body[data-view=eastfront] #eastPanel{width:100%;height:auto}body[data-view=eastfront] .game-panel{width:100%}body[data-view=eastfront] .game-panel iframe{height:60vh;min-height:320px}}
+
+/* Viewport workbench: the canvas consumes remaining space; panels scroll independently. */
+.debug-version-button{background:#176cd1;border-color:#438ce7;color:#fff;font-weight:600}
+.debug-version-button:hover,.debug-version-button[aria-expanded=true]{background:#2381ea;border-color:#83baff;color:#fff}
+#debugVersionPanel[hidden]{display:none!important}
+#debugVersionPanel{background:var(--bg);padding:16px;min-width:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;border-left:1px solid var(--line)}
+.debug-version-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.debug-version-heading h2{font-size:22px}
+#debugVersionPanel .debug-controls{display:block!important;padding-top:8px}
+#debugVersionPanel #debugDecisions{max-height:none}
+#debugVersionPanel .live-llm{min-width:0}
+#debugVersionPanel select{max-width:100%;width:100%}
+#debugVersionPanel pre{white-space:pre-wrap;overflow-wrap:anywhere}
+body.debug-version:not([data-view=eastfront]) #debugVersionPanel{position:fixed;z-index:30;top:0;right:0;bottom:0;width:min(420px,100vw);box-shadow:-15px 0 40px #0007}
+body[data-view=eastfront]{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+body[data-view=eastfront]>.view-nav{flex:none;padding:8px 16px;gap:8px}
+body[data-view=eastfront] main{flex:1;min-height:0;grid-template-columns:minmax(0,1fr) clamp(300px,25vw,380px);align-items:stretch;overflow:hidden}
+body[data-view=eastfront] .game-panel{height:100%;min-height:0;min-width:0;padding:0 16px;overflow:hidden;display:flex;flex-direction:column}
+body[data-view=eastfront] .game-top{flex:none;align-items:center;gap:12px;padding:10px 0}
+body[data-view=eastfront] .window-tools{flex-wrap:wrap;justify-content:flex-end}
+body[data-view=eastfront] .game-panel #game{flex:1 1 0;height:0;min-height:0;width:100%}
+body[data-view=eastfront] .shooter-toolbar,body[data-view=eastfront] .game-toolbar{flex:none;padding:6px 0}
+body[data-view=eastfront] #shooterStatus{display:none}
+body[data-view=eastfront] #eastPanel,body[data-view=eastfront] #debugVersionPanel{grid-column:2;grid-row:1;height:100%;min-height:0;padding:16px;overflow:auto;overscroll-behavior:contain}
+body[data-view=eastfront].debug-version #eastPanel{display:none}
+body[data-view=eastfront] .game-panel:fullscreen{width:100vw;height:100dvh;padding:12px}
+.game-panel:fullscreen #openDebugVersion{display:none}
+@media(max-width:900px){
+ body[data-view=eastfront]{height:auto;min-height:100dvh;overflow:auto}
+ body[data-view=eastfront] main{display:flex;flex-direction:column;overflow:visible;flex:none}
+ body[data-view=eastfront] .game-panel{height:calc(100dvh - 110px);min-height:360px;flex:none}
+ body[data-view=eastfront] #eastPanel,body[data-view=eastfront] #debugVersionPanel{height:auto;max-height:none;width:100%;border-left:0;border-top:1px solid var(--line)}
+ body[data-view=eastfront] .game-top{align-items:flex-start}
+ body[data-view=eastfront] .game-top>span{white-space:nowrap;padding-top:4px}
+}

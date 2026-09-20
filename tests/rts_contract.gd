@@ -49,6 +49,11 @@ func run():
  east.config.bounds=[100,-.7,110,.7];east.camera_target=Vector3(105,.84,0);east.pan_by(Vector3(2,0,.2))
  check(is_equal_approx(east.camera_target.x,107),"streamed campaign camera supports coordinates beyond original room bounds")
  east.pan_by(Vector3(100,0,100));check(east.camera_target.x<=110.351 and east.camera_target.z<=1.201,"streamed camera remains bounded to currently loaded terrain")
+ east.set_camera("battle",true)
+ check(is_equal_approx(east.camera_size,1.9),"eastfront battle preset restores readable tactical scale")
+ check(east.camera_target.x<5,"eastfront preset recenters on current squad rather than old free-camera offset")
+ east.rts.zoom(100,Vector2(600,340))
+ check(east.camera_size<=3.6,"eastfront zoom-out cannot shrink the battlefield to an office thumbnail")
  east.queue_free();await process_frame
  var result={"passed":checks.all(func(c):return c.passed),"checks":checks}
  var f=FileAccess.open("res://output/rts-contract.json",FileAccess.WRITE);f.store_string(JSON.stringify(result,"  "));f.close()

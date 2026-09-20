@@ -2,7 +2,7 @@
 (()=>{
  const query=new URLSearchParams(location.search);
  let current=['overview','execution','game','demo','eastfront'].includes(query.get('view'))?query.get('view'):'overview';
- let remote=query.has('native'),popup=null;
+ let remote=query.has('native'),popup=null,returnView='overview';
  function setView(mode){
   current=mode;document.body.dataset.view=mode;
   document.querySelectorAll('[data-view]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.view===mode))});
@@ -30,12 +30,16 @@
   setTimeout(()=>{if(!remote){document.querySelector('#windowHelp').textContent='独立窗口尚未连接。可用下方游戏专页链接打开，或在当前页面放大游戏。新窗口会开始新局。';dialog.showModal();}},10000);
  };
  document.querySelector('#expandGame').onclick=()=>{dialog.close();setView('game')};
- document.querySelector('#gameBack').onclick=()=>setView('overview');
+ document.querySelector('#gameBack').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen?.();setView(returnView)};
  document.querySelector('#gameFullscreen').onclick=()=>{
   const p=document.querySelector('.game-panel');
-  if(!document.fullscreenEnabled){document.querySelector('#viewStatus').textContent='浏览器不支持全屏，请使用独立游戏视图。';setView('game');return}
-  const result=document.fullscreenElement?document.exitFullscreen?.():p.requestFullscreen?.();
-  result?.catch(()=>{document.querySelector('#viewStatus').textContent='浏览器未允许全屏；仍可使用放大的游戏视图。'});
+  if(document.fullscreenElement){document.exitFullscreen?.();return}
+  if(current!=='game')returnView=current;
+  document.querySelector('#gameBack').textContent=returnView==='eastfront'?'返回东线':'返回原视图';
+  if(!document.querySelector('#debugVersionPanel').hidden)document.querySelector('#closeDebugVersion').click();
+  setView('game'); // Fill the window even when native fullscreen is unavailable or exits.
+  if(!document.fullscreenEnabled){document.querySelector('#viewStatus').textContent='已展开为窗口内全屏游戏。';return}
+  p.requestFullscreen?.().catch(()=>{document.querySelector('#viewStatus').textContent='已展开为窗口内全屏游戏。'});
  };
  window.addEventListener('message',e=>{
   if(e.origin!==location.origin||!popup||e.source!==popup||e.data?.type!=='deskfront-game-ready')return;

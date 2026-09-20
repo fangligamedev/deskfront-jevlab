@@ -18,7 +18,7 @@ def validate_command(c, agent=False):
     if 'position' in c:
         p=c['position']
         if not isinstance(p,list) or len(p)!=2 or not all(type(x) in (int,float) and math.isfinite(x) for x in p):return 'invalid_position'
-    if c['action']=='eastfront_start' and (c.get('backend','local') not in ('local','model') or c.get('mode','game_ai') not in ('game_ai','player','lm','agent') or type(c.get('seed',19)) is not int or not 0<=c.get('seed',19)<=2147483647):return 'invalid_eastfront_mode'
+    if c['action']=='eastfront_start' and (c.get('backend','local') not in ('local','model','typesafe_jev','volcengine_ark') or c.get('mode','game_ai') not in ('game_ai','player','lm','agent') or type(c.get('seed',19)) is not int or not 0<=c.get('seed',19)<=2147483647):return 'invalid_eastfront_mode'
     if c['action']=='eastfront_propose' and (type(c.get('sequence')) is not int or not isinstance(c.get('template'),str) or len(c['template'])>40 or not isinstance(c.get('provider','external'),str) or len(c.get('provider','external'))>80):return 'invalid_eastfront_proposal'
     if c['action']=='eastfront_follow' and type(c.get('value')) is not bool:return 'invalid_follow'
     if c['action']=='demo_step' and (not isinstance(c.get('step_id'),str) or len(c['step_id'])>100):return 'invalid_demo_step'
@@ -157,6 +157,12 @@ class Handler(SimpleHTTPRequestHandler):
             payload=json.loads(self.rfile.read(length))
         except (ValueError,TypeError):self.json(400,{'error':'invalid_json'});return
         if self.path=='/api/session':status,result=STATE.open_session()
+        elif self.path=='/api/lm/provider':
+            try:
+                if not isinstance(payload,dict) or not LM:raise ValueError('invalid_provider_request')
+                LM.select_provider(payload.get('provider'),payload.get('instance_id'),payload.get('run_id'))
+                status,result=200,LM.snapshot()
+            except ValueError as e:status,result=409,{'error':str(e)}
         elif self.path=='/api/sync':
             status,result=STATE.sync(payload)
             if status==200 and STUDIO:STUDIO.maybe_report()
@@ -182,6 +188,7 @@ class Handler(SimpleHTTPRequestHandler):
             except ValueError as e:status,result=400,{'error':str(e)}
         elif self.path in {'/api/command','/api/agent/command'}:
             if isinstance(payload,dict) and payload.get('action')=='control' and payload.get('mode')=='lm' and (not LM or not LM.ready):status,result=409,{'error':'lm_not_configured'}
+            elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend') in ('typesafe_jev','volcengine_ark') and not (LM and LM.profiles.get(payload['backend'],{}).get('key')):status,result=409,{'error':'provider_not_configured'}
             else:status,result=STATE.submit(payload,self.path=='/api/agent/command')
         else:status,result=404,{'error':'not_found'}
         self.json(status,result)
@@ -190,7 +197,7 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--port',type=int,default=8768);parser.add_argument('--lm-env',help='External dotenv path; secrets remain server-side');args=parser.parse_args()
     global LM,STUDIO
     from lm_controller import LMController,load_config
-    LM=LMController(STATE,load_config(args.lm_env));LM.start()
+    LM=LMController(STATE,load_config(args.lm_env),profiles={p:load_config(args.lm_env,p) for p in ('volcengine_ark','deepseek_logprobs','typesafe_jev')});LM.start()
     from studio import Studio
     STUDIO=Studio(STATE,LM)
     from eastfront_director import EastfrontDirector

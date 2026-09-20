@@ -39,7 +39,7 @@ wait 代表保持当前意图，不发新的游戏命令。不能改变自己身
 '''
 
 
-def load_config(env_file=None):
+def load_config(env_file=None, provider_override=None):
     values = {}
     path = Path(env_file).expanduser() if env_file else Path(__file__).resolve().parents[1] / '.env'
     if path.is_file():
@@ -73,7 +73,7 @@ def load_config(env_file=None):
         'max_requests': int(number('DESKFRONT_LM_MAX_REQUESTS', 600, 1, 1000)),
         'concurrency': int(number('DESKFRONT_LM_CONCURRENCY', 3, 1, 9)),
     }
-    provider=values.get('DESKFRONT_LM_PROVIDER','volcengine_ark')
+    provider=provider_override or values.get('DESKFRONT_LM_PROVIDER','volcengine_ark')
     if provider=='typesafe_jev':
         config['text_config']=dict(config)
         config.update(provider=provider,key=values.get('TYPESAFE_API_KEY',''),model=values.get('TYPESAFE_MODEL','jev-1.13.0'),base_url='https://api.typesafe.ai/v1')
@@ -207,8 +207,10 @@ def validate_decision(value, state, unit):
 
 
 class LMController:
-    def __init__(self, state, config, client=None):
+    def __init__(self, state, config, client=None, profiles=None):
         self.state = state;self.config = config
+        self.profiles = profiles or {config.get("provider", "volcengine_ark"): config}
+        self.provider_epoch = 0
         if config.get('provider')=='typesafe_jev':
             from jev_client import JevClient
             self.client=client if client is not None else JevClient(config)
@@ -224,9 +226,40 @@ class LMController:
         self.run_id = '';self.pending = {};self.units = {};self.next_due = {};self.memory = {};self.fallback_due = {}
         self.used = 0;self.metrics = {};self.history = [];self.backoff_until = 0
         self.status='idle';self.progress={};self.warning_keys={};self.flag_alerts={}
-        self.call_log=CallLog(config.get('log_path', ':memory:' if client is not None else str(Path(__file__).resolve().parents[1]/'output/lm-calls.sqlite3')), config['key'],extra_secrets=[config.get('text_config',{}).get('key','')])
+        self.call_log=CallLog(config.get('log_path', ':memory:' if client is not None else str(Path(__file__).resolve().parents[1]/'output/lm-calls.sqlite3')), config['key'],extra_secrets=[p.get('key','') for p in self.profiles.values()]+[config.get('text_config',{}).get('key','')])
         self.call_receipts={}
         self.thread = None
+
+    def select_provider(self, provider, instance_id, run_id):
+        # Same lock order as tick -> State.submit; no old reply can cross this boundary.
+        with self.lock:
+            if not isinstance(provider,str):raise ValueError('unknown_model_provider')
+            cfg = self.profiles.get(provider)
+            if not cfg:raise ValueError('unknown_model_provider')
+            if not cfg.get('key') or not cfg.get('model'):raise ValueError('provider_not_configured')
+            with self.state.lock:
+                if instance_id != self.state.instance_id:raise ValueError('session_replaced')
+                if run_id != self.state.state.get('run_id'):raise ValueError('stale_run')
+                if time.monotonic()-self.state.updated>3:raise ValueError('engine_offline')
+                if 'lm' in self.state.state.get('control',{}).values():raise ValueError('release_model_control_first')
+                if any(c.get('action')=='control' and c.get('mode')=='lm' for c in self.state.pending.values()):raise ValueError('control_change_pending')
+                if provider==self.provider:return
+                if provider=='typesafe_jev':
+                    from jev_client import JevClient
+                    client=JevClient(cfg)
+                elif provider=='deepseek_logprobs':
+                    from deepseek_logprobs import DeepSeekLogprobsClient
+                    client=DeepSeekLogprobsClient(cfg)
+                else:client=ArkClient(cfg)
+                for cid,c in list(self.state.pending.items()):
+                    if c.get('source')=='lm':
+                        del self.state.pending[cid]
+                        self.state.results[cid]={'id':cid,'accepted':False,'message':'model_provider_changed'}
+                self.config=cfg;self.client=client;self.provider=provider;self.ready=True
+                self.origin='typesafe_jev' if provider=='typesafe_jev' else 'deepseek_lm'
+                self.provider_epoch+=1
+                self.units={};self.memory={};self.next_due={};self.backoff_until=0
+                self.metrics.pop('last_error',None)
 
     def start(self):
         self.thread = threading.Thread(target=self._loop, daemon=True);self.thread.start()
@@ -245,14 +278,14 @@ class LMController:
 
     def snapshot(self):
         with self.lock:
-            return copy.deepcopy({'status':self.status,'flag_alerts':self.flag_alerts,'configured': self.ready, 'provider': self.provider, 'display_name':'TypeSafe JEV' if self.provider=='typesafe_jev' else 'DeepSeek · logprobs 多题' if self.provider=='deepseek_logprobs' else 'DeepSeek LLM', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
+            return copy.deepcopy({'providers':{k:{'configured':bool(v.get('key') and v.get('model')),'model':v.get('model','')} for k,v in self.profiles.items()},'status':self.status,'flag_alerts':self.flag_alerts,'configured': self.ready, 'provider': self.provider, 'display_name':'TypeSafe JEV' if self.provider=='typesafe_jev' else 'DeepSeek · logprobs 多题' if self.provider=='deepseek_logprobs' else 'DeepSeek LLM', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
 
-    def _invoke(self, obs, call_id):
+    def _invoke(self, obs, call_id, client):
         started=time.monotonic()
         try:
-            if isinstance(self.client, ArkClient) or hasattr(self.client,'build_payload'):
-                result=self.client(obs, trace=lambda **data:self.call_log.update(call_id, **data))
-            else:result=self.client(obs)
+            if isinstance(client, ArkClient) or hasattr(client,'build_payload'):
+                result=client(obs, trace=lambda **data:self.call_log.update(call_id, **data))
+            else:result=client(obs)
             value,usage=result
             self.call_log.update(call_id, phase='returned', parsed_response=value, usage=usage, latency_ms=round((time.monotonic()-started)*1000))
             return result
@@ -338,7 +371,7 @@ class LMController:
                 if not task['future'].done():continue
                 del self.pending[uid]
                 u = active.get(uid)
-                if task.get('flag_epoch',0)!=flag_epoch(s) or task['run_id'] != s['run_id'] or u is None or age > 3 or s.get('paused') or s.get('winner') or task['epoch'] != s.get('control_epochs', {}).get(u['faction'], 0) or s['tick'] - task['tick'] > 300:
+                if task.get('provider_epoch',0)!=self.provider_epoch or task.get('flag_epoch',0)!=flag_epoch(s) or task['run_id'] != s['run_id'] or u is None or age > 3 or s.get('paused') or s.get('winner') or task['epoch'] != s.get('control_epochs', {}).get(u['faction'], 0) or s['tick'] - task['tick'] > 300:
                     self.call_log.update(task['call_id'], phase='discarded', discard_reason='旗点归属、控制权、局次、单位存活或观察时效已变化，未执行返回')
                     self.metrics['discarded'] = self.metrics.get('discarded', 0) + 1
                     if u:
@@ -385,8 +418,8 @@ class LMController:
 
                 payload=self.client.build_payload(obs) if hasattr(self.client,'build_payload') else build_payload(self.config,obs)
                 call_id=self.call_log.start(unit_id=uid, faction=u['faction'], run_id=s['run_id'], tick=s['tick'], model=self.config['model'], request=payload, provider=self.provider)
-                future = self.pool.submit(self._invoke, obs, call_id)
-                self.pending[uid] = {'call_id':call_id, 'future': future, 'run_id': s['run_id'], 'tick': s['tick'], 'epoch': s.get('control_epochs', {}).get(u['faction'], 0), 'started': now, 'flag_epoch':flag_epoch(s)}
+                future = self.pool.submit(self._invoke, obs, call_id, self.client)
+                self.pending[uid] = {'provider_epoch':self.provider_epoch, 'call_id':call_id, 'future': future, 'run_id': s['run_id'], 'tick': s['tick'], 'epoch': s.get('control_epochs', {}).get(u['faction'], 0), 'started': now, 'flag_epoch':flag_epoch(s)}
                 self.units[uid] = {**self.units.get(uid, {}), 'unit_id': uid, 'phase': 'thinking', 'started_tick': s['tick']}
                 self.next_due[uid] = now + (min(1.0,self.config['interval']) if flag_warning(s,u).get('active') else self.config['interval']);self.used += 1
                 counts=self.metrics.setdefault('unit_calls', {});counts[uid]=counts.get(uid, 0)+1

@@ -28,13 +28,13 @@ class EastfrontDirector:
             if command in acks:
                 self.lm.call_log.update(call,phase='executed' if acks[command]['accepted'] else 'rejected',receipt=acks[command]);del self.receipts[command]
         f=s.get('eastfront',{});r=f.get('request',{})
-        if not f.get('enabled') or f.get('backend')!='model' or not r or age>3 or s.get('paused') or s.get('winner'):return
+        if not f.get('enabled') or f.get('backend') not in ('model','typesafe_jev','volcengine_ark') or not r or age>3 or s.get('paused') or s.get('winner'):return
         if self.run!=s['run_id']:self.run=s['run_id'];self.seen=set();self.used=0;self.disabled=False
         seq=r['sequence']
         if seq in self.seen or self.used>=128 or self.disabled:return
         self.seen.add(seq);self.used+=1
-        cfg=self.lm.config;log=self.lm.call_log
-        if not self.lm.ready:return
+        cfg=self.lm.config if f.get('backend')=='model' else self.lm.profiles.get(f.get('backend'),{});log=self.lm.call_log
+        if not cfg.get('key') or not cfg.get('model'):return
         value={'mission':'Build the next eastward toy RTS defense. Vary cover and counterplay; never alter occupied terrain.',
                'frontier':r,'recent_sectors':f.get('chunks',[]),'squad':[u for u in s['units'] if u['faction']=='green' and u['hp']>0]}
         criteria={x['id']:x['name'] for x in r['candidates']}

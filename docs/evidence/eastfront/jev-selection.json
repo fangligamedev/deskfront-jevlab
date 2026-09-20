@@ -1,0 +1,39 @@
+{
+  "run_id": "1789900590.572-3202808138",
+  "counts": {
+    "typesafe_jev": {
+      "calls": 50,
+      "phases": {
+        "discarded": 4,
+        "executed": 42,
+        "rejected": 3,
+        "submitted": 1
+      },
+      "engine_accepted": 42,
+      "models": [
+        "jev-1.13.0"
+      ]
+    },
+    "deepseek_logprobs": {
+      "calls": 16,
+      "phases": {
+        "executed": 10,
+        "rejected": 5,
+        "waiting": 1
+      },
+      "engine_accepted": 10,
+      "models": [
+        "deepseek-v4-flash-260425"
+      ]
+    }
+  },
+  "frontier_sources": [
+    "initial_camp",
+    "typesafe_jev:jev-1.13.0",
+    "typesafe_jev:jev-1.13.0"
+  ],
+  "final_provider": "typesafe_jev",
+  "python_checks": 73,
+  "godot_checks": 113,
+  "note": "Live UI provider switch and execution verification; not a win-rate benchmark."
+}

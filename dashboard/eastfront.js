@@ -4,17 +4,38 @@
  const phase={building:'正在构筑',ready:'前方待命',combat:'交战中',cleared:'已夺取'};
  let last='',starting=false;
  const status=t=>$e('eastStatus').textContent=t;
+ const modelModes=['typesafe_jev','deepseek_logprobs'];
+ async function selectCombat(){
+  const value=$e('eastControl').value;
+  if(!modelModes.includes(value))return value;
+  if(!lm.providers?.[value]?.configured)throw Error('该模型未配置，请在服务端配置对应 Key 与模型 ID。');
+  if(lm.provider!==value){
+   const previous=Object.entries(state.control||{}).filter(([,m])=>m==='lm').map(([f])=>f);
+   for(const faction of previous)await awaitReceipt(await command({action:'control',faction,mode:'game_ai'}));
+   const r=await fetch('/api/lm/provider',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({provider:value,instance_id:instanceId,run_id:state.run_id})});
+   const result=await r.json();if(!r.ok)throw Error(result.error);
+   lm=result;
+   for(const faction of previous)await awaitReceipt(await command({action:'control',faction,mode:'lm'}));
+  }
+  return 'lm';
+ }
+
  $e('eastStart').onclick=async()=>{
   if(starting)return;starting=true;$e('eastStart').disabled=true;
   try{
-   const mode=$e('eastControl').value;
-   if(mode==='lm'&&!lm.configured)throw Error('请先在服务端配置战斗模型，或选择游戏 AI。');
+   const builder=$e('eastBuilder').value;
+   if(builder!=='local'&&!lm.providers?.[builder]?.configured)throw Error('防线构筑模型尚未配置。');
    const seed=Number($e('eastSeed').value);if(!Number.isInteger(seed)||seed<0||seed>2147483647)throw Error('种子须为 0–2147483647 的整数。');
+   const mode=await selectCombat();
    const result=await command({action:'eastfront_start',backend:$e('eastBuilder').value,mode,seed});
    if(result){team='green';status('东线任务已排队，等待引擎载入。');}
   }catch(e){status(e.message)}finally{starting=false;$e('eastStart').disabled=false}
  };
- $e('eastTakeover').onclick=async()=>{team='green';await command({action:'control',faction:'green',mode:$e('eastControl').value});status('已提交绿色远征队控制权切换。')};
+ $e('eastTakeover').onclick=async()=>{
+  if(starting)return;starting=true;$e('eastTakeover').disabled=true;
+  try{team='green';const mode=await selectCombat();await awaitReceipt(await command({action:'control',faction:'green',mode}));status('已应用绿色远征队控制方式。')}
+  catch(e){status(e.message)}finally{starting=false;$e('eastTakeover').disabled=false}
+ };
  $e('eastFollow').onclick=()=>command({action:'eastfront_follow',value:!state.eastfront?.follow});
  document.querySelectorAll('[data-east-action]').forEach(b=>b.onclick=async()=>{team='green';await command({action:'control',faction:'green',mode:'player'});await command({action:b.dataset.eastAction,faction:'green'});});
  $e('eastReport').onclick=()=>{
@@ -24,7 +45,7 @@
  };
  setInterval(()=>{
   const f=state.eastfront||{};
-  $e('eastModel').textContent='战斗模型：'+(lm.display_name||'未连接')+' / '+(lm.model||'—')+'；生成有独立预算，失败明确使用本地防线。';
+  $e('eastModel').textContent='战斗模型：'+(lm.display_name||'未连接')+' / '+(lm.model||'—')+'；模型指挥选择为全局模型配置，影响所有模型控制阵营。构筑可独立选择，失败明确使用本地防线。';
   if(!f.enabled){$e('eastProgress').textContent='选择控制方式，开启向东推进';return}
   $e('eastProgress').textContent='已突破 '+f.cleared+' 段 · 当前 E'+String(f.active_sector).padStart(3,'0')+' · 守点 '+Number(f.hold_seconds).toFixed(1)+' / 5 秒';
   $e('eastFollow').textContent=f.follow?'镜头跟随中 · 点击自由观察':'自由观察中 · 点击跟随';

@@ -10,7 +10,7 @@
 {"action":"eastfront_start","backend":"model","mode":"game_ai","seed":19,"instance_id":"当前会话","run_id":"当前局次"}
 ```
 
-开启新东线，`backend` 为 `local/model`，绿色控制 `mode` 为 `game_ai/player/lm/agent`。原场景会重载并产生新 `run_id`，旧模型决策自动失效。未配置模型时可用本地模式；构筑模型缺席会触发明确后备。
+开启新东线，`backend` 为 `local/typesafe_jev/volcengine_ark`（兼容旧 `model`，表示当前战斗模型），绿色控制 `mode` 为 `game_ai/player/lm/agent`。原场景会重载并产生新 `run_id`，旧模型决策自动失效。未配置模型时可用本地模式；构筑模型缺席会触发明确后备。
 
 ```json
 {"action":"eastfront_propose","sequence":7,"template":"crossfire","provider":"external-editor","instance_id":"当前会话","run_id":"当前局次"}
@@ -37,6 +37,16 @@
 JEV 和 DeepSeek 使用内部兼容控制值 `lm`，每个单位仍由独立的观察—模型—验证—执行回路控制；模型失败时的本地自保会标明 `local_fallback`。前沿导演只选布局，不直接操纵士兵。
 
 ## 新状态
+
+### 战斗模型选择
+
+`GET /api/lm/status` 的 `providers` 列出服务端预配置模型 ID 与 configured，不包含 Key。`POST /api/lm/provider` 接受：
+
+```json
+{"provider":"typesafe_jev","instance_id":"当前会话","run_id":"当前局次"}
+```
+
+可选 `typesafe_jev/deepseek_logprobs/volcengine_ark`。先把所有 `lm` 阵营交还 `game_ai` 并等待引擎回执；控制权未释放时返回 `release_model_control_first`。成功后给所需阵营设置 `mode:lm`。旧回复通过 provider epoch 丢弃，旧排队指令取消，不重置本局预算。会话不匹配、旧局次、模型未配置均拒绝。Key、模型 ID 和目标 API 地址不能由前端请求指定。
 
 `GET /api/state` → `state.eastfront`：
 

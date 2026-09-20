@@ -361,7 +361,7 @@ func command(c: Dictionary) -> Dictionary:
 	if rejected!="":return ack(c,false,rejected)
 	if source=="lm" and int(c.get("control_epoch",-1))!=control_epochs[team]:return ack(c,false,"stale_control_epoch")
 	if action=="eastfront_start":
-		if c.get("backend","local") not in ["local","model"] or c.get("mode","game_ai") not in ["game_ai","player","lm","agent"]:return ack(c,false,"invalid_eastfront_mode")
+		if c.get("backend","local") not in ["local","model","typesafe_jev","volcengine_ark"] or c.get("mode","game_ai") not in ["game_ai","player","lm","agent"]:return ack(c,false,"invalid_eastfront_mode")
 		get_tree().set_meta("eastfront_enabled",true);get_tree().set_meta("eastfront_backend",c.get("backend","local"));get_tree().set_meta("eastfront_control",c.get("mode","game_ai"));get_tree().set_meta("eastfront_seed",int(c.get("seed",19)));get_tree().set_meta("demo_enabled",false)
 		var result=ack(c,true,"eastfront_loading");get_tree().call_deferred("reload_current_scene");return result
 	if action=="eastfront_propose":

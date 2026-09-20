@@ -17,9 +17,15 @@ func setup(g,ch:Dictionary):
   var site=Node3D.new();add_child(site);site.position=Vector3(c.position[0]+.085,game.field.height+.002,c.position[1])
   var bed=box(site,Vector3.ZERO,Vector3(.10,.002,c.size[1]+.08),"#544a38");bed.scale.z=.02
   var dirt=box(site,Vector3(-.06,.009,0),Vector3(.035,.018,c.size[1]+.1),"#88724d");dirt.scale.y=.05
+  if c.kind in ["sandbag","trench"] and c.size[0]>c.size[1]:
+   site.position=Vector3(c.position[0],game.field.height+.002,c.position[1]+.085);site.rotation.y=PI/2
+   bed.mesh.size.z=c.size[0]+.08;dirt.mesh.size.z=c.size[0]+.1
   if c.kind not in ["sandbag","trench"]:
    site.position.x=c.position[0];bed.mesh.size=Vector3(c.size[0]+.02,.002,c.size[1]+.02);dirt.hide()
-  jobs.append({"cover":c,"progress":0.0,"worker":-1,"bed":bed,"dirt":dirt})
+  var supply=Vector3(minf((ch.index+1)*float(game.eastfront.rules.width)-.14,c.position[0]+.30),game.field.height,clampf(c.position[1]+.24,-1.2,1.2))
+  var pile=Node3D.new();add_child(pile);pile.position=supply
+  for i in range(4):box(pile,Vector3((i%2)*.036,0,(i/2)*.025),Vector3(.036,.019,.025),"#b5a47b")
+  jobs.append({"stock":supply,"cover":c,"progress":0.0,"worker":-1,"bed":bed,"dirt":dirt})
  work_seconds=maxf(2.0,float(game.eastfront.rules.build_seconds)/ceilf(jobs.size()/2.0))
  for i in range(2):
   var w=Node3D.new();add_child(w)
@@ -52,7 +58,7 @@ func tick(dt:float):
   var job:Dictionary=jobs[w.job];var before:float=job.progress;job.progress=minf(1,job.progress+dt/work_seconds)
   var p:float=job.progress;var c:Dictionary=job.cover
   var site=Vector3(c.position[0]+.095,game.field.height,c.position[1])
-  var stock=Vector3((chunk.index+1)*float(game.eastfront.rules.width)-.14,game.field.height,.48)
+  var stock:Vector3=job.stock
   w.state="survey" if p<.12 else "dig" if p<.40 else "carry_sandbag" if p<.75 else "stack_sandbag"
   if c.kind not in ["sandbag","trench"] and p>=.40:w.state="carry_material" if p<.75 else "assemble_structure"
   w.node.visible=true;w.node.position=site

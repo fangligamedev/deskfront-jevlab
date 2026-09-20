@@ -20,7 +20,7 @@ static func build(field,node:Node3D,c:Dictionary):
    field.cube(node,Vector3(0,h*.93,0),Vector3(w+.016,h*.14,d+.016),dark)
    for side in [-1,1]:field.cube(node,Vector3(side*(w/2+.002),h*.62,0),Vector3(.004,h*.20,d*.60),field.mat(Color("#222b26")))
   "wall","ruins":
-   var count:int=6
+   var count:int=maxi(2,ceili(w/.04))
    for row in range(4):
     for i in range(count):
      if c.kind=="ruins" and row>1 and (i+row)%3==0:continue
@@ -28,9 +28,11 @@ static func build(field,node:Node3D,c:Dictionary):
   "trench":
    field.cube(node,Vector3(0,h*.45,0),Vector3(w,h*.9,d),field.mat(Color("#736043")))
    var vertical:bool=d>w
-   for i in range(7):
-    var p:Vector3=Vector3(w/2+.002,h*.43,(i-3)*d/7) if vertical else Vector3((i-3)*w/7,h*.43,d/2+.002)
-    field.cube(node,p,Vector3(.006,h*.86,d/9) if vertical else Vector3(w/9,h*.86,.006),timber)
+   var count:int=maxi(2,ceili(maxf(w,d)/.045))
+   for i in range(count):
+    var offset:float=(i-(count-1)*.5)*maxf(w,d)/count
+    var p:Vector3=Vector3(w/2+.002,h*.43,offset) if vertical else Vector3(offset,h*.43,d/2+.002)
+    field.cube(node,p,Vector3(.006,h*.86,d/count*.8) if vertical else Vector3(w/count*.8,h*.86,.006),timber)
    field.cube(node,Vector3(0,h*.95,0),Vector3(w,.009,d),field.mat(Color("#a3936d")))
   "fuel_depot":
    field.cube(node,Vector3(0,.007,0),Vector3(w,.014,d),timber)

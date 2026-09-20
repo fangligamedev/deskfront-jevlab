@@ -17,7 +17,7 @@ func run():
  var saved_size=f.rules.templates[0].covers[0][2];f.rules.templates[0].covers[0][2]=-1
  check(f.propose(1,"staggered","test")=="invalid_component_bounds","invalid component dimensions refused")
  f.rules.templates[0].covers[0][2]=saved_size
- var saved=g.units[0].position;g.units[0].position.x=1.45+.38;g.units[0].position.z=-.33
+ var saved=g.units[0].position;g.units[0].position.x=float(f.rules.width)+float(f.rules.templates[0].covers[0][0]);g.units[0].position.z=float(f.rules.templates[0].covers[0][1])
  check(f.propose(1,"staggered","test")=="occupied_frontier","never construct over an occupied position")
  g.units[0].position=saved
  f.tick(float(f.rules.model_deadline_seconds)+.1)

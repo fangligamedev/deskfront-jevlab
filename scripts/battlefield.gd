@@ -63,14 +63,15 @@ func make_cover(c: Dictionary) -> Node3D:
 	node.position = Vector3(c.position[0], height, c.position[1])
 	var size := Vector2(c.size[0], c.size[1])
 	if c.kind == "sandbag":
-		var count: int = 5
 		var vertical: bool = size.y > size.x
+		var length:float=size.y if vertical else size.x
+		var count:int=maxi(2,ceili(length/.05))
 		for row in range(2):
 			for i in range(count):
 				var bag: Node3D = load("res://assets/models/sandbag.glb").instantiate()
 				node.add_child(bag)
-				var offset: float = ((i - 2) * .048 + (row * .008))*((size.y if vertical else size.x)/.25)
-				bag.scale=Vector3((size.y if vertical else size.x)/.25,1,(size.x if vertical else size.y)/.055)
+				var offset:float=(i-(count-1)*.5)*(length/count)
+				bag.scale=Vector3((length/count)/.05,1,(size.x if vertical else size.y)/.055)
 				bag.position = Vector3(0 if vertical else offset, .011 + row * .019, offset if vertical else 0)
 				bag.rotation.y = (PI/2 if vertical else 0) + float((i+row)%3-1)*.045
 		# deterministic grains, individually merged by Godot MultiMesh

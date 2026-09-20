@@ -12,9 +12,9 @@ func run():
  for i in range(250):f.tick(.05)
  check(f.active_sector==1 and f.chunks[1].phase=="combat","first sector still contested")
  check(not f.request.is_empty() and f.request.index==2,"requests eastern neighbor before expedition approaches edge")
- check(g.living("green").all(func(u):return u.pos().x<.5),"expedition remains far west during preconstruction request")
+ check(g.living("green").all(func(u):return u.pos().x<float(f.rules.width)-.5),"expedition remains far west during preconstruction request")
  var run_id=g.run_id;var objective=g.objective;var camera=g.camera_target
- var soldier=g.living("green")[0];soldier.move_to(Vector2(.9,0));var route=soldier.route.duplicate()
+ var soldier=g.living("green")[0];soldier.move_to(Vector2(float(f.rules.width)-.3,0));var route=soldier.route.duplicate()
  var seq=f.sequence
  check(f.propose(seq,"crossfire","fixture")=="applied","next segment begins while current defenders alive")
  check(f.chunks[2].node.visible and f.chunks[2].construction.workers.size()==2,"visible right-side construction and workers")

@@ -3,6 +3,9 @@ import math
 import json
 from pathlib import Path
 COMPONENTS=json.loads((Path(__file__).resolve().parents[1]/"data/frontier_components.json").read_text())
+RULES=json.loads((Path(__file__).resolve().parents[1]/"data/eastfront.json").read_text())
+LENGTH=RULES["width"]
+LIMITS=RULES["layout_limits"]
 THEMES=("meadow","dust","ruins","trench","supply","ridge","village","industrial","forest")
 WEAPONS=('rifle','smg','rocket')
 DEFENSE=('entrench','crossfire','fallback')
@@ -39,13 +42,13 @@ def validate_layout(layout):
     def number(v):return type(v) in (int,float) and math.isfinite(v)
     if not number(layout['objective_z']) or abs(layout['objective_z'])>.9:raise ValueError('invalid_objective_z')
     rows=layout['components']
-    if not isinstance(rows,list) or not 3<=len(rows)<=8:raise ValueError('invalid_component_count')
+    if not isinstance(rows,list) or not 3<=len(rows)<=LIMITS["max_components"]:raise ValueError('invalid_component_count')
     for i,c in enumerate(rows):
         if not isinstance(c,dict) or set(c)!={'kind','x','z','width','depth'} or not isinstance(c['kind'],str) or c['kind'] not in COMPONENTS:raise ValueError('invalid_component')
         if not all(number(c[k]) for k in ('x','z','width','depth')):raise ValueError('invalid_component_bounds')
         x,z,w,d=(c[k] for k in ('x','z','width','depth'))
-        if not (.04<=w<=.6 and .04<=d<=.8 and .25<=x<=1.25 and x-w/2>=.12 and x+w/2<=1.35 and abs(z)+d/2<=1.32):raise ValueError('invalid_component_bounds')
-        if abs(x-1.23)<w/2+.13 and abs(z-layout['objective_z'])<d/2+.13:raise ValueError('blocked_objective')
+        if not (.04<=w<=LIMITS["max_component_width"] and .04<=d<=LIMITS["max_component_depth"] and .25<=x<=LENGTH-.20 and x-w/2>=.12 and x+w/2<=LENGTH-.10 and abs(z)+d/2<=1.32):raise ValueError('invalid_component_bounds')
+        if abs(x-(LENGTH-.22))<w/2+.13 and abs(z-layout['objective_z'])<d/2+.13:raise ValueError('blocked_objective')
         for b in rows[:i]:
             if abs(x-b['x'])<(w+b['width'])/2+.04 and abs(z-b['z'])<(d+b['depth'])/2+.04:raise ValueError('overlapping_components')
     if sum(not COMPONENTS[c['kind']].get('no_slots') and c['kind']!='fuel_depot' for c in rows)<3:raise ValueError('unsafe_defender_station')
@@ -73,10 +76,10 @@ def fit_campaign_layouts(value):
             if not isinstance(c,dict) or set(c)!={'kind','x','z','width','depth'} or not isinstance(c['kind'],str) or c['kind'] not in COMPONENTS:raise ValueError('invalid_component')
             if not all(type(c[k]) in (int,float) and math.isfinite(c[k]) for k in ('x','z','width','depth')):raise ValueError('invalid_component_bounds')
             w,d=c['width'],c['depth']
-            if not .04<=w<=.6 or not .04<=d<=.8:raise ValueError('invalid_component_bounds')
+            if not .04<=w<=LIMITS["max_component_width"] or not .04<=d<=LIMITS["max_component_depth"]:raise ValueError('invalid_component_bounds')
             def fits(x,z):
-                return (.25<=x<=1.25 and x-w/2>=.12 and x+w/2<=1.35 and abs(z)+d/2<=1.32
-                    and not(abs(x-1.23)<w/2+.13 and abs(z-layout['objective_z'])<d/2+.13)
+                return (.25<=x<=LENGTH-.20 and x-w/2>=.12 and x+w/2<=LENGTH-.10 and abs(z)+d/2<=1.32
+                    and not(abs(x-(LENGTH-.22))<w/2+.13 and abs(z-layout['objective_z'])<d/2+.13)
                     and all(abs(x-b['x'])>=(w+b['width'])/2+.041 or abs(z-b['z'])>=(d+b['depth'])/2+.041 for b in placed))
             if not fits(c['x'],c['z']):
                 candidates=sorted(((dx, dz) for dx in range(-7,8) for dz in range(-7,8) if dx*dx+dz*dz<=49),key=lambda q:(q[0]**2+q[1]**2,abs(q[0]),q))
@@ -88,3 +91,16 @@ def fit_campaign_layouts(value):
             placed.append(c)
         validate_layout(layout)
     return result,adjustments
+
+
+def validate_long_defense(plan):
+    """Live slow-brain plans must actually occupy the expanded battle depth."""
+    for sector in plan['sectors']:
+        rows=sector['layout']['components']
+        stations=[c for c in rows if not COMPONENTS[c['kind']].get('no_slots') and c['kind']!='fuel_depot'][:3]
+        xs=[c['x'] for c in stations]
+        if len(rows)<6 or min(xs)>LENGTH/3 or max(xs)<LENGTH*2/3 or max(xs)-min(xs)<LENGTH*.4:
+            raise ValueError('spread_first_three_safe_stations_across_front_middle_rear')
+        if not any(c['kind'] in ('sandbag','trench','wall') and max(c['width'],c['depth'])>=.65 for c in rows):
+            raise ValueError('need_continuous_fortification_at_least_0.65m')
+    return plan

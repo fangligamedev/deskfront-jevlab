@@ -35,7 +35,7 @@ var defense:String="entrench"
 var defense_source:String="slow_plan"
 static func initial_level()->Dictionary:
  var settings:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/eastfront.json"))
- return {"id":"eastfront","name":"无尽东线 · 向东推进","bounds":[0,-settings.half_depth,settings.width,settings.half_depth],"floor_color":"#b4b49a","spawns":[[.22,0],[.22,-.5],[1.15,0]],"objective":[1.1,0],"tank_spawn":[1.3,-.55],"objects":[],"at_guns":[]}
+ return {"id":"eastfront","name":"无尽东线 · 向东推进","bounds":[0,-settings.half_depth,settings.width,settings.half_depth],"floor_color":"#b4b49a","spawns":[[settings.width-.9,0],[settings.width-.9,-.5],[settings.width-.3,0]],"objective":[settings.width-.35,0],"tank_spawn":[settings.width-.15,-.55],"objects":[],"at_guns":[]}
 func setup(g):
  game=g;armor.setup(self);backend=str(get_tree().get_meta("eastfront_backend","local"));seed=int(get_tree().get_meta("eastfront_seed",19))
  game.paused=false;game.config.rules.match_seconds=1e12;game.config.rules.hold_seconds=rules.hold_seconds;game.flag_objective.required_seconds=rules.hold_seconds
@@ -138,7 +138,9 @@ func commit(ch:Dictionary):
  for i in range(defenders.size()):
   var a:Array=ch.enemies[i%ch.enemies.size()].duplicate()
   if not ch.battle_plan.is_empty():
-   a[2]=defenders[i].weapon;a[0]=float(rules.width)-.15;a[1]=float(defender_covers(ch)[int(defenders[i].station)].position[1])
+   a[2]=defenders[i].weapon
+   var station:Dictionary=defender_covers(ch)[int(defenders[i].station)]
+   a[0]=minf(float(rules.width)-.15,float(station.position[0])-ch.index*float(rules.width)+float(station.size[0])*.5+.16);a[1]=float(station.position[1])
   var spawn:Vector2=game.field.to_world(game.field.nearest(Vector2(ch.index*float(rules.width)+a[0],a[1])))
   var u=game.spawn_unit("red-e%d-%d"%[ch.index,i],"red",spawn);u.equip(a[2]);u.hp=minf(u.max_hp,float(rules.defender_hp)+minf(ch.index/3.0,20));u.deployment_phase="parked";u.order_mode="reserve";ch.units.append(u.id)
  emit("chunk_committed",{"index":ch.index,"source":ch.source,"navigation_revision":game.field.revision});activate()
@@ -168,7 +170,7 @@ func assign_defenders(ch:Dictionary):
   if found.is_empty():continue
   var u=found[0];var row=ch.battle_plan.defenders[i];var c=defender_covers(ch)[int(row.station)]
   var goal=Vector2(c.position[0]+.10,c.position[1])
-  if u.seek_cover(threat,goal,{"cover_id":c.id,"max_travel":3.0,"range":u.weapon_config().range}):
+  if u.seek_cover(threat,goal,{"cover_id":c.id,"max_travel":float(rules.width)+1.0,"range":u.weapon_config().range}):
    u.order_mode="take_cover";u.tactical_role="overwatch"
 func plan_defenders()->bool:
  var current=chunks.filter(func(ch):return ch.index==active_sector and not ch.get("battle_plan",{}).is_empty() and ch.phase=="combat")
@@ -189,7 +191,7 @@ func plan_defenders()->bool:
   var threat=game.closest_enemy(u)
   var danger:Vector2=threat.pos() if threat else Vector2(ch.index*float(rules.width)-.2,0)
   var goal=Vector2(chosen.position[0]+.1,chosen.position[1])
-  var options={"cover_id":chosen.id,"max_travel":3.0,"range":u.weapon_config().range}
+  var options={"cover_id":chosen.id,"max_travel":float(rules.width)+1.0,"range":u.weapon_config().range}
   if not u.seek_cover(danger,goal,options):
    options.erase("cover_id");u.seek_cover(danger,u.pos(),options)
   u.order_mode="take_cover" if not u.route.is_empty() else "overwatch";u.tactical_role="overwatch"
@@ -307,4 +309,4 @@ func apply_directive(sector:int,intent:String,construction_policy:String,source:
  emit("fast_directive",{"intent":intent,"construction":construction_policy,"defense":defense,"armor":armor_order,"source":source});return "applied"
 func snapshot()->Dictionary:
  var r=request.duplicate(true)
- return {"component_catalog":component_catalog,"dimensions":{"segment_length":rules.width,"battlefield_width":rules.half_depth*2},"template_catalog":rules.templates.map(func(t):return {"id":t.id,"name":t.name}),"armor":armor.snapshot(),"defense":defense,"defense_source":defense_source,"planning_wait":not request.is_empty() and backend in ["dual_brain","dual_brain_laya"],"recovering":recovering,"wave":wave,"reinforcement_in":maxf(0,reinforcement_due-logical) if reinforcement_due>=0 else 0,"directive":directive if logical<directive_until else "advance","directive_source":directive_source if logical<directive_until else "local_executor","enabled":true,"direction":"east","axis":"+x","seed":seed,"backend":backend,"cleared":cleared,"active_sector":active_sector,"hold_seconds":held,"follow":follow,"request":r,"recruits":recruits,"built":total_built,"retired":retired,"peak_chunks":peak_chunks,"max_chunks":rules.max_chunks,"chunks":chunks.map(func(c):return {"battle_plan":c.get("battle_plan",{}),"index":c.index,"phase":c.phase,"source":c.source,"template":c.template,"elapsed":c.elapsed,"theme":c.get("theme","camp"),"components":c.covers.map(func(o):return {"id":o.id,"kind":o.kind,"position":o.position,"size":o.size,"alive":o.alive}),"construction":c.construction.snapshot() if c.has("construction") else {}}),"events":history,"stopped":stopped}
+ return {"component_catalog":component_catalog,"dimensions":{"segment_length":rules.width,"battlefield_width":rules.half_depth*2,"layout_limits":rules.layout_limits,"objective_local_x":float(rules.width)-.22},"template_catalog":rules.templates.map(func(t):return {"id":t.id,"name":t.name}),"armor":armor.snapshot(),"defense":defense,"defense_source":defense_source,"planning_wait":not request.is_empty() and backend in ["dual_brain","dual_brain_laya"],"recovering":recovering,"wave":wave,"reinforcement_in":maxf(0,reinforcement_due-logical) if reinforcement_due>=0 else 0,"directive":directive if logical<directive_until else "advance","directive_source":directive_source if logical<directive_until else "local_executor","enabled":true,"direction":"east","axis":"+x","seed":seed,"backend":backend,"cleared":cleared,"active_sector":active_sector,"hold_seconds":held,"follow":follow,"request":r,"recruits":recruits,"built":total_built,"retired":retired,"peak_chunks":peak_chunks,"max_chunks":rules.max_chunks,"chunks":chunks.map(func(c):return {"battle_plan":c.get("battle_plan",{}),"index":c.index,"phase":c.phase,"source":c.source,"template":c.template,"elapsed":c.elapsed,"theme":c.get("theme","camp"),"components":c.covers.map(func(o):return {"id":o.id,"kind":o.kind,"position":o.position,"size":o.size,"alive":o.alive}),"construction":c.construction.snapshot() if c.has("construction") else {}}),"events":history,"stopped":stopped}

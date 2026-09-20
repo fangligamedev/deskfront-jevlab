@@ -1,0 +1,417 @@
+{
+  "build_id": "main-ebd336ab1791",
+  "run_id": "1789932212.558-3587853545",
+  "dimensions": {
+    "battlefield_width": 2.8,
+    "layout_limits": {
+      "max_component_depth": 1.8,
+      "max_component_width": 1.8,
+      "max_components": 12.0
+    },
+    "objective_local_x": 4.13,
+    "segment_length": 4.35
+  },
+  "python_tests": 101,
+  "godot_semantic_checks": 113,
+  "components_checks": 28,
+  "campaign_checks": 17,
+  "continuity_checks": 18,
+  "streaming": {
+    "sectors": 100,
+    "checks": 312,
+    "note": "生命周期契约，不是自主战斗胜率"
+  },
+  "forge_report": "report-dbb1e9fc8edb",
+  "live": {
+    "engine_live": true,
+    "backend": "dual_brain_laya",
+    "model_calls": {
+      "slow": 1,
+      "fast": 39
+    },
+    "chunks": [
+      {
+        "index": 0,
+        "phase": "cleared"
+      },
+      {
+        "index": 1,
+        "phase": "combat"
+      },
+      {
+        "index": 2,
+        "phase": "ready"
+      }
+    ],
+    "camera": "top",
+    "plan": {
+      "sectors": [
+        {
+          "template": "staggered",
+          "defenders": [
+            {
+              "weapon": "rifle",
+              "station": 0
+            },
+            {
+              "weapon": "rocket",
+              "station": 2
+            }
+          ],
+          "defense": "entrench",
+          "construction": "dig_first",
+          "armor": {
+            "green": {
+              "enabled": true,
+              "delay": 5,
+              "role": "push"
+            },
+            "red": {
+              "enabled": true,
+              "delay": 3,
+              "role": "support"
+            }
+          },
+          "reason": "前沿阵地用错列沙包和浅壕迟滞红军，火箭筒在后方碉堡反制绿军坦克，绿军坦克稍后强攻。",
+          "layout": {
+            "theme": "meadow",
+            "objective_z": -0.7,
+            "components": [
+              {
+                "kind": "trench",
+                "x": 0.8,
+                "z": -0.5,
+                "width": 1.2,
+                "depth": 0.08
+              },
+              {
+                "kind": "bunker",
+                "x": 2.1,
+                "z": 0.5,
+                "width": 0.4,
+                "depth": 0.4
+              },
+              {
+                "kind": "ruins",
+                "x": 3.5,
+                "z": -0.5,
+                "width": 0.45,
+                "depth": 0.35
+              },
+              {
+                "kind": "sandbag",
+                "x": 0.5,
+                "z": 1.0,
+                "width": 0.06,
+                "depth": 0.6
+              },
+              {
+                "kind": "sandbag",
+                "x": 1.3,
+                "z": -0.9,
+                "width": 0.6,
+                "depth": 0.06
+              },
+              {
+                "kind": "wall",
+                "x": 1.8,
+                "z": -0.1,
+                "width": 0.8,
+                "depth": 0.08
+              },
+              {
+                "kind": "rock",
+                "x": 2.8,
+                "z": 1.0,
+                "width": 0.3,
+                "depth": 0.3
+              },
+              {
+                "kind": "house",
+                "x": 3.8,
+                "z": 0.8,
+                "width": 0.4,
+                "depth": 0.3
+              },
+              {
+                "kind": "mud",
+                "x": 0.3,
+                "z": -1.1,
+                "width": 0.3,
+                "depth": 0.2
+              },
+              {
+                "kind": "mud",
+                "x": 2.5,
+                "z": -0.8,
+                "width": 0.25,
+                "depth": 0.1
+              },
+              {
+                "kind": "road",
+                "x": 0.65,
+                "z": 0.2,
+                "width": 0.15,
+                "depth": 1.2
+              }
+            ]
+          }
+        },
+        {
+          "template": "crossfire",
+          "defenders": [
+            {
+              "weapon": "smg",
+              "station": 1
+            },
+            {
+              "weapon": "rocket",
+              "station": 2
+            }
+          ],
+          "defense": "crossfire",
+          "construction": "sandbag_first",
+          "armor": {
+            "green": {
+              "enabled": true,
+              "delay": 8,
+              "role": "support"
+            },
+            "red": {
+              "enabled": true,
+              "delay": 0,
+              "role": "push"
+            }
+          },
+          "reason": "中路用双翼交叉沙包和废墟掩护，红方坦克提前出击配合火箭筒压制，绿军坦克迟到支援。",
+          "layout": {
+            "theme": "dust",
+            "objective_z": 0.3,
+            "components": [
+              {
+                "kind": "sandbag",
+                "x": 0.8,
+                "z": -0.5,
+                "width": 0.06,
+                "depth": 1.0
+              },
+              {
+                "kind": "bunker",
+                "x": 2.1,
+                "z": 0.5,
+                "width": 0.4,
+                "depth": 0.4
+              },
+              {
+                "kind": "ruins",
+                "x": 3.5,
+                "z": -0.5,
+                "width": 0.5,
+                "depth": 0.4
+              },
+              {
+                "kind": "sandbag",
+                "x": 1.4,
+                "z": 1.0,
+                "width": 0.5,
+                "depth": 0.06
+              },
+              {
+                "kind": "sandbag",
+                "x": 1.4,
+                "z": -1.0,
+                "width": 0.5,
+                "depth": 0.06
+              },
+              {
+                "kind": "wall",
+                "x": 2.5,
+                "z": -0.2,
+                "width": 0.8,
+                "depth": 0.08
+              },
+              {
+                "kind": "rock",
+                "x": 3.0,
+                "z": 1.0,
+                "width": 0.35,
+                "depth": 0.35
+              },
+              {
+                "kind": "house",
+                "x": 3.8,
+                "z": -0.9,
+                "width": 0.4,
+                "depth": 0.3
+              },
+              {
+                "kind": "mud",
+                "x": 0.5,
+                "z": 1.1,
+                "width": 0.2,
+                "depth": 0.2
+              },
+              {
+                "kind": "road",
+                "x": 0.6,
+                "z": 0.0,
+                "width": 0.15,
+                "depth": 1.2
+              }
+            ]
+          }
+        },
+        {
+          "template": "breach",
+          "defenders": [
+            {
+              "weapon": "rifle",
+              "station": 0
+            },
+            {
+              "weapon": "rocket",
+              "station": 2
+            }
+          ],
+          "defense": "fallback",
+          "construction": "balanced",
+          "armor": {
+            "green": {
+              "enabled": true,
+              "delay": 12,
+              "role": "push"
+            },
+            "red": {
+              "enabled": true,
+              "delay": 6,
+              "role": "support"
+            }
+          },
+          "reason": "后方阵地用废墟和房屋形成纵深，红方坦克协防并逐步后撤，绿军坦克全力突破。",
+          "layout": {
+            "theme": "ruins",
+            "objective_z": -0.2,
+            "components": [
+              {
+                "kind": "trench",
+                "x": 0.8,
+                "z": -0.5,
+                "width": 1.3,
+                "depth": 0.08
+              },
+              {
+                "kind": "bunker",
+                "x": 2.1,
+                "z": 0.5,
+                "width": 0.4,
+                "depth": 0.4
+              },
+              {
+                "kind": "ruins",
+                "x": 3.5,
+                "z": -0.5,
+                "width": 0.45,
+                "depth": 0.35
+              },
+              {
+                "kind": "sandbag",
+                "x": 0.5,
+                "z": 0.8,
+                "width": 0.06,
+                "depth": 0.7
+              },
+              {
+                "kind": "wall",
+                "x": 1.6,
+                "z": -0.8,
+                "width": 0.9,
+                "depth": 0.08
+              },
+              {
+                "kind": "rock",
+                "x": 2.7,
+                "z": 1.0,
+                "width": 0.3,
+                "depth": 0.3
+              },
+              {
+                "kind": "house",
+                "x": 3.6,
+                "z": 0.7,
+                "width": 0.4,
+                "depth": 0.3
+              },
+              {
+                "kind": "house",
+                "x": 3.4,
+                "z": -1.0,
+                "width": 0.35,
+                "depth": 0.3
+              },
+              {
+                "kind": "mud",
+                "x": 0.4,
+                "z": -1.1,
+                "width": 0.3,
+                "depth": 0.1
+              },
+              {
+                "kind": "mud",
+                "x": 2.0,
+                "z": 1.1,
+                "width": 0.25,
+                "depth": 0.15
+              }
+            ]
+          }
+        }
+      ],
+      "strategy": "利用纵深三道阵地和侧翼交叉火力消耗红军，绿军坦克迟到支援突破，红方火箭筒反制装甲并占据坚固掩体。",
+      "start_index": 1,
+      "layout_adjustments": [
+        {
+          "sector_offset": 0,
+          "component": 10,
+          "from": [
+            0.6,
+            0.0
+          ],
+          "to": [
+            0.65,
+            0.2
+          ],
+          "reason": "editor_footprint_snap"
+        },
+        {
+          "sector_offset": 1,
+          "component": 7,
+          "from": [
+            3.8,
+            -0.8
+          ],
+          "to": [
+            3.8,
+            -0.9
+          ],
+          "reason": "editor_footprint_snap"
+        }
+      ]
+    },
+    "limitations": [
+      "Laya 共享服务偶发 429；既有游戏 AI 继续执行，未作为全场战斗质量验收。"
+    ]
+  },
+  "campaign_templates": [
+    "staggered",
+    "crossfire",
+    "breach",
+    "trench_zigzag",
+    "supply_yard",
+    "ridge_pass"
+  ],
+  "browser_validation": {
+    "view_button": "真实点击正俯视，状态 camera=top",
+    "visual": "长防线、双方坦克和纵深建筑可见，下一段 ready，当前段 combat",
+    "console": "发现服务重启期间 19:23:18 UTC 的 Failed to fetch；新局恢复正常。"
+  }
+}

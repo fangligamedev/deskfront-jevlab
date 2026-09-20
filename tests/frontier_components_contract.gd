@@ -15,6 +15,9 @@ func run():
  {"kind":"fuel_depot","x":.85,"z":-.75,"width":.15,"depth":.20},
  {"kind":"mud","x":.40,"z":.65,"width":.25,"depth":.40},
  {"kind":"water","x":.78,"z":-1.18,"width":.40,"depth":.15}]}}
+ for component in plan.layout.components:component.x*=3
+ plan.layout.components[1].depth*=3
+ check(is_equal_approx(f.rules.width,4.35) and is_equal_approx(g.config.bounds[2],4.35),"sector playable length is exactly tripled")
  check(is_equal_approx(g.config.bounds[3]-g.config.bounds[1],2.8),"initial navigation and tabletop width doubled")
  check(f.propose(f.sequence,"staggered","fixture",plan)=="applied","model-authored varied component layout accepted")
  if f.chunks.size()<2:quit(1);return
@@ -29,6 +32,12 @@ func run():
  check(g.units.filter(func(u):return u.tank).all(func(u):return u.deployment_phase=="entering"),"slow deployment schedule cannot be starved by fast brain choosing hold")
  var defenders=g.units.filter(func(u):return ch.units.has(u.id))
  check(defenders.all(func(u):return u.cover_id!=""),"defenders assigned distinct architectural protection")
+ check(is_equal_approx(g.objective.x-f.rules.width,4.13),"capture goal is at far end of the long sector")
+ check(ch.covers[2].position[0]-ch.covers[0].position[0]>1.5,"defender positions span the long sector")
+ var sand=g.field.make_cover({"id":"long-bag-test","kind":"sandbag","position":[0,0],"size":[.9,.055],"height":.06})
+ var bags=sand.get_children().filter(func(n):return not n is MultiMeshInstance3D)
+ check(bags.size()==36 and bags.all(func(n):return n.scale.x<1.01),"long sandbag walls repeat normal-sized bags instead of stretching them")
+ sand.queue_free()
  var field=g.field;var trench=ch.covers[1];var house=ch.covers[0];var mud=ch.covers[4];var water=ch.covers[5]
  var center=Vector2(trench.position[0],trench.position[1])
  check(field.walkable(center,true) and not field.walkable(center),"tanks can cross shallow revetment while infantry must route to cover")

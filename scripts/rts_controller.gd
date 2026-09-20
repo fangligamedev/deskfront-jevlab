@@ -96,7 +96,7 @@ func clamp_target() -> void:
 func zoom(factor:float,cursor:Vector2) -> void:
  manual_camera()
  var before:Vector2=game.screen_point(cursor)
- game.camera_size=clampf(game.camera_size*factor,.45,3.6 if game.eastfront else 12.0)
+ game.camera_size=clampf(game.camera_size*factor,.45,8.0 if game.eastfront else 12.0)
  # Keep the surface under the mouse still while zooming; no horizontal drift.
  anchor=game.camera_target;apply_camera(1.0)
  var after:Vector2=game.screen_point(cursor)

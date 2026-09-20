@@ -1,7 +1,7 @@
 import copy, json, sys, unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
-from frontier_plan import validate_layout, sector_plan, COMPONENTS, fit_campaign_layouts
+from frontier_plan import validate_layout, sector_plan, COMPONENTS, fit_campaign_layouts, LENGTH, validate_long_defense
 from server import validate_command
 
 def layout():
@@ -24,7 +24,7 @@ class ComponentPlans(unittest.TestCase):
    with self.assertRaises(ValueError):validate_layout(v)
   v=layout();v['components'][1]=v['components'][0].copy()
   with self.assertRaisesRegex(ValueError,'overlapping'):validate_layout(v)
-  v=layout();v['components'][0].update(x=1.2,z=0,width=.15)
+  v=layout();v['components'][0].update(x=LENGTH-.22,z=0,width=.15)
   with self.assertRaisesRegex(ValueError,'blocked_objective'):validate_layout(v)
   for kind in ['mud','road','water','fuel_depot']:
    v=layout();v['components'][0]['kind']=kind
@@ -53,3 +53,26 @@ class EditorPacking(unittest.TestCase):
  def test_packing_never_relabels_unsafe_station(self):
   original=layout();original['components'][0]['kind']='fuel_depot'
   with self.assertRaises(ValueError):fit_campaign_layouts({'sectors':[{'layout':original}]})
+
+class LongSector(unittest.TestCase):
+ def test_three_times_length_and_full_depth_layout(self):
+  self.assertAlmostEqual(LENGTH,1.45*3)
+  v=layout()
+  for c in v['components']:c['x']*=3
+  v['components'][1]['depth']*=3
+  self.assertEqual(validate_layout(v),v)
+  v['components'][0].update(x=LENGTH-.1,width=.4)
+  with self.assertRaisesRegex(ValueError,'invalid_component_bounds'):validate_layout(v)
+
+ def test_live_plans_cannot_leave_rear_empty_or_use_only_short_fortifications(self):
+  v=layout()
+  for c in v['components']:c['x']*=3
+  v['components'][2]['x']=3.5
+  v['components'][1]['depth']=.9
+  p={'sectors':[{'layout':v}]}
+  self.assertEqual(validate_long_defense(p),p)
+  v['components'][1]['depth']=.34
+  with self.assertRaisesRegex(ValueError,'continuous_fortification'):validate_long_defense(p)
+  v['components'][1]['depth']=.9
+  for c in v['components'][:3]:c['x']=.8
+  with self.assertRaisesRegex(ValueError,'spread_first_three'):validate_long_defense(p)

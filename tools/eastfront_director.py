@@ -7,15 +7,17 @@ import urllib.request
 import urllib.error
 from lm_controller import NoRedirect, ProviderError, ArkClient
 from jev_client import checked_choice
+from eastfront_brains import DualBrain
 
 class EastfrontDirector:
     def __init__(self,state,lm):
         self.state=state;self.lm=lm;self.stop=threading.Event();self.thread=None
+        self.brains=DualBrain(state,lm)
         self.run='';self.seen=set();self.used=0;self.disabled=False;self.receipts={}
     def start(self):
         self.thread=threading.Thread(target=self.loop,daemon=True,name='eastfront-director');self.thread.start()
     def close(self):
-        self.stop.set()
+        self.stop.set();self.brains.close()
         if self.thread:self.thread.join(timeout=1)
     def loop(self):
         while not self.stop.wait(.25):
@@ -28,6 +30,7 @@ class EastfrontDirector:
             if command in acks:
                 self.lm.call_log.update(call,phase='executed' if acks[command]['accepted'] else 'rejected',receipt=acks[command]);del self.receipts[command]
         f=s.get('eastfront',{});r=f.get('request',{})
+        if f.get('enabled') and age<=3:self.brains.tick(s,instance,acks)
         if not f.get('enabled') or f.get('backend') not in ('model','typesafe_jev','volcengine_ark') or not r or age>3 or s.get('paused') or s.get('winner'):return
         if self.run!=s['run_id']:self.run=s['run_id'];self.seen=set();self.used=0;self.disabled=False
         seq=r['sequence']

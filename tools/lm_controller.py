@@ -278,7 +278,7 @@ class LMController:
 
     def snapshot(self):
         with self.lock:
-            return copy.deepcopy({'providers':{k:{'configured':bool(v.get('key') and v.get('model')),'model':v.get('model','')} for k,v in self.profiles.items()},'status':self.status,'flag_alerts':self.flag_alerts,'configured': self.ready, 'provider': self.provider, 'display_name':'TypeSafe JEV' if self.provider=='typesafe_jev' else 'DeepSeek · logprobs 多题' if self.provider=='deepseek_logprobs' else 'DeepSeek LLM', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
+            return copy.deepcopy({'frontier':getattr(self,'frontier_status',{}),'providers':{k:{'configured':bool(v.get('key') and v.get('model')),'model':v.get('model','')} for k,v in self.profiles.items()},'status':self.status,'flag_alerts':self.flag_alerts,'configured': self.ready, 'provider': self.provider, 'display_name':'TypeSafe JEV' if self.provider=='typesafe_jev' else 'DeepSeek · logprobs 多题' if self.provider=='deepseek_logprobs' else 'DeepSeek LLM', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
 
     def _invoke(self, obs, call_id, client):
         started=time.monotonic()

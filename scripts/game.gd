@@ -365,12 +365,15 @@ func command(c: Dictionary) -> Dictionary:
 	if rejected!="":return ack(c,false,rejected)
 	if source=="lm" and int(c.get("control_epoch",-1))!=control_epochs[team]:return ack(c,false,"stale_control_epoch")
 	if action=="eastfront_start":
-		if c.get("backend","local") not in ["local","model","typesafe_jev","volcengine_ark"] or c.get("mode","game_ai") not in ["game_ai","player","lm","agent"]:return ack(c,false,"invalid_eastfront_mode")
+		if c.get("backend","local") not in ["local","model","typesafe_jev","volcengine_ark","dual_brain"] or c.get("mode","game_ai") not in ["game_ai","player","lm","agent"]:return ack(c,false,"invalid_eastfront_mode")
 		get_tree().set_meta("eastfront_enabled",true);get_tree().set_meta("eastfront_backend",c.get("backend","local"));get_tree().set_meta("eastfront_control",c.get("mode","game_ai"));get_tree().set_meta("eastfront_seed",int(c.get("seed",19)));get_tree().set_meta("demo_enabled",false)
 		var result=ack(c,true,"eastfront_loading");get_tree().call_deferred("reload_current_scene");return result
 	if action=="eastfront_propose":
 		if not eastfront:return ack(c,false,"eastfront_not_active")
 		var result=eastfront.propose(int(c.get("sequence",-1)),str(c.get("template","")),str(c.get("provider","external")));return ack(c,result=="applied",result)
+	if action=="eastfront_directive":
+		if not eastfront:return ack(c,false,"eastfront_not_active")
+		var result=eastfront.apply_directive(int(c.get("sector",-1)),str(c.get("intent","")),str(c.get("construction","")),str(c.get("provider","external")));return ack(c,result=="applied",result)
 	if action=="eastfront_follow":
 		if not eastfront:return ack(c,false,"eastfront_not_active")
 		eastfront.follow=bool(c.get("value",true));return ack(c,true,"applied")

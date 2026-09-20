@@ -6,7 +6,7 @@ import argparse, json, time, threading, uuid, collections, urllib.parse, math
 
 ROOT=Path(__file__).resolve().parents[1]
 SERVICE_VERSION=json.loads((ROOT/'package.json').read_text())['version']
-ALLOWED={'possess','release_unit','eastfront_start','eastfront_propose','eastfront_follow','demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
+ALLOWED={'eastfront_directive','possess','release_unit','eastfront_start','eastfront_propose','eastfront_follow','demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
 TACTICS={'move','capture','flank','cover','hold','retreat','attack','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
 TEAMS={'green','blue','red'}
 
@@ -18,8 +18,9 @@ def validate_command(c, agent=False):
     if 'position' in c:
         p=c['position']
         if not isinstance(p,list) or len(p)!=2 or not all(type(x) in (int,float) and math.isfinite(x) for x in p):return 'invalid_position'
-    if c['action']=='eastfront_start' and (c.get('backend','local') not in ('local','model','typesafe_jev','volcengine_ark') or c.get('mode','game_ai') not in ('game_ai','player','lm','agent') or type(c.get('seed',19)) is not int or not 0<=c.get('seed',19)<=2147483647):return 'invalid_eastfront_mode'
+    if c['action']=='eastfront_start' and (c.get('backend','local') not in ('local','model','typesafe_jev','volcengine_ark','dual_brain') or c.get('mode','game_ai') not in ('game_ai','player','lm','agent') or type(c.get('seed',19)) is not int or not 0<=c.get('seed',19)<=2147483647):return 'invalid_eastfront_mode'
     if c['action']=='eastfront_propose' and (type(c.get('sequence')) is not int or not isinstance(c.get('template'),str) or len(c['template'])>40 or not isinstance(c.get('provider','external'),str) or len(c.get('provider','external'))>80):return 'invalid_eastfront_proposal'
+    if c['action']=='eastfront_directive' and (type(c.get('sector')) is not int or c.get('intent') not in ('advance','flank_north','flank_south','regroup') or c.get('construction') not in ('balanced','north_first','south_first','dig_first','sandbag_first') or not isinstance(c.get('provider','external'),str)):return 'invalid_frontier_directive'
     if c['action']=='eastfront_follow' and type(c.get('value')) is not bool:return 'invalid_follow'
     if c['action']=='demo_step' and (not isinstance(c.get('step_id'),str) or len(c['step_id'])>100):return 'invalid_demo_step'
     if c['action']=='move' and 'position' not in c:return 'position_required'
@@ -189,6 +190,7 @@ class Handler(SimpleHTTPRequestHandler):
             except ValueError as e:status,result=400,{'error':str(e)}
         elif self.path in {'/api/command','/api/agent/command'}:
             if isinstance(payload,dict) and payload.get('action')=='control' and payload.get('mode')=='lm' and (not LM or not LM.ready):status,result=409,{'error':'lm_not_configured'}
+            elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend')=='dual_brain' and not all(LM and LM.profiles.get(p,{}).get('key') and LM.profiles.get(p,{}).get('model') for p in ('typesafe_jev','volcengine_ark')):status,result=409,{'error':'dual_brain_not_configured'}
             elif isinstance(payload,dict) and payload.get('action')=='eastfront_start' and payload.get('backend') in ('typesafe_jev','volcengine_ark') and not (LM and LM.profiles.get(payload['backend'],{}).get('key')):status,result=409,{'error':'provider_not_configured'}
             else:status,result=STATE.submit(payload,self.path=='/api/agent/command')
         else:status,result=404,{'error':'not_found'}

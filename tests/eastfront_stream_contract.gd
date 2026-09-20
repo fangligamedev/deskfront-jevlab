@@ -20,20 +20,20 @@ func run():
  var saved=g.units[0].position;g.units[0].position.x=1.45+.38;g.units[0].position.z=-.33
  check(f.propose(1,"staggered","test")=="occupied_frontier","never construct over an occupied position")
  g.units[0].position=saved
- f.tick(7.1)
+ f.tick(float(f.rules.model_deadline_seconds)+.1)
  check(f.chunks[-1].source=="local_timeout_fallback","model timeout explicitly produces local fallback")
  check(f.propose(1,"crossfire","late_model")=="stale_frontier_request","late model cannot overwrite committed proposal")
  f.backend="local"
  var maximum_units=0;var maximum_covers=0
  for sector in range(1,101):
-  f.need_next();f.tick(.1);f.tick(1.5)
+  f.need_next();f.tick(.1);f.tick(6.1);f.tick(6.1)
   check(f.active_sector==sector and f.total_built>=sector,"sector available "+str(sector))
   # This is a streaming stress contract, NOT a claimed autonomous combat win.
   for u in g.units:
    if u.faction=="red" and u.deployment_phase=="active":u.hp=0
   var i=0
   for u in g.living("green"):
-   u.position=Vector3(g.objective.x-.04+i*.03,g.field.height,0);u.goal=u.pos();u.route.clear();i+=1
+   u.position=Vector3(g.objective.x-.04+i*.03,g.field.height,g.objective.y);u.goal=u.pos();u.route.clear();i+=1
   f.update_capture(5.1);f.retire_old()
   await process_frame
   maximum_units=maxi(maximum_units,g.units.size());maximum_covers=maxi(maximum_covers,g.field.covers.size())

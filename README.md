@@ -155,3 +155,7 @@ CI 运行项目合同检查、离线 Python 测试及真实 Godot 导入/测试�
 代码和文档采用 [MIT](LICENSE)。模型/动画主要 CC0；部分 Q009 衍生声音 **CC-BY-SA 3.0**，字体 **OFL 1.1**。代码许可不替代素材的独立许可，详见 [资源许可](assets/LICENSE.md) 和 [第三方来源](THIRD_PARTY.md)。
 
 当前是三地图战术原型，没有联网对战、战争迷雾或成熟的多智能体通信。炮组为单人操作，后备炮弹不限量。Jev 保留通用 Agent 接口，未连接专属 SDK。macOS 导出未签名、未公证。没有使用《英雄连》的代码或资产。
+
+### 无尽东线快慢脑
+
+前沿构筑选择「快慢脑 · DeepSeek 规划 + JEV 执行」，远征队选择「游戏 AI · 小队协同」：DeepSeek 规划未来三段，JEV 调度施工与战术，Godot 连续执行。支持可见挖掘、搬沙包、六种防线及全灭后新小队从左侧入场。[玩法与边界](docs/eastfront/DUAL_BRAIN.md) · [交付验收](docs/eastfront/DELIVERY.md)。

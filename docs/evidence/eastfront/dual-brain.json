@@ -1,0 +1,140 @@
+{
+  "date": "2026-09-20",
+  "python_tests": 78,
+  "semantic_checks": 113,
+  "mechanism_checks": [
+    {
+      "passed": true,
+      "test": "six distinct tactical layouts"
+    },
+    {
+      "passed": true,
+      "test": "safe approach moves all soldiers without one-at-a-time waits"
+    },
+    {
+      "passed": true,
+      "test": "trench scenario validates"
+    },
+    {
+      "passed": true,
+      "test": "dig-first policy delays hauling until all trenches dug"
+    },
+    {
+      "passed": true,
+      "test": "visible dig carry stack stages"
+    },
+    {
+      "passed": true,
+      "test": "construction completes before physics commit"
+    },
+    {
+      "passed": true,
+      "test": "layout changes capture route"
+    },
+    {
+      "passed": true,
+      "test": "typed fast directive accepted"
+    },
+    {
+      "passed": true,
+      "test": "stale tactical policy rejected"
+    },
+    {
+      "passed": true,
+      "test": "wipe schedules a wave instead of ending campaign"
+    },
+    {
+      "passed": true,
+      "test": "new identities spawn from rear"
+    },
+    {
+      "passed": true,
+      "test": "reinforcements enter from west"
+    },
+    {
+      "passed": true,
+      "test": "wave count advances"
+    },
+    {
+      "passed": true,
+      "test": "aid heals only after reaching safe rear"
+    },
+    {
+      "passed": true,
+      "test": "enemy pressure prevents rear healing"
+    },
+    {
+      "passed": true,
+      "test": "adjacent layouts cannot repeat"
+    }
+  ],
+  "streaming": {
+    "checks": 312,
+    "segments": 100,
+    "retired": 99,
+    "peak_unit_records": 9,
+    "peak_cover_records": 9,
+    "method": "synthetic occupancy / real navigation and recycling; not autonomous combat"
+  },
+  "battle": {
+    "segments": 3,
+    "shots": 116,
+    "game_seconds": 127.849999999995
+  },
+  "live": {
+    "run_id": "1789902959.276-3595096075",
+    "cleared": 6,
+    "built": 8,
+    "retired": 5,
+    "wave": 1,
+    "layouts": [
+      "crossfire",
+      "ridge_pass"
+    ],
+    "brain": {
+      "mode": "dual_brain",
+      "used": {
+        "slow": 3,
+        "fast": 206
+      },
+      "in_flight": [
+        "fast"
+      ],
+      "latest": {
+        "fast": {
+          "error": "brain_request_failed"
+        },
+        "slow": {
+          "sectors": [
+            "ridge_pass",
+            "crossfire",
+            "staggered"
+          ],
+          "strategy": "开局高地隘口，利用垂直火力压制突击步兵；中间双翼交叉火力，在两侧形成密集弹幕应对坦克；末尾错列沙包防线，借助障碍物掩护残血小队进行近距离反攻，火箭兵优先摧毁装甲目标。",
+          "start_index": 7
+        }
+      },
+      "disabled": [],
+      "budgets": {
+        "slow": 64,
+        "fast": 300
+      },
+      "fast_interval_seconds": 2
+    },
+    "calls": {
+      "eastfront-slow-brain / planned": 3,
+      "eastfront-fast-brain / executed": 154,
+      "eastfront-fast-brain / error": 50,
+      "eastfront-fast-brain / rejected": 1,
+      "eastfront-fast-brain / requesting": 1
+    },
+    "fps": 120.0
+  },
+  "limitations": [
+    "Six authored component layouts; not arbitrary generated 3D terrain.",
+    "Construction workers are presentation entities.",
+    "Fast target interval 2s is not guaranteed network latency.",
+    "Live run included request timeouts and stale replies; engine continued."
+  ],
+  "release_gate": "Forge strict release passed; output/dual-brain/release.json"
+}

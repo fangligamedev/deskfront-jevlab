@@ -18,7 +18,7 @@ func setup(g) -> void:
 	game=g
 
 func enemies(team: String) -> Array:
-	return game.living().filter(func(u):return u.faction!=team)
+	return game.living().filter(func(u):return u.faction!=team and u.deployment_phase=="active")
 
 func threat_points(team: String) -> Array:
 	var points: Array=[]
@@ -99,9 +99,10 @@ func plan(team: String) -> void:
 			if not u.direct_controlled and u.weapon=="rifle" and not game.living(team).any(func(v):return v.garrison_phase!="") and u.garrison_phase=="" and u.gun_id=="" and u.hp/u.max_hp>.65 and u.suppression<.35 and u.pos().distance_to(game.building.approach())<.8:
 				if game.building.enter(u,2):
 					if formations.has(team):formations[team].ids.erase(u.id)
-	var squad: Array=game.living(team).filter(func(u):return not u.direct_controlled and not u.tank and u.gun_id=="" and u.garrison_phase=="")
+	var squad: Array=game.living(team).filter(func(u):return not u.direct_controlled and (not game.eastfront or not game.eastfront.recovering.has(u.id)) and not u.tank and u.gun_id=="" and u.garrison_phase=="")
 	for armor in game.living(team).filter(func(u):return u.tank):plan_tank(armor)
 	if squad.is_empty():return
+	if game.eastfront and team=="green" and plan_eastfront(squad):return
 	if game.config.rules.get("mode","")=="center_flag":plan_flag(team,squad);return
 	if not squads.has(team):
 		squads[team]={"phase":"take_cover","since":game.elapsed,"reason":"先预约掩体，再分工交火","mover":"","turn":0,"leader":squad[0].id,"anchor":squad_center(squad),"threat":""}
@@ -332,6 +333,31 @@ func snapshot() -> Dictionary:
 		result.formations[team]={"leader":f.leader,"anchor":[f.anchor.x,f.anchor.y],"destination":[f.destination.x,f.destination.y],"shape":f.shape,"ids":f.ids}
 	return result
 
+func plan_eastfront(squad:Array)->bool:
+	# Execute a continuous safe corridor; never make a network round trip per footstep.
+	var threats:Array=enemies("green")
+	var advanced:bool=false
+	if game.eastfront.directive=="regroup" and game.eastfront.logical<game.eastfront.directive_until:
+		for u in squad:
+			if not u.get("direct_controlled") == true and u.hp/u.max_hp<.65 and u.route.is_empty():
+				if acquire(u,u.pos()-Vector2(.15,0),.35):u.order_mode="regroup";u.tactical_role="recover"
+	for u in squad:
+		if u.get("direct_controlled") == true or u.hp/u.max_hp<.45 or u.suppression>.45 or game.elapsed<u.safety_until:continue
+		if u.pos().distance_to(game.objective)<.17:continue
+		if threats.any(func(e):return e.pos().distance_to(u.pos())<float(e.weapon_config().range)+.18):continue
+		if not u.route.is_empty():advanced=true;continue
+		var path:PackedVector2Array=game.field.path(u.pos(),game.objective)
+		var goal:Vector2=u.pos();var length:float=0
+		for i in range(1,path.size()):
+			if threats.any(func(e):return e.pos().distance_to(path[i])<float(e.weapon_config().range)+.15):break
+			length+=path[i-1].distance_to(path[i]);goal=path[i]
+			if length>=.95:break
+		if goal.distance_to(u.pos())>.08:
+			u.move_to(goal);u.order_mode="approach_column";u.tactical_role="advance";advanced=true
+	if advanced:
+		game.decisions.green={"action":"move","phase":"approach","reason":"无威胁通路连续推进，接敌后转交替掩护","source":"continuous_executor","tick":game.tick_id}
+	return advanced and not squad.any(func(u):return threats.any(func(e):return e.pos().distance_to(u.pos())<float(e.weapon_config().range)+.18))
+
 func flag_options(u) -> Array:
 	var output: Array=[]
 	var urgent: bool=game.control[u.faction]=="lm" and game.flag_emergency(u.faction)
@@ -341,6 +367,7 @@ func flag_options(u) -> Array:
 	var threats: Array=[]
 	for enemy in enemies(u.faction):
 		if enemy.pos().distance_to(u.pos())<game.config.weapons[enemy.weapon].range+.4:threats.append(enemy.pos())
+	var stride:float=.80 if threats.is_empty() else .30
 	var supporting: bool=game.living(u.faction).any(func(v):return v!=u and can_support(v))
 	# A healthy unit can attempt one short exposed leg after sustained stalemate.
 	# Low health, suppression and survival vetoes above remain authoritative.
@@ -355,20 +382,24 @@ func flag_options(u) -> Array:
 		var travelled: float=0
 		for i in range(1,full.size()):
 			travelled+=full[i-1].distance_to(full[i])
-			if travelled>=.24 or i==full.size()-1:
+			if travelled>=stride or i==full.size()-1:
 				goals.append(full[i]);break
-	for offset in [0.0,.18,-.18,.30,-.30]:goals.append(u.pos().move_toward(game.objective,.24)+side*offset)
+	for offset in [0.0,.18,-.18,.30,-.30]:goals.append(u.pos().move_toward(game.objective,stride)+side*offset)
 	var current_remaining: float=game.field.route_length(game.field.path(u.pos(),game.objective))
 	for goal: Vector2 in goals:
 		if not game.field.walkable(goal) or goal.distance_to(u.pos())<.04:continue
 		var path: PackedVector2Array=game.field.path(u.pos(),goal)
-		if path.is_empty() or game.field.route_length(path)>.55:continue
+		if path.is_empty() or game.field.route_length(path)>stride+.32:continue
 		var exposure: float=game.field.route_exposure(path,threats)
 		if not urgent and exposure>(.28 if supporting or stalled else .12):continue
 		if game.living(u.faction).any(func(v):return v!=u and v.pos().distance_to(goal)<.065):continue
 		var remaining: float=game.field.route_length(game.field.path(goal,game.objective))
 		if remaining>=current_remaining-.025:continue # No oscillating side steps presented as progress.
-		output.append({"position":[goal.x,goal.y],"exposure":exposure,"cost":remaining+exposure*4+game.field.route_length(path)*.2})
+		var preference:float=0
+		if game.eastfront and game.eastfront.logical<game.eastfront.directive_until:
+			if game.eastfront.directive=="flank_north":preference=goal.y*.20
+			elif game.eastfront.directive=="flank_south":preference=-goal.y*.20
+		output.append({"position":[goal.x,goal.y],"exposure":exposure,"cost":remaining+exposure*4+game.field.route_length(path)*.2+preference})
 	output.sort_custom(func(a,b):return a.cost<b.cost)
 	return output
 
@@ -408,7 +439,7 @@ func plan_flag(team: String, squad: Array) -> void:
 		publish(team,"hold")
 	else:set_phase(team,"advance","保留掩护，沿低暴露的短路线接近旗点")
 	if game.elapsed<float(flag_next.get(team,0)):return
-	flag_next[team]=game.elapsed+1.4
+	flag_next[team]=game.elapsed+(.45 if game.eastfront else 1.4)
 	var movers: Array=healthy.filter(func(u):return u.route.is_empty() and not defenders.has(u) and u.grenade_time<0)
 	movers.sort_custom(func(a,b):return mover_priority(a,int(s.turn))<mover_priority(b,int(s.turn)))
 	for u in movers:

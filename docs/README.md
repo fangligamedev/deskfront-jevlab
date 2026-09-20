@@ -41,6 +41,8 @@
 | `docs/README.md` | [全部说明文档](README.md) | 当前指南 |
 | `docs/REFERENCES.md` | [研究参考与实现映射](REFERENCES.md) | 当前指南 |
 | `docs/RELEASING.md` | [发布流程](RELEASING.md) | 当前指南 |
+| `docs/RTS_CONTROLS.md` | [RTS 镜头与战术操作](RTS_CONTROLS.md) | 当前指南 |
+| `docs/SHOOTER_MODE.md` | [单兵接管：RTS / 第三人称 / 第一人称](SHOOTER_MODE.md) | 当前指南 |
 | `docs/TACTICS.md` | [0.5.0 生存优先的桌面战术执行](TACTICS.md) | 当前指南 |
 | `docs/VIEWS.md` | [工作视图](VIEWS.md) | 当前指南 |
 | `docs/asset-integration/INTEGRATION.md` | [集成契约与资源配置](asset-integration/INTEGRATION.md) | 资源集成 |
@@ -55,11 +57,13 @@
 | `docs/eastfront/BRIEF.md` | [无尽东线战役](eastfront/BRIEF.md) | 当前指南 |
 | `docs/eastfront/DEEPSEEK.md` | [DeepSeek 多题并行与 logprobs](eastfront/DEEPSEEK.md) | 当前指南 |
 | `docs/eastfront/DELIVERY.md` | [无尽东线交付报告](eastfront/DELIVERY.md) | 当前指南 |
+| `docs/eastfront/DUAL_BRAIN.md` | [快慢脑东线：规划、施工与连续战斗](eastfront/DUAL_BRAIN.md) | 当前指南 |
 | `docs/eastfront/README.md` | [无尽东线：边推进、边构筑](eastfront/README.md) | 当前指南 |
 | `docs/evidence/flag-warning/report.md` | [夺旗倒计时与 LM 败北预警](evidence/flag-warning/report.md) | 当前指南 |
 | `docs/evidence/latest-integration/integration-report.md` | [最新资产与动作合入主游戏报告](evidence/latest-integration/integration-report.md) | 当前指南 |
 | `docs/evidence/motion-continuity/report.md` | [士兵运动断续：诊断与修复报告](evidence/motion-continuity/report.md) | 当前指南 |
 | `docs/evidence/office-battlefield/report.md` | [办公桌战场改造交付](evidence/office-battlefield/report.md) | 当前指南 |
+| `docs/evidence/shooter/report.md` | [单兵射击模式交付报告](evidence/shooter/report.md) | 当前指南 |
 | `docs/reviews/2026-09-19-assets-animation-ai.md` | [资产、动作与 AI 状态机审查](reviews/2026-09-19-assets-animation-ai.md) | 当前指南 |
 | `docs/studio/API.md` | [创作与复盘 API](studio/API.md) | 当前指南 |
 | `docs/studio/BRIEF.md` | [AI 战术沙盒：创造、操纵、复盘](studio/BRIEF.md) | 当前指南 |

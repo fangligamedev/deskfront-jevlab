@@ -10,7 +10,7 @@
 {"action":"eastfront_start","backend":"model","mode":"game_ai","seed":19,"instance_id":"当前会话","run_id":"当前局次"}
 ```
 
-开启新东线，`backend` 为 `local/typesafe_jev/volcengine_ark`（兼容旧 `model`，表示当前战斗模型），绿色控制 `mode` 为 `game_ai/player/lm/agent`。原场景会重载并产生新 `run_id`，旧模型决策自动失效。未配置模型时可用本地模式；构筑模型缺席会触发明确后备。
+开启新东线，`backend` 为 `local/typesafe_jev/volcengine_ark/dual_brain`（兼容旧 `model`，表示当前战斗模型），绿色控制 `mode` 为 `game_ai/player/lm/agent`。原场景会重载并产生新 `run_id`，旧模型决策自动失效。未配置模型时可用本地模式；构筑模型缺席会触发明确后备。
 
 ```json
 {"action":"eastfront_propose","sequence":7,"template":"crossfire","provider":"external-editor","instance_id":"当前会话","run_id":"当前局次"}
@@ -70,6 +70,8 @@ JEV 和 DeepSeek 使用内部兼容控制值 `lm`，每个单位仍由独立的�
 
 服务端 `EastfrontDirector` 观察真实引擎请求，在后台调用模型；切换网页视图不影响生成。每局最多 128 次防线模型选择；同一序号最多调用一次，网络请求最多等待 5 秒。401/402/403 类拒绝或欠费会停止本局生成模型重试，由引擎在期限后选本地方案。
 
-引擎等待期限为 7 秒有效等待时间（除以游戏倍率，暂停不累加），构筑动画和守点用游戏时间。回复前后均检查局次与请求序号，提交后仍等待引擎回执。战斗模型使用独立的 `DESKFRONT_LM_MAX_REQUESTS` 决策轮数预算，不因进入下一扇区偷偷清零。
+引擎等待期限为 14 秒有效等待时间（除以游戏倍率，暂停不累加），构筑动画和守点用游戏时间。回复前后均检查局次与请求序号，提交后仍等待引擎回执。战斗模型使用独立的 `DESKFRONT_LM_MAX_REQUESTS` 决策轮数预算，不因进入下一扇区偷偷清零。
 
 服务仍只监听 localhost。没有增加任意文件路径、代码执行、远程资产下载或跨域控制入口。
+
+快慢脑调度、施工状态与波次接口见 [快慢脑说明](DUAL_BRAIN.md)。

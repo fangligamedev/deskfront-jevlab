@@ -158,7 +158,10 @@
       "optional": {
         "backend": [
           "local",
-          "model"
+          "model",
+          "typesafe_jev",
+          "volcengine_ark",
+          "dual_brain"
         ],
         "mode": [
           "game_ai",
@@ -225,6 +228,23 @@
         "release_mouse",
         "restore_rts_camera",
         "restore_unit_ai"
+      ]
+    },
+    "eastfront_directive": {
+      "authority": "console only; validated fast-brain intent",
+      "required": [
+        "sector",
+        "intent",
+        "construction"
+      ],
+      "optional": [
+        "provider"
+      ],
+      "series": [
+        "check_run_and_sector",
+        "update_intent_lease",
+        "schedule_unstarted_jobs",
+        "continuous_game_ai_execution"
       ]
     }
   },
@@ -685,6 +705,13 @@
       "stationed",
       "exiting",
       "falling"
+    ],
+    "frontier_construction": [
+      "survey",
+      "dig",
+      "carry_sandbag",
+      "stack_sandbag",
+      "secure"
     ]
   }
 }

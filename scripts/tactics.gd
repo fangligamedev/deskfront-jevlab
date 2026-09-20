@@ -3,6 +3,7 @@ extends Node
 var game
 var flag_next: Dictionary={}
 var flag_progress: Dictionary={}
+var flag_distance: Dictionary={}
 var flag_hints: Dictionary={}
 var hint_cursor: int=0
 var hint_clock: float=0
@@ -357,14 +358,16 @@ func flag_options(u) -> Array:
 			if travelled>=.24 or i==full.size()-1:
 				goals.append(full[i]);break
 	for offset in [0.0,.18,-.18,.30,-.30]:goals.append(u.pos().move_toward(game.objective,.24)+side*offset)
+	var current_remaining: float=game.field.route_length(game.field.path(u.pos(),game.objective))
 	for goal: Vector2 in goals:
 		if not game.field.walkable(goal) or goal.distance_to(u.pos())<.04:continue
 		var path: PackedVector2Array=game.field.path(u.pos(),goal)
 		if path.is_empty() or game.field.route_length(path)>.55:continue
 		var exposure: float=game.field.route_exposure(path,threats)
-		if not urgent and exposure>(.24 if supporting or stalled else .12):continue
+		if not urgent and exposure>(.28 if supporting or stalled else .12):continue
 		if game.living(u.faction).any(func(v):return v!=u and v.pos().distance_to(goal)<.065):continue
 		var remaining: float=game.field.route_length(game.field.path(goal,game.objective))
+		if remaining>=current_remaining-.025:continue # No oscillating side steps presented as progress.
 		output.append({"position":[goal.x,goal.y],"exposure":exposure,"cost":remaining+exposure*4+game.field.route_length(path)*.2})
 	output.sort_custom(func(a,b):return a.cost<b.cost)
 	return output
@@ -389,6 +392,9 @@ func flag_hint(u) -> Dictionary:
 	return {"advance_options":cached.data.advance_options if valid else [],"inside_flag":u.pos().distance_to(game.objective)<=game.config.rules.capture_radius,"pending":not valid}
 
 func plan_flag(team: String, squad: Array) -> void:
+	var nearest_objective: float=squad.map(func(u):return u.pos().distance_to(game.objective)).min()
+	if not flag_distance.has(team) or nearest_objective<float(flag_distance[team])-.04:
+		flag_distance[team]=nearest_objective;flag_progress[team]=game.elapsed
 	if not squads.has(team):squads[team]={"phase":"advance","since":game.elapsed,"reason":"向中央旗点分段推进","mover":"","turn":0,"leader":squad[0].id,"anchor":squad_center(squad),"threat":""}
 	var s: Dictionary=squads[team];s.anchor=squad_center(squad)
 	if not squad.any(func(u):return u.id==s.mover and not u.route.is_empty()):s.mover=""
@@ -411,7 +417,7 @@ func plan_flag(team: String, squad: Array) -> void:
 		var options=flag_options(u)
 		if not options.is_empty():
 			formations.erase(team);var p: Array=options[0].position
-			u.move_to(Vector2(p[0],p[1]));u.order_mode="flag_advance";s.mover=u.id;s.turn+=1;flag_progress[team]=game.elapsed
+			u.move_to(Vector2(p[0],p[1]));u.order_mode="flag_advance";s.mover=u.id;s.turn+=1
 			if defenders.is_empty():publish(team,"capture")
 			return
 		# No safe open step: improve a protected station towards the objective.

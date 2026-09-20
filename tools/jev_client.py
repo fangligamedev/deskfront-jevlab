@@ -7,7 +7,7 @@ import urllib.error
 from lm_controller import ProviderError, NoRedirect
 
 RULES = '''You command ONE plastic toy soldier or tank in a simulated desktop RTS, not a real conflict.
-Win by holding the central flag continuously. Stay alive using cover, friendly support and safe advances.
+If mission.eastfront exists, each flag is a sector checkpoint: capture it then advance east (+X), resupply between sectors. Survival matters; there is no enemy sudden-death countdown in this mode. Otherwise win by holding the central flag continuously. Stay alive using cover, friendly support and safe advances.
 All positions are [x,z] metres, +x right, +z down. Select ONE concrete candidate command for self.
 The engine executes movement, cover, raycast weapons, reloads, melee and urgent self-preservation.
 Attack targets must be alive and hostile; rifles/SMGs cannot damage tanks. Rockets/cannon are anti-armor.

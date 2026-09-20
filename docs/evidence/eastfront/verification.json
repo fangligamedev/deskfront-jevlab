@@ -1,0 +1,243 @@
+{
+  "schema": "deskfront.eastfront-evidence.v1",
+  "date": "2026-09-20",
+  "autonomous_game_ai": {
+    "seed": 19,
+    "checks": [
+      {
+        "passed": true,
+        "test": "eastfront controller created"
+      },
+      {
+        "passed": true,
+        "test": "green expedition only at start"
+      },
+      {
+        "passed": true,
+        "test": "construction preview before collision commit"
+      },
+      {
+        "passed": true,
+        "test": "preview not prematurely solid"
+      },
+      {
+        "passed": true,
+        "test": "old proposal rejected"
+      },
+      {
+        "passed": true,
+        "test": "built multiple sectors"
+      },
+      {
+        "passed": true,
+        "test": "real projectile combat"
+      },
+      {
+        "passed": true,
+        "test": "game AI wins three consecutive real sectors"
+      },
+      {
+        "passed": true,
+        "test": "live chunk window bounded"
+      }
+    ],
+    "game_seconds": 167.500000000004,
+    "shots": 70,
+    "cleared": 3,
+    "built": 4,
+    "retired": 2,
+    "peak_chunks": 4
+  },
+  "streaming_stress": {
+    "checks": 312,
+    "cleared": 100,
+    "failures": [],
+    "kind": "streaming_contract_not_autonomous_combat",
+    "maximum_covers": 9,
+    "maximum_units": 9,
+    "passed": true,
+    "retired": 99
+  },
+  "logprobs_capability": {
+    "status": "ok",
+    "latency_ms": 1911,
+    "model": "deepseek-v4-flash-260425",
+    "distribution": {
+      "selected": "A",
+      "probabilities": {
+        "A": 0.8519527944504226,
+        "B": 0.1480472055495773
+      },
+      "coverage": 1.0,
+      "observed_labels": [
+        "A",
+        "B"
+      ],
+      "confidence": 0.3950682165205972,
+      "meaning": "conditional_on_observed_option_tokens_not_success_probability"
+    },
+    "usage": {
+      "completion_tokens": 1,
+      "prompt_tokens": 30,
+      "total_tokens": 31,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    }
+  },
+  "live_model_combat": {
+    "provider": "deepseek_logprobs",
+    "model": "deepseek-v4-flash-260425",
+    "used_rounds": 71,
+    "metrics": {
+      "discarded": 6,
+      "unit_calls": {
+        "green-1": 16,
+        "green-2": 5,
+        "green-3": 26,
+        "green-recruit-1": 15,
+        "green-recruit-2": 9
+      },
+      "responses": 67,
+      "tokens": 517606,
+      "latency_ms_total": 164018,
+      "unit_decisions": {
+        "green-1": 16,
+        "green-2": 4,
+        "green-3": 23,
+        "green-recruit-1": 14,
+        "green-recruit-2": 8
+      },
+      "model_actions": {
+        "capture": 43,
+        "attack": 14,
+        "hold": 6,
+        "wait": 2
+      },
+      "accepted": 58,
+      "rejected": 5,
+      "error_codes": {
+        "invalid_target": 2
+      },
+      "errors": 2,
+      "fallbacks": 2
+    },
+    "completed_sectors": 3,
+    "built": 5,
+    "run_id": "1789896577.709-1943445667",
+    "note": "Mixed run: game AI before and after a bounded live model test; not a pure-model win benchmark."
+  },
+  "browser_player_command": {
+    "run_id": "1789897884.134-3174525587",
+    "build_id": "main-78d8b67458b6",
+    "last_action": {
+      "accepted": true,
+      "action": "move",
+      "id": "local",
+      "message": "applied",
+      "tick": 3633
+    },
+    "control": {
+      "blue": "game_ai",
+      "green": "player",
+      "red": "game_ai"
+    },
+    "units": [
+      {
+        "id": "green-1",
+        "position": [
+          2.47028541564941,
+          0.314509809017181
+        ],
+        "goal": [
+          2.47500014305115,
+          0.324999988079071
+        ],
+        "order_mode": "formation",
+        "hp": 99.5
+      },
+      {
+        "id": "green-2",
+        "position": [
+          2.37246465682983,
+          0.135459572076797
+        ],
+        "goal": [
+          2.375,
+          0.125
+        ],
+        "order_mode": "formation",
+        "hp": 75.3
+      },
+      {
+        "id": "green-3",
+        "position": [
+          2.34867835044861,
+          0.111314617097378
+        ],
+        "goal": [
+          2.35000014305115,
+          0.100000023841858
+        ],
+        "order_mode": "formation",
+        "hp": 98.8
+      }
+    ]
+  },
+  "regressions": {
+    "python_tests": 70,
+    "semantic_checks": 113,
+    "demo_checks": 25,
+    "forge_build": "passed"
+  },
+  "limits": [
+    "100-sector stress advances positions and defeats enemies deliberately; it is not 100 autonomous wins.",
+    "Live model run mixed game AI and model control; no comparative win-rate claim.",
+    "Renderer uses bounded chunks with absolute coordinates; extreme-distance floating-origin support is not implemented."
+  ],
+  "final_browser_model_layout": {
+    "live": true,
+    "build": "main-37ab9ef2dacc",
+    "run": "1789898510.682-893057528",
+    "time": 246.0,
+    "frontier": {
+      "cleared": 4,
+      "built": 5,
+      "retired": 3,
+      "chunks": [
+        {
+          "elapsed": 1.4,
+          "index": 3,
+          "phase": "cleared",
+          "source": "deepseek_json_frontier:deepseek-v4-flash-260425",
+          "template": "breach"
+        },
+        {
+          "elapsed": 1.4,
+          "index": 4,
+          "phase": "cleared",
+          "source": "deepseek_json_frontier:deepseek-v4-flash-260425",
+          "template": "staggered"
+        },
+        {
+          "elapsed": 1.4,
+          "index": 5,
+          "phase": "combat",
+          "source": "deepseek_json_frontier:deepseek-v4-flash-260425",
+          "template": "crossfire"
+        }
+      ]
+    },
+    "fps": 60.0,
+    "last_action": {
+      "accepted": true,
+      "action": "eastfront_propose",
+      "id": "fa85e309-7f17-4f16-8edc-8efb2c9c10ee",
+      "message": "applied",
+      "tick": 13299
+    }
+  }
+}

@@ -37,6 +37,9 @@ var camera_target := Vector3.ZERO
 var camera_size: float=3.6
 var office_root: Node3D
 var demo
+var eastfront
+var ears:AudioListener3D
+var flag_pole:MeshInstance3D
 var worker: Node3D
 var worker_anim: AnimationPlayer
 var ui: CanvasLayer
@@ -76,6 +79,10 @@ var capture_effects: bool=false
 var rendered_frames: int=0
 
 func _ready() -> void:
+	if not get_tree().has_meta("eastfront_enabled"):
+		var requested=OS.get_cmdline_user_args().has("--eastfront")
+		if OS.has_feature("web"):requested=requested or str(JavaScriptBridge.eval("new URLSearchParams(location.search).get('campaign') || ''"))=="eastfront"
+		if requested:get_tree().set_meta("eastfront_enabled",true)
 	config=JSON.parse_string(FileAccess.get_file_as_string("res://data/battle.json"))
 	if use_legacy_fixture:
 		for team in control:control[team]="game_ai"
@@ -84,7 +91,7 @@ func _ready() -> void:
 		map_index=int(get_tree().get_meta("deskfront_map",arena.data.get("default_level",0)))
 		for arg in OS.get_cmdline_user_args():
 			if arg.begins_with("--map="):map_index=int(arg.trim_prefix("--map="))
-		arena.load_level(map_index,get_tree().get_meta("studio_level",{}))
+		arena.load_level(map_index,preload("res://scripts/eastfront.gd").initial_level() if get_tree().get_meta("eastfront_enabled",false) else get_tree().get_meta("studio_level",{}))
 		map_index=arena.index;map_data=arena.current
 		apply_map_config()
 	rng.seed=int(config.seed)
@@ -116,7 +123,7 @@ func _ready() -> void:
 	get_viewport().mouse_exited.connect(func():pointer_inside=false;panning=false;selecting=false;if_box_hide())
 	var target := MeshInstance3D.new();var disc := CylinderMesh.new();disc.top_radius=.044;disc.bottom_radius=.044;disc.height=.007;target.mesh=disc
 	target.material_override=field.mat(Color(.65,.49,.21),.4);add_child(target);target.position=Vector3(objective.x,field.height+.003,objective.y);target.visible=use_legacy_fixture
-	field.cube(self,Vector3(objective.x,field.height+.12,objective.y),Vector3(.008,.24,.008),field.mat(Color(.70,.65,.45)))
+	flag_pole=field.cube(self,Vector3(objective.x,field.height+.12,objective.y),Vector3(.008,.24,.008),field.mat(Color(.70,.65,.45)))
 	flag_banner=field.cube(self,Vector3(objective.x+.055,field.height+.21,objective.y),Vector3(.10,.055,.004),field.mat(Color(.83,.78,.59)))
 	for f in config.factions:
 		for i in range(3):spawn_unit(f.id+"-"+str(i+1),f.id,Vector2(f.spawn[0]+(i-1)*.064,f.spawn[1]))
@@ -133,9 +140,11 @@ func _ready() -> void:
 	if map_data.has("scenario_id"):
 		paused=true;set_camera("top",true)
 		for team in control:control[team]=get_tree().get_meta("studio_controls",{}).get(team,"game_ai")
-	var ears := AudioListener3D.new();add_child(ears);ears.position=Vector3(objective.x,1.2,objective.y);ears.make_current()
+	ears = AudioListener3D.new();add_child(ears);ears.position=Vector3(objective.x,1.2,objective.y);ears.make_current()
 	if get_tree().get_meta("demo_enabled",false):
 		demo=preload("res://scripts/demo_director.gd").new();add_child(demo);demo.setup(self)
+	if get_tree().get_meta("eastfront_enabled",false):
+		eastfront=preload("res://scripts/eastfront.gd").new();add_child(eastfront);eastfront.setup(self)
 	bridge=Bridge.new();add_child(bridge);bridge.setup(self)
 	add_event("战场就绪 · 三个阵营 · 九名步兵")
 	for arg in OS.get_cmdline_user_args():
@@ -198,8 +207,9 @@ func _physics_process(delta: float) -> void:
 		if demo and u.deployment_phase!="active":continue
 		u.tick(dt)
 		u.presentation_tick(dt)
-	update_flag(dt)
-	if not demo and not tank_spawned and elapsed>config.rules.reinforce_after:
+	if eastfront:eastfront.tick(dt)
+	else:update_flag(dt)
+	if not eastfront and not demo and not tank_spawned and elapsed>config.rules.reinforce_after:
 		var red_hp: float=0
 		for u in units:
 			if u.faction=="red":red_hp+=u.hp
@@ -208,7 +218,7 @@ func _physics_process(delta: float) -> void:
 	if elapsed>=config.rules.match_seconds:finish_match("draw","时间结束，无阵营完成连续守旗")
 
 func flag_emergency(team: String) -> bool:
-	return winner=="" and flag_objective!=null and flag_objective.emergency_for(team)
+	return not eastfront and winner=="" and flag_objective!=null and flag_objective.emergency_for(team)
 
 func update_flag(dt: float) -> void:
 	var present: Array=[]
@@ -235,6 +245,7 @@ func _process(delta: float) -> void:
 	if camera:
 		camera.size=lerpf(camera.size,camera_size,minf(1,delta*5))
 		var target_pos: Vector3=camera_target+Vector3(0,3.8,.001) if camera_mode=="top" else camera_target+Vector3(2.6,3.5,3.5)
+		if eastfront and camera_mode!="top":target_pos=camera_target+Vector3(0,3.5,2.5)
 		camera.position=camera.position.lerp(target_pos,minf(1,delta*5));camera.look_at(camera_target,Vector3.FORWARD if camera_mode=="top" else Vector3.UP)
 	hud_clock-=delta
 	if hud_clock<=0 and status_label:hud_clock=.15;update_hud()
@@ -349,6 +360,17 @@ func command(c: Dictionary) -> Dictionary:
 	elif source in ["agent","lm"] and (not c.has("seen_tick") or abs(tick_id-int(c.seen_tick))>300):rejected="stale_observation"
 	if rejected!="":return ack(c,false,rejected)
 	if source=="lm" and int(c.get("control_epoch",-1))!=control_epochs[team]:return ack(c,false,"stale_control_epoch")
+	if action=="eastfront_start":
+		if c.get("backend","local") not in ["local","model"] or c.get("mode","game_ai") not in ["game_ai","player","lm","agent"]:return ack(c,false,"invalid_eastfront_mode")
+		get_tree().set_meta("eastfront_enabled",true);get_tree().set_meta("eastfront_backend",c.get("backend","local"));get_tree().set_meta("eastfront_control",c.get("mode","game_ai"));get_tree().set_meta("eastfront_seed",int(c.get("seed",19)));get_tree().set_meta("demo_enabled",false)
+		var result=ack(c,true,"eastfront_loading");get_tree().call_deferred("reload_current_scene");return result
+	if action=="eastfront_propose":
+		if not eastfront:return ack(c,false,"eastfront_not_active")
+		var result=eastfront.propose(int(c.get("sequence",-1)),str(c.get("template","")),str(c.get("provider","external")));return ack(c,result=="applied",result)
+	if action=="eastfront_follow":
+		if not eastfront:return ack(c,false,"eastfront_not_active")
+		eastfront.follow=bool(c.get("value",true));return ack(c,true,"applied")
+	if eastfront and action=="reinforce":return ack(c,false,"eastfront_reserve_not_enabled")
 	if demo and action=="reinforce":return ack(c,false,"demo_reserve_equipment_not_deployed")
 	if action=="demo_step":
 		if not demo:return ack(c,false,"demo_not_active")
@@ -505,11 +527,13 @@ func command(c: Dictionary) -> Dictionary:
 		for team_id in control:
 			if modes.get(team_id,"game_ai") not in ["game_ai","lm","player","agent"]:return ack(c,false,"invalid_modes")
 		get_tree().set_meta("demo_enabled",bool(c.get("demo",false)));get_tree().set_meta("demo_driver",str(c.get("demo_driver","local_rehearsal")))
+		get_tree().set_meta("eastfront_enabled",false)
 		get_tree().set_meta("studio_level",candidate.duplicate(true));get_tree().set_meta("studio_controls",modes.duplicate(true))
 		var accepted=ack(c,true,"scenario_loading");get_tree().call_deferred("reload_current_scene");return accepted
 	elif action=="map":
 		var index=int(c.get("index",0))
 		if index<0 or index>=arena.data.levels.size():return ack(c,false,"invalid_map")
+		get_tree().set_meta("eastfront_enabled",false)
 		get_tree().remove_meta("studio_level");get_tree().remove_meta("studio_controls");get_tree().remove_meta("demo_enabled")
 		get_tree().set_meta("deskfront_map",index)
 		get_tree().call_deferred("reload_current_scene")
@@ -537,7 +561,11 @@ func snapshot() -> Dictionary:
 		var state: Dictionary=u.snapshot()
 		var pixel: Vector2=camera.unproject_position(u.position+Vector3(0,.05,0))
 		state["screen_position"]=[pixel.x,pixel.y];unit_states.append(state)
-	return {"demo":demo.snapshot() if demo else {},"debug_visualize":debug_view.snapshot() if debug_view else {},"scenario":{"id":map_data.get("scenario_id",""),"name":map_data.get("name",""),"briefing":map_data.get("briefing",""),"tactical_plan":map_data.get("tactical_plan",[])},"schema_version":1,"version":"0.6.5-flag.1","build_id":build_info.id,"resource_hash":build_info.assets_sha256,"map":map_data.get("id","legacy"),"map_index":map_index,"maps":arena.data.levels.map(func(level):return level.name) if arena else [],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"at_guns":at_guns.map(func(g):return g.snapshot()),"building":building.snapshot() if building else {},"units":unit_states,"factions":config.factions,"control":control,"control_epochs":control_epochs,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":flag_objective.required_seconds,"flag":flag_objective.snapshot()},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"tank_reserve":reserve_tank.snapshot() if reserve_tank else {},"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"budgets":fx.metrics(),"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
+	var flag_state=flag_objective.snapshot()
+	if eastfront:
+		flag_state.mode="eastfront_sector"
+		for team in flag_state.alerts:flag_state.alerts[team]={"active":false}
+	return {"eastfront":eastfront.snapshot() if eastfront else {},"demo":demo.snapshot() if demo else {},"debug_visualize":debug_view.snapshot() if debug_view else {},"scenario":{"id":map_data.get("scenario_id",""),"name":map_data.get("name",""),"briefing":map_data.get("briefing",""),"tactical_plan":map_data.get("tactical_plan",[])},"schema_version":1,"version":"0.6.5-flag.1","build_id":build_info.id,"resource_hash":build_info.assets_sha256,"map":map_data.get("id","legacy"),"map_index":map_index,"maps":arena.data.levels.map(func(level):return level.name) if arena else [],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"at_guns":at_guns.map(func(g):return g.snapshot()),"building":building.snapshot() if building else {},"units":unit_states,"factions":config.factions,"control":control,"control_epochs":control_epochs,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":flag_objective.required_seconds,"flag":flag_state},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"tank_reserve":reserve_tank.snapshot() if reserve_tank else {},"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"budgets":fx.metrics(),"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
 
 func screen_point(p: Vector2) -> Vector2:
 	var origin: Vector3=camera.project_ray_origin(p);var ray: Vector3=camera.project_ray_normal(p)
@@ -548,6 +576,7 @@ func if_box_hide() -> void:
 	if selection_box:selection_box.visible=false
 
 func pan_by(amount: Vector3) -> void:
+	if eastfront and amount.length_squared()>.00000001:eastfront.follow=false
 	camera_target.x=clampf(camera_target.x+amount.x,-3.1,maxf(2.0,config.bounds[2]+.35))
 	camera_target.z=clampf(camera_target.z+amount.z,-1.4,4.1)
 
@@ -697,12 +726,16 @@ func make_hud() -> void:
 func update_hud() -> void:
 	var seconds: int=int(ceil(flag_objective.remaining()))
 	score_label.text="FLAG %s  %02d:%02d LEFT%s" % [flag_objective.holder.to_upper() if flag_objective.holder!="" else "NEUTRAL",seconds/60,seconds%60,"  CONTESTED" if flag_objective.contested else ""]
-	flag_warning_panel.visible=flag_objective.holder!="" and winner==""
+	flag_warning_panel.visible=not eastfront and flag_objective.holder!="" and winner==""
 	flag_warning_label.text="%s HOLDS FLAG  /  %02d:%02d TO VICTORY\n%s" % [flag_objective.holder.to_upper(),seconds/60,seconds%60,"CONTESTED - CLOCK PAUSED / CLEAR THE FLAG" if flag_objective.contested else "OTHER TEAMS: RECAPTURE NOW OR LOSE"]
 	flag_warning_label.modulate=Color(1,.45,.34) if seconds<=10 else Color.WHITE
 	status_label.text="%02d:%02d   •   %s   •   %.1fx" % [int(elapsed)/60,int(elapsed)%60,"PAUSED" if paused else "LIVE",speed]+("   MUTED [M]" if fx.muted else "   SOUND [M]")
 	selection_label.text="%s / %s / %d SELECTED   ·   HOLD CENTRAL FLAG FOR %.0fs" % [selected_faction.to_upper(),str(control[selected_faction]).to_upper(),selected_ids().size(),flag_objective.required_seconds]
 	phase_label.text="RED REINFORCEMENTS ON DESK   •   DESTRUCTIBLE COVER" if tank_spawned else "TACTICAL DIORAMA   •   3 FACTIONS / 9 INFANTRY"
+	if eastfront:
+		score_label.text="EAST FRONT / SECTOR %03d / CLEARED %d"%[eastfront.active_sector,eastfront.cleared]
+		phase_label.text="CONTINUOUS EASTWARD ADVANCE / LIVE DEFENSE CONSTRUCTION"
+		selection_label.text="GREEN / %s / %d SELECTED  -  ADVANCE EAST, CAPTURE, RESUPPLY"%[str(control.green).to_upper(),selected_ids().size()]
 	hint_label.text="Drag select · RMB order · MMB/Alt-drag pan · Arrows pan · Wheel zoom · Home recenter · M sound · E edge pan"
 	if Time.get_ticks_msec()/1000.0<feedback_until:selection_label.text=command_feedback
 	else:
@@ -710,7 +743,7 @@ func update_hud() -> void:
 		for u in units:
 			if u.selected and u.hp>0:equipped.append(u.weapon.to_upper()+" "+str(u.ammo))
 		if not equipped.is_empty():selection_label.text=" / ".join(equipped)+("   [MUTED]" if fx.muted else "   [SOUND ON]")
-	if not use_legacy_fixture:phase_label.text=map_data.name+" · 三阵营 / 新资源已接入 · F2 换图"
+	if not use_legacy_fixture and not eastfront:phase_label.text=map_data.name+" · 三阵营 / 新资源已接入 · F2 换图"
 	if winner!="":selection_label.text=("DRAW" if winner=="draw" else winner.to_upper()+" WINS")+" / PRESS ENTER TO RESTART"
 
 func apply_map_config() -> void:

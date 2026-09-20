@@ -151,6 +151,58 @@
       ],
       "authority": "console only; does not change control ownership",
       "description": "Show actual planned waypoints and sampled history. Empty unit shows all units."
+    },
+    "eastfront_start": {
+      "authority": "console only; starts a new eastward campaign",
+      "required": [],
+      "optional": {
+        "backend": [
+          "local",
+          "model"
+        ],
+        "mode": [
+          "game_ai",
+          "player",
+          "lm",
+          "agent"
+        ],
+        "seed": "integer 0..2147483647"
+      },
+      "series": [
+        "new_run",
+        "camp",
+        "request_frontier",
+        "validate",
+        "construct",
+        "commit",
+        "battle"
+      ]
+    },
+    "eastfront_propose": {
+      "authority": "console only; editor proposal, not a tactical command",
+      "required": [
+        "sequence",
+        "template"
+      ],
+      "optional": [
+        "provider"
+      ],
+      "series": [
+        "check_run_and_sequence",
+        "validate_bounds_and_routes",
+        "construction_preview",
+        "activate_collision",
+        "deploy_defenders"
+      ]
+    },
+    "eastfront_follow": {
+      "authority": "console only; camera presentation",
+      "required": [
+        "value"
+      ],
+      "series": [
+        "follow_squad_or_free_pan"
+      ]
     }
   },
   "unit_kinds": {

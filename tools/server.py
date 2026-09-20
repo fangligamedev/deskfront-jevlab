@@ -6,7 +6,7 @@ import argparse, json, time, threading, uuid, collections, urllib.parse, math
 
 ROOT=Path(__file__).resolve().parents[1]
 SERVICE_VERSION=json.loads((ROOT/'package.json').read_text())['version']
-ALLOWED={'demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
+ALLOWED={'eastfront_start','eastfront_propose','eastfront_follow','demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
 TACTICS={'move','capture','flank','cover','hold','retreat','attack','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
 TEAMS={'green','blue','red'}
 
@@ -18,6 +18,9 @@ def validate_command(c, agent=False):
     if 'position' in c:
         p=c['position']
         if not isinstance(p,list) or len(p)!=2 or not all(type(x) in (int,float) and math.isfinite(x) for x in p):return 'invalid_position'
+    if c['action']=='eastfront_start' and (c.get('backend','local') not in ('local','model') or c.get('mode','game_ai') not in ('game_ai','player','lm','agent') or type(c.get('seed',19)) is not int or not 0<=c.get('seed',19)<=2147483647):return 'invalid_eastfront_mode'
+    if c['action']=='eastfront_propose' and (type(c.get('sequence')) is not int or not isinstance(c.get('template'),str) or len(c['template'])>40 or not isinstance(c.get('provider','external'),str) or len(c.get('provider','external'))>80):return 'invalid_eastfront_proposal'
+    if c['action']=='eastfront_follow' and type(c.get('value')) is not bool:return 'invalid_follow'
     if c['action']=='demo_step' and (not isinstance(c.get('step_id'),str) or len(c['step_id'])>100):return 'invalid_demo_step'
     if c['action']=='move' and 'position' not in c:return 'position_required'
     if c['action'] in {'speed','config'} and (type(c.get('value')) not in (int,float) or not math.isfinite(c['value'])):return 'invalid_value'
@@ -190,9 +193,11 @@ def main():
     LM=LMController(STATE,load_config(args.lm_env));LM.start()
     from studio import Studio
     STUDIO=Studio(STATE,LM)
+    from eastfront_director import EastfrontDirector
+    frontier=EastfrontDirector(STATE,LM);frontier.start()
     server=ThreadingHTTPServer(('127.0.0.1',args.port),Handler)
     print(f'Deskfront: http://127.0.0.1:{args.port}',flush=True)
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:STUDIO.close();LM.close();server.server_close()
+    finally:frontier.close();STUDIO.close();LM.close();server.server_close()
 if __name__=='__main__':main()

@@ -1,0 +1,47 @@
+{
+  "acceptance": [
+    {
+      "id": "A1",
+      "kind": "import",
+      "statement": "Godot editor import passes"
+    },
+    {
+      "id": "A2",
+      "kind": "gameplay",
+      "statement": "Semantic probe passes"
+    },
+    {
+      "id": "A3",
+      "kind": "runtime",
+      "statement": "Main scene smoke passes"
+    },
+    {
+      "id": "A4",
+      "kind": "assets",
+      "statement": "Asset contracts and provenance pass"
+    }
+  ],
+  "approval": {
+    "approved_at": "2026-09-20T09:03:54.400977+00:00",
+    "required": true,
+    "status": "approved"
+  },
+  "asset_jobs": [],
+  "base": {
+    "head": "25a8d6e4c6e7a4108a6da600337bdc5662f10917",
+    "is_repository": true,
+    "status": "?? docs/eastfront/"
+  },
+  "brief": "# 无尽东线战役\n\n保留既有桌面演示与三阵营模式，新增向 +X（东方）连续推进的战役。绿色玩家/游戏 AI/模型控制小队从左侧进入，红色防守部队与掩体在前方分段施工，经过验证才激活。攻占前沿据点后补给、更新下一目标，不重载整局。只保留有限活动区块；真实生存、碰撞、弹道、掩体破坏沿用原引擎。\n\n复用平台跳跃工程的有限前瞻、过期回包拒绝、明确标注后备方案思想；参考跑射项目编译/提交/游玩分层。ARPG 当前目录仅发现起步工程，不假设已有成熟实现。\n\n模型：JEV/DeepSeek 可选择受约束防线候选；生成超时采用可验证本地方案，不伪装模型结果。基于用户附件思想，用原生 Python 实现短字母答案 + token logprobs 的类型化决策适配器，与现有 JEV 接口共享动作候选。概率标注条件分布，不宣称校准成功率；缺概率时报错，不生成假概率。\n\n复用资产，无新增外部美术。数据目录开放防线组件、敌方编组、补给、预算。验收：多区块连续推进、临近生成、施工完成才有碰撞/敌军、不会在活人脚下生成、过期/越界拒绝、回收内存有界、失败/断网本地降级、玩家与 AI/模型权限、真实浏览器操作和证据。预算 120 分钟，最多 3 轮修复。\n",
+  "budget": {
+    "max_minutes": 120,
+    "max_repairs": 3
+  },
+  "created_at": "2026-09-20T09:03:13.994009+00:00",
+  "files": [],
+  "goal": "实现可扩展无尽东线推进与 DeepSeek logprobs 决策适配",
+  "in_scope": [],
+  "out_of_scope": [],
+  "plan_id": "plan-323d14156d6d",
+  "schema": "godot-forge.build-plan.v1"
+}

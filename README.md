@@ -8,7 +8,7 @@
 
 [完整文档目录](docs/README.md) · [动作接口](docs/AGENT_ACTION_STATES.md) · [贡献指南](CONTRIBUTING.md) · [更新日志](CHANGELOG.md)
 
-当前发布标记 **v9.19**（2026-09-19）；游戏运行时版本 **0.6.4-integrated.1**。历史标签保持不变。当前工作版新增中央夺旗：独占旗圈守满 30 秒获胜，争夺暂停，弃旗清零；红方坦克预停上方桌面并缓慢驶入。详见 [夺旗模式](docs/FLAG_MODE.md)。
+当前发布标记 **v9.19**（2026-09-19）；游戏运行时版本 **0.6.5-flag.1**。历史标签保持不变。当前工作版新增中央夺旗：独占旗圈守满 30 秒获胜，争夺暂停，弃旗清零；红方坦克预停上方桌面并缓慢驶入。详见 [夺旗模式](docs/FLAG_MODE.md)。
 
 ![蓝军进驻桌面右上角小楼](docs/evidence/v06/web-building-garrison.png)
 
@@ -23,6 +23,14 @@
 顶部新增 **演示导演**：描述意图 → 模型设计并验证关卡 → 逐项放置 → 双方从桌边派兵 → 夺旗 → 复盘并生成下一关。也可选择明确标注的本地示例排练；提供窗口录制和事件时间线导出。
 
 [演示使用指南](docs/demo/README.md) · [导演接口](docs/demo/API.md) · [验收与当前限制](docs/demo/DELIVERY.md) · [策划、执行、独立游戏视图](docs/VIEWS.md)
+
+## 无尽东线
+
+顶部 **无尽东线 →**：绿色远征队由玩家、游戏 AI、JEV 或 DeepSeek 指挥，从左向右推进；接近前沿时构筑下一段防线，夺点、补给并继续向东。在场世界采用有限窗口回收。可选本地种子生成或模型选择防线，失败后备与实际来源可见。
+
+新增可选 **DeepSeek 多题并行 + logprobs** 战斗适配器，实际概率与输入输出进入日志，不把 token 概率称为战术胜率。当前东线为步兵与可破坏沙包模板，可逐步扩展战壕和装备组件。
+
+[玩法与启动](docs/eastfront/README.md) · [编辑器 / Agent API](docs/eastfront/API.md) · [DeepSeek 优化说明](docs/eastfront/DEEPSEEK.md) · [本轮交付](docs/eastfront/DELIVERY.md)
 
 ## 游戏能力
 

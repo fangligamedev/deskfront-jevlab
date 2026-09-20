@@ -51,6 +51,11 @@
 | `docs/demo/BRIEF.md` | [AI 桌面对抗演示](demo/BRIEF.md) | 当前指南 |
 | `docs/demo/DELIVERY.md` | [双人桌面演示交付报告](demo/DELIVERY.md) | 当前指南 |
 | `docs/demo/README.md` | [双人桌面 AI 演示](demo/README.md) | 当前指南 |
+| `docs/eastfront/API.md` | [东线编辑器与 Agent 接口](eastfront/API.md) | 当前指南 |
+| `docs/eastfront/BRIEF.md` | [无尽东线战役](eastfront/BRIEF.md) | 当前指南 |
+| `docs/eastfront/DEEPSEEK.md` | [DeepSeek 多题并行与 logprobs](eastfront/DEEPSEEK.md) | 当前指南 |
+| `docs/eastfront/DELIVERY.md` | [无尽东线交付报告](eastfront/DELIVERY.md) | 当前指南 |
+| `docs/eastfront/README.md` | [无尽东线：边推进、边构筑](eastfront/README.md) | 当前指南 |
 | `docs/evidence/flag-warning/report.md` | [夺旗倒计时与 LM 败北预警](evidence/flag-warning/report.md) | 当前指南 |
 | `docs/evidence/latest-integration/integration-report.md` | [最新资产与动作合入主游戏报告](evidence/latest-integration/integration-report.md) | 当前指南 |
 | `docs/evidence/motion-continuity/report.md` | [士兵运动断续：诊断与修复报告](evidence/motion-continuity/report.md) | 当前指南 |

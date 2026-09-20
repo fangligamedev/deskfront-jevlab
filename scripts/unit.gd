@@ -145,7 +145,7 @@ func aim_point() -> Vector3:
 	return box.center+Vector3.UP*box.size.y*.22
 
 func can_engage(enemy) -> bool:
-	if deployment_phase!="active" or enemy.get("deployment_phase")=="entering":return false
+	if deployment_phase!="active" or enemy.get("deployment_phase")!="active":return false
 	if enemy.tank and weapon not in ["rocket","cannon"]:return false
 	var hit: Dictionary=game.field.trace_cover(muzzle_position(enemy.aim_point()),enemy.aim_point())
 	if hit.is_empty():return true

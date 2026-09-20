@@ -77,6 +77,7 @@ def load_config(env_file=None):
     if provider=='typesafe_jev':
         config['text_config']=dict(config)
         config.update(provider=provider,key=values.get('TYPESAFE_API_KEY',''),model=values.get('TYPESAFE_MODEL','jev-1.13.0'),base_url='https://api.typesafe.ai/v1')
+    elif provider=='deepseek_logprobs':config['provider']=provider
     elif provider!='volcengine_ark':raise ValueError('unsupported_model_provider')
     return config
 
@@ -91,7 +92,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def build_payload(cfg, observation):
-    return {'model': cfg['model'], 'messages': [{'role': 'system', 'content': SYSTEM + ('\n本次 self 是坦克。输出示例：{"action":"cover","intent":"survive","reason":"拉开与火箭兵距离"}。绝不输出 posture 字段。' if observation['self']['kind']=='tank' else '')}, {'role': 'user', 'content': json.dumps(observation, ensure_ascii=False, separators=(',', ':'))}], 'max_tokens': 256, 'temperature': .2, 'thinking': {'type': 'disabled'}, 'response_format': {'type': 'json_object'}}
+    return {'model': cfg['model'], 'messages': [{'role': 'system', 'content': SYSTEM + ('\n本局是无尽东线：mission.eastfront 覆盖上述中央夺旗胜负说明。守住当前扇区后补给并继续向东方 +X 推进，没有敌方守旗导致全局败北的规则。保持战斗力，不追击远离推进方向的敌人。' if observation.get('mission',{}).get('eastfront') else '') + ('\n本次 self 是坦克。输出示例：{"action":"cover","intent":"survive","reason":"拉开与火箭兵距离"}。绝不输出 posture 字段。' if observation['self']['kind']=='tank' else '')}, {'role': 'user', 'content': json.dumps(observation, ensure_ascii=False, separators=(',', ':'))}], 'max_tokens': 256, 'temperature': .2, 'thinking': {'type': 'disabled'}, 'response_format': {'type': 'json_object'}}
 
 class ArkClient:
     def __init__(self, config):
@@ -135,6 +136,8 @@ class ArkClient:
 
 
 def observation(state, unit, memory):
+    state=copy.deepcopy(state)
+    state['units']=[u for u in state['units'] if u.get('deployment_phase','active')=='active']
     fields = ['id', 'faction', 'kind', 'weapon', 'hp', 'max_hp', 'position', 'goal', 'posture', 'suppression', 'ammo', 'reload_remaining', 'order_mode', 'locomotion', 'weapon_state', 'weapon_range', 'turret_yaw', 'reversing', 'in_cover', 'cover_id', 'cqb_stance', 'available_actions', 'last_shot_at', 'last_shot_target', 'survival_reason', 'path_failure', 'gun_id', 'building_floor', 'building_phase', 'elevation', 'combat', 'tactical_role', 'deployment_phase', 'combat_ready']
     small = lambda u: {k: u[k] for k in fields if k in u}
     obs = {'run_id': state['run_id'], 'tick': state['tick'], 'time': state['time'], 'bounds': state['bounds'], 'self': small(unit), 'allies': [small(u) for u in state['units'] if u['hp'] > 0 and u['faction'] == unit['faction'] and u['id'] != unit['id']], 'enemies': [small(u) for u in state['units'] if u['hp'] > 0 and u['faction'] != unit['faction']], 'covers': [{k: c[k] for k in ['id', 'position', 'size', 'height', 'hp', 'alive'] if k in c} for c in state.get('covers', [])], 'objective': {k:v for k,v in state['objective'].items() if k!='screen_position'}, 'weapon_rules': state.get('weapons', {}).get(unit.get('weapon'), {}), 'at_guns': state.get('at_guns',[]), 'building': state.get('building',{}), 'previous': memory[-2:]}
@@ -147,6 +150,8 @@ def observation(state, unit, memory):
     obs['flag_warning']=flag_warning(state, unit)
     if obs['flag_warning'].get('active'):
         obs['mission'].update(priority='critical',goal=obs['flag_warning']['message'],accept_casualties=True)
+    if state.get('eastfront',{}).get('enabled'):
+        obs['mission'].update(goal='向东方 +X 推进，保命并夺取当前扇区旗点；占领后会补给并开启下一段。不要返回已经回收的西方阵地。',eastfront={k:state['eastfront'].get(k) for k in ['cleared','active_sector','chunks']})
     obs['scores']=state.get('scores',{})
     obs['covers']=[c for c in obs['covers'] if c.get('alive',True)]
     return obs
@@ -154,7 +159,7 @@ def observation(state, unit, memory):
 
 def flag_warning(state, unit):
     """Only expose the authoritative engine warning for this unit's faction."""
-    if state.get('winner'):return {'active':False}
+    if state.get('winner') or state.get('eastfront',{}).get('enabled'):return {'active':False}
     return copy.deepcopy(state.get('objective',{}).get('flag',{}).get('alerts',{}).get(unit['faction'],{'active':False}))
 
 
@@ -207,6 +212,9 @@ class LMController:
         if config.get('provider')=='typesafe_jev':
             from jev_client import JevClient
             self.client=client if client is not None else JevClient(config)
+        elif config.get('provider')=='deepseek_logprobs':
+            from deepseek_logprobs import DeepSeekLogprobsClient
+            self.client=client if client is not None else DeepSeekLogprobsClient(config)
         else:self.client = client if client is not None else ArkClient(config)
         self.provider=config.get('provider','volcengine_ark')
         self.origin='typesafe_jev' if self.provider=='typesafe_jev' else 'deepseek_lm'
@@ -237,7 +245,7 @@ class LMController:
 
     def snapshot(self):
         with self.lock:
-            return copy.deepcopy({'status':self.status,'flag_alerts':self.flag_alerts,'configured': self.ready, 'provider': self.provider, 'display_name':'TypeSafe JEV' if self.provider=='typesafe_jev' else 'DeepSeek LLM', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
+            return copy.deepcopy({'status':self.status,'flag_alerts':self.flag_alerts,'configured': self.ready, 'provider': self.provider, 'display_name':'TypeSafe JEV' if self.provider=='typesafe_jev' else 'DeepSeek · logprobs 多题' if self.provider=='deepseek_logprobs' else 'DeepSeek LLM', 'model': self.config['model'], 'interval_seconds': self.config['interval'], 'max_requests': self.config['max_requests'], 'used_requests': self.used, 'budget_remaining': max(0, self.config['max_requests'] - self.used), 'run_id': self.run_id, 'in_flight': len(self.pending), 'metrics': self.metrics, 'units': self.units, 'recent': self.history[-18:]})
 
     def _invoke(self, obs, call_id):
         started=time.monotonic()
@@ -301,6 +309,10 @@ class LMController:
                 if command_id in acks:
                     ack=acks[command_id];self.call_log.update(call_id, receipt=ack, phase='executed' if ack['accepted'] else 'rejected');del self.call_receipts[command_id]
             live = {u['id']: u for u in s['units'] if u['hp'] > 0}
+            present={u['id'] for u in s['units']} | set(self.pending)
+            for cache in [self.units,self.memory,self.next_due,self.fallback_due,self.progress,self.warning_keys]:
+                for uid in list(cache):
+                    if uid not in present:cache.pop(uid,None)
             active = {k: u for k, u in live.items() if s.get('control', {}).get(u['faction']) == 'lm' and u.get('combat_ready',True)}
             self.status=('unconfigured' if not self.ready else 'offline' if age>3 else 'finished' if s.get('winner') else 'idle' if not active else 'paused' if s.get('paused') else 'budget_exhausted' if self.used>=self.config['max_requests'] else 'backoff' if now<self.backoff_until else 'running')
             self.flag_alerts={} if s.get('winner') else copy.deepcopy(s.get('objective',{}).get('flag',{}).get('alerts',{}))
@@ -342,6 +354,7 @@ class LMController:
                     self.metrics['latency_ms_total'] = self.metrics.get('latency_ms_total', 0) + latency
                     decision = validate_decision(value, s, u)
                     self._submit(s, u, decision, self.origin, now, task['tick'])
+                    if usage.get('logprobs_evaluation'):self.units[uid]['logprobs_evaluation']=usage['logprobs_evaluation']
                     if usage.get('jev_evaluation'):self.units[uid]['jev_evaluation']=usage['jev_evaluation']
                     self.units[uid]['latency_ms'] = latency;self.units[uid]['usage'] = usage
                     entry=self.units[uid];entry['call_id']=task['call_id']

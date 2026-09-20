@@ -203,6 +203,29 @@
       "series": [
         "follow_squad_or_free_pan"
       ]
+    },
+    "possess": {
+      "required": [],
+      "optional": [
+        "unit_id",
+        "view"
+      ],
+      "authority": "local_player",
+      "series": [
+        "select_living_infantry",
+        "suspend_unit_ai",
+        "perspective_camera",
+        "direct_root_motion_and_free_aim"
+      ]
+    },
+    "release_unit": {
+      "required": [],
+      "authority": "local_player",
+      "series": [
+        "release_mouse",
+        "restore_rts_camera",
+        "restore_unit_ai"
+      ]
     }
   },
   "unit_kinds": {

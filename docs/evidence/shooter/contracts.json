@@ -1,0 +1,129 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "selected infantry can be possessed"
+    },
+    {
+      "passed": true,
+      "test": "possession leaves team AI mode unchanged"
+    },
+    {
+      "passed": true,
+      "test": "possessed unit advertises no model actions"
+    },
+    {
+      "passed": true,
+      "test": "in-flight model order cannot overwrite local player"
+    },
+    {
+      "passed": true,
+      "test": "teammate still accepts its model order"
+    },
+    {
+      "passed": true,
+      "test": "agent cannot seize the player camera"
+    },
+    {
+      "passed": true,
+      "test": "direct input drives real root motion with sprint acceleration"
+    },
+    {
+      "passed": true,
+      "test": "releasing input stops movement without residual slide"
+    },
+    {
+      "passed": true,
+      "test": "manual free aim fires a real projectile"
+    },
+    {
+      "passed": true,
+      "test": "ammo and cooldown apply to player fire"
+    },
+    {
+      "passed": true,
+      "test": "swept projectile inflicts real target damage"
+    },
+    {
+      "passed": true,
+      "test": "reload blocks fire"
+    },
+    {
+      "passed": true,
+      "test": "reload completes through simulation time"
+    },
+    {
+      "passed": true,
+      "test": "printer blocks player rounds; aiming does not shoot through cover"
+    },
+    {
+      "passed": true,
+      "test": "E equivalent reserves nearby physical cover"
+    },
+    {
+      "passed": true,
+      "test": "soldier physically approaches cover and crouches"
+    },
+    {
+      "passed": true,
+      "test": "hidden soldier cannot fire through cover"
+    },
+    {
+      "passed": true,
+      "test": "aiming exposes soldier above low cover"
+    },
+    {
+      "passed": true,
+      "test": "player can throw toward crosshair without locking an enemy"
+    },
+    {
+      "passed": true,
+      "test": "grenade inventory and delayed animation release are authoritative"
+    },
+    {
+      "passed": true,
+      "test": "first person hides own body and uses perspective camera"
+    },
+    {
+      "passed": true,
+      "test": "hard cover approached without teleporting"
+    },
+    {
+      "passed": true,
+      "test": "right aim physically steps out around hard cover corner"
+    },
+    {
+      "passed": true,
+      "test": "releasing aim returns behind hard cover"
+    },
+    {
+      "passed": true,
+      "test": "can begin a second throw before returning to RTS"
+    },
+    {
+      "passed": true,
+      "test": "in-flight grenade animation completes exactly once after RTS handoff"
+    },
+    {
+      "passed": true,
+      "test": "return to RTS restores camera body HUD and authority"
+    },
+    {
+      "passed": true,
+      "test": "tank cannot enter infantry shooter mode"
+    },
+    {
+      "passed": true,
+      "test": "paused battle does not silently resume"
+    },
+    {
+      "passed": true,
+      "test": "can re-enter after returning to RTS"
+    },
+    {
+      "passed": true,
+      "test": "death returns to RTS and releases pointer"
+    }
+  ],
+  "passed": true
+}

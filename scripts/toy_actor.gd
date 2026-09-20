@@ -18,6 +18,7 @@ var muzzle_world:=Vector3.ZERO
 var root_speed=1.0
 var animation_rate=1.0
 var recoil=0.0
+var aim_pitch:float=0.0
 var contact_clip=""
 var contact_heading=0.0
 var contact_releases=0
@@ -259,6 +260,10 @@ func _physics_process(dt):
  contact_blend=maxf(0,contact_blend-dt)
  apply_foot_contacts()
  settle_ground()
+ if absf(aim_pitch)>.0001:
+  var spine=skeleton.find_bone("Spine2")
+  skeleton.set_bone_pose_rotation(spine,skeleton.get_bone_pose_rotation(spine)*Quaternion(Vector3.RIGHT,-clampf(aim_pitch,-.45,.45)))
+  skeleton.force_update_all_bone_transforms()
  if recoil>0:
   # Local FK propagates the torso recoil to both arms and hands together.
   var idx=skeleton.find_bone("Spine2")

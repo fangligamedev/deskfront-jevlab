@@ -842,8 +842,8 @@
   },
   {
     "path": "assets/fonts/DeskfrontUI.otf",
-    "sha256": "a1913100a763a8a9678f8d8f505eaf062840ca63eacb723145ea677f20d2914c",
-    "bytes": 85032,
+    "sha256": "58fc95537425bfd47be460e6922628462fd6a3d8a7e0d3750ed3fc5b2bc7334b",
+    "bytes": 190052,
     "license": "OFL-1.1",
     "author": "Adobe / Google Noto; DeskfrontUI subset",
     "source_url": "https://github.com/notofonts/noto-cjk",

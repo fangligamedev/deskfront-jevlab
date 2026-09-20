@@ -31,12 +31,14 @@ var rng := RandomNumberGenerator.new()
 var ai_clock: float=0
 var hud_clock: float=0
 var objective: Vector2
+var rts
 var camera: Camera3D
 var camera_mode: String="office"
 var camera_target := Vector3.ZERO
 var camera_size: float=3.6
 var office_root: Node3D
 var demo
+var shooter
 var eastfront
 var ears:AudioListener3D
 var flag_pole:MeshInstance3D
@@ -136,6 +138,7 @@ func _ready() -> void:
 	if not use_legacy_fixture:prepare_reserve_tank()
 	camera=Camera3D.new();add_child(camera);camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.near=.02;camera.far=30;camera.current=true
 	set_camera("office",true);make_hud()
+	shooter=preload("res://scripts/shooter_controller.gd").new();add_child(shooter);shooter.setup(self)
 	debug_view=preload("res://scripts/debug_visualize.gd").new();add_child(debug_view);debug_view.setup(self)
 	if map_data.has("scenario_id"):
 		paused=true;set_camera("top",true)
@@ -145,6 +148,7 @@ func _ready() -> void:
 		demo=preload("res://scripts/demo_director.gd").new();add_child(demo);demo.setup(self)
 	if get_tree().get_meta("eastfront_enabled",false):
 		eastfront=preload("res://scripts/eastfront.gd").new();add_child(eastfront);eastfront.setup(self)
+	rts=preload("res://scripts/rts_controller.gd").new();add_child(rts);rts.setup(self)
 	bridge=Bridge.new();add_child(bridge);bridge.setup(self)
 	add_event("战场就绪 · 三个阵营 · 九名步兵")
 	for arg in OS.get_cmdline_user_args():
@@ -205,7 +209,8 @@ func _physics_process(delta: float) -> void:
 	tactics_ai.tick(dt)
 	for u in units:
 		if demo and u.deployment_phase!="active":continue
-		u.tick(dt)
+		if shooter and shooter.active and shooter.unit==u:shooter.physics_tick(dt)
+		else:u.tick(dt)
 		u.presentation_tick(dt)
 	if eastfront:eastfront.tick(dt)
 	else:update_flag(dt)
@@ -241,12 +246,8 @@ func update_flag(dt: float) -> void:
 	if victorious!="":finish_match(victorious,"完成连续守旗 "+str(flag_objective.required_seconds)+" 秒")
 
 func _process(delta: float) -> void:
-	update_pan(delta)
-	if camera:
-		camera.size=lerpf(camera.size,camera_size,minf(1,delta*5))
-		var target_pos: Vector3=camera_target+Vector3(0,3.8,.001) if camera_mode=="top" else camera_target+Vector3(2.6,3.5,3.5)
-		if eastfront and camera_mode!="top":target_pos=camera_target+Vector3(0,3.5,2.5)
-		camera.position=camera.position.lerp(target_pos,minf(1,delta*5));camera.look_at(camera_target,Vector3.FORWARD if camera_mode=="top" else Vector3.UP)
+	if shooter and shooter.active:shooter.update_camera(delta)
+	elif rts:rts.tick(delta)
 	hud_clock-=delta
 	if hud_clock<=0 and status_label:hud_clock=.15;update_hud()
 	if paused and worker_anim:worker_anim.speed_scale=0
@@ -326,6 +327,7 @@ func add_event(message: String) -> void:
 	if events.size()>40:events.resize(40)
 
 func set_camera(mode: String, instant: bool=false) -> void:
+	if shooter and shooter.active:shooter.leave()
 	camera_mode=mode
 	if mode=="office":camera_target=Vector3(-.02,.60,.07);camera_size=4.05
 	elif mode=="top":camera_target=Vector3(.61,.82,-.01);camera_size=1.80
@@ -339,6 +341,8 @@ func set_camera(mode: String, instant: bool=false) -> void:
 		camera_size=8.0 if mode=="office" else (4.7 if mode=="top" else 4.9)
 	if instant and camera:
 		camera.position=camera_target+(Vector3(0,3.8,.001) if mode=="top" else Vector3(2.6,3.5,3.5));camera.look_at(camera_target,Vector3.FORWARD if camera_mode=="top" else Vector3.UP);camera.size=camera_size
+
+	if rts:rts.preset(instant)
 
 func player_grenade() -> void:
 	var ids: Array=living(selected_faction).filter(func(u):return u.selected and u.can_throw(closest_enemy(u))).map(func(u):return u.id)
@@ -385,6 +389,14 @@ func command(c: Dictionary) -> Dictionary:
 		for u in units:
 			if u.id==unit_id and u.faction==team and u.hp>0:found=true
 		if not found:return ack(c,false,"invalid_unit_authority")
+	if action=="possess":
+		var view:String=str(c.get("view","third"))
+		if view not in ["first","third"]:return ack(c,false,"invalid_perspective")
+		return ack(c,shooter.enter(str(c.get("unit_id","")),view),"possession_requested")
+	if action=="release_unit":shooter.leave();return ack(c,true,"released")
+	if shooter and shooter.active and action in tactics and team==shooter.unit.faction and (ids.is_empty() or ids.has(shooter.unit.id)):
+		return ack(c,false,"unit_directly_controlled")
+	if shooter and shooter.active and ((action=="control" and team==shooter.unit.faction) or (action=="equip" and team==shooter.unit.faction and (ids.is_empty() or ids.has(shooter.unit.id))) or action in ["map","reset","scenario"]):shooter.leave()
 	var dest: Vector2=objective
 	if c.has("position"):
 		var p=c.position
@@ -565,7 +577,7 @@ func snapshot() -> Dictionary:
 	if eastfront:
 		flag_state.mode="eastfront_sector"
 		for team in flag_state.alerts:flag_state.alerts[team]={"active":false}
-	return {"eastfront":eastfront.snapshot() if eastfront else {},"demo":demo.snapshot() if demo else {},"debug_visualize":debug_view.snapshot() if debug_view else {},"scenario":{"id":map_data.get("scenario_id",""),"name":map_data.get("name",""),"briefing":map_data.get("briefing",""),"tactical_plan":map_data.get("tactical_plan",[])},"schema_version":1,"version":"0.6.5-flag.1","build_id":build_info.id,"resource_hash":build_info.assets_sha256,"map":map_data.get("id","legacy"),"map_index":map_index,"maps":arena.data.levels.map(func(level):return level.name) if arena else [],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"at_guns":at_guns.map(func(g):return g.snapshot()),"building":building.snapshot() if building else {},"units":unit_states,"factions":config.factions,"control":control,"control_epochs":control_epochs,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":flag_objective.required_seconds,"flag":flag_state},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"tank_reserve":reserve_tank.snapshot() if reserve_tank else {},"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"budgets":fx.metrics(),"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
+	return {"shooter":shooter.snapshot() if shooter else {},"rts":rts.snapshot() if rts else {},"eastfront":eastfront.snapshot() if eastfront else {},"demo":demo.snapshot() if demo else {},"debug_visualize":debug_view.snapshot() if debug_view else {},"scenario":{"id":map_data.get("scenario_id",""),"name":map_data.get("name",""),"briefing":map_data.get("briefing",""),"tactical_plan":map_data.get("tactical_plan",[])},"schema_version":1,"version":"0.6.5-flag.1","build_id":build_info.id,"resource_hash":build_info.assets_sha256,"map":map_data.get("id","legacy"),"map_index":map_index,"maps":arena.data.levels.map(func(level):return level.name) if arena else [],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"at_guns":at_guns.map(func(g):return g.snapshot()),"building":building.snapshot() if building else {},"units":unit_states,"factions":config.factions,"control":control,"control_epochs":control_epochs,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":flag_objective.required_seconds,"flag":flag_state},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"tank_reserve":reserve_tank.snapshot() if reserve_tank else {},"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"budgets":fx.metrics(),"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
 
 func screen_point(p: Vector2) -> Vector2:
 	var origin: Vector3=camera.project_ray_origin(p);var ray: Vector3=camera.project_ray_normal(p)
@@ -576,100 +588,59 @@ func if_box_hide() -> void:
 	if selection_box:selection_box.visible=false
 
 func pan_by(amount: Vector3) -> void:
-	if eastfront and amount.length_squared()>.00000001:eastfront.follow=false
-	camera_target.x=clampf(camera_target.x+amount.x,-3.1,maxf(2.0,config.bounds[2]+.35))
-	camera_target.z=clampf(camera_target.z+amount.z,-1.4,4.1)
+	if amount.length_squared()<.00000001:return
+	if rts:rts.manual_camera()
+	camera_target+=amount
+	if rts:rts.clamp_target()
 
 func pan_to(cursor: Vector2) -> void:
-	# Absolute cursor positions retain total drag when Web events are coalesced.
 	var offset: Vector2=screen_point(pan_cursor)-screen_point(cursor)
 	pan_cursor=cursor
 	pan_by(Vector3(offset.x,0,offset.y))
 
 func update_pan(dt: float) -> void:
-	if not camera or not get_window().has_focus():return
-	var axis := Vector2.ZERO
-	if Input.is_physical_key_pressed(KEY_LEFT):axis.x-=1
-	if Input.is_physical_key_pressed(KEY_RIGHT):axis.x+=1
-	if Input.is_physical_key_pressed(KEY_UP):axis.y-=1
-	if Input.is_physical_key_pressed(KEY_DOWN):axis.y+=1
-	if edge_pan and pointer_inside and not selecting and not panning and get_viewport().gui_get_hovered_control()==null:
-		var p: Vector2=get_viewport().get_mouse_position();var size: Vector2=get_viewport().get_visible_rect().size
-		if p.x<12:axis.x-=1
-		if p.x>size.x-12:axis.x+=1
-		if p.y<12:axis.y-=1
-		if p.y>size.y-12:axis.y+=1
-	var right: Vector3=camera.global_basis.x;right.y=0;right=right.normalized()
-	var down: Vector3=-camera.global_basis.y;down.y=0;down=down.normalized()
-	pan_by((right*axis.x+down*axis.y)*dt*camera_size*.55)
+	if rts:rts.tick(dt)
 
-func ground_order(p: Vector2) -> void:
+func ground_order(p: Vector2, picked_target=null) -> void:
 	if selected_ids().is_empty():return
-	var target=null
-	for enemy in living():
-		if enemy.faction!=selected_faction and enemy.pos().distance_to(p)<.06:target=enemy
+	var target=picked_target
+	if target==null:
+		for enemy in living():
+			if enemy.faction!=selected_faction and enemy.pos().distance_to(p)<.04:target=enemy
 	var result: Dictionary
 	if target:result=command({"action":"attack","faction":selected_faction,"target_id":target.id,"unit_ids":selected_ids(),"source":"player"})
 	else:result=command({"action":"move","faction":selected_faction,"position":[p.x,p.y],"unit_ids":selected_ids(),"source":"player"})
+	if rts:rts.last_order={"action":"attack" if target else "move","target_id":target.id if target else "","position":[p.x,p.y],"unit_ids":selected_ids(),"accepted":result.accepted,"message":result.message,"tick":tick_id}
 	if not result.accepted:
-		fx.ring(p,Color(.95,.24,.18),.05);command_feedback="OUTSIDE BATTLEFIELD";feedback_until=Time.get_ticks_msec()/1000.0+2
+		fx.ring(p,Color(.95,.24,.18),.05);command_feedback={"anti_armor_required":"NEED AN ANTI-ARMOR UNIT","leave_equipment_first":"LEAVE GUN / BUILDING FIRST","position_out_of_bounds":"OUTSIDE BATTLEFIELD","match_finished":"MATCH FINISHED"}.get(result.message,str(result.message).to_upper());feedback_until=Time.get_ticks_msec()/1000.0+2
 
 func select_at(screen: Vector2, additive: bool) -> void:
-	var nearest_unit=null;var distance: float=30
-	for u in living():
-		var pixel: Vector2=camera.unproject_position(u.position+Vector3(0,.06,0))
-		var d: float=pixel.distance_to(screen)
-		if d<distance:nearest_unit=u;distance=d
-	if nearest_unit:
-		if nearest_unit.faction!=selected_faction and not selected_ids().is_empty():ground_order(nearest_unit.pos());return
-		selected_faction=nearest_unit.faction;set_control_mode(selected_faction,"player")
-		for u in units:u.selected=u==nearest_unit or (additive and u.selected and u.faction==selected_faction)
-	elif not additive:ground_order(screen_point(screen))
+	if rts:rts.select_at(screen,additive)
 
 func finish_selection(additive: bool) -> void:
-	if drag_start.distance_to(drag_current)<8:select_at(drag_current,additive);return
-	var rect := Rect2(drag_start,drag_current-drag_start).abs()
-	var found: Array=[]
-	for u in living(selected_faction):
-		if rect.has_point(camera.unproject_position(u.position+Vector3(0,.05,0))):found.append(u)
-	if found.is_empty():return
-	set_control_mode(selected_faction,"player")
-	for u in units:u.selected=found.has(u) or (additive and u.selected and u.faction==selected_faction)
+	if rts:rts.finish_selection(additive)
 
 func _input(event: InputEvent) -> void:
-	# Release anywhere, including on a HUD panel, so dragging cannot get stuck.
-	if event is InputEventMouseButton and not event.pressed:
-		if panning and event.button_index in [MOUSE_BUTTON_MIDDLE,MOUSE_BUTTON_LEFT]:pan_to(event.position);panning=false
-		elif event.button_index==MOUSE_BUTTON_LEFT and selecting:
-			drag_current=event.position;selecting=false;if_box_hide();finish_selection(event.shift_pressed)
+	if shooter and shooter.handle_input(event):get_viewport().set_input_as_handled();return
+	if rts and rts.capture(event):get_viewport().set_input_as_handled()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		pointer_inside=true
-		if panning:
-			pan_to(event.position)
-		elif selecting:
-			drag_current=event.position
-			var rect := Rect2(drag_start,drag_current-drag_start).abs()
-			selection_box.position=rect.position;selection_box.size=rect.size;selection_box.visible=rect.size.length()>8
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index==MOUSE_BUTTON_WHEEL_UP:camera_size=clampf(camera_size*.90,.35,8.0)
-		elif event.button_index==MOUSE_BUTTON_WHEEL_DOWN:camera_size=clampf(camera_size*1.1,.35,8.0)
-		elif event.button_index==MOUSE_BUTTON_MIDDLE or (event.button_index==MOUSE_BUTTON_LEFT and event.alt_pressed):panning=true;pan_cursor=event.position
-		elif event.button_index==MOUSE_BUTTON_LEFT:selecting=true;drag_start=event.position;drag_current=event.position
-		elif event.button_index==MOUSE_BUTTON_RIGHT:ground_order(screen_point(event.position))
+	if shooter and shooter.active:return
+	if rts and rts.input(event):get_viewport().set_input_as_handled();return
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.physical_keycode:
+			KEY_F6:
+				if shooter.enter():shooter.capture_mouse()
+				else:command_feedback=shooter.message;feedback_until=Time.get_ticks_msec()/1000.0+3
 			KEY_1,KEY_2,KEY_3:
 				selected_faction=["green","blue","red"][event.physical_keycode-KEY_1];command({"action":"control","faction":selected_faction,"mode":"player"})
 			KEY_SPACE:paused=not paused
 			KEY_C:command({"action":"cover","unit_ids":selected_ids()})
 			KEY_H:command({"action":"hold","unit_ids":selected_ids()})
 			KEY_R:command({"action":"retreat","unit_ids":selected_ids()})
-			KEY_A:command({"action":"control","mode":"lm"})
+			KEY_F8:command({"action":"control","mode":"lm"})
 			KEY_T:spawn_tank()
 			KEY_M:fx.set_muted(not fx.muted)
-			KEY_E:edge_pan=not edge_pan
 			KEY_V:set_camera("battle" if camera_mode=="office" else ("top" if camera_mode=="battle" else "office"))
 			KEY_HOME:set_camera(camera_mode)
 			KEY_ENTER:
@@ -710,11 +681,14 @@ func make_hud() -> void:
 	var column := VBoxContainer.new();bottom.add_child(column)
 	selection_label=label("",14,Color(.84,.74,.49));column.add_child(selection_label)
 	var buttons := HBoxContainer.new();buttons.add_theme_constant_override("separation",8);column.add_child(buttons)
-	for item in [["01 GREEN","green"],["02 BLUE","blue"],["03 RED","red"],["COVER [C]","cover"],["RETREAT [R]","retreat"],["AUTO [A]","auto"],["VIEW [V]","view"],["GRENADE [G]","grenade"],["MAP [F2]","map"]]:
-		var button := Button.new();button.text=item[0];button.add_theme_font_size_override("font_size",12);buttons.add_child(button)
+	for item in [["接管 [F6]","possess"],["01 GREEN","green"],["02 BLUE","blue"],["03 RED","red"],["COVER [C]","cover"],["RETREAT [R]","retreat"],["AUTO [F8]","auto"],["VIEW [V]","view"],["GRENADE [G]","grenade"],["MAP [F2]","map"]]:
+		var button := Button.new();button.focus_mode=Control.FOCUS_NONE;button.text=item[0];button.add_theme_font_size_override("font_size",12);buttons.add_child(button)
 		var key: String=item[1]
 		button.pressed.connect(func():
 			if key in ["green","blue","red"]:command({"action":"control","faction":key,"mode":"player"})
+			elif key=="possess":
+				if shooter.enter():shooter.capture_mouse()
+				else:command_feedback=shooter.message;feedback_until=Time.get_ticks_msec()/1000.0+3
 			elif key=="auto":command({"action":"control","mode":"lm"})
 			elif key=="map":command({"action":"map","index":(map_index+1)%arena.data.levels.size()})
 			elif key=="grenade":player_grenade()
@@ -722,6 +696,9 @@ func make_hud() -> void:
 			else:command({"action":key,"unit_ids":selected_ids()})
 		)
 	hint_label=label("",11);column.add_child(hint_label)
+	# Non-interactive HUD must not swallow world gestures or screen-edge movement.
+	for control_node in root.find_children("*","Control",true,false):
+		if not control_node is BaseButton:control_node.mouse_filter=Control.MOUSE_FILTER_IGNORE
 
 func update_hud() -> void:
 	var seconds: int=int(ceil(flag_objective.remaining()))
@@ -736,7 +713,7 @@ func update_hud() -> void:
 		score_label.text="EAST FRONT / SECTOR %03d / CLEARED %d"%[eastfront.active_sector,eastfront.cleared]
 		phase_label.text="CONTINUOUS EASTWARD ADVANCE / LIVE DEFENSE CONSTRUCTION"
 		selection_label.text="GREEN / %s / %d SELECTED  -  ADVANCE EAST, CAPTURE, RESUPPLY"%[str(control.green).to_upper(),selected_ids().size()]
-	hint_label.text="Drag select · RMB order · MMB/Alt-drag pan · Arrows pan · Wheel zoom · Home recenter · M sound · E edge pan"
+	hint_label.text="LMB select / drag box · RMB move / attack · WASD / Arrows pan · MMB drag · Wheel zoom · Q/E rotate · F focus · B edge pan"
 	if Time.get_ticks_msec()/1000.0<feedback_until:selection_label.text=command_feedback
 	else:
 		var equipped: Array=[]

@@ -1,0 +1,29 @@
+{
+  "command": "python3 tools/project.py test",
+  "passed": true,
+  "python_tests": 78,
+  "log_sha256": "aae57f40a1ffe199e2f18f81e22cd15edc3941445f3336395abd234cb4433366",
+  "coverage": [
+    "shooter_contract",
+    "office_battlefield",
+    "motion_continuity",
+    "semantic_probe",
+    "eastfront_probe",
+    "eastfront_stream_contract",
+    "integration_probe",
+    "asset_probe",
+    "combat_contract",
+    "flag_tank_contract",
+    "flag_warning_contract",
+    "studio_contract",
+    "demo_contract",
+    "lm_contract",
+    "equipment_contract",
+    "equipment_squad",
+    "charge_probe",
+    "ground_probe",
+    "anatomy_probe",
+    "ragdoll_anatomy",
+    "Python unittest"
+  ]
+}

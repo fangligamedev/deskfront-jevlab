@@ -1,6 +1,7 @@
 extends Node3D
 
 var game
+var direct_controlled:bool=false
 var gun_id:String=""
 var garrison_phase:String=""
 var garrison_floor:int=0
@@ -58,6 +59,7 @@ var actor_advanced: bool=false
 var grenade_count: int=2
 var grenade_time: float=-1
 var grenade_target
+var grenade_point:=Vector3.INF
 var grenade_released: bool=false
 var tank_skeleton: Skeleton3D
 var weapon_attachment: BoneAttachment3D
@@ -272,6 +274,7 @@ func navigation_path(destination:Vector2)->PackedVector2Array:
 	return game.field.path(pos(),destination,tank)
 
 func move_to(p: Vector2, keep_cover: bool=false) -> void:
+	if direct_controlled:return
 	if hp<=0:return
 	if not keep_cover:game.field.release(id);cover_id="";cover_slot={};peeking=false;cqb_stance="open"
 	var destination: Vector2=game.field.to_world(game.field.nearest(p,tank))
@@ -361,8 +364,9 @@ func tick(dt: float) -> void:
 		grenade_time+=dt
 		if grenade_time>=.62 and not grenade_released:
 			grenade_released=true
-			if is_instance_valid(grenade_target):game.fx.launch(self,grenade_target,"grenade",true);game.shots+=1
-		if grenade_time>=1.267:grenade_time=-1;last_clip=""
+			if grenade_point!=Vector3.INF:game.fx.launch_point(self,grenade_point,"grenade",game.config.weapons.grenade);game.shots+=1
+			elif is_instance_valid(grenade_target):game.fx.launch(self,grenade_target,"grenade",true);game.shots+=1
+		if grenade_time>=1.267:grenade_time=-1;grenade_point=Vector3.INF;last_clip=""
 		return
 	ring.visible=selected
 	hp_fill.scale.x=maxf(.01,hp/max_hp)
@@ -497,7 +501,7 @@ func snapshot() -> Dictionary:
 			var distance: float=pos().distance_to(enemy.pos())
 			if distance<weapon_config().range and can_engage(enemy):combat.engageable_targets.append(enemy.id)
 			if distance<enemy.weapon_config().range and enemy.can_engage(self):combat.incoming_threats.append(enemy.id)
-	return {"deployment_phase":deployment_phase,"combat_ready":deployment_phase=="active","combat":combat,"gun_id":gun_id,"building_phase":garrison_phase,"building_floor":garrison_floor,"elevation":position.y-game.field.height,"lm_intent":lm_intent,"lm_reason":lm_reason,"path_repairs":path_repairs,"path_failure":path_failure,"posture":posture,"locomotion":locomotion,"weapon_state":weapon_state,"posture_order":posture_order,"survival_reason":safety_reason if game.elapsed<safety_until else "","last_shot_at":last_shot_at,"last_shot_target":last_shot_target,"action_counts":action_counts,"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed,"grenades":grenade_count,"available_actions":available_actions(),"asset_animation":actor.clip if actor else track_clip,"root_distance":actor.roots_travelled if actor else 0,"movement_speed":actor.actual_speed if actor else 0,"animation_rate":actor.root_speed if actor else 0,"ground_correction":actor.ground_correction if actor else 0,"cover_step":actor.stepping if actor else false,"contact_slip_max":actor.contact_slip_max if actor else 0}
+	return {"direct_controlled":direct_controlled,"deployment_phase":deployment_phase,"combat_ready":deployment_phase=="active","combat":combat,"gun_id":gun_id,"building_phase":garrison_phase,"building_floor":garrison_floor,"elevation":position.y-game.field.height,"lm_intent":lm_intent,"lm_reason":lm_reason,"path_repairs":path_repairs,"path_failure":path_failure,"posture":posture,"locomotion":locomotion,"weapon_state":weapon_state,"posture_order":posture_order,"survival_reason":safety_reason if game.elapsed<safety_until else "","last_shot_at":last_shot_at,"last_shot_target":last_shot_target,"action_counts":action_counts,"id":id,"faction":faction,"kind":"tank" if tank else "infantry","position":[position.x,position.z],"hp":snappedf(hp,.1),"max_hp":max_hp,"state":state,"cover_id":cover_id,"suppression":snappedf(suppression,.01),"ammo":ammo,"selected":selected,"goal":[goal.x,goal.y],"animation":last_clip,"bone_count":bone_count,"weapon":weapon,"weapon_name":game.config.weapons[weapon].name,"reload_remaining":snappedf(reload_timer,.1),"weapon_range":game.config.weapons[weapon].range,"melee_ready":not tank and cooldown<=0,"tactical_role":tactical_role,"order_mode":order_mode,"cqb_stance":cqb_stance,"in_cover":in_cover(),"cover_slot":cover_slot.get("key",""),"cover_risk":cover_slot.get("risk",0),"focus_id":focus_id,"reversing":reversing,"turret_yaw":turret.rotation.y if turret else 0.0,"formation_speed":formation_speed,"grenades":grenade_count,"available_actions":available_actions(),"asset_animation":actor.clip if actor else track_clip,"root_distance":actor.roots_travelled if actor else 0,"movement_speed":actor.actual_speed if actor else 0,"animation_rate":actor.root_speed if actor else 0,"ground_correction":actor.ground_correction if actor else 0,"cover_step":actor.stepping if actor else false,"contact_slip_max":actor.contact_slip_max if actor else 0}
 
 func presentation_tick(dt:float) -> void:
 	if actor and not actor.stepping and posture=="prone" and actor.clip=="cover_idle":animate("reload" if reload_timer>0 else "aim")
@@ -525,6 +529,7 @@ func can_throw(enemy) -> bool:
 	return not tank and hp>0 and grenade_count>0 and grenade_time<0 and enemy!=null and pos().distance_to(enemy.pos())<=game.config.weapons.grenade.range and not actor.stepping and reload_timer<=0 and suppression<.8
 
 func available_actions() -> Array:
+	if direct_controlled:return []
 	if deployment_phase!="active":return []
 	if hp<=0:return []
 	if gun_id!="":return ["hold","leave_gun","cover","retreat"]
@@ -542,7 +547,7 @@ func available_actions() -> Array:
 func request_grenade(enemy) -> bool:
 	if not can_throw(enemy):return false
 	posture="stand";posture_since=game.elapsed
-	grenade_count-=1;grenade_time=0;grenade_released=false;grenade_target=enemy
+	grenade_count-=1;grenade_time=0;grenade_released=false;grenade_target=enemy;grenade_point=Vector3.INF
 	route.clear();goal=pos();state="grenade"
 	var delta=enemy.pos()-pos();rotation.y=atan2(-delta.x,-delta.y)
 	actor.play("grenade_throw");cooldown=1.3

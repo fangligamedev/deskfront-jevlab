@@ -346,7 +346,7 @@ class LMController:
             for cache in [self.units,self.memory,self.next_due,self.fallback_due,self.progress,self.warning_keys]:
                 for uid in list(cache):
                     if uid not in present:cache.pop(uid,None)
-            active = {k: u for k, u in live.items() if s.get('control', {}).get(u['faction']) == 'lm' and u.get('combat_ready',True)}
+            active = {k: u for k, u in live.items() if s.get('control', {}).get(u['faction']) == 'lm' and u.get('combat_ready',True) and not u.get('direct_controlled',False)}
             self.status=('unconfigured' if not self.ready else 'offline' if age>3 else 'finished' if s.get('winner') else 'idle' if not active else 'paused' if s.get('paused') else 'budget_exhausted' if self.used>=self.config['max_requests'] else 'backoff' if now<self.backoff_until else 'running')
             self.flag_alerts={} if s.get('winner') else copy.deepcopy(s.get('objective',{}).get('flag',{}).get('alerts',{}))
             if age<=3 and not s.get('paused') and not s.get('winner'):

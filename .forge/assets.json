@@ -17,8 +17,8 @@
         "source/audio/generated/bayonet.wav"
       ],
       "source_hashes": {
-        "source/audio/generated/bayonet.wav": "b11f52ac2cf57ccbeae4bcfb2585c2ffab98db89e0946b899535448ffc35f70c",
-        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283"
+        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283",
+        "source/audio/generated/bayonet.wav": "b11f52ac2cf57ccbeae4bcfb2585c2ffab98db89e0946b899535448ffc35f70c"
       }
     },
     {
@@ -38,8 +38,8 @@
         "source/audio/generated/cannon.wav"
       ],
       "source_hashes": {
-        "source/audio/generated/cannon.wav": "494e95a5709e4141988480cac66e5e2a4bd27d49d4ada7689f9ed7c1a674a0da",
-        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283"
+        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283",
+        "source/audio/generated/cannon.wav": "494e95a5709e4141988480cac66e5e2a4bd27d49d4ada7689f9ed7c1a674a0da"
       }
     },
     {
@@ -59,8 +59,8 @@
         "source/audio/generated/explosion.wav"
       ],
       "source_hashes": {
-        "source/audio/generated/explosion.wav": "fe0d8781297738472e0b7617d8fe1e522cbc2c961d651b9bef3967578d482c3f",
-        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283"
+        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283",
+        "source/audio/generated/explosion.wav": "fe0d8781297738472e0b7617d8fe1e522cbc2c961d651b9bef3967578d482c3f"
       }
     },
     {
@@ -112,38 +112,38 @@
         "source/latest/q009/q009/rifle2.ogg"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
+        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
+        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
+        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
+        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
+        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
+        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
+        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
+        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
+        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
+        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
         "source/latest/q009/q009/glauncher.ogg": "9cfa1895a63a550abd9bca5480e97b65edf58cdc5761e86eba08c916b28179a6",
+        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
+        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
+        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
+        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
+        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
+        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
+        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
+        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
+        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
+        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
-        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
-        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
-        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
-        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
         "source/latest/q009/q009/quaddamage_shoot.ogg": "228182b356244a0fd9796a25ad6de41a5cca129642a7f35b8f79b7d1f0c74dd0",
-        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
-        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
-        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
-        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
-        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
-        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
-        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
-        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
-        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
-        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
-        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd"
+        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
+        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
+        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -167,8 +167,8 @@
       ],
       "source_hashes": {
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -192,8 +192,8 @@
       ],
       "source_hashes": {
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -214,8 +214,8 @@
         "source/audio/generated/impact.wav"
       ],
       "source_hashes": {
-        "source/audio/generated/impact.wav": "6b8c1dc04cc464bfab13f41115e9a2a7693f5e98f34bc86a72d7e3bdbe8929d5",
-        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283"
+        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283",
+        "source/audio/generated/impact.wav": "6b8c1dc04cc464bfab13f41115e9a2a7693f5e98f34bc86a72d7e3bdbe8929d5"
       }
     },
     {
@@ -235,8 +235,8 @@
         "source/audio/generated/order.wav"
       ],
       "source_hashes": {
-        "source/audio/generated/order.wav": "ba973a88f9908da4bc6f1461319c4dd68f357753e0d5664f3f4b7cceb6c0b5c8",
-        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283"
+        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283",
+        "source/audio/generated/order.wav": "ba973a88f9908da4bc6f1461319c4dd68f357753e0d5664f3f4b7cceb6c0b5c8"
       }
     },
     {
@@ -288,38 +288,38 @@
         "source/latest/q009/q009/rifle2.ogg"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
+        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
+        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
+        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
+        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
+        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
+        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
+        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
+        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
+        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
+        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
         "source/latest/q009/q009/glauncher.ogg": "9cfa1895a63a550abd9bca5480e97b65edf58cdc5761e86eba08c916b28179a6",
+        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
+        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
+        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
+        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
+        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
+        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
+        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
+        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
+        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
+        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
-        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
-        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
-        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
-        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
         "source/latest/q009/q009/quaddamage_shoot.ogg": "228182b356244a0fd9796a25ad6de41a5cca129642a7f35b8f79b7d1f0c74dd0",
-        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
-        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
-        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
-        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
-        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
-        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
-        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
-        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
-        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
-        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
-        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd"
+        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
+        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
+        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -342,9 +342,9 @@
         "source/latest/q009/q009/license.txt"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
         "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -367,9 +367,9 @@
         "source/latest/q009/q009/license.txt"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
         "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -422,38 +422,38 @@
         "source/latest/q009/q009/rifle2.ogg"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
+        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
+        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
+        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
+        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
+        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
+        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
+        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
+        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
+        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
+        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
         "source/latest/q009/q009/glauncher.ogg": "9cfa1895a63a550abd9bca5480e97b65edf58cdc5761e86eba08c916b28179a6",
+        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
+        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
+        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
+        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
+        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
+        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
+        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
+        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
+        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
+        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
-        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
-        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
-        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
-        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
         "source/latest/q009/q009/quaddamage_shoot.ogg": "228182b356244a0fd9796a25ad6de41a5cca129642a7f35b8f79b7d1f0c74dd0",
-        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
-        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
-        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
-        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
-        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
-        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
-        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
-        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
-        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
-        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
-        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd"
+        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
+        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
+        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -506,38 +506,38 @@
         "source/latest/q009/q009/rifle2.ogg"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
+        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
+        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
+        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
+        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
+        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
+        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
+        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
+        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
+        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
+        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
         "source/latest/q009/q009/glauncher.ogg": "9cfa1895a63a550abd9bca5480e97b65edf58cdc5761e86eba08c916b28179a6",
+        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
+        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
+        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
+        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
+        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
+        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
+        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
+        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
+        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
+        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
-        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
-        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
-        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
-        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
         "source/latest/q009/q009/quaddamage_shoot.ogg": "228182b356244a0fd9796a25ad6de41a5cca129642a7f35b8f79b7d1f0c74dd0",
-        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
-        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
-        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
-        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
-        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
-        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
-        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
-        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
-        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
-        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
-        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd"
+        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
+        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
+        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -560,9 +560,9 @@
         "source/latest/q009/q009/license.txt"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
         "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -585,9 +585,9 @@
         "source/latest/q009/q009/license.txt"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
         "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -608,8 +608,8 @@
         "source/audio/generated/rocket.wav"
       ],
       "source_hashes": {
-        "source/audio/generated/rocket.wav": "cafa14a9da9e02405b86d10bc42d0f7395b84f918bf8a0115903a324329129c9",
-        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283"
+        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283",
+        "source/audio/generated/rocket.wav": "cafa14a9da9e02405b86d10bc42d0f7395b84f918bf8a0115903a324329129c9"
       }
     },
     {
@@ -661,38 +661,38 @@
         "source/latest/q009/q009/rifle2.ogg"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
+        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
+        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
+        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
+        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
+        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
+        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
+        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
+        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
+        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
+        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
         "source/latest/q009/q009/glauncher.ogg": "9cfa1895a63a550abd9bca5480e97b65edf58cdc5761e86eba08c916b28179a6",
+        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
+        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
+        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
+        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
+        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
+        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
+        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
+        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
+        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
+        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
-        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
-        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
-        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
-        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
         "source/latest/q009/q009/quaddamage_shoot.ogg": "228182b356244a0fd9796a25ad6de41a5cca129642a7f35b8f79b7d1f0c74dd0",
-        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
-        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
-        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
-        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
-        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
-        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
-        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
-        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
-        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
-        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
-        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd"
+        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
+        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
+        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -745,38 +745,38 @@
         "source/latest/q009/q009/rifle2.ogg"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
+        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
+        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
+        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
+        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
+        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
+        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
+        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
+        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
+        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
+        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
         "source/latest/q009/q009/glauncher.ogg": "9cfa1895a63a550abd9bca5480e97b65edf58cdc5761e86eba08c916b28179a6",
+        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
+        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
+        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
+        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
+        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
+        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
+        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
+        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
+        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
+        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
-        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
-        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
-        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
-        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
         "source/latest/q009/q009/quaddamage_shoot.ogg": "228182b356244a0fd9796a25ad6de41a5cca129642a7f35b8f79b7d1f0c74dd0",
-        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
-        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
-        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
-        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
-        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
-        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
-        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
-        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
-        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
-        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
-        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd"
+        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
+        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
+        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -799,9 +799,9 @@
         "source/latest/q009/q009/license.txt"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
         "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -824,9 +824,9 @@
         "source/latest/q009/q009/license.txt"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -847,8 +847,8 @@
         "source/audio/generated/smg.wav"
       ],
       "source_hashes": {
-        "source/audio/generated/smg.wav": "c5183b6fc8bef8aabcbd5b231dde93d58679e994600a0dfdccf1f127b8de952e",
-        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283"
+        "source/audio/synthesize.py": "5e5e20eb3c2cd194f55330e5021bdced521afea09fe468e524eaa5a7b83f0283",
+        "source/audio/generated/smg.wav": "c5183b6fc8bef8aabcbd5b231dde93d58679e994600a0dfdccf1f127b8de952e"
       }
     },
     {
@@ -870,9 +870,9 @@
         "source/latest/q009/q009/license.txt"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
         "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -895,9 +895,9 @@
         "source/latest/q009/q009/license.txt"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
         "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -950,38 +950,38 @@
         "source/latest/q009/q009/rifle2.ogg"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
+        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
+        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
+        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
+        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
+        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
+        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
+        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
+        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
+        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
+        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
         "source/latest/q009/q009/glauncher.ogg": "9cfa1895a63a550abd9bca5480e97b65edf58cdc5761e86eba08c916b28179a6",
+        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
+        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
+        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
+        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
+        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
+        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
+        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
+        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
+        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
+        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
-        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
-        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
-        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
-        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
         "source/latest/q009/q009/quaddamage_shoot.ogg": "228182b356244a0fd9796a25ad6de41a5cca129642a7f35b8f79b7d1f0c74dd0",
-        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
-        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
-        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
-        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
-        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
-        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
-        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
-        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
-        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
-        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
-        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd"
+        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
+        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
+        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -1005,8 +1005,8 @@
       ],
       "source_hashes": {
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -1030,8 +1030,8 @@
       ],
       "source_hashes": {
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4",
-        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45"
+        "tools/optimization/build_audio_variants.py": "c4a5abe2138997b52da09280f21dec4015a6c8c8a6cca669b27f65645b372b45",
+        "source/latest/q009/q009/license.txt": "4863004eb6a6d471b5b88b8299d9456aef0b47275bba8c3f2f1034b7ea8623a4"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -1084,38 +1084,38 @@
         "source/latest/q009/q009/rifle2.ogg"
       ],
       "source_hashes": {
-        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd",
+        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
+        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
+        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
+        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
+        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
+        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
+        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
+        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
+        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
+        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
         "source/latest/q009/q009/glauncher.ogg": "9cfa1895a63a550abd9bca5480e97b65edf58cdc5761e86eba08c916b28179a6",
+        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
+        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
+        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
+        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
+        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
+        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
+        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
+        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
+        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
+        "source/latest/q009/q009/explosion.ogg": "4942bf1fa9cf5eaa320d310832e0af3f26e40cdc540fe4534dfcf57b8e6dd396",
+        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
         "source/latest/q009/q009/glauncher2.ogg": "e902669d80cb2c069a2091a9d3761ba22f61c2cd72d9e2e0077e92f16d81a713",
         "source/latest/q009/q009/glauncher3.ogg": "ca18b99eae1c898435cbd5726a9bd607b7dd1593aec767691db24ebe229c9d1b",
-        "source/latest/q009/q009/grenade.ogg": "0ca117e812a74ebabdad3abe0bd78ce7c3cb82c55728495653290c4e5ae7bd23",
         "source/latest/q009/q009/grenade2.ogg": "b495d25aef281a875bc6fac7baa35fccc884946433b7e9453b144486ca85efcf",
         "source/latest/q009/q009/grenade3.ogg": "463eaa4e52c6a123c4d5640af751e282b4d8bee10776c7bee6b01d444606ede6",
-        "source/latest/q009/q009/jumppad.ogg": "658b7c1adf3b3719c761a4fda4760b1c97b6b75f90673ee15a0dc33be047398a",
-        "source/latest/q009/q009/minigun.ogg": "3f1610732a1b9ef57c7e1a0b6d7b2cf049d342787b64a44bae16174a50b513db",
-        "source/latest/q009/q009/minigun2.ogg": "ae38b3048ceeb2e75179eeb084a74535c1e99c2db7e0fb0be5f153ee310ddc5e",
-        "source/latest/q009/q009/minigun3.ogg": "e4ab92d1641d86a281843314389dd225029dc70124b436f33f33aa99efd61aed",
-        "source/latest/q009/q009/outofammo.ogg": "0092848933d9d3a60fc573965caa760ddd9c74b314f67e1a98341093e30e7e08",
-        "source/latest/q009/q009/pistol.ogg": "f2125304b119d04352cd6a9471b048f96c3ef3c67e8b42062284d61c50ac287c",
-        "source/latest/q009/q009/pistol2.ogg": "0c8f837319958a1087bd8f86c69b0888653e1208eb806e8a0b2a20c04e761f34",
-        "source/latest/q009/q009/pistol3.ogg": "a36a76b6e3a89e612c628dd1c5bb3e10c7a7c838987156802626c5241cfa9cef",
-        "source/latest/q009/q009/quaddamage_out.ogg": "451eab33364cbceda6a525ef26de52ce361d9c4a5b3b846ce633c48d63617a99",
         "source/latest/q009/q009/quaddamage_shoot.ogg": "228182b356244a0fd9796a25ad6de41a5cca129642a7f35b8f79b7d1f0c74dd0",
-        "source/latest/q009/q009/ren.ogg": "afba7e637c1558fbff1105f6f62b37459b61d93221afd4e814f4de5f769b15b9",
-        "source/latest/q009/q009/ren2.ogg": "bfe98c4f39a0cb53aba6d43de2201751ce88002a91f5ad3a3a825796ccc0bd81",
-        "source/latest/q009/q009/ren3.ogg": "3727883997ef68fe821116eac92a1e906cf9edac9fdec70bdb01504e5d0e4689",
-        "source/latest/q009/q009/rifle.ogg": "f26f2813568898d7e3bcc0c2f3dc61428126dc9cd9de2a593493a3973dd4c036",
-        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd",
-        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
-        "source/latest/q009/q009/rlauncher.ogg": "0fb8f5d3d1cb60404c7555ae41d8b62274e10f135aa0ba76eee3769cf60364ac",
-        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
         "source/latest/q009/q009/rlauncher3.ogg": "d6ffa932b691c65c6c985cda35845762c72b000cc9235a32313ed72adc72236d",
-        "source/latest/q009/q009/shotgun.ogg": "04f0f8ff75c940994c3f6c0f70b41069f24e53cb7ddcebd4f18c5b79de10ffe3",
-        "source/latest/q009/q009/shotgun2.ogg": "a369c37078c1ad9075cfd7b4d60060c7597970892cce02be8597ccb99630d164",
-        "source/latest/q009/q009/shotgun3.ogg": "c1b460c13a47721c9e3d4e6e3ae91ae7b73dee0df3b5465652243d159d6b11bc",
-        "source/latest/q009/q009/teleport.ogg": "051b78f7d2de8d3bf2ec6e3f271921c151e80466be8cf6d13419513a8b44b1ad",
-        "source/latest/q009/q009/weapswitch.ogg": "daef10a4badf147aa92627f2c669654be8e425bbe226b429fbf9686a79484999",
-        "source/latest/tools/build_audio.py": "201f09d4d8637010805b9b73073964318aedbc545dd512ff47b726e1a0a68abd"
+        "source/latest/q009/q009/rlauncher2.ogg": "75fbcc099ea35a72333f16860482b61ee323cc6b5352c7ede9aaf31e61da0c94",
+        "source/latest/q009/q009/rifle3.ogg": "cf9f22db63b2fed70b03eca14173cb14192b7c3b49555668c31d119add453fde",
+        "source/latest/q009/q009/rifle2.ogg": "965150c460b66e69fa2c7b793eb8475f6732fa1d3f4c6192b159f02f4e75f8dd"
       },
       "source_url": "https://opengameart.org/content/q009s-weapon-sounds"
     },
@@ -1131,8 +1131,8 @@
       "prompt": null,
       "provider": "Adobe / Google Noto; DeskfrontUI subset",
       "release_status": "allowed",
-      "sha256": "a1913100a763a8a9678f8d8f505eaf062840ca63eacb723145ea677f20d2914c",
-      "size_bytes": 85032,
+      "sha256": "58fc95537425bfd47be460e6922628462fd6a3d8a7e0d3750ed3fc5b2bc7334b",
+      "size_bytes": 190052,
       "source_files": [
         "source/latest/fonts/NotoSansCJKsc-Regular.otf",
         "source/latest/fonts/OFL.txt",
@@ -1273,9 +1273,12 @@
         "source/latest/office-battlefield-generated/office-binder-editable.blend"
       ],
       "source_hashes": {
-        "source/latest/office-battlefield-generated/office-binder-editable.blend": "06e4943084f84c4e6a404c6f90dcfa17b98d72ff0aca79dac8618edb070fcdca",
-        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce"
-      }
+        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+        "source/latest/office-battlefield-generated/office-binder-editable.blend": "06e4943084f84c4e6a404c6f90dcfa17b98d72ff0aca79dac8618edb070fcdca"
+      },
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original"
     },
     {
       "created_at": "2026-09-19T04:58:02.121357+00:00",
@@ -1294,9 +1297,12 @@
         "source/latest/office-battlefield-generated/office-books-editable.blend"
       ],
       "source_hashes": {
-        "source/latest/office-battlefield-generated/office-books-editable.blend": "71b1183e88bd3de715cb36aa229e2942089ec4781d83528eb579545bbe2b34b4",
-        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce"
-      }
+        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+        "source/latest/office-battlefield-generated/office-books-editable.blend": "71b1183e88bd3de715cb36aa229e2942089ec4781d83528eb579545bbe2b34b4"
+      },
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original"
     },
     {
       "created_at": "2026-09-19T04:57:58.869324+00:00",
@@ -1315,9 +1321,12 @@
         "source/latest/office-battlefield-generated/office-expanded-editable.blend"
       ],
       "source_hashes": {
-        "source/latest/office-battlefield-generated/office-expanded-editable.blend": "36fa8a3366145aacadbcbdf5118a527b42baf902e55bebb5fb3c87fa1df8dfd5",
-        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce"
-      }
+        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+        "source/latest/office-battlefield-generated/office-expanded-editable.blend": "36fa8a3366145aacadbcbdf5118a527b42baf902e55bebb5fb3c87fa1df8dfd5"
+      },
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original"
     },
     {
       "created_at": "2026-09-19T04:58:08.362844+00:00",
@@ -1336,9 +1345,12 @@
         "source/latest/office-battlefield-generated/office-filebox-editable.blend"
       ],
       "source_hashes": {
-        "source/latest/office-battlefield-generated/office-filebox-editable.blend": "deb7fdeaafc25f9ff14f0cef6f17baeb239fec795c6132271fa2833114ce68ca",
-        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce"
-      }
+        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+        "source/latest/office-battlefield-generated/office-filebox-editable.blend": "deb7fdeaafc25f9ff14f0cef6f17baeb239fec795c6132271fa2833114ce68ca"
+      },
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original"
     },
     {
       "created_at": "2026-09-19T04:58:11.426726+00:00",
@@ -1357,9 +1369,12 @@
         "source/latest/office-battlefield-generated/office-keyboard-editable.blend"
       ],
       "source_hashes": {
-        "source/latest/office-battlefield-generated/office-keyboard-editable.blend": "67572421f1b96272de62f1b07ee8e80b9c24dd7cd2112e2e2c29a1f33a8218fe",
-        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce"
-      }
+        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+        "source/latest/office-battlefield-generated/office-keyboard-editable.blend": "67572421f1b96272de62f1b07ee8e80b9c24dd7cd2112e2e2c29a1f33a8218fe"
+      },
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original"
     },
     {
       "created_at": "2026-09-19T04:58:20.399199+00:00",
@@ -1380,7 +1395,10 @@
       "source_hashes": {
         "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
         "source/latest/office-battlefield-generated/office-mug-editable.blend": "e61f7abc3583318f45e7110cabd2016ae86bacd37942555edbc368b101b69c34"
-      }
+      },
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original"
     },
     {
       "created_at": "2026-09-19T04:58:14.677543+00:00",
@@ -1399,9 +1417,12 @@
         "source/latest/office-battlefield-generated/office-printer-editable.blend"
       ],
       "source_hashes": {
-        "source/latest/office-battlefield-generated/office-printer-editable.blend": "925be7b6d3f7f56fbd0213d3c22c841e911ca165a2d9c408f01c7f04b94aab7b",
-        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce"
-      }
+        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+        "source/latest/office-battlefield-generated/office-printer-editable.blend": "925be7b6d3f7f56fbd0213d3c22c841e911ca165a2d9c408f01c7f04b94aab7b"
+      },
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original"
     },
     {
       "additional_sources": [],
@@ -1444,9 +1465,12 @@
         "source/latest/office-battlefield-generated/office-stapler-editable.blend"
       ],
       "source_hashes": {
-        "source/latest/office-battlefield-generated/office-stapler-editable.blend": "62be30c6e6830b03ea913c7b365a1fa4c9b9f61b667c88cbf2c3c0e6f3f74e88",
-        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce"
-      }
+        "source/latest/tools/build_office_battlefield.py": "ea139745cdb6c426e53f8f2178e0436d6d4a03429603e809661b2f965b98fcce",
+        "source/latest/office-battlefield-generated/office-stapler-editable.blend": "62be30c6e6830b03ea913c7b365a1fa4c9b9f61b667c88cbf2c3c0e6f3f74e88"
+      },
+      "source_url": null,
+      "additional_sources": [],
+      "author": "Deskfront original"
     },
     {
       "additional_sources": [
@@ -1586,8 +1610,8 @@
       ],
       "source_hashes": {
         "source/optimization/optimize_meshes.py": "3f05421a9022e8feea5e3b462831a888a87144a8b1066989b3b3843db697bf75",
-        "source/optimization/originals/sandbag.glb": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a",
-        "source/optimization/sandbag-optimized.blend": "3155069803de03b5abb0d173c1b6d71188855e499d7e20ef0b6428033a12cb13"
+        "source/optimization/sandbag-optimized.blend": "3155069803de03b5abb0d173c1b6d71188855e499d7e20ef0b6428033a12cb13",
+        "source/optimization/originals/sandbag.glb": "34c97c5ba45de4bf196496e850e51453c6624aca7b86dc3e0bf00a1963ef1b8a"
       },
       "source_url": null
     },
@@ -1641,10 +1665,10 @@
         "source/latest/tools/build_soldier.py"
       ],
       "source_hashes": {
-        "source/latest/soldier-original.fbx": "e5abab6089d66181f755d8878a7ee08c89a0d0358e527b379db86022626b22e0",
-        "source/latest/tools/build_soldier.py": "3f896a5776657d82bfd0ab7344af25ed12851456144ba585ed5fcd951d75be79",
         "source/latest/toy-soldier-retarget.blend": "f1cdf167ad418dabac77f8a55b4499a645b7fd7a9693a3ea9db2b72728800f8b",
-        "source/latest/ual-author-preview.glb": "beadbb31178e65db6d3819c571933ffea1444fda3cf89b52fe1ff157e44e5d05"
+        "source/latest/soldier-original.fbx": "e5abab6089d66181f755d8878a7ee08c89a0d0358e527b379db86022626b22e0",
+        "source/latest/ual-author-preview.glb": "beadbb31178e65db6d3819c571933ffea1444fda3cf89b52fe1ff157e44e5d05",
+        "source/latest/tools/build_soldier.py": "3f896a5776657d82bfd0ab7344af25ed12851456144ba585ed5fcd951d75be79"
       },
       "source_url": "https://opengameart.org/content/rigged-lowpoly-ww2-soldier"
     },

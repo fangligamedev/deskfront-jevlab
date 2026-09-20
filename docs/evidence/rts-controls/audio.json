@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "states": [
+    "running"
+  ],
+  "method": "Real canvas click unlocks browser AudioContext"
+}

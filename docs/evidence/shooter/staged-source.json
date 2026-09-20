@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "build_id": "main-815af0cc4e10",
+  "shooter_checks": 31,
+  "rts_checks": 18,
+  "semantic_checks": 113,
+  "python_tests": 74,
+  "log_sha256": "94c7d55af276a662c12e856677fa5a7df40840c60d028e331eb2259ec69b6082",
+  "scope": "isolated checkout of Git index; excludes concurrent unfinished eastfront changes"
+}

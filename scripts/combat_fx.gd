@@ -123,16 +123,21 @@ func set_muted(value: bool) -> void:
 
 func launch(shooter, target, weapon: String, landed: bool) -> void:
 	var cfg: Dictionary=game.config.weapons[weapon]
-	launched[weapon]=int(launched.get(weapon,0))+1
 	var end: Vector3=target.aim_point()
-	var from: Vector3=shooter.muzzle_position(end)
-	var dir: Vector3=(end-from).normalized()
-	sound("cannon" if weapon=="at_cannon" else weapon,from)
 	if weapon=="bayonet":
+		var from:Vector3=shooter.muzzle_position(end)
+		launched[weapon]=int(launched.get(weapon,0))+1;sound(weapon,from)
 		beam(from,end,.007,Color(.84,.91,.95),.14)
-		target.hit(float(cfg.damage),float(cfg.pressure),from,.10);impacts+=1
-		return
+		target.hit(float(cfg.damage),float(cfg.pressure),from,.10);impacts+=1;return
 	if not landed:end+=Vector3(random.randf_range(.026,.065),random.randf_range(-.025,.04),random.randf_range(-.06,.06))
+	launch_point(shooter,end,weapon,cfg,landed)
+
+func launch_point(shooter,end:Vector3,weapon:String,cfg:Dictionary,landed:bool=true) -> void:
+	# Free aim uses the same swept projectile, cover damage and friendly blocking as RTS.
+	launched[weapon]=int(launched.get(weapon,0))+1
+	var from:Vector3=shooter.muzzle_position(end)
+	var dir:Vector3=(end-from).normalized()
+	sound("cannon" if weapon=="at_cannon" else weapon,from)
 	var explosive: bool=weapon in ["rocket","cannon","at_cannon","grenade"]
 	puff(from,.048 if explosive else .027,.20,false)
 	beam(from,from+dir*.045,.009 if explosive else .006,Color(1,.91,.53),.10)
@@ -141,7 +146,7 @@ func launch(shooter, target, weapon: String, landed: bool) -> void:
 	if weapon=="grenade":
 		var shell=load("res://assets/models/grenade.glb").instantiate();n.add_child(shell);shell.scale=Vector3.ONE*.075;n.mesh=null
 		for part in shell.find_children("*","MeshInstance3D",true,false):part.material_override=game.field.mat(game.colors[shooter.faction],.32)
-	projectiles.append({"node":n,"from":from,"to":end,"age":0.0,"duration":maxf(.09,from.distance_to(end)/float(cfg.projectile_speed)),"cfg":cfg.duplicate(),"weapon":weapon,"team":shooter.faction,"target":target,"shooter":shooter.id,"suppressed":[],"landed":landed,"trail":0.0})
+	projectiles.append({"node":n,"from":from,"to":end,"age":0.0,"duration":maxf(.09,from.distance_to(end)/float(cfg.projectile_speed)),"cfg":cfg.duplicate(),"weapon":weapon,"team":shooter.faction,"target":null,"shooter":shooter.id,"suppressed":[],"landed":landed,"trail":0.0})
 
 func trace(a: Vector3,b: Vector3,shooter_id: String) -> Dictionary:
 	var best: Dictionary=game.field.trace_cover(a,b)

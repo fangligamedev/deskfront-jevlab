@@ -60,6 +60,7 @@ def main():
     if a.command=='record-assets':record_assets()
     if a.command=='import':run([binary('godot'),'--headless','--editor','--path',str(ROOT),'--quit'])
     if a.command=='test':
+        run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/shooter_contract.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/office_battlefield.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'--script','tests/motion_continuity.gd'])
         run([binary('godot'),'--headless','--path',str(ROOT),'tests/semantic_probe.tscn'])

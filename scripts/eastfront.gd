@@ -37,6 +37,7 @@ func setup(g):
   if u.faction!="green":game.units.erase(u);u.queue_free()
  game.control={"green":str(get_tree().get_meta("eastfront_control","game_ai")),"red":"game_ai","blue":"game_ai"}
  game.control_epochs={"green":0,"red":0,"blue":0}
+ game.selected_faction="green";follow=game.control.green!="player";game.edge_pan=false
  for i in range(game.units.size()):game.units[i].equip(["rifle","smg","rocket"][i])
  var c={"index":0,"phase":"cleared","node":tile(0),"covers":[],"units":[],"source":"initial_camp","elapsed":0.0,"template":"camp"};chunks.append(c)
  label=Label3D.new();add_child(label);label.font_size=42;label.pixel_size=.0025;label.modulate=Color(.97,.87,.57);label.no_depth_test=true

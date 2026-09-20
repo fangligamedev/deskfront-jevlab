@@ -88,7 +88,7 @@ func plan(team: String) -> void:
 	# Equipment users keep their own executable route. Do not overwrite it with a formation.
 	for gun in game.at_guns:
 		if gun.faction!=team or gun.crew_id!="" or gun.enemy_tank()==null:continue
-		var candidates=game.living(team).filter(func(u):return gun.eligible(u))
+		var candidates=game.living(team).filter(func(u):return not u.direct_controlled and gun.eligible(u))
 		candidates.sort_custom(func(a,b):return a.pos().distance_to(gun.pos())<b.pos().distance_to(gun.pos()))
 		for u in candidates:
 			if gun.claim(u):
@@ -96,10 +96,10 @@ func plan(team: String) -> void:
 				break
 	if team=="blue" and game.building and not game.building.collapsed and (game.config.rules.get("mode","")!="center_flag" or game.elapsed<30):
 		for u in game.living(team):
-			if u.weapon=="rifle" and not game.living(team).any(func(v):return v.garrison_phase!="") and u.garrison_phase=="" and u.gun_id=="" and u.hp/u.max_hp>.65 and u.suppression<.35 and u.pos().distance_to(game.building.approach())<.8:
+			if not u.direct_controlled and u.weapon=="rifle" and not game.living(team).any(func(v):return v.garrison_phase!="") and u.garrison_phase=="" and u.gun_id=="" and u.hp/u.max_hp>.65 and u.suppression<.35 and u.pos().distance_to(game.building.approach())<.8:
 				if game.building.enter(u,2):
 					if formations.has(team):formations[team].ids.erase(u.id)
-	var squad: Array=game.living(team).filter(func(u):return not u.tank and u.gun_id=="" and u.garrison_phase=="")
+	var squad: Array=game.living(team).filter(func(u):return not u.direct_controlled and not u.tank and u.gun_id=="" and u.garrison_phase=="")
 	for armor in game.living(team).filter(func(u):return u.tank):plan_tank(armor)
 	if squad.is_empty():return
 	if game.config.rules.get("mode","")=="center_flag":plan_flag(team,squad);return
@@ -226,7 +226,7 @@ func flank_goal(u, enemy) -> Dictionary:
 	return best
 
 func begin_move(team: String, destination: Vector2, ids: Array, retreat: bool=false) -> void:
-	var squad: Array=game.living(team).filter(func(u):return not u.tank and (ids.is_empty() or ids.has(u.id)))
+	var squad: Array=game.living(team).filter(func(u):return not u.direct_controlled and not u.tank and (ids.is_empty() or ids.has(u.id)))
 	if squad.is_empty():return
 	var anchor := squad_center(squad)
 	formations[team]={"ids":squad.map(func(u):return u.id),"destination":destination,"anchor":anchor,"path":game.field.path(anchor,destination),"revision":game.field.revision,"retreat":retreat,"leader":squad[0].id,"shape":"wedge"}

@@ -27,6 +27,15 @@ def settle(c):
 
 
 class LMContract(unittest.TestCase):
+    def test_possessed_infantry_is_excluded_while_teammates_continue(self):
+        seen=[]
+        def client(o):seen.append(o['self']['id']);return {'action':'hold','intent':'observe'},{}
+        s=state();s.state['units'][0]['direct_controlled']=True;c=controller(s,client)
+        try:
+            c.tick();settle(c)
+            self.assertEqual(seen,['green-2'])
+            self.assertTrue(all(q['unit_ids']==['green-2'] for q in s.pending.values()))
+        finally:c.close()
     def test_four_modes_and_public_source_cannot_spoof_lm(self):
         for mode in ['game_ai','lm','agent','player']:self.assertIsNone(validate_command({'action':'control','mode':mode}))
         s=state();_,r=s.submit({'action':'hold','source':'lm'});self.assertEqual(s.pending[r['id']]['source'],'console')

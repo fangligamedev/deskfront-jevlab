@@ -6,7 +6,7 @@ import argparse, json, time, threading, uuid, collections, urllib.parse, math
 
 ROOT=Path(__file__).resolve().parents[1]
 SERVICE_VERSION=json.loads((ROOT/'package.json').read_text())['version']
-ALLOWED={'eastfront_start','eastfront_propose','eastfront_follow','demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
+ALLOWED={'possess','release_unit','eastfront_start','eastfront_propose','eastfront_follow','demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
 TACTICS={'move','capture','flank','cover','hold','retreat','attack','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
 TEAMS={'green','blue','red'}
 
@@ -32,6 +32,7 @@ def validate_command(c, agent=False):
     if c['action']=='attack' and not isinstance(c.get('target_id'),str):return 'target_required'
     if c['action']=='scenario' and (not isinstance(c.get('level'),dict) or not isinstance(c.get('modes',{}),dict)):return 'invalid_scenario'
     if c['action']=='map' and (type(c.get('index')) is not int or c['index'] not in range(len(json.loads((ROOT/'data/sandbox-maps.json').read_text())['levels']))):return 'invalid_map'
+    if c['action']=='possess' and (not isinstance(c.get('unit_id',''),str) or c.get('view','third') not in {'first','third'}):return 'invalid_possession'
     if c['action']=='posture' and c.get('posture') not in {'auto','stand','crouch','prone'}:return 'invalid_posture'
     if c['action']=='equip' and c.get('weapon') not in {'rifle','smg','rocket','pistol'}:return 'invalid_weapon'
     if agent and (not isinstance(c.get('run_id'),str) or type(c.get('seen_tick')) is not int):return 'observation_required'

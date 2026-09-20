@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-20T21:47:45.928876+08:00",
+  "build": {
+    "id": "main-d2d24b24da1e",
+    "runtime_sha256": "d2d24b24da1e9f3294ba80c83cb4e7d807a78efae4ffc0c37ba1a30e2535c901",
+    "assets_sha256": "8c64ab375ca38d1ef3a7558404ce1bf56d12d6687eb2c8ff24c3a9cb8bdaa6bc"
+  },
+  "passed": true,
+  "scope": "RTS camera, selection, control groups, right-click move/attack",
+  "native_checks": 18,
+  "browser_checks": 31,
+  "python_tests": 78,
+  "release_status": "passed",
+  "release_hashes_verified": true,
+  "browser_errors": [],
+  "entry": "http://127.0.0.1:8768/?view=execution&v=rts-controls",
+  "notes": [
+    "Core orders remain authoritative Godot commands.",
+    "Parallel shooter/eastfront changes retained.",
+    "This does not add queued Shift orders."
+  ],
+  "audio_unlock": {
+    "passed": true,
+    "states": [
+      "running"
+    ],
+    "method": "Real canvas click unlocks browser AudioContext"
+  }
+}

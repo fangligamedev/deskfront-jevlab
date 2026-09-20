@@ -1,0 +1,77 @@
+{
+  "checks": [
+    {
+      "passed": true,
+      "test": "left click selects one soldier and takes player control"
+    },
+    {
+      "passed": true,
+      "test": "Shift-click adds a soldier"
+    },
+    {
+      "passed": true,
+      "test": "Shift-click removes an already selected soldier"
+    },
+    {
+      "passed": true,
+      "test": "empty left click deselects without issuing a move"
+    },
+    {
+      "passed": true,
+      "test": "reverse-direction tight box selects an individual soldier"
+    },
+    {
+      "passed": true,
+      "test": "left click on enemy does not issue attack or steal its faction"
+    },
+    {
+      "passed": true,
+      "test": "right click on enemy body dispatches targeted attack"
+    },
+    {
+      "passed": true,
+      "test": "elevated enemy uses actual projected height"
+    },
+    {
+      "passed": true,
+      "test": "control group preserves assigned individual IDs"
+    },
+    {
+      "passed": true,
+      "test": "double group recall focuses selected unit"
+    },
+    {
+      "passed": true,
+      "test": "panning keeps camera orientation stable"
+    },
+    {
+      "passed": true,
+      "test": "zoom anchors the world point under cursor"
+    },
+    {
+      "passed": true,
+      "test": "A belongs to camera movement and does not return control to LLM"
+    },
+    {
+      "passed": true,
+      "test": "focus loss clears every drag state"
+    },
+    {
+      "passed": true,
+      "test": "right click without selected soldiers cannot command an entire faction"
+    },
+    {
+      "passed": true,
+      "test": "RTS campaign starts as green in free camera mode"
+    },
+    {
+      "passed": true,
+      "test": "streamed campaign camera supports coordinates beyond original room bounds"
+    },
+    {
+      "passed": true,
+      "test": "streamed camera remains bounded to currently loaded terrain"
+    }
+  ],
+  "passed": true
+}

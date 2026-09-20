@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "test": "browser button possesses the selected infantry",
+      "passed": true
+    },
+    {
+      "test": "real click captures pointer and unlocks audio",
+      "passed": true
+    },
+    {
+      "test": "WASD with Shift moves possessed soldier through root motion",
+      "passed": true
+    },
+    {
+      "test": "key release stops movement",
+      "passed": true
+    },
+    {
+      "test": "real left mouse input fires shared combat projectiles",
+      "passed": true
+    },
+    {
+      "test": "R starts weapon reload",
+      "passed": true
+    },
+    {
+      "test": "V switches to first person inside running battle",
+      "passed": true
+    },
+    {
+      "test": "Escape releases pointer without losing possession",
+      "passed": true
+    },
+    {
+      "test": "Tab restores RTS and unit authority",
+      "passed": true
+    },
+    {
+      "test": "no browser or Godot runtime errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "build_id": "main-2fbb5fd548f9",
+  "fps": 120,
+  "audio": [
+    "running"
+  ]
+}

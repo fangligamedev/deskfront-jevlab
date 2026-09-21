@@ -104,3 +104,34 @@ def validate_long_defense(plan):
         if not any(c['kind'] in ('sandbag','trench','wall') and max(c['width'],c['depth'])>=.65 for c in rows):
             raise ValueError('need_continuous_fortification_at_least_0.65m')
     return plan
+
+
+def prepare_campaign_prefix(value, allowed, compose=False):
+    """Commit a contiguous, independently validated prefix; repair the future later.
+
+    Never replace model geometry. A bad later sector cannot discard a valid
+    opening. Stop at the first rejected sector so indices cannot skip a gap.
+    """
+    rows=value.get('sectors') if isinstance(value,dict) else None
+    if not isinstance(rows,list) or len(rows)!=3:raise ValueError('invalid_campaign_plan')
+    accepted=[];adjustments=[];deferred=None;templates=set()
+    for offset,row in enumerate(rows):
+        try:
+            fitted,edits=fit_campaign_layouts({'sectors':[row]})
+            plan=sector_plan(fitted['sectors'][0],allowed)
+            if plan['template'] in templates:raise ValueError('repeated_campaign_layout')
+            if offset==0 and not all(plan['armor'][team]['enabled'] for team in ('green','red')):raise ValueError('opening_requires_both_tanks')
+            if compose:
+                if 'layout' not in plan:raise ValueError('layout_required')
+                validate_long_defense({'sectors':[plan]})
+            accepted.append(plan);templates.add(plan['template'])
+            adjustments.extend(dict(edit,sector_offset=offset) for edit in edits)
+        except ValueError as error:
+            if not accepted:raise
+            deferred={'sector_offset':offset,'error':str(error)};break
+    if compose and len(accepted)==3:
+        kinds={c['kind'] for p in accepted for c in p['layout']['components']}
+        if len(kinds)<4 or not kinds.intersection({'house','bunker','fuel_depot'}):
+            accepted=accepted[:1];adjustments=[a for a in adjustments if a['sector_offset']==0]
+            deferred={'sector_offset':1,'error':'insufficient_terrain_variety'}
+    return {'sectors':accepted,'strategy':str(value.get('strategy',''))[:240]},adjustments,deferred

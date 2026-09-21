@@ -82,18 +82,15 @@ class DualBrain:
             try:
                 value=task['future'].result()
                 if kind=='slow':
-                    from frontier_plan import fit_campaign_layouts, validate_long_defense
-                    try:fitted,adjustments=fit_campaign_layouts(value)
+                    from frontier_plan import prepare_campaign_prefix
+                    try:plan,adjustments,deferred=prepare_campaign_prefix(value,task['key']['allowed'],task['key'].get('compose',False))
                     except ValueError as e:raise ProviderError(str(e)) from None
-                    self.lm.call_log.update(call,layout_adjustments=adjustments)
-                    plan=validate_plan(fitted,task['key']['allowed']);start=task['key']['index']
-                    if task['key'].get('compose'):
-                        if not all('layout' in p for p in plan['sectors']):raise ProviderError('layout_required')
-                        kinds={c['kind'] for p in plan['sectors'] for c in p['layout']['components']}
-                        if len(kinds)<4 or not kinds.intersection({'house','bunker','fuel_depot'}):raise ProviderError('insufficient_terrain_variety')
-                        try:validate_long_defense(plan)
-                        except ValueError as e:raise ProviderError(str(e)) from None
-                    self.latest.pop('slow_error',None);self.plan_call=call;self.plan.update({start+i:t for i,t in enumerate(plan['sectors'])});self.plan_calls.update({start+i:call for i in range(3)});self.latest[kind]=dict(plan,start_index=start,layout_adjustments=adjustments)
+                    start=task['key']['index']
+                    self.lm.call_log.update(call,layout_adjustments=adjustments,deferred_validation=deferred)
+                    self.latest.pop('slow_error',None)
+                    if deferred:self.latest['slow_error']=dict(deferred,index=start+deferred['sector_offset'])
+                    self.plan_call=call;self.plan.update({start+i:t for i,t in enumerate(plan['sectors'])});self.plan_calls.update({start+i:call for i in range(len(plan['sectors']))})
+                    self.latest[kind]=dict(plan,start_index=start,layout_adjustments=adjustments,deferred_validation=deferred)
                     self.lm.call_log.update(call,phase='planned',decision=self.latest[kind])
                 else:
                     if task['key']!=f['active_sector'] or now-task['started']>6:raise ProviderError('stale_fast_directive')
@@ -136,4 +133,4 @@ class DualBrain:
                     from laya_client import frontier_payload
                     payload=frontier_payload(context,payload['questions'])
                 self.launch('fast',s,payload,cfg,f['active_sector'])
-        self.lm.frontier_status={'mode':f.get('backend','dual_brain'),'fast_provider':'laya' if f.get('backend')=='dual_brain_laya' else 'typesafe_jev','used':dict(self.used),'in_flight':list(self.pending),'latest':copy.deepcopy(self.latest),'disabled':sorted(self.disabled),'budgets':{'slow':64,'fast':300},'fast_interval_seconds':2,'planned_sectors':sorted(self.plan),'planning_ahead':bool(self.pending.get('slow') and self.pending['slow']['key']['index']>f.get('active_sector',0))}
+        self.lm.frontier_status={'mode':f.get('backend','dual_brain'),'fast_provider':'laya' if f.get('backend')=='dual_brain_laya' else 'typesafe_jev','used':dict(self.used),'in_flight':list(self.pending),'in_flight_seconds':{k:round(now-t['started'],1) for k,t in self.pending.items()},'retry_in_seconds':round(max(0,self.next_slow-now),1),'latest':copy.deepcopy(self.latest),'disabled':sorted(self.disabled),'budgets':{'slow':64,'fast':300},'fast_interval_seconds':2,'planned_sectors':sorted(self.plan),'planning_ahead':bool(self.pending.get('slow') and self.pending['slow']['key']['index']>f.get('active_sector',0))}

@@ -1,0 +1,63 @@
+{
+  "root_cause": "三段整批校验导致合格首段被后段丢弃，重复开始取消在途规划",
+  "regression": {
+    "python": 105,
+    "semantic": 113,
+    "forge": "report-5a6eeaffeb77"
+  },
+  "historical_replay": [
+    {
+      "call_id": 6829,
+      "accepted_prefix": 1
+    },
+    {
+      "call_id": 6853,
+      "accepted_prefix": 1
+    },
+    {
+      "call_id": 6874,
+      "accepted_prefix": 3
+    }
+  ],
+  "live": {
+    "run_id": "1789961583.07-334602134",
+    "build_id": "main-ebd336ab1791",
+    "engine_live": true,
+    "time": 1235.5,
+    "cleared": 8,
+    "active_sector": 9,
+    "chunks": [
+      {
+        "index": 7,
+        "phase": "cleared",
+        "source": "deepseek_slow_plan"
+      },
+      {
+        "index": 8,
+        "phase": "cleared",
+        "source": "deepseek_slow_plan"
+      },
+      {
+        "index": 9,
+        "phase": "combat",
+        "source": "deepseek_slow_plan"
+      },
+      {
+        "index": 10,
+        "phase": "ready",
+        "source": "deepseek_slow_plan"
+      }
+    ],
+    "slow_calls": 6,
+    "fast_calls": 300,
+    "latest_deferred_validation": null
+  },
+  "browser_start_button": {
+    "waiting_caption": "首段准备中 · 查看进度",
+    "waiting_message": "首段战场正在由 DeepSeek 规划 · 本次请求已等待 0 秒。返回并通过校验后自动施工，无需重复开始。",
+    "second_click": "显示进度，仍只有一次慢脑请求",
+    "subsequent_run": "1789963569.375-2376406600",
+    "subsequent_built": 3,
+    "subsequent_cleared": 1
+  }
+}

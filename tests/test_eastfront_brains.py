@@ -103,3 +103,42 @@ class BrainsContract(unittest.TestCase):
    s.state['eastfront']['active_sector']=5;b.tick(copy.deepcopy(s.state),None,{})
    self.assertEqual(sorted(b.plan),[4,5,6]);self.assertEqual(sorted(b.plan_calls),[4,5,6])
   finally:b.close();c.close()
+
+class StartupPrefixContract(unittest.TestCase):
+ def plans(self):
+  from test_frontier_components import layout
+  geometry=layout()
+  for c in geometry['components']:c['x']*=3
+  geometry['components'][1]['depth']=.9
+  geometry['components'][2]['x']=3.5
+  return {'strategy':'分段设防','sectors':[{'template':t,'defenders':[{'weapon':'rifle','station':0},{'weapon':'rocket','station':2}],'defense':'entrench','construction':'dig_first','armor':{team:{'enabled':True,'delay':2,'role':'support'} for team in ('green','red')},'reason':'纵深工位','layout':copy.deepcopy(geometry)} for t in ['a','b','c']]}
+ def test_invalid_future_does_not_discard_valid_opening(self):
+  from frontier_plan import prepare_campaign_prefix
+  original=self.plans();original['sectors'][1]['layout']['components'][1]['depth']=.3
+  before=copy.deepcopy(original)
+  plan,edits,deferred=prepare_campaign_prefix(original,['a','b','c'],True)
+  self.assertEqual(original,before);self.assertEqual(len(plan['sectors']),1)
+  self.assertEqual(plan['sectors'][0],original['sectors'][0]);self.assertEqual(deferred['sector_offset'],1)
+  self.assertEqual(deferred['error'],'need_continuous_fortification_at_least_0.65m')
+ def test_invalid_opening_never_skips_to_later_sector(self):
+  from frontier_plan import prepare_campaign_prefix
+  value=self.plans();value['sectors'][0]['layout']['components'][1]['depth']=.3
+  with self.assertRaises(ValueError):prepare_campaign_prefix(value,['a','b','c'],True)
+ def test_valid_campaign_still_keeps_all_three_sectors(self):
+  from frontier_plan import prepare_campaign_prefix
+  value=self.plans();plan,edits,deferred=prepare_campaign_prefix(value,['a','b','c'],True)
+  self.assertEqual(plan,value);self.assertIsNone(deferred)
+ def test_partial_result_is_queued_and_replanning_starts_after_it(self):
+  s=state();c=controller(s,lambda o:({},{}));b=DualBrain(s,c);b.launch=lambda *args:None
+  try:
+   s.state['eastfront']={'backend':'dual_brain_laya','active_sector':1,'chunks':[], 'request':{'index':1,'sequence':1,'candidates':[{'id':t} for t in ['a','b','c']]}}
+   b.run=s.state['run_id'];call=c.call_log.start(unit_id='test',run_id=b.run,model='test',request={})
+   value=self.plans();value['sectors'][1]['layout']['components'][1]['depth']=.3
+   future=concurrent.futures.Future();future.set_result(value)
+   b.pending['slow']={'future':future,'run':b.run,'call':call,'key':{'index':1,'allowed':['a','b','c'],'compose':True}}
+   b.tick(copy.deepcopy(s.state),None,{})
+   self.assertEqual(sorted(b.plan),[1]);self.assertEqual(sorted(b.plan_calls),[1])
+   self.assertTrue(any(v.get('action')=='eastfront_propose' for v in s.pending.values()))
+   self.assertEqual(b.planning_request(s.state['eastfront'],s.state['eastfront']['request'])['index'],2)
+   self.assertEqual(c.call_log.get(call)['deferred_validation']['sector_offset'],1)
+  finally:b.close();c.close()
